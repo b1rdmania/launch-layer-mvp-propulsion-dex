@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Menu, ChevronDown, Github, Twitter, MessagesSquare, ExternalLink } from 'lucide-react';
+import { Menu, ChevronDown, Github, Twitter, MessagesSquare, ExternalLink, RocketIcon } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { address, isConnected, isConnecting, connect, disconnect } = useWallet();
@@ -107,6 +107,14 @@ const Header: React.FC = () => {
               >
                 Admin
               </Link>
+              <Link
+                to="/admin"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-cradle-text-secondary flex items-center gap-1"
+              >
+                <RocketIcon size={16} />
+                Deploy Raise
+              </Link>
               <div className="text-cradle-text-secondary">
                 Resources
                 <div className="ml-4 mt-2 flex flex-col gap-2">
@@ -134,8 +142,19 @@ const Header: React.FC = () => {
           </div>
         )}
 
-        {/* Wallet Connection */}
+        {/* Wallet Connection and Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
+          {/* Deploy Raise Button */}
+          <Button 
+            as={Link}
+            href="/admin"
+            className="bg-cradle-accent hover:bg-cradle-accent/90 text-white flex items-center gap-1"
+            size="sm"
+          >
+            <RocketIcon size={16} />
+            Deploy Raise
+          </Button>
+          
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-4">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-text-primary" aria-label="Twitter">

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWallet } from '@/contexts/WalletContext';
@@ -26,8 +25,8 @@ const AdminPage: React.FC = () => {
   const { address, isConnected, connect } = useWallet();
   
   // Mock factory owner address for demo
-  const factoryOwner = '0x123...abc';
-  const isFactoryOwner = isConnected && address === factoryOwner;
+  // const factoryOwner = '0x123...abc';
+  // const isFactoryOwner = isConnected && address === factoryOwner;
   
   const [activeTab, setActiveTab] = useState('basic');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -140,55 +139,7 @@ const AdminPage: React.FC = () => {
     }
   };
   
-  if (!isConnected) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <Card className="bg-cradle-surface border-cradle-surface-light">
-            <CardHeader>
-              <CardTitle>Admin Access</CardTitle>
-              <CardDescription className="text-cradle-text-secondary">
-                Connect your wallet to access the admin panel
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button 
-                onClick={connect}
-                className="w-full bg-cradle-accent hover:bg-cradle-accent/90"
-              >
-                Connect Wallet
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
-  
-  if (!isFactoryOwner) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <Card className="bg-cradle-surface border-cradle-surface-light">
-            <CardHeader>
-              <CardTitle>Unauthorized</CardTitle>
-              <CardDescription className="text-cradle-text-secondary">
-                You do not have permission to access this page. Only the factory owner can create new raises.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button 
-                onClick={() => navigate('/')}
-                className="w-full bg-cradle-accent hover:bg-cradle-accent/90"
-              >
-                Return to Discovery
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
+  // Removed wallet connection check and unauthorized check
   
   return (
     <div className="container mx-auto px-4 py-8">

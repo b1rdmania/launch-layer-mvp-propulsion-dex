@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Github } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -20,14 +21,11 @@ const Footer: React.FC = () => {
             <Link to="/" className="hover:text-cradle-text-primary transition-colors">
               Home
             </Link>
-            <a href="#" className="hover:text-cradle-text-primary transition-colors">
+            <Link to="/docs" className="hover:text-cradle-text-primary transition-colors">
               Docs
-            </a>
-            <a href="#" className="hover:text-cradle-text-primary transition-colors">
+            </Link>
+            <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors">
               GitHub
-            </a>
-            <a href="#" className="hover:text-cradle-text-primary transition-colors">
-              Discord
             </a>
           </div>
         </div>

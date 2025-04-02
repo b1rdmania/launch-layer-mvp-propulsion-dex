@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, Github, Twitter, MessagesSquare, ExternalLink } from 'lucide-react';
+import { ChevronDown, Github, ExternalLink } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
 const Header: React.FC = () => {
@@ -33,6 +33,14 @@ const Header: React.FC = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
+          <Link 
+            to="/" 
+            className={`transition-colors ${isActive('/') 
+              ? 'text-cradle-accent font-medium' 
+              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          >
+            Home
+          </Link>
           <Link 
             to="/app" 
             className={`transition-colors ${isActive('/app') 
@@ -68,10 +76,7 @@ const Header: React.FC = () => {
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-4">
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-text-primary" aria-label="Twitter">
-                <Twitter size={18} />
-              </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-text-primary" aria-label="GitHub">
+              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-text-primary" aria-label="GitHub">
                 <Github size={18} />
               </a>
             </div>

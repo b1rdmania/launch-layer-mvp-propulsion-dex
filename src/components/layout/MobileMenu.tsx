@@ -53,6 +53,14 @@ const MobileMenu: React.FC = () => {
         </SheetHeader>
         <nav className="flex flex-col gap-6 pt-2">
           <Link 
+            to="/" 
+            className={`transition-colors ${isActive('/') 
+              ? 'text-cradle-accent font-medium' 
+              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          >
+            Home
+          </Link>
+          <Link 
             to="/app" 
             className={`transition-colors ${isActive('/app') 
               ? 'text-cradle-accent font-medium' 
@@ -72,11 +80,11 @@ const MobileMenu: React.FC = () => {
           <div className="space-y-2">
             <h4 className="text-sm font-medium text-cradle-text-primary mb-2">Resources</h4>
             <div className="pl-2 space-y-3">
-              <a href="#" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2">
-                Docs <ExternalLink size={14} />
-              </a>
-              <a href="#" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2">
-                GitHub <Github size={14} />
+              <Link to="/docs" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2">
+                Docs
+              </Link>
+              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2">
+                GitHub <ExternalLink size={14} />
               </a>
             </div>
           </div>

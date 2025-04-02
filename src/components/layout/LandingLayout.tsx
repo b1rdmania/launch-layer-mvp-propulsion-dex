@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useWallet } from '@/contexts/WalletContext';
-import { Github, Twitter, MessagesSquare } from 'lucide-react';
+import { Github, MessagesSquare } from 'lucide-react';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -24,6 +24,9 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
+            <Link to="/" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
+              Home
+            </Link>
             <Link to="/app" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
               Discover
             </Link>
@@ -70,14 +73,11 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             </div>
             
             <div className="flex gap-4 text-sm text-cradle-text-secondary">
-              <a href="https://twitter.com/cradle_build" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Twitter">
-                <Twitter size={20} />
+              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="GitHub">
+                <Github size={20} />
               </a>
               <a href="https://discord.gg/cradle" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Discord">
                 <MessagesSquare size={20} />
-              </a>
-              <a href="https://github.com/cradle-build" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="GitHub">
-                <Github size={20} />
               </a>
             </div>
           </div>

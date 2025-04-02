@@ -9,7 +9,7 @@ const LaunchesSection: React.FC = () => {
       <div className="container mx-auto px-8 max-w-[1280px]">
         <h2 className="text-3xl font-bold mb-4">Explore Launches on Cradle</h2>
         <p className="text-cradle-text-secondary mb-8">
-          Discover upcoming and past fixed-price token launches powered by Cradle on Sonic.
+          Discover upcoming and active token launches powered by Cradle on Sonic.
         </p>
         
         <div className="text-center mb-8">

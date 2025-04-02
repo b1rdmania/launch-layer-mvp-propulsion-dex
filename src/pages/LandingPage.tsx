@@ -4,9 +4,6 @@ import HeroSection from '@/components/landing/HeroSection';
 import FeaturesSection from '@/components/landing/FeaturesSection';
 import LaunchFlowSection from '@/components/landing/LaunchFlowSection';
 import ProcessSection from '@/components/landing/ProcessSection';
-import DeveloperSection from '@/components/landing/DeveloperSection';
-import LaunchesSection from '@/components/landing/LaunchesSection';
-import ResourcesSection from '@/components/landing/ResourcesSection';
 import CtaSection from '@/components/landing/CtaSection';
 
 const LandingPage: React.FC = () => {
@@ -16,9 +13,6 @@ const LandingPage: React.FC = () => {
       <FeaturesSection />
       <LaunchFlowSection />
       <ProcessSection />
-      <DeveloperSection />
-      <LaunchesSection />
-      <ResourcesSection />
       <CtaSection />
     </div>
   );

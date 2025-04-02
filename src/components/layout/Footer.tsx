@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github } from 'lucide-react';
+import { Github, MessagesSquare } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -24,9 +24,14 @@ const Footer: React.FC = () => {
             <Link to="/docs" className="hover:text-cradle-text-primary transition-colors">
               Docs
             </Link>
-            <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors">
-              GitHub
-            </a>
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
+                <Github size={18} /> GitHub
+              </a>
+              <a href="https://discord.gg/cradle" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
+                <MessagesSquare size={18} /> Discord
+              </a>
+            </div>
           </div>
         </div>
         

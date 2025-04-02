@@ -1,3 +1,4 @@
+
 // Contract addresses on Sonic Testnet network
 export const CONTRACT_ADDRESSES = {
   // Actual deployed addresses (2025-04-02)
@@ -15,9 +16,30 @@ export const NETWORK_CONFIG = {
   chainName: 'Sonic Testnet',
   nativeCurrency: {
     name: 'Sonic',
-    symbol: 'S', // Or SONIC?
+    symbol: 'S',
     decimals: 18
   },
-  rpcUrls: ['https://sonic-testnet.drpc.org'], // Updated RPC URL
-  blockExplorerUrls: ['https://explorer.sonic.technology'] // Updated block explorer
+  rpcUrls: ['https://sonic-testnet.drpc.org'],
+  blockExplorerUrls: ['https://explorer.sonic.technology']
+};
+
+// Design System Constants - Based on UX & Design Specification
+export const DESIGN_SYSTEM = {
+  colors: {
+    primaryBackground: '#111111', // Deep Dark
+    secondaryBackground: '#1A1A1A', // Dark Gray (Card Background)
+    primaryText: '#F9F9F9', // Near White
+    secondaryText: '#B0B6BD', // Gray (Secondary Text / Borders)
+    accentPrimary: '#3277F5', // Blue (Primary Action)
+    accentSecondary: '#FF6D3B', // Orange (Secondary Action / Warning)
+  },
+  fonts: {
+    primary: 'Inter, sans-serif',
+    secondary: 'IBM Plex Mono, monospace',
+  },
+  layout: {
+    maxWidth: '1280px',
+    padding: '2rem',
+    spacingUnit: '8px',
+  }
 };

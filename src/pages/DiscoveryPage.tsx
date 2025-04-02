@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { RaiseData, fetchAllRaises, RaiseStatus } from '@/services/api';
 import RaiseCard from '@/components/raise/RaiseCard';
 import { Button } from '@/components/ui/button';
+import { DESIGN_SYSTEM } from '@/contracts/config';
 
 const DiscoveryPage: React.FC = () => {
   const [raises, setRaises] = useState<RaiseData[]>([]);
@@ -39,10 +40,10 @@ const DiscoveryPage: React.FC = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-8 py-8 max-w-[1280px]" style={{ fontFamily: DESIGN_SYSTEM.fonts.primary }}>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4">Discover Raises</h1>
-        <p className="text-cradle-text-secondary max-w-2xl mb-6">
+        <h1 className="text-3xl font-bold mb-4 text-[#F9F9F9]">Discover Raises</h1>
+        <p className="text-[#B0B6BD] max-w-2xl mb-6">
           Browse active and upcoming token sales on Sonic Network. Connect your wallet to participate in raises.
         </p>
         
@@ -53,8 +54,8 @@ const DiscoveryPage: React.FC = () => {
               variant={filter === statusFilter.value ? "default" : "outline"}
               onClick={() => setFilter(statusFilter.value)}
               className={filter === statusFilter.value 
-                ? "bg-cradle-accent hover:bg-cradle-accent/90" 
-                : "bg-transparent border-cradle-surface-light"
+                ? `bg-[${DESIGN_SYSTEM.colors.accentPrimary}] hover:bg-opacity-90` 
+                : "bg-transparent border-[#333333]"
               }
               size="sm"
             >
@@ -66,7 +67,7 @@ const DiscoveryPage: React.FC = () => {
 
       {isLoading ? (
         <div className="flex justify-center items-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cradle-accent"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3277F5]"></div>
         </div>
       ) : filteredRaises.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -75,7 +76,7 @@ const DiscoveryPage: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-12 text-cradle-text-secondary">
+        <div className="flex flex-col items-center justify-center py-12 text-[#B0B6BD]">
           <svg className="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>

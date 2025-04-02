@@ -19,14 +19,11 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs';
 import { toast } from "sonner";
+import { DESIGN_SYSTEM, CONTRACT_ADDRESSES } from '@/contracts/config';
 
 const AdminPage: React.FC = () => {
   const navigate = useNavigate();
   const { address, isConnected, connect } = useWallet();
-  
-  // Mock factory owner address for demo
-  // const factoryOwner = '0x123...abc';
-  // const isFactoryOwner = isConnected && address === factoryOwner;
   
   const [activeTab, setActiveTab] = useState('basic');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +33,7 @@ const AdminPage: React.FC = () => {
     // Basic info
     projectName: '',
     tokenAddress: '',
-    acceptedTokenAddress: '0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38', // Default to WS
+    acceptedTokenAddress: CONTRACT_ADDRESSES.ACCEPTED_TOKEN, // Default to WS
     description: '',
     longDescription: '',
     
@@ -109,13 +106,24 @@ const AdminPage: React.FC = () => {
       
       toast.success('Raise created successfully!', {
         description: `Contract deployed at ${raiseAddress}`,
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
+        }
       });
       
       // Navigate to the raise page
       navigate(`/raise/${raiseAddress}`);
     } catch (error) {
       console.error('Failed to create raise:', error);
-      toast.error('Failed to create raise');
+      toast.error('Failed to create raise', {
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
+        }
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -139,18 +147,41 @@ const AdminPage: React.FC = () => {
     }
   };
   
-  // Removed wallet connection check and unauthorized check
+  // Styling based on the design system
+  const cardStyle = {
+    background: DESIGN_SYSTEM.colors.secondaryBackground,
+    border: `1px solid #333`,
+    borderRadius: '12px',
+  };
+  
+  const inputStyle = {
+    background: DESIGN_SYSTEM.colors.primaryBackground,
+    border: '1px solid #333',
+    color: DESIGN_SYSTEM.colors.primaryText,
+    fontFamily: DESIGN_SYSTEM.fonts.primary,
+  };
+  
+  const buttonPrimaryStyle = {
+    background: DESIGN_SYSTEM.colors.accentPrimary,
+    color: DESIGN_SYSTEM.colors.primaryText,
+  };
+  
+  const buttonOutlineStyle = {
+    background: 'transparent',
+    border: `1px solid #333`,
+    color: DESIGN_SYSTEM.colors.primaryText,
+  };
   
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-8 py-8 max-w-[1280px]" style={{ fontFamily: DESIGN_SYSTEM.fonts.primary }}>
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4">Create New Raise</h1>
-        <p className="text-cradle-text-secondary mb-6">
+        <h1 className="text-3xl font-bold mb-4" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Create New Raise</h1>
+        <p className="mb-6" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
           Set up a new token sale by filling out the form below.
         </p>
         
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-6 mb-6 bg-cradle-surface-light">
+          <TabsList className="grid grid-cols-6 mb-6" style={{ background: '#222' }}>
             <TabsTrigger value="basic">1. Basic</TabsTrigger>
             <TabsTrigger value="structure">2. Structure</TabsTrigger>
             <TabsTrigger value="timing">3. Timing</TabsTrigger>
@@ -161,38 +192,38 @@ const AdminPage: React.FC = () => {
           
           {/* Basic Info Tab */}
           <TabsContent value="basic">
-            <Card className="bg-cradle-surface border-cradle-surface-light">
+            <Card style={cardStyle}>
               <CardHeader>
-                <CardTitle>Basic Information</CardTitle>
-                <CardDescription className="text-cradle-text-secondary">
+                <CardTitle style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Basic Information</CardTitle>
+                <CardDescription style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   Enter the core details about your project and token
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Project Name</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Project Name</label>
                   <Input 
                     name="projectName"
                     value={formData.projectName}
                     onChange={handleChange}
                     placeholder="e.g., BOOM Perpetual DEX"
-                    className="bg-cradle-surface-light border-cradle-surface-light"
+                    style={inputStyle}
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Token Address</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Token Address</label>
                   <Input 
                     name="tokenAddress"
                     value={formData.tokenAddress}
                     onChange={handleChange}
                     placeholder="e.g., 0x1234..."
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>
                     Accepted Token Address (Default: WS)
                   </label>
                   <Input 
@@ -200,23 +231,23 @@ const AdminPage: React.FC = () => {
                     value={formData.acceptedTokenAddress}
                     onChange={handleChange}
                     placeholder="e.g., 0x039e... (WS)"
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Short Description</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Short Description</label>
                   <Input 
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
                     placeholder="Brief description (max 150 chars)"
-                    className="bg-cradle-surface-light border-cradle-surface-light"
+                    style={inputStyle}
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>
                     Long Description (Markdown supported)
                   </label>
                   <Textarea 
@@ -225,78 +256,78 @@ const AdminPage: React.FC = () => {
                     onChange={handleChange}
                     placeholder="Detailed project description with markdown support"
                     rows={6}
-                    className="bg-cradle-surface-light border-cradle-surface-light"
+                    style={inputStyle}
                   />
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Logo URL</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Logo URL</label>
                     <Input 
                       name="logoUrl"
                       value={formData.logoUrl}
                       onChange={handleChange}
                       placeholder="https://example.com/logo.png"
-                      className="bg-cradle-surface-light border-cradle-surface-light"
+                      style={inputStyle}
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-1">Banner URL</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Banner URL</label>
                     <Input 
                       name="bannerUrl"
                       value={formData.bannerUrl}
                       onChange={handleChange}
                       placeholder="https://example.com/banner.png"
-                      className="bg-cradle-surface-light border-cradle-surface-light"
+                      style={inputStyle}
                     />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Website URL</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Website URL</label>
                     <Input 
                       name="websiteUrl"
                       value={formData.websiteUrl}
                       onChange={handleChange}
                       placeholder="https://yourproject.com"
-                      className="bg-cradle-surface-light border-cradle-surface-light"
+                      style={inputStyle}
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-1">Twitter URL</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Twitter URL</label>
                     <Input 
                       name="twitterUrl"
                       value={formData.twitterUrl}
                       onChange={handleChange}
                       placeholder="https://twitter.com/yourproject"
-                      className="bg-cradle-surface-light border-cradle-surface-light"
+                      style={inputStyle}
                     />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Telegram URL</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Telegram URL</label>
                     <Input 
                       name="telegramUrl"
                       value={formData.telegramUrl}
                       onChange={handleChange}
                       placeholder="https://t.me/yourproject"
-                      className="bg-cradle-surface-light border-cradle-surface-light"
+                      style={inputStyle}
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-1">Discord URL</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Discord URL</label>
                     <Input 
                       name="discordUrl"
                       value={formData.discordUrl}
                       onChange={handleChange}
                       placeholder="https://discord.gg/yourproject"
-                      className="bg-cradle-surface-light border-cradle-surface-light"
+                      style={inputStyle}
                     />
                   </div>
                 </div>
@@ -307,7 +338,7 @@ const AdminPage: React.FC = () => {
               <Button
                 onClick={handleNextTab}
                 disabled={!isCurrentTabValid()}
-                className="bg-cradle-accent hover:bg-cradle-accent/90"
+                style={buttonPrimaryStyle}
               >
                 Next: Sale Structure
               </Button>
@@ -316,17 +347,17 @@ const AdminPage: React.FC = () => {
           
           {/* Sale Structure Tab */}
           <TabsContent value="structure">
-            <Card className="bg-cradle-surface border-cradle-surface-light">
+            <Card style={cardStyle}>
               <CardHeader>
-                <CardTitle>Sale Structure</CardTitle>
-                <CardDescription className="text-cradle-text-secondary">
+                <CardTitle style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Sale Structure</CardTitle>
+                <CardDescription style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   Define the economics of your token sale
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Price Per Token</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Price Per Token</label>
                     <div className="relative">
                       <Input 
                         name="pricePerToken"
@@ -334,19 +365,20 @@ const AdminPage: React.FC = () => {
                         value={formData.pricePerToken}
                         onChange={handleChange}
                         placeholder="e.g., 0.1"
-                        className="bg-cradle-surface-light border-cradle-surface-light font-mono pl-20"
+                        style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
+                        className="pl-20"
                       />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-cradle-text-secondary font-mono">
-                        mUSDC
+                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none" style={{ color: DESIGN_SYSTEM.colors.secondaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }}>
+                        WS
                       </div>
                     </div>
-                    <p className="text-xs text-cradle-text-secondary mt-1">
-                      The price per token in mUSDC
+                    <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
+                      The price per token in WS
                     </p>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-1">Max Raise Amount</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Max Raise Amount</label>
                     <div className="relative">
                       <Input 
                         name="maxRaiseAmount"
@@ -354,13 +386,14 @@ const AdminPage: React.FC = () => {
                         value={formData.maxRaiseAmount}
                         onChange={handleChange}
                         placeholder="e.g., 100000"
-                        className="bg-cradle-surface-light border-cradle-surface-light font-mono pl-20"
+                        style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
+                        className="pl-20"
                       />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-cradle-text-secondary font-mono">
-                        mUSDC
+                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none" style={{ color: DESIGN_SYSTEM.colors.secondaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }}>
+                        WS
                       </div>
                     </div>
-                    <p className="text-xs text-cradle-text-secondary mt-1">
+                    <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                       Hard cap for the total raise
                     </p>
                   </div>
@@ -368,7 +401,7 @@ const AdminPage: React.FC = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Min Allocation</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Min Allocation</label>
                     <div className="relative">
                       <Input 
                         name="minAllocation"
@@ -376,19 +409,20 @@ const AdminPage: React.FC = () => {
                         value={formData.minAllocation}
                         onChange={handleChange}
                         placeholder="e.g., 100"
-                        className="bg-cradle-surface-light border-cradle-surface-light font-mono pl-20"
+                        style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
+                        className="pl-20"
                       />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-cradle-text-secondary font-mono">
+                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none" style={{ color: DESIGN_SYSTEM.colors.secondaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }}>
                         TOKEN
                       </div>
                     </div>
-                    <p className="text-xs text-cradle-text-secondary mt-1">
+                    <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                       Minimum amount of tokens a user can purchase
                     </p>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium mb-1">Max Allocation</label>
+                    <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Max Allocation</label>
                     <div className="relative">
                       <Input 
                         name="maxAllocation"
@@ -396,13 +430,14 @@ const AdminPage: React.FC = () => {
                         value={formData.maxAllocation}
                         onChange={handleChange}
                         placeholder="e.g., 5000"
-                        className="bg-cradle-surface-light border-cradle-surface-light font-mono pl-20"
+                        style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
+                        className="pl-20"
                       />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-cradle-text-secondary font-mono">
+                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none" style={{ color: DESIGN_SYSTEM.colors.secondaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }}>
                         TOKEN
                       </div>
                     </div>
-                    <p className="text-xs text-cradle-text-secondary mt-1">
+                    <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                       Maximum amount of tokens a user can purchase
                     </p>
                   </div>
@@ -414,14 +449,14 @@ const AdminPage: React.FC = () => {
               <Button
                 onClick={handlePrevTab}
                 variant="outline"
-                className="bg-transparent border-cradle-surface-light"
+                style={buttonOutlineStyle}
               >
                 Back
               </Button>
               <Button
                 onClick={handleNextTab}
                 disabled={!isCurrentTabValid()}
-                className="bg-cradle-accent hover:bg-cradle-accent/90"
+                style={buttonPrimaryStyle}
               >
                 Next: Timing
               </Button>
@@ -430,52 +465,52 @@ const AdminPage: React.FC = () => {
           
           {/* Timing Tab */}
           <TabsContent value="timing">
-            <Card className="bg-cradle-surface border-cradle-surface-light">
+            <Card style={cardStyle}>
               <CardHeader>
-                <CardTitle>Sale Timing</CardTitle>
-                <CardDescription className="text-cradle-text-secondary">
+                <CardTitle style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Sale Timing</CardTitle>
+                <CardDescription style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   Set the schedule for your presale and public sale
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Presale Start Date & Time</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Presale Start Date & Time</label>
                   <Input 
                     name="presaleStart"
                     type="datetime-local"
                     value={formData.presaleStart}
                     onChange={handleChange}
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
-                  <p className="text-xs text-cradle-text-secondary mt-1">
+                  <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                     When the presale phase begins (only whitelisted users can contribute)
                   </p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Public Sale Start Date & Time</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Public Sale Start Date & Time</label>
                   <Input 
                     name="publicSaleStart"
                     type="datetime-local"
                     value={formData.publicSaleStart}
                     onChange={handleChange}
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
-                  <p className="text-xs text-cradle-text-secondary mt-1">
+                  <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                     When the public sale phase begins (anyone can contribute)
                   </p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Sale End Date & Time</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Sale End Date & Time</label>
                   <Input 
                     name="endTime"
                     type="datetime-local"
                     value={formData.endTime}
                     onChange={handleChange}
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
-                  <p className="text-xs text-cradle-text-secondary mt-1">
+                  <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                     When the entire sale ends
                   </p>
                 </div>
@@ -487,14 +522,14 @@ const AdminPage: React.FC = () => {
               <Button
                 onClick={handlePrevTab}
                 variant="outline"
-                className="bg-transparent border-cradle-surface-light"
+                style={buttonOutlineStyle}
               >
                 Back
               </Button>
               <Button
                 onClick={handleNextTab}
                 disabled={!isCurrentTabValid()}
-                className="bg-cradle-accent hover:bg-cradle-accent/90"
+                style={buttonPrimaryStyle}
               >
                 Next: Whitelist
               </Button>
@@ -503,10 +538,10 @@ const AdminPage: React.FC = () => {
           
           {/* Whitelist Tab */}
           <TabsContent value="whitelist">
-            <Card className="bg-cradle-surface border-cradle-surface-light">
+            <Card style={cardStyle}>
               <CardHeader>
-                <CardTitle>Presale Whitelist</CardTitle>
-                <CardDescription className="text-cradle-text-secondary">
+                <CardTitle style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Presale Whitelist</CardTitle>
+                <CardDescription style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   Configure your presale whitelist settings
                 </CardDescription>
               </CardHeader>
@@ -518,9 +553,9 @@ const AdminPage: React.FC = () => {
                     name="enablePresale"
                     checked={formData.enablePresale}
                     onChange={handleCheckboxChange}
-                    className="rounded bg-cradle-surface-light border-cradle-surface-light text-cradle-accent focus:ring-cradle-accent"
+                    className="rounded"
                   />
-                  <label htmlFor="enablePresale" className="text-sm font-medium">
+                  <label htmlFor="enablePresale" className="text-sm font-medium" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>
                     Enable presale phase with whitelist
                   </label>
                 </div>
@@ -528,25 +563,25 @@ const AdminPage: React.FC = () => {
                 {formData.enablePresale && (
                   <>
                     <div>
-                      <label className="block text-sm font-medium mb-1">Merkle Root</label>
+                      <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Merkle Root</label>
                       <Input 
                         name="merkleRoot"
                         value={formData.merkleRoot}
                         onChange={handleChange}
                         placeholder="e.g., 0x1234..."
-                        className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                        style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                       />
-                      <p className="text-xs text-cradle-text-secondary mt-1">
+                      <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                         The merkle root of your whitelist addresses
                       </p>
                     </div>
                     
-                    <div className="bg-cradle-surface-light p-4 rounded-md">
-                      <h4 className="font-medium mb-2">Generating a Merkle Root</h4>
-                      <p className="text-sm text-cradle-text-secondary mb-2">
+                    <div style={{ background: DESIGN_SYSTEM.colors.primaryBackground }} className="p-4 rounded-md">
+                      <h4 className="font-medium mb-2" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Generating a Merkle Root</h4>
+                      <p className="text-sm mb-2" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                         To generate a merkle root:
                       </p>
-                      <ol className="text-sm text-cradle-text-secondary list-decimal ml-5 space-y-1">
+                      <ol className="text-sm list-decimal ml-5 space-y-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                         <li>Prepare a CSV file with all whitelisted addresses</li>
                         <li>Use the whitelist tool to generate the merkle root</li>
                         <li>Paste the generated merkle root above</li>
@@ -561,14 +596,14 @@ const AdminPage: React.FC = () => {
               <Button
                 onClick={handlePrevTab}
                 variant="outline"
-                className="bg-transparent border-cradle-surface-light"
+                style={buttonOutlineStyle}
               >
                 Back
               </Button>
               <Button
                 onClick={handleNextTab}
                 disabled={!isCurrentTabValid()}
-                className="bg-cradle-accent hover:bg-cradle-accent/90"
+                style={buttonPrimaryStyle}
               >
                 Next: Wallets & Fees
               </Button>
@@ -577,44 +612,44 @@ const AdminPage: React.FC = () => {
           
           {/* Wallets Tab */}
           <TabsContent value="wallets">
-            <Card className="bg-cradle-surface border-cradle-surface-light">
+            <Card style={cardStyle}>
               <CardHeader>
-                <CardTitle>Wallets & Fees</CardTitle>
-                <CardDescription className="text-cradle-text-secondary">
+                <CardTitle style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Wallets & Fees</CardTitle>
+                <CardDescription style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   Configure wallet addresses and fee settings
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Raise Owner Wallet</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Raise Owner Wallet</label>
                   <Input 
                     name="ownerWallet"
                     value={formData.ownerWallet}
                     onChange={handleChange}
                     placeholder="e.g., 0x1234..."
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
-                  <p className="text-xs text-cradle-text-secondary mt-1">
+                  <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                     The wallet that will control the raise (can finalize, cancel, sweep)
                   </p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Fee Recipient</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Fee Recipient</label>
                   <Input 
                     name="feeRecipient"
                     value={formData.feeRecipient}
                     onChange={handleChange}
                     placeholder="e.g., 0x1234..."
-                    className="bg-cradle-surface-light border-cradle-surface-light font-mono"
+                    style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
                   />
-                  <p className="text-xs text-cradle-text-secondary mt-1">
+                  <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                     The wallet that will receive the platform fee
                   </p>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Fee (Basis Points)</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Fee (Basis Points)</label>
                   <div className="relative">
                     <Input 
                       name="feeBps"
@@ -622,13 +657,14 @@ const AdminPage: React.FC = () => {
                       value={formData.feeBps}
                       onChange={handleChange}
                       placeholder="e.g., 250"
-                      className="bg-cradle-surface-light border-cradle-surface-light font-mono pr-16"
+                      style={{...inputStyle, fontFamily: DESIGN_SYSTEM.fonts.secondary}}
+                      className="pr-16"
                     />
-                    <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-cradle-text-secondary">
+                    <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                       BPS
                     </div>
                   </div>
-                  <p className="text-xs text-cradle-text-secondary mt-1">
+                  <p className="text-xs mt-1" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                     The platform fee in basis points (100 BPS = 1%)
                   </p>
                 </div>
@@ -639,14 +675,14 @@ const AdminPage: React.FC = () => {
               <Button
                 onClick={handlePrevTab}
                 variant="outline"
-                className="bg-transparent border-cradle-surface-light"
+                style={buttonOutlineStyle}
               >
                 Back
               </Button>
               <Button
                 onClick={handleNextTab}
                 disabled={!isCurrentTabValid()}
-                className="bg-cradle-accent hover:bg-cradle-accent/90"
+                style={buttonPrimaryStyle}
               >
                 Next: Review
               </Button>
@@ -655,94 +691,94 @@ const AdminPage: React.FC = () => {
           
           {/* Review Tab */}
           <TabsContent value="review">
-            <Card className="bg-cradle-surface border-cradle-surface-light">
+            <Card style={cardStyle}>
               <CardHeader>
-                <CardTitle>Review & Deploy</CardTitle>
-                <CardDescription className="text-cradle-text-secondary">
+                <CardTitle style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Review & Deploy</CardTitle>
+                <CardDescription style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   Review your raise configuration before deployment
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  <div className="bg-cradle-surface-light p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Basic Information</h4>
+                  <div style={{ background: DESIGN_SYSTEM.colors.primaryBackground }} className="p-4 rounded-md">
+                    <h4 className="font-medium mb-2" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Basic Information</h4>
                     <ul className="space-y-1 text-sm">
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Project Name:</span>
-                        <span>{formData.projectName}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Project Name:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{formData.projectName}</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Token Address:</span>
-                        <span className="font-mono truncate max-w-[280px]">{formData.tokenAddress}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Token Address:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }} className="truncate max-w-[280px]">{formData.tokenAddress}</span>
                       </li>
                     </ul>
                   </div>
                   
-                  <div className="bg-cradle-surface-light p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Sale Structure</h4>
+                  <div style={{ background: DESIGN_SYSTEM.colors.primaryBackground }} className="p-4 rounded-md">
+                    <h4 className="font-medium mb-2" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Sale Structure</h4>
                     <ul className="space-y-1 text-sm">
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Price Per Token:</span>
-                        <span>{formData.pricePerToken} mUSDC</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Price Per Token:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{formData.pricePerToken} WS</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Max Raise Amount:</span>
-                        <span>{formData.maxRaiseAmount} mUSDC</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Max Raise Amount:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{formData.maxRaiseAmount} WS</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Min/Max Allocation:</span>
-                        <span>{formData.minAllocation} / {formData.maxAllocation} tokens</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Min/Max Allocation:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{formData.minAllocation} / {formData.maxAllocation} tokens</span>
                       </li>
                     </ul>
                   </div>
                   
-                  <div className="bg-cradle-surface-light p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Timing</h4>
+                  <div style={{ background: DESIGN_SYSTEM.colors.primaryBackground }} className="p-4 rounded-md">
+                    <h4 className="font-medium mb-2" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Timing</h4>
                     <ul className="space-y-1 text-sm">
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Presale Start:</span>
-                        <span>{new Date(formData.presaleStart).toLocaleString()}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Presale Start:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{new Date(formData.presaleStart).toLocaleString()}</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Public Sale Start:</span>
-                        <span>{new Date(formData.publicSaleStart).toLocaleString()}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Public Sale Start:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{new Date(formData.publicSaleStart).toLocaleString()}</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">End Time:</span>
-                        <span>{new Date(formData.endTime).toLocaleString()}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>End Time:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{new Date(formData.endTime).toLocaleString()}</span>
                       </li>
                     </ul>
                   </div>
                   
-                  <div className="bg-cradle-surface-light p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Wallets & Fees</h4>
+                  <div style={{ background: DESIGN_SYSTEM.colors.primaryBackground }} className="p-4 rounded-md">
+                    <h4 className="font-medium mb-2" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Wallets & Fees</h4>
                     <ul className="space-y-1 text-sm">
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Owner:</span>
-                        <span className="font-mono truncate max-w-[280px]">{formData.ownerWallet}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Owner:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }} className="truncate max-w-[280px]">{formData.ownerWallet}</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Fee Recipient:</span>
-                        <span className="font-mono truncate max-w-[280px]">{formData.feeRecipient}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Fee Recipient:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }} className="truncate max-w-[280px]">{formData.feeRecipient}</span>
                       </li>
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Fee:</span>
-                        <span>{(parseFloat(formData.feeBps) / 100).toFixed(2)}%</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Fee:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{(parseFloat(formData.feeBps) / 100).toFixed(2)}%</span>
                       </li>
                     </ul>
                   </div>
                   
-                  <div className="bg-cradle-surface-light p-4 rounded-md">
-                    <h4 className="font-medium mb-2">Whitelist</h4>
+                  <div style={{ background: DESIGN_SYSTEM.colors.primaryBackground }} className="p-4 rounded-md">
+                    <h4 className="font-medium mb-2" style={{ color: DESIGN_SYSTEM.colors.primaryText }}>Whitelist</h4>
                     <ul className="space-y-1 text-sm">
                       <li className="flex justify-between">
-                        <span className="text-cradle-text-secondary">Presale Enabled:</span>
-                        <span>{formData.enablePresale ? 'Yes' : 'No'}</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Presale Enabled:</span>
+                        <span style={{ color: DESIGN_SYSTEM.colors.primaryText }}>{formData.enablePresale ? 'Yes' : 'No'}</span>
                       </li>
                       {formData.enablePresale && (
                         <li className="flex justify-between">
-                          <span className="text-cradle-text-secondary">Merkle Root:</span>
-                          <span className="font-mono truncate max-w-[200px]">{formData.merkleRoot}</span>
+                          <span style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>Merkle Root:</span>
+                          <span style={{ color: DESIGN_SYSTEM.colors.primaryText, fontFamily: DESIGN_SYSTEM.fonts.secondary }} className="truncate max-w-[200px]">{formData.merkleRoot}</span>
                         </li>
                       )}
                     </ul>
@@ -753,7 +789,8 @@ const AdminPage: React.FC = () => {
                   <Button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="w-full bg-cradle-accent hover:bg-cradle-accent/90 py-6 text-lg"
+                    className="w-full py-6 text-lg"
+                    style={buttonPrimaryStyle}
                   >
                     {isSubmitting ? (
                       <div className="flex items-center gap-2">
@@ -766,7 +803,7 @@ const AdminPage: React.FC = () => {
                   </Button>
                 </div>
                 
-                <p className="mt-4 text-center text-sm text-cradle-text-secondary">
+                <p className="mt-4 text-center text-sm" style={{ color: DESIGN_SYSTEM.colors.secondaryText }}>
                   This will deploy a new CradleRaise contract using the provided parameters.
                   <br />
                   You'll need to approve the transaction in your wallet.
@@ -778,7 +815,7 @@ const AdminPage: React.FC = () => {
               <Button
                 onClick={handlePrevTab}
                 variant="outline"
-                className="bg-transparent border-cradle-surface-light"
+                style={buttonOutlineStyle}
                 disabled={isSubmitting}
               >
                 Back

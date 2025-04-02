@@ -2,6 +2,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { toast } from "sonner";
 import { connectWallet, getBalance, switchToSonicNetwork } from '@/contracts/contractService';
+import { DESIGN_SYSTEM } from '@/contracts/config';
 
 type WalletContextType = {
   address: string | null;
@@ -65,7 +66,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           setAddress(accounts[0]);
           setIsConnected(true);
           getBalance(accounts[0]).then(setBalance);
-          toast.info("Account changed");
+          toast.info("Account changed", {
+            style: {
+              background: DESIGN_SYSTEM.colors.secondaryBackground,
+              color: DESIGN_SYSTEM.colors.primaryText,
+              border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
+            }
+          });
         }
       };
 
@@ -99,10 +106,22 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       setBalance(userBalance);
       
       setIsConnecting(false);
-      toast.success("Wallet connected successfully");
+      toast.success("Wallet connected successfully", {
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
+        }
+      });
     } catch (error) {
       console.error('Error connecting wallet:', error);
-      toast.error("Failed to connect wallet");
+      toast.error("Failed to connect wallet", {
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
+        }
+      });
       setIsConnecting(false);
     }
   };
@@ -111,7 +130,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     setAddress(null);
     setIsConnected(false);
     setBalance('0');
-    toast.info("Wallet disconnected");
+    toast.info("Wallet disconnected", {
+      style: {
+        background: DESIGN_SYSTEM.colors.secondaryBackground,
+        color: DESIGN_SYSTEM.colors.primaryText,
+        border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
+      }
+    });
   };
 
   return (

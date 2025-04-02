@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useWallet } from '@/contexts/WalletContext';
@@ -287,11 +286,30 @@ const RaiseDetailPage: React.FC = () => {
         
         {/* Right column - Contribution form */}
         <div className="lg:col-span-1">
-          <ContributionForm 
-            raise={raise}
-            userContribution={userContribution}
-            onContributionSuccess={handleRefresh}
-          />
+          {/* Show claim link for finalized raises */}
+          {raise.status === 'finalized' ? (
+            <Card className="bg-cradle-surface border-cradle-surface-light mb-6">
+              <CardContent className="p-6">
+                <h2 className="text-xl font-medium mb-4">Claim Tokens</h2>
+                <p className="text-cradle-text-secondary mb-4">
+                  This raise has been finalized. You can now claim your tokens through Hedgey Finance.
+                </p>
+                <Link to={`/claim/${raise.address}`}>
+                  <Button 
+                    className="w-full bg-cradle-accent hover:bg-cradle-accent/90"
+                  >
+                    Go to Claim Page
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          ) : (
+            <ContributionForm 
+              raise={raise}
+              userContribution={userContribution}
+              onContributionSuccess={handleRefresh}
+            />
+          )}
           
           {/* Contract details */}
           <Card className="mt-6 bg-cradle-surface border-cradle-surface-light">
@@ -337,15 +355,16 @@ const RaiseDetailPage: React.FC = () => {
                   </a>
                 </div>
                 
-                {(raise.status === 'finalized' || raise.status === 'ended') && (
+                {(raise.status === 'finalized' || raise.status === 'ended') && !isOwner && (
                   <div className="mt-4">
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-cradle-accent text-cradle-accent hover:bg-cradle-accent hover:text-white"
-                      onClick={() => window.open('https://hedgey.finance', '_blank')}
-                    >
-                      Claim on Hedgey Finance
-                    </Button>
+                    <Link to={`/claim/${raise.address}`}>
+                      <Button 
+                        variant="outline" 
+                        className="w-full border-cradle-accent text-cradle-accent hover:bg-cradle-accent hover:text-white"
+                      >
+                        View Claim Page
+                      </Button>
+                    </Link>
                   </div>
                 )}
               </div>

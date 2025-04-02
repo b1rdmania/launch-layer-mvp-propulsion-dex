@@ -8,6 +8,7 @@ import { WalletProvider } from "@/contexts/WalletContext";
 import Layout from "@/components/layout/Layout";
 import DiscoveryPage from "@/pages/DiscoveryPage";
 import RaiseDetailPage from "@/pages/RaiseDetailPage";
+import ClaimPage from "@/pages/ClaimPage";
 import AdminPage from "@/pages/AdminPage";
 import NotFound from "./pages/NotFound";
 
@@ -24,6 +25,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<DiscoveryPage />} />
               <Route path="/raise/:raiseAddress" element={<RaiseDetailPage />} />
+              <Route path="/claim/:raiseAddress" element={<ClaimPage />} />
               <Route path="/admin" element={<AdminPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

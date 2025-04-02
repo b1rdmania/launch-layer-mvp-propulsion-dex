@@ -5,7 +5,7 @@ interface MarkdownRendererProps {
   markdown: string;
 }
 
-// A very simple markdown renderer for the MVP
+// A simple markdown renderer for the MVP
 // In a real implementation, we would use a proper markdown library like react-markdown
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
   const renderMarkdown = (text: string) => {
@@ -18,6 +18,12 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     html = html.replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>');
     html = html.replace(/\*(.*)\*/gm, '<em>$1</em>');
     
+    // Handle code blocks with backticks
+    html = html.replace(/```([^`]*?)```/gms, '<pre class="bg-gray-800 text-gray-200 p-4 rounded-md my-4 overflow-x-auto"><code>$1</code></pre>');
+    
+    // Handle inline code
+    html = html.replace(/`([^`]+)`/gm, '<code class="bg-gray-800 text-gray-200 px-1 py-0.5 rounded text-sm">$1</code>');
+    
     // Handle lists
     html = html.replace(/^\- (.*$)/gm, '<li class="ml-6 list-disc mb-1">$1</li>');
     
@@ -27,7 +33,8 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
         !para.startsWith('<h1') && 
         !para.startsWith('<h2') && 
         !para.startsWith('<h3') && 
-        !para.includes('<li')
+        !para.includes('<li') &&
+        !para.startsWith('<pre')
       ) {
         return `<p class="mb-4 text-cradle-text-secondary">${para}</p>`;
       }

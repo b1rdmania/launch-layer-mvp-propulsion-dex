@@ -87,19 +87,30 @@ const DocsPage = () => {
           <div className="pl-8 space-y-4">
             <div className="relative">
               <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
-              <h3 className="text-xl font-semibold">Core Contracts Developed</h3>
+              <h3 className="text-xl font-semibold">Core Contracts Developed & Tested</h3>
               <p className="text-cradle-text-secondary">
-                <code>CradleFactory</code> and <code>CradleRaise</code> contracts implementing the V1 specification 
-                (fixed-price sales, optional presale, limits, fees) have been written and tested.
+                <code>CradleFactory.sol</code> and <code>CradleRaise.sol</code> contracts implementing the full V1 specification 
+                (fixed-price sales, factory deployment, optional presale, min/max limits, hard cap, fee routing, pre-start cancel) 
+                have been written based on OpenZeppelin standards.
               </p>
             </div>
 
             <div className="relative">
               <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
-              <h3 className="text-xl font-semibold">Deployment Scripts</h3>
+              <h3 className="text-xl font-semibold">Comprehensive Local Testing</h3>
               <p className="text-cradle-text-secondary">
-                Foundry scripts (<code>DeployMocks</code>, <code>DeployFactory</code>, <code>DeployRaiseViaFactory</code>) 
-                created for deploying the contracts sequentially.
+                Developed and passed a detailed test suite using Foundry (<code>forge test --via-ir</code>), covering core logic, 
+                edge cases, constraints (caps, limits, time boundaries), presale Merkle proofs, lifecycle management 
+                (cancel, finalize, sweep), and event emissions for both contracts. (~39 passing tests).
+              </p>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
+              <h3 className="text-xl font-semibold">Deployment Scripts Created & Verified</h3>
+              <p className="text-cradle-text-secondary">
+                Foundry scripts (<code>DeployMocks.s.sol</code>, <code>DeployFactory.s.sol</code>, <code>DeployRaiseViaFactory.s.sol</code>) 
+                created, parameterized using <code>.env</code> for configuration, and verified locally for deploying the contracts sequentially.
               </p>
             </div>
 
@@ -107,23 +118,39 @@ const DocsPage = () => {
               <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
               <h3 className="text-xl font-semibold">Sonic Testnet Deployment</h3>
               <p className="text-cradle-text-secondary">
-                Successfully deployed the full suite of contracts to the Sonic Testnet including Mock ERC20 tokens, CradleFactory, and an example CradleRaise instance.
+                Successfully deployed the full suite of V1 contracts to the Sonic Testnet (Chain ID 57054):
               </p>
+              <ul className="list-disc ml-6 text-cradle-text-secondary">
+                <li>Deployed Mock ERC20s (mTKN @ 0x06...cD, mUSDC @ 0x1B...ed).</li>
+                <li>Deployed CradleFactory (0x8B...cF).</li>
+                <li>Deployed an example CradleRaise instance (0x60...B102) via the factory using testnet configuration.</li>
+              </ul>
             </div>
 
             <div className="relative">
               <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
-              <h3 className="text-xl font-semibold">Configuration & ABIs</h3>
+              <h3 className="text-xl font-semibold">Configuration & ABIs Ready</h3>
               <p className="text-cradle-text-secondary">
-                Contract addresses saved to <code>.env</code>, and ABIs generated and organized in the <code>abis/</code> directory for frontend use.
+                Deployed contract addresses and necessary configuration captured (primarily in <code>.env</code> for scripts). 
+                Final contract ABIs generated (via <code>forge build --via-ir</code>) and available (e.g., in <code>abis/</code> directory) 
+                for frontend integration.
               </p>
             </div>
-
+            
+            <div className="relative">
+              <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
+              <h3 className="text-xl font-semibold">Frontend UX Developed</h3>
+              <p className="text-cradle-text-secondary">
+                Created an initial frontend application integrating the V1 design system and UX specification 
+                (Note: Awaiting full end-to-end testing against the deployed Sonic Testnet contracts).
+              </p>
+            </div>
+            
             <div className="relative">
               <div className="absolute -left-6 top-2 h-4 w-4 rounded-full bg-cradle-accent"></div>
               <h3 className="text-xl font-semibold">Repository Updated</h3>
               <p className="text-cradle-text-secondary">
-                All code, scripts, ABIs, and deployment artifacts pushed to the GitHub repository.
+                All V1 contract code, tests, scripts, ABIs, and specification documents are organized and updated in the GitHub repository.
               </p>
             </div>
           </div>

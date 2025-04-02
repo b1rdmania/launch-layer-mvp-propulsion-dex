@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useWallet } from '@/contexts/WalletContext';
 import { Github, MessagesSquare } from 'lucide-react';
+import MobileMenu from './MobileMenu';
 
 interface LandingLayoutProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
     <div className="flex flex-col min-h-screen bg-cradle-background">
       {/* Landing page header */}
       <header className="w-full bg-cradle-surface sticky top-0 z-20 border-b border-cradle-surface-light">
-        <div className="container mx-auto px-8 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="text-2xl font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
               Cradle.build
@@ -38,7 +39,12 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             </Link>
           </nav>
 
-          <div>
+          {/* Mobile Menu */}
+          <div className="md:hidden">
+            <MobileMenu />
+          </div>
+
+          <div className="hidden md:block">
             {isConnected ? (
               <Link to="/app">
                 <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white">
@@ -60,7 +66,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
       </main>
 
       {/* Landing page footer */}
-      <footer className="mt-auto py-8 px-8 border-t border-cradle-surface-light bg-cradle-surface">
+      <footer className="mt-auto py-8 px-4 border-t border-cradle-surface-light bg-cradle-surface">
         <div className="container mx-auto max-w-[1280px]">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">

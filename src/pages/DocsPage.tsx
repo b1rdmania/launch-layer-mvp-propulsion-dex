@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Alert,
@@ -13,8 +12,9 @@ import {
 } from '@/components/ui/accordion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Info, Shield, Zap, BookOpen, Code, Database, CheckCircle2, Rocket } from 'lucide-react';
+import { Info, Shield, Zap, BookOpen, Code, Database, CheckCircle2, Rocket, Github } from 'lucide-react';
 import MarkdownRenderer from '@/components/markdown/MarkdownRenderer';
+import { Button } from '@/components/ui/button';
 
 const DocsPage = () => {
   return (
@@ -38,10 +38,16 @@ const DocsPage = () => {
             <h2 className="text-2xl font-bold">Overview</h2>
           </div>
           <div className="pl-2 border-l-2 border-cradle-accent">
-            <p className="text-cradle-text-secondary">
+            <p className="text-cradle-text-secondary mb-4">
               Cradle is envisioned as a permissionless, tokenless launchpad built for clean, fixed-price token raises, initially targeting the Sonic network. 
               It provides smart contracts, tooling, and aims to support frontend components for transparent public token sales, integrated with Hedgey Finance for post-sale vesting.
             </p>
+            <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="flex items-center gap-2 mb-4">
+                <Github size={18} />
+                View Source Code on GitHub
+              </Button>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
@@ -171,7 +177,7 @@ const DocsPage = () => {
             </AlertDescription>
           </Alert>
         </section>
-
+        
         {/* Contract ABIs Section */}
         <section className="space-y-4">
           <div className="flex items-center gap-2">

@@ -1,42 +1,33 @@
 
 import React from 'react';
-import StepCard from './StepCard';
+import { Check } from 'lucide-react';
 
 const LaunchFlowSection: React.FC = () => {
+  const steps = [
+    "Configure your token sale parameters",
+    "Deploy your contract on Sonic",
+    "Community contributes during sale phases",
+    "Finalize and collect your funds",
+    "Export data for vesting setup"
+  ];
+
   return (
     <section className="py-16">
       <div className="container mx-auto px-8 max-w-[1280px]">
-        <h2 className="text-3xl font-bold text-center mb-4">Simple Steps to Launch Your Token</h2>
+        <h2 className="text-3xl font-bold text-center mb-4">Launch Your Token in 5 Easy Steps</h2>
         <p className="text-cradle-text-secondary text-center mb-12 max-w-2xl mx-auto">
-          From configuration to vesting, Cradle streamlines the entire token launch process
+          Cradle streamlines the entire token launch process
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-          <StepCard
-            number="1"
-            title="Configure"
-            description="Set sale parameters, metadata, & optional presale list via the Cradle interface."
-          />
-          <StepCard
-            number="2"
-            title="Deploy"
-            description="Launch your unique CradleRaise contract onto Sonic via the CradleFactory."
-          />
-          <StepCard
-            number="3"
-            title="Contribute"
-            description="Community contributes accepted token during active presale/public phases."
-          />
-          <StepCard
-            number="4"
-            title="Finalize & Sweep"
-            description="Owner finalizes sale post-end & withdraws funds (fee applied)."
-          />
-          <StepCard
-            number="5"
-            title="Export & Vest"
-            description="Export allocation data for easy vesting setup on Hedgey Finance."
-          />
+        <div className="max-w-3xl mx-auto">
+          {steps.map((step, index) => (
+            <div key={index} className="flex items-center mb-4 bg-cradle-surface p-4 rounded-lg">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-cradle-accent text-white font-bold mr-4">
+                {index + 1}
+              </div>
+              <span>{step}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

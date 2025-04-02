@@ -18,8 +18,18 @@ const CurrentRaisesSection: React.FC = () => {
         // Filter to show only active raises (presale or public)
         const activeRaises = data.filter(raise => 
           raise.status === 'presale' || raise.status === 'public'
-        ).slice(0, 3); // Limit to 3 raises
-        setRaises(activeRaises);
+        ).slice(0, 2); // Limit to exactly 2 raises
+        
+        // If there's only one raise, duplicate it to maintain symmetry
+        if (activeRaises.length === 1) {
+          setRaises([activeRaises[0], {...activeRaises[0], address: `${activeRaises[0].address}-copy`}]);
+        } else if (activeRaises.length >= 2) {
+          // If we have 2 or more raises, just take the first 2
+          setRaises(activeRaises.slice(0, 2));
+        } else {
+          // No active raises
+          setRaises([]);
+        }
       } catch (error) {
         console.error('Failed to load raises:', error);
       } finally {
@@ -43,7 +53,7 @@ const CurrentRaisesSection: React.FC = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cradle-accent"></div>
           </div>
         ) : raises.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {raises.map((raise) => (
               <RaiseCard key={raise.address} raise={raise} />
             ))}

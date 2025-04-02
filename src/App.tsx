@@ -13,6 +13,7 @@ import DiscoveryPage from "@/pages/DiscoveryPage";
 import RaiseDetailPage from "@/pages/RaiseDetailPage";
 import ClaimPage from "@/pages/ClaimPage";
 import AdminPage from "@/pages/AdminPage";
+import DocsPage from "@/pages/DocsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/raise/:raiseAddress" element={<Layout><RaiseDetailPage /></Layout>} />
             <Route path="/claim/:raiseAddress" element={<Layout><ClaimPage /></Layout>} />
             <Route path="/admin" element={<Layout><AdminPage /></Layout>} />
+            <Route path="/docs" element={<Layout><DocsPage /></Layout>} />
             <Route path="*" element={<Layout><NotFound /></Layout>} />
           </Routes>
         </BrowserRouter>

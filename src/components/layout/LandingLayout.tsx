@@ -70,13 +70,13 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             </div>
             
             <div className="flex gap-4 text-sm text-cradle-text-secondary">
-              <a href="#" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Twitter">
+              <a href="https://twitter.com/cradle_build" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Twitter">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Discord">
+              <a href="https://discord.gg/cradle" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Discord">
                 <MessagesSquare size={20} />
               </a>
-              <a href="#" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="GitHub">
+              <a href="https://github.com/cradle-build" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="GitHub">
                 <Github size={20} />
               </a>
             </div>

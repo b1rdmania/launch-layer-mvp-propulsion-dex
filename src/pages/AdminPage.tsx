@@ -36,7 +36,7 @@ const AdminPage: React.FC = () => {
     // Basic info
     projectName: '',
     tokenAddress: '',
-    acceptedTokenAddress: '0x1B...ed', // Default to mUSDC
+    acceptedTokenAddress: '0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38', // Default to WS
     description: '',
     longDescription: '',
     
@@ -193,13 +193,13 @@ const AdminPage: React.FC = () => {
                 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Accepted Token Address (Default: mUSDC)
+                    Accepted Token Address (Default: WS)
                   </label>
                   <Input 
                     name="acceptedTokenAddress"
                     value={formData.acceptedTokenAddress}
                     onChange={handleChange}
-                    disabled
+                    placeholder="e.g., 0x039e... (WS)"
                     className="bg-cradle-surface-light border-cradle-surface-light font-mono"
                   />
                 </div>

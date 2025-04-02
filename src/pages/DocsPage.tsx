@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Layout } from '@/components/layout/Layout';
 import { 
   Alert,
   AlertTitle, 
@@ -257,15 +256,15 @@ const DocsPage = () => {
                     <li><code>address _acceptedToken</code>: The ERC20 token used for payment (e.g., USDC on Sonic).</li>
                     <li><code>uint256 _pricePerToken</code>: Price defined as the amount of <code>acceptedToken</code> base units required per 1 <em>whole</em> <code>token</code> (e.g., 1e18 base units). Must be pre-calculated correctly by deployer/UI based on desired price and <code>acceptedToken</code> decimals.</li>
                     <li><code>uint256 _presaleStart</code>: Unix timestamp for presale start.</li>
-                    <li><code>uint256 _publicSaleStart</code>: Unix timestamp for public sale start (must be >= presaleStart).</li>
-                    <li><code>uint256 _endTime</code>: Unix timestamp for sale end (must be >= publicSaleStart).</li>
+                    <li><code>uint256 _publicSaleStart</code>: Unix timestamp for public sale start (must be {'>'}= presaleStart).</li>
+                    <li><code>uint256 _endTime</code>: Unix timestamp for sale end (must be {'>'}= publicSaleStart).</li>
                     <li><code>bytes32 _merkleRoot</code>: Merkle root for presale whitelist (provide <code>bytes32(0)</code> if no presale).</li>
-                    <li><code>address _owner</code>: The project's wallet address receiving net funds after fee. Set as the contract owner.</li>
+                    <li><code>address _owner</code>: The project&apos;s wallet address receiving net funds after fee. Set as the contract owner.</li>
                     <li><code>address _feeRecipient</code>: Address receiving the platform fee.</li>
                     <li><code>uint16 _feePercentBasisPoints</code>: Fee percentage in basis points (e.g., 500 = 5.00%). Max 10000.</li>
                     <li><code>uint256 _maxAcceptedTokenRaise</code>: The hard cap for the sale, denominated in <code>acceptedToken</code> base units.</li>
-                    <li><code>uint256 _minTokenAllocation</code>: Minimum purchase amount in <strong>base units</strong> of the <code>token</code> being sold allowed per contribution transaction. Must be > 0.</li>
-                    <li><code>uint256 _maxTokenAllocation</code>: Maximum total purchase amount in <strong>base units</strong> of the <code>token</code> being sold allowed per contributor wallet. Must be >= <code>_minTokenAllocation</code>.</li>
+                    <li><code>uint256 _minTokenAllocation</code>: Minimum purchase amount in <strong>base units</strong> of the <code>token</code> being sold allowed per contribution transaction. Must be {'>'} 0.</li>
+                    <li><code>uint256 _maxTokenAllocation</code>: Maximum total purchase amount in <strong>base units</strong> of the <code>token</code> being sold allowed per contributor wallet. Must be {'>'}= <code>_minTokenAllocation</code>.</li>
                   </ul>
                 </div>
 

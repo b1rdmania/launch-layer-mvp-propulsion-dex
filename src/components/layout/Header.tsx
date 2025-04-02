@@ -49,30 +49,14 @@ const Header: React.FC = () => {
           >
             Create Sale
           </Link>
-          
-          {/* Resources Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-1 text-cradle-text-secondary hover:text-cradle-text-primary focus:outline-none">
-              Resources <ChevronDown size={16} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-cradle-surface border border-cradle-surface-light">
-              <DropdownMenuLabel className="text-cradle-text-primary">Documentation</DropdownMenuLabel>
-              <DropdownMenuItem className="text-cradle-text-secondary hover:text-cradle-accent cursor-pointer flex items-center gap-2">
-                Docs <ExternalLink size={14} />
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-cradle-text-secondary hover:text-cradle-accent cursor-pointer flex items-center gap-2">
-                API References <ExternalLink size={14} />
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-cradle-surface-light" />
-              <DropdownMenuLabel className="text-cradle-text-primary">Resources</DropdownMenuLabel>
-              <DropdownMenuItem className="text-cradle-text-secondary hover:text-cradle-accent cursor-pointer flex items-center gap-2">
-                GitHub <Github size={14} />
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-cradle-text-secondary hover:text-cradle-accent cursor-pointer flex items-center gap-2">
-                Community <MessagesSquare size={14} />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Link 
+            to="/docs" 
+            className={`transition-colors ${isActive('/docs') 
+              ? 'text-cradle-accent font-medium' 
+              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          >
+            Docs
+          </Link>
         </nav>
 
         {/* Mobile Menu */}

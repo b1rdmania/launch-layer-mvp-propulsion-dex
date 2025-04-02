@@ -1,19 +1,20 @@
-
 // Contract addresses on Sonic Testnet network
 export const CONTRACT_ADDRESSES = {
-  // Replace with actual addresses when deployed
-  FACTORY: '0x8B...cF', // Replace with actual Factory contract address
-  MUSDC: '0x1B...ed', // Replace with actual mUSDC token address
+  // Actual deployed addresses (2025-04-02)
+  FACTORY: '0x8BAE780580c388f6F7eDA2d6a96D5cD6B0ebDbcF',
+  MUSDC: '0x1B0E3F92A3bFE3648414DC267c99b3dA59DDb7ed', // Mock USDC (6 decimals)
+  MTOKEN_SOLD: '0x06726427c7326d9AB606D1E81A036D041CEcbdcD', // Mock Token Sold (18 decimals)
+  EXAMPLE_RAISE: '0x60F23bF90714639D7CC6959e143faC086145B102', // Example deployed Raise instance
 };
 
 export const NETWORK_CONFIG = {
-  chainId: '0x12c77', // This is for Sonic Testnet (75895 in decimal)
+  chainId: '0xdfc2', // Sonic Testnet Chain ID (57282 decimal)
   chainName: 'Sonic Testnet',
   nativeCurrency: {
-    name: 'ETH',
-    symbol: 'ETH',
+    name: 'Sonic',
+    symbol: 'S', // Or SONIC?
     decimals: 18
   },
-  rpcUrls: ['https://rpc.sonic.testnet.io'], // Replace with actual RPC URL
-  blockExplorerUrls: ['https://explorer.sonic.testnet.io'] // Replace with actual block explorer
+  rpcUrls: ['https://sonic-testnet.drpc.org'], // Updated RPC URL
+  blockExplorerUrls: ['https://explorer.sonic.technology'] // Updated block explorer
 };

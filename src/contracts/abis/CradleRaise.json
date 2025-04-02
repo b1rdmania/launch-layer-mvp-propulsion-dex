@@ -1,4 +1,3 @@
-
 [
   {
     "type": "constructor",
@@ -74,4 +73,4 @@
   { "type": "function", "name": "token", "inputs": [], "outputs": [ { "name": "", "type": "address", "internalType": "contract IERC20" } ], "stateMutability": "view" },
   { "type": "function", "name": "totalAcceptedTokenRaised", "inputs": [], "outputs": [ { "name": "", "type": "uint256" } ], "stateMutability": "view" },
   { "type": "function", "name": "transferOwnership", "inputs": [ { "name": "newOwner", "type": "address" } ], "outputs": [], "stateMutability": "nonpayable" }
-]
+] 

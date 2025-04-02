@@ -1,11 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useWallet } from '@/contexts/WalletContext';
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { isConnected } = useWallet();
+
+  useEffect(() => {
+    // If user has a wallet connected, redirect to the app
+    // Otherwise, show the landing page
+    if (isConnected) {
+      navigate('/app');
+    } else {
+      navigate('/landing');
+    }
+  }, [isConnected, navigate]);
+
+  // Show a loading state while redirecting
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-cradle-background">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+        <div className="w-16 h-16 border-t-4 border-cradle-accent border-solid rounded-full animate-spin mx-auto mb-6"></div>
+        <h1 className="text-2xl font-bold text-cradle-text-primary">Loading Cradle.build...</h1>
       </div>
     </div>
   );

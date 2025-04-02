@@ -8,6 +8,7 @@ import { WalletProvider } from "@/contexts/WalletContext";
 import Layout from "@/components/layout/Layout";
 import LandingLayout from "@/components/layout/LandingLayout";
 import LandingPage from "@/pages/LandingPage";
+import Index from "@/pages/Index";
 import DiscoveryPage from "@/pages/DiscoveryPage";
 import RaiseDetailPage from "@/pages/RaiseDetailPage";
 import ClaimPage from "@/pages/ClaimPage";
@@ -24,8 +25,11 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Index redirect */}
+            <Route path="/" element={<Index />} />
+            
             {/* Landing page with special layout */}
-            <Route path="/" element={<LandingLayout><LandingPage /></LandingLayout>} />
+            <Route path="/landing" element={<LandingLayout><LandingPage /></LandingLayout>} />
             
             {/* App routes with standard layout */}
             <Route path="/app" element={<Layout><DiscoveryPage /></Layout>} />

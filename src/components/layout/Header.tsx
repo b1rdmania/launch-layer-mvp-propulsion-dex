@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useWallet } from '@/contexts/WalletContext';
@@ -11,12 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Menu, ChevronDown, Github, Twitter, MessagesSquare, ExternalLink, RocketIcon } from 'lucide-react';
+import { ChevronDown, Github, Twitter, MessagesSquare, ExternalLink, RocketIcon } from 'lucide-react';
+import MobileMenu from './MobileMenu';
 
 const Header: React.FC = () => {
   const { address, isConnected, isConnecting, connect, disconnect } = useWallet();
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -75,72 +75,10 @@ const Header: React.FC = () => {
           </DropdownMenu>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-cradle-text-secondary hover:text-cradle-text-primary"
-          >
-            <Menu size={24} />
-          </button>
+        {/* Mobile Menu */}
+        <div className="md:hidden">
+          <MobileMenu />
         </div>
-
-        {/* Mobile Menu Dropdown */}
-        {isMenuOpen && (
-          <div className="absolute top-full left-0 w-full bg-cradle-surface border-b border-cradle-surface-light md:hidden p-4">
-            <div className="flex flex-col gap-4">
-              <Link 
-                to="/app" 
-                onClick={() => setIsMenuOpen(false)}
-                className={`transition-colors ${isActive('/app') 
-                  ? 'text-cradle-accent font-medium' 
-                  : 'text-cradle-text-secondary'}`}
-              >
-                Discover
-              </Link>
-              <Link 
-                to="/admin" 
-                onClick={() => setIsMenuOpen(false)}
-                className={`transition-colors ${isActive('/admin') 
-                  ? 'text-cradle-accent font-medium' 
-                  : 'text-cradle-text-secondary'}`}
-              >
-                Admin
-              </Link>
-              <Link
-                to="/admin"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-cradle-text-secondary flex items-center gap-1"
-              >
-                <RocketIcon size={16} />
-                Deploy Raise
-              </Link>
-              <div className="text-cradle-text-secondary">
-                Resources
-                <div className="ml-4 mt-2 flex flex-col gap-2">
-                  <a href="#" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-1">
-                    Docs <ExternalLink size={14} />
-                  </a>
-                  <a href="#" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-1">
-                    GitHub <Github size={14} />
-                  </a>
-                </div>
-              </div>
-              {isConnected && (
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    disconnect();
-                    setIsMenuOpen(false);
-                  }}
-                  className="text-sm border-cradle-surface-light hover:bg-cradle-surface-light"
-                >
-                  Disconnect Wallet
-                </Button>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* Wallet Connection and Action Buttons */}
         <div className="hidden md:flex items-center gap-4">

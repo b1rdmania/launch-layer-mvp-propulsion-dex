@@ -145,15 +145,15 @@ const Header: React.FC = () => {
         {/* Wallet Connection and Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
           {/* Deploy Raise Button */}
-          <Button 
-            as={Link}
-            href="/admin"
-            className="bg-cradle-accent hover:bg-cradle-accent/90 text-white flex items-center gap-1"
-            size="sm"
-          >
-            <RocketIcon size={16} />
-            Deploy Raise
-          </Button>
+          <Link to="/admin">
+            <Button 
+              className="bg-cradle-accent hover:bg-cradle-accent/90 text-white flex items-center gap-1"
+              size="sm"
+            >
+              <RocketIcon size={16} />
+              Deploy Raise
+            </Button>
+          </Link>
           
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-4">

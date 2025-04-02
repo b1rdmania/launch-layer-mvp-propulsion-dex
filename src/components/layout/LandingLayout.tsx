@@ -25,7 +25,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
-            <Link to="/" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
+            <Link to="/landing" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
               Home
             </Link>
             <Link to="/app" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">

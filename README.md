@@ -1,8 +1,29 @@
-# Welcome to your Lovable project
+
+# Cradle.build - Token Launchpad for Sonic Network
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/2ac71f54-2592-4b08-9239-8035f48c764c
+
+## GitHub Integration
+
+To link this project with GitHub:
+
+1. Create a new GitHub repository on your GitHub account
+2. From the Lovable interface, click the GitHub button in the top-right corner
+3. Follow the prompts to connect your Lovable project to the GitHub repository
+4. Once connected, any changes made via Lovable or GitHub will be synchronized
+
+## Smart Contract Integration
+
+This project integrates with the following smart contracts on Sonic Testnet:
+- CradleFactory: Factory contract for creating new token raises
+- CradleRaise: Individual raise contracts created by the factory
+- ERC20: Standard token contract for tokens used in raises
+
+To update the contract addresses:
+1. Open `src/contracts/config.ts`
+2. Update the addresses in the `CONTRACT_ADDRESSES` object
 
 ## How can I edit this code?
 
@@ -52,13 +73,14 @@ npm run dev
 
 ## What technologies are used for this project?
 
-This project is built with .
+This project is built with:
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Ethers.js for blockchain interaction
 
 ## How can I deploy this project?
 

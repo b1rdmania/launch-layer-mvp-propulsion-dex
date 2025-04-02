@@ -13,7 +13,7 @@ const LaunchesSection: React.FC = () => {
         </p>
         
         <div className="text-center mb-8">
-          <Link to="/">
+          <Link to="/app">
             <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white px-6 py-2 rounded-lg">
               Browse All Launches
             </Button>

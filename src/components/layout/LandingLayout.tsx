@@ -28,7 +28,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
               Discover
             </Link>
             <Link to="/admin" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
-              Admin
+              Create Sale
             </Link>
             <a href="#" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
               Docs

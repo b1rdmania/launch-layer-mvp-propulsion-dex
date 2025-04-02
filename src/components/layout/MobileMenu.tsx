@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { RocketIcon, ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { useWallet } from '@/contexts/WalletContext';
 import {
   Sheet,
@@ -66,7 +66,7 @@ const MobileMenu: React.FC = () => {
               ? 'text-cradle-accent font-medium' 
               : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
           >
-            Admin
+            Create Sale
           </Link>
           
           <div className="space-y-2">
@@ -82,16 +82,6 @@ const MobileMenu: React.FC = () => {
           </div>
           
           <div className="mt-4">
-            <Link to="/admin" className="w-full mb-4 inline-block">
-              <Button 
-                className="w-full bg-cradle-accent hover:bg-cradle-accent/90 text-white flex items-center justify-center gap-2"
-                size="default"
-              >
-                <RocketIcon size={16} />
-                Deploy Raise
-              </Button>
-            </Link>
-            
             {isConnected ? (
               <div className="space-y-2 mt-4">
                 <div className="px-3 py-2 bg-cradle-surface-light rounded-md text-sm font-mono text-center">

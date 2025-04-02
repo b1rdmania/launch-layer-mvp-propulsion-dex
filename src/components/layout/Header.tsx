@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ChevronDown, Github, Twitter, MessagesSquare, ExternalLink, RocketIcon } from 'lucide-react';
+import { ChevronDown, Github, Twitter, MessagesSquare, ExternalLink } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
 const Header: React.FC = () => {
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
               ? 'text-cradle-accent font-medium' 
               : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
           >
-            Admin
+            Create Sale
           </Link>
           
           {/* Resources Dropdown */}
@@ -82,17 +82,6 @@ const Header: React.FC = () => {
 
         {/* Wallet Connection and Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Deploy Raise Button */}
-          <Link to="/admin">
-            <Button 
-              className="bg-cradle-accent hover:bg-cradle-accent/90 text-white flex items-center gap-1"
-              size="sm"
-            >
-              <RocketIcon size={16} />
-              Deploy Raise
-            </Button>
-          </Link>
-          
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-4">
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-text-primary" aria-label="Twitter">

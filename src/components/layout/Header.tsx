@@ -17,12 +17,15 @@ const Header: React.FC = () => {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
+          <Link to="/app" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
             Discover
           </Link>
           <Link to="/admin" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
             Admin
           </Link>
+          <a href="#" className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors">
+            Docs
+          </a>
         </nav>
 
         <div className="flex items-center gap-4">

@@ -15,7 +15,7 @@ const HeroSection: React.FC = () => {
               <br />No friction. No hype.
             </h1>
             <p className="text-xl text-cradle-text-secondary mb-8">
-              Cradle is a permissionless, tokenless launchpad for serious builders. Transparent raises deployed via factory contracts, seamless integration with Hedgey for vesting, and no platform token required.
+              Launch Layer is a permissionless, tokenless launchpad for serious builders. Transparent raises deployed via factory contracts, seamless integration with Hedgey for vesting, and no platform token required.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/admin">

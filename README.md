@@ -1,5 +1,5 @@
 
-# Cradle.build - Token Launchpad for Sonic Network
+# Launch Layer - Token Launchpad for Sonic Network
 
 ## Project info
 

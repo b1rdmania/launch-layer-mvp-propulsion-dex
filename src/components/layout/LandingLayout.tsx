@@ -20,7 +20,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <span className="text-2xl font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-              Cradle.build
+              Launch Layer
             </span>
           </Link>
 
@@ -71,7 +71,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <span className="text-lg font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-                Cradle.build
+                Launch Layer
               </span>
               <p className="text-sm text-cradle-text-secondary mt-1">
                 On-Chain Infrastructure. Not Investment Advice.
@@ -82,14 +82,14 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
               <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="GitHub">
                 <Github size={20} />
               </a>
-              <a href="https://discord.gg/cradle" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Discord">
+              <a href="https://discord.gg/launchlayer" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors p-2" aria-label="Discord">
                 <MessagesSquare size={20} />
               </a>
             </div>
           </div>
           
           <div className="mt-6 pt-4 border-t border-cradle-surface-light text-sm text-cradle-text-secondary text-center">
-            © 2025 Cradle.build. All rights reserved.
+            © 2025 Launch Layer. All rights reserved.
           </div>
         </div>
       </footer>

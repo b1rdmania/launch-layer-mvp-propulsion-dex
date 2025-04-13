@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <span className="text-lg font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-              Cradle.build
+              Launch Layer
             </span>
             <p className="text-sm text-cradle-text-secondary mt-1">
               The token launchpad for Sonic Network
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
               <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
                 <Github size={18} /> GitHub
               </a>
-              <a href="https://discord.gg/cradle" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
+              <a href="https://discord.gg/launchlayer" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
                 <MessagesSquare size={18} /> Discord
               </a>
             </div>
@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="mt-6 pt-4 border-t border-cradle-surface-light text-sm text-cradle-text-secondary text-center">
-          © 2025 Cradle.build. All rights reserved.
+          © 2025 Launch Layer. All rights reserved.
         </div>
       </div>
     </footer>

@@ -1,23 +1,22 @@
-
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { ExternalLink, Github } from 'lucide-react';
-import { useWallet } from '@/contexts/WalletContext';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, Github } from "lucide-react";
+import { useWallet } from "@/contexts/WalletContext";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { useIsMobile } from '@/hooks/use-mobile';
+} from "@/components/ui/sheet";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const MobileMenu: React.FC = () => {
   const { address, isConnected, connect, disconnect } = useWallet();
   const location = useLocation();
   const isMobile = useIsMobile();
-  
+
   const isActive = (path: string) => {
     return location.pathname === path;
   };
@@ -47,56 +46,75 @@ const MobileMenu: React.FC = () => {
           </svg>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="bg-cradle-surface border-cradle-surface-light w-[85%] max-w-[400px]">
+      <SheetContent
+        side="right"
+        className="bg-cradle-surface border-cradle-surface-light w-[85%] max-w-[400px]"
+      >
         <SheetHeader className="border-b border-cradle-surface-light pb-4 mb-4">
           <SheetTitle className="text-cradle-text-primary">Menu</SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-6 pt-2">
-          <Link 
-            to="/" 
-            className={`transition-colors ${isActive('/') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/"
+            className={`transition-colors ${
+              isActive("/")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Home
           </Link>
-          <Link 
-            to="/app" 
-            className={`transition-colors ${isActive('/app') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/app"
+            className={`transition-colors ${
+              isActive("/app")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Discover
           </Link>
-          <Link 
-            to="/admin" 
-            className={`transition-colors ${isActive('/admin') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/admin"
+            className={`transition-colors ${
+              isActive("/admin")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Create Sale
           </Link>
-          
+
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-cradle-text-primary mb-2">Resources</h4>
+            <h4 className="text-sm font-medium text-cradle-text-primary mb-2">
+              Resources
+            </h4>
             <div className="pl-2 space-y-3">
-              <Link to="/docs" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2">
+              <Link
+                to="/docs"
+                className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2"
+              >
                 Docs
               </Link>
-              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2">
+              <a
+                href="https://github.com/b1rdmania/cradleyolo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2"
+              >
                 GitHub <ExternalLink size={14} />
               </a>
             </div>
           </div>
-          
+
           <div className="mt-4">
             {isConnected ? (
               <div className="space-y-2 mt-4">
                 <div className="px-3 py-2 bg-cradle-surface-light rounded-md text-sm font-mono text-center">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
                 </div>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={disconnect}
                   className="w-full text-sm border-cradle-surface-light hover:bg-cradle-surface-light"
                 >
@@ -104,7 +122,7 @@ const MobileMenu: React.FC = () => {
                 </Button>
               </div>
             ) : (
-              <Button 
+              <Button
                 onClick={connect}
                 className="w-full mt-4 bg-cradle-accent hover:bg-cradle-accent/90 text-white"
               >

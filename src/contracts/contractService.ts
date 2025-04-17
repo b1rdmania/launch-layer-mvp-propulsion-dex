@@ -1,32 +1,35 @@
-
-import { ethers } from 'ethers';
-import { toast } from 'sonner';
-import { CONTRACT_ADDRESSES, NETWORK_CONFIG } from './config';
-import FactoryABI from './abis/CradleFactory.json';
-import RaiseABI from './abis/CradleRaise.json';
-import ERC20ABI from './abis/ERC20.json';
+import { ethers } from "ethers";
+import { toast } from "sonner";
+import { CONTRACT_ADDRESSES, NETWORK_CONFIG } from "./config";
+import FactoryABI from "./abis/CradleFactory.json";
+import RaiseABI from "./abis/CradleRaise.json";
+import ERC20ABI from "./abis/ERC20.json";
+import { RaiseMetadata } from "@/types/contract-types";
+import { getMetadataFromIPFS, uploadToPinata } from "@/lib/ipfsService";
 
 // Check if window.ethereum exists
 const getProvider = () => {
-  if (typeof window !== 'undefined' && window.ethereum) {
+  if (typeof window !== "undefined" && window.ethereum) {
     return new ethers.BrowserProvider(window.ethereum);
   }
-  throw new Error('MetaMask is not installed. Please install it to use this app: https://metamask.io/download.html');
+  throw new Error(
+    "MetaMask is not installed. Please install it to use this app: https://metamask.io/download.html",
+  );
 };
 
 // Request user to connect to MetaMask
 export const connectWallet = async () => {
   try {
     const provider = getProvider();
-    const accounts = await provider.send('eth_requestAccounts', []);
-    
+    const accounts = await provider.send("eth_requestAccounts", []);
+
     // Check if connected to correct network
     await switchToSonicNetwork();
-    
+
     return accounts[0];
   } catch (error) {
-    console.error('Error connecting to wallet:', error);
-    toast.error('Failed to connect wallet');
+    console.error("Error connecting to wallet:", error);
+    toast.error("Failed to connect wallet");
     throw error;
   }
 };
@@ -34,18 +37,18 @@ export const connectWallet = async () => {
 // Switch to Sonic Testnet
 export const switchToSonicNetwork = async () => {
   try {
-    if (typeof window !== 'undefined' && window.ethereum) {
+    if (typeof window !== "undefined" && window.ethereum) {
       try {
         // Try to switch to the network
         await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
+          method: "wallet_switchEthereumChain",
           params: [{ chainId: NETWORK_CONFIG.chainId }],
         });
       } catch (switchError: any) {
         // If the network doesn't exist, add it
         if (switchError.code === 4902) {
           await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
+            method: "wallet_addEthereumChain",
             params: [NETWORK_CONFIG],
           });
         } else {
@@ -54,8 +57,8 @@ export const switchToSonicNetwork = async () => {
       }
     }
   } catch (error) {
-    console.error('Error switching network:', error);
-    toast.error('Failed to switch to Sonic Testnet');
+    console.error("Error switching network:", error);
+    toast.error("Failed to switch to Sonic Testnet");
     throw error;
   }
 };
@@ -67,8 +70,8 @@ export const getBalance = async (address: string) => {
     const balance = await provider.getBalance(address);
     return ethers.formatEther(balance);
   } catch (error) {
-    console.error('Error getting balance:', error);
-    return '0';
+    console.error("Error getting balance:", error);
+    return "0";
   }
 };
 
@@ -79,43 +82,49 @@ export const getFactoryContract = async (withSigner = false) => {
     const factory = new ethers.Contract(
       CONTRACT_ADDRESSES.FACTORY,
       FactoryABI,
-      withSigner ? await provider.getSigner() : provider
+      withSigner ? await provider.getSigner() : provider,
     );
     return factory;
   } catch (error) {
-    console.error('Error getting factory contract:', error);
+    console.error("Error getting factory contract:", error);
     throw error;
   }
 };
 
 // Get raise contract
-export const getRaiseContract = async (raiseAddress: string, withSigner = false) => {
+export const getRaiseContract = async (
+  raiseAddress: string,
+  withSigner = false,
+) => {
   try {
     const provider = getProvider();
     const raise = new ethers.Contract(
       raiseAddress,
       RaiseABI,
-      withSigner ? await provider.getSigner() : provider
+      withSigner ? await provider.getSigner() : provider,
     );
     return raise;
   } catch (error) {
-    console.error('Error getting raise contract:', error);
+    console.error("Error getting raise contract:", error);
     throw error;
   }
 };
 
 // Get ERC20 contract
-export const getERC20Contract = async (tokenAddress: string, withSigner = false) => {
+export const getERC20Contract = async (
+  tokenAddress: string,
+  withSigner = false,
+) => {
   try {
     const provider = getProvider();
     const token = new ethers.Contract(
       tokenAddress,
       ERC20ABI,
-      withSigner ? await provider.getSigner() : provider
+      withSigner ? await provider.getSigner() : provider,
     );
     return token;
   } catch (error) {
-    console.error('Error getting token contract:', error);
+    console.error("Error getting token contract:", error);
     throw error;
   }
 };
@@ -127,7 +136,7 @@ export const getAllRaises = async () => {
     const raises = await factory.getDeployedRaises();
     return raises;
   } catch (error) {
-    console.error('Error getting deployed raises:', error);
+    console.error("Error getting deployed raises:", error);
     return [];
   }
 };
@@ -139,7 +148,7 @@ export const isFactoryOwner = async (address: string) => {
     const owner = await factory.owner();
     return owner.toLowerCase() === address.toLowerCase();
   } catch (error) {
-    console.error('Error checking if user is factory owner:', error);
+    console.error("Error checking if user is factory owner:", error);
     return false;
   }
 };
@@ -159,10 +168,34 @@ export const createRaise = async (raiseParams: {
   maxAcceptedTokenRaise: string;
   minTokenAllocation: string;
   maxTokenAllocation: string;
+  metadata: RaiseMetadata;
 }) => {
   try {
+    const metadataUri = await uploadToPinata(raiseParams.metadata);
+    console.log("Metadata:", metadataUri);
+
     const factory = await getFactoryContract(true);
-    
+
+    console.log("Creating raise...", {
+      token: raiseParams.token,
+      acceptedToken: raiseParams.acceptedToken,
+      pricePerToken: ethers.parseUnits(raiseParams.pricePerToken, 18), // Adjust decimals as needed
+      presaleStart: raiseParams.presaleStart,
+      publicSaleStart: raiseParams.publicSaleStart,
+      endTime: raiseParams.endTime,
+      merkleRoot: raiseParams.merkleRoot,
+      raiseOwner: raiseParams.raiseOwner,
+      feeRecipient: raiseParams.feeRecipient,
+      feePercentBasisPoints: raiseParams.feePercentBasisPoints,
+      maxAcceptedTokenRaise: ethers.parseUnits(
+        raiseParams.maxAcceptedTokenRaise,
+        18,
+      ), // Adjust decimals as needed
+      minTokenAllocation: ethers.parseUnits(raiseParams.minTokenAllocation, 18), // Adjust decimals as needed
+      maxTokenAllocation: ethers.parseUnits(raiseParams.maxTokenAllocation, 18), // Adjust decimals as needed
+      metadataUri: metadataUri,
+    });
+
     const tx = await factory.createRaise(
       raiseParams.token,
       raiseParams.acceptedToken,
@@ -176,86 +209,110 @@ export const createRaise = async (raiseParams: {
       raiseParams.feePercentBasisPoints,
       ethers.parseUnits(raiseParams.maxAcceptedTokenRaise, 18), // Adjust decimals as needed
       ethers.parseUnits(raiseParams.minTokenAllocation, 18), // Adjust decimals as needed
-      ethers.parseUnits(raiseParams.maxTokenAllocation, 18) // Adjust decimals as needed
+      ethers.parseUnits(raiseParams.maxTokenAllocation, 18), // Adjust decimals as needed
+      metadataUri,
     );
-    
+
     const receipt = await tx.wait();
-    
+
     // Find the RaiseCreated event to get the new raise address
     const events = receipt.logs.filter((log: any) => {
       try {
         const parsedLog = factory.interface.parseLog(log);
-        return parsedLog && parsedLog.name === 'RaiseCreated';
+        return parsedLog && parsedLog.name === "RaiseCreated";
       } catch {
         return false;
       }
     });
-    
+
     if (events && events.length > 0) {
       const parsedLog = factory.interface.parseLog(events[0]);
       return parsedLog.args.newRaiseAddress;
     }
-    
-    throw new Error('Failed to create raise: Could not find RaiseCreated event');
+
+    throw new Error(
+      "Failed to create raise: Could not find RaiseCreated event",
+    );
   } catch (error) {
-    console.error('Error creating raise:', error);
-    toast.error('Failed to create raise');
+    console.error("Error creating raise:", error);
+    toast.error("Failed to create raise");
     throw error;
   }
 };
 
 // Check allowance for spending tokens
-export const checkAllowance = async (tokenAddress: string, ownerAddress: string, spenderAddress: string) => {
+export const checkAllowance = async (
+  tokenAddress: string,
+  ownerAddress: string,
+  spenderAddress: string,
+) => {
   try {
     const tokenContract = await getERC20Contract(tokenAddress);
-    const allowance = await tokenContract.allowance(ownerAddress, spenderAddress);
+    const allowance = await tokenContract.allowance(
+      ownerAddress,
+      spenderAddress,
+    );
     return allowance.toString();
   } catch (error) {
-    console.error('Error checking allowance:', error);
-    return '0';
+    console.error("Error checking allowance:", error);
+    return "0";
   }
 };
 
 // Approve tokens for spending
-export const approveToken = async (tokenAddress: string, spenderAddress: string, amount: string) => {
+export const approveToken = async (
+  tokenAddress: string,
+  spenderAddress: string,
+  amount: string,
+) => {
   try {
     const tokenContract = await getERC20Contract(tokenAddress, true);
-    const tx = await tokenContract.approve(spenderAddress, ethers.parseUnits(amount, 18)); // Adjust decimals as needed
+    const tx = await tokenContract.approve(
+      spenderAddress,
+      ethers.parseUnits(amount, 18),
+    ); // Adjust decimals as needed
     await tx.wait();
     return true;
   } catch (error) {
-    console.error('Error approving token:', error);
-    toast.error('Failed to approve token');
+    console.error("Error approving token:", error);
+    toast.error("Failed to approve token");
     return false;
   }
 };
 
 // Contribute to a raise
-export const contribute = async (raiseAddress: string, tokenAmountToBuy: string, merkleProof: string[] = []) => {
+export const contribute = async (
+  raiseAddress: string,
+  tokenAmountToBuy: string,
+  merkleProof: string[] = [],
+) => {
   try {
     const raiseContract = await getRaiseContract(raiseAddress, true);
     const tx = await raiseContract.contribute(
       ethers.parseUnits(tokenAmountToBuy, 18), // Adjust decimals as needed
-      merkleProof
+      merkleProof,
     );
     await tx.wait();
     return true;
   } catch (error) {
-    console.error('Error contributing to raise:', error);
-    toast.error('Failed to contribute');
+    console.error("Error contributing to raise:", error);
+    toast.error("Failed to contribute");
     return false;
   }
 };
 
 // Get user contribution for a raise
-export const getUserContribution = async (raiseAddress: string, userAddress: string) => {
+export const getUserContribution = async (
+  raiseAddress: string,
+  userAddress: string,
+) => {
   try {
     const raiseContract = await getRaiseContract(raiseAddress);
     const contribution = await raiseContract.getContribution(userAddress);
     return ethers.formatUnits(contribution, 18); // Adjust decimals as needed
   } catch (error) {
-    console.error('Error getting user contribution:', error);
-    return '0';
+    console.error("Error getting user contribution:", error);
+    return "0";
   }
 };
 
@@ -267,8 +324,8 @@ export const finalizeRaise = async (raiseAddress: string) => {
     await tx.wait();
     return true;
   } catch (error) {
-    console.error('Error finalizing raise:', error);
-    toast.error('Failed to finalize raise');
+    console.error("Error finalizing raise:", error);
+    toast.error("Failed to finalize raise");
     return false;
   }
 };
@@ -281,8 +338,8 @@ export const cancelRaise = async (raiseAddress: string) => {
     await tx.wait();
     return true;
   } catch (error) {
-    console.error('Error cancelling raise:', error);
-    toast.error('Failed to cancel raise');
+    console.error("Error cancelling raise:", error);
+    toast.error("Failed to cancel raise");
     return false;
   }
 };
@@ -295,9 +352,23 @@ export const sweepRaise = async (raiseAddress: string) => {
     await tx.wait();
     return true;
   } catch (error) {
-    console.error('Error sweeping funds:', error);
-    toast.error('Failed to sweep funds');
+    console.error("Error sweeping funds:", error);
+    toast.error("Failed to sweep funds");
     return false;
+  }
+};
+
+export const getRaiseAcceptedTokenBalance = async (
+  raiseAddress: string,
+): Promise<bigint> => {
+  try {
+    const raiseContract = await getRaiseContract(raiseAddress);
+    const acceptedTokenAddress = await raiseContract.acceptedToken();
+    const acceptedTokenContract = await getERC20Contract(acceptedTokenAddress);
+    return await acceptedTokenContract.balanceOf(raiseAddress);
+  } catch (error) {
+    console.error("Error fetching raise balance:", error);
+    return 0n;
   }
 };
 
@@ -305,7 +376,7 @@ export const sweepRaise = async (raiseAddress: string) => {
 export const getRaiseDetails = async (raiseAddress: string) => {
   try {
     const raiseContract = await getRaiseContract(raiseAddress);
-    
+
     const tokenAddress = await raiseContract.token();
     const acceptedTokenAddress = await raiseContract.acceptedToken();
     const pricePerToken = await raiseContract.pricePerToken();
@@ -319,37 +390,47 @@ export const getRaiseDetails = async (raiseAddress: string) => {
     const minTokenAllocation = await raiseContract.minTokenAllocation();
     const maxTokenAllocation = await raiseContract.maxTokenAllocation();
     const merkleRoot = await raiseContract.merkleRoot();
-    const totalAcceptedTokenRaised = await raiseContract.totalAcceptedTokenRaised();
+    const totalAcceptedTokenRaised =
+      await raiseContract.totalAcceptedTokenRaised();
     const isFinalized = await raiseContract.isFinalized();
     const isCancelled = await raiseContract.isCancelled();
-    
+    const isSwept = await raiseContract.isSwept();
+    const metadataUri = await raiseContract.metadataURI();
+
+    const metadata = await getMetadataFromIPFS(metadataUri);
     // Get token details
     const tokenContract = await getERC20Contract(tokenAddress);
     const acceptedTokenContract = await getERC20Contract(acceptedTokenAddress);
-    
+
     const tokenName = await tokenContract.name();
     const tokenSymbol = await tokenContract.symbol();
     const acceptedTokenSymbol = await acceptedTokenContract.symbol();
-    
+
     // Determine status
-    let status: 'upcoming' | 'presale' | 'public' | 'ended' | 'cancelled' | 'finalized' = 'upcoming';
-    
+    let status:
+      | "upcoming"
+      | "presale"
+      | "public"
+      | "ended"
+      | "cancelled"
+      | "finalized" = "upcoming";
+
     const now = Math.floor(Date.now() / 1000);
-    
+
     if (isCancelled) {
-      status = 'cancelled';
+      status = "cancelled";
     } else if (isFinalized) {
-      status = 'finalized';
+      status = "finalized";
     } else if (now >= presaleStart && now < publicSaleStart) {
-      status = 'presale';
+      status = "presale";
     } else if (now >= publicSaleStart && now < endTime) {
-      status = 'public';
+      status = "public";
     } else if (now >= endTime) {
-      status = 'ended';
+      status = "ended";
     } else {
-      status = 'upcoming';
+      status = "upcoming";
     }
-    
+
     return {
       address: raiseAddress,
       token: tokenAddress,
@@ -368,13 +449,18 @@ export const getRaiseDetails = async (raiseAddress: string) => {
       minTokenAllocation: ethers.formatUnits(minTokenAllocation, 18), // Adjust decimals as needed
       maxTokenAllocation: ethers.formatUnits(maxTokenAllocation, 18), // Adjust decimals as needed
       merkleRoot,
-      totalAcceptedTokenRaised: ethers.formatUnits(totalAcceptedTokenRaised, 18), // Adjust decimals as needed
+      totalAcceptedTokenRaised: ethers.formatUnits(
+        totalAcceptedTokenRaised,
+        18,
+      ), // Adjust decimals as needed
       isFinalized,
+      isSwept,
       isCancelled,
       status,
+      metadata,
     };
   } catch (error) {
-    console.error('Error getting raise details:', error);
+    console.error("Error getting raise details:", error);
     throw error;
   }
 };

@@ -1,15 +1,24 @@
-
-import React from 'react';
-import { Fingerprint, LineChart, Code, Settings, Workflow, Shield } from 'lucide-react';
-import FeatureCard from './FeatureCard';
+import React from "react";
+import {
+  Fingerprint,
+  LineChart,
+  Code,
+  Settings,
+  Workflow,
+  Shield,
+} from "lucide-react";
+import FeatureCard from "./FeatureCard";
 
 const FeaturesSection: React.FC = () => {
   return (
     <section className="py-16 bg-cradle-surface">
       <div className="container mx-auto px-8 max-w-[1280px]">
-        <h2 className="text-3xl font-bold text-center mb-4">Built for Transparent & Fair Launches on Sonic</h2>
+        <h2 className="text-3xl font-bold text-center mb-4">
+          Built for Transparent & Fair Launches on Sonic
+        </h2>
         <p className="text-cradle-text-secondary text-center mb-12 max-w-2xl mx-auto">
-          Cradle's V1 platform provides everything you need for a successful token launch on Sonic Network
+          Cradle's V1 platform provides everything you need for a successful
+          token launch on Sonic Network
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

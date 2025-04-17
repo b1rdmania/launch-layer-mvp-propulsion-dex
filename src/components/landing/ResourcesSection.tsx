@@ -1,12 +1,12 @@
-import React from 'react';
-import ResourceCard from './ResourceCard';
+import React from "react";
+import ResourceCard from "./ResourceCard";
 
 const ResourcesSection: React.FC = () => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-8 max-w-[1280px]">
         <h2 className="text-3xl font-bold mb-8">Get Started Building</h2>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           <ResourceCard
             title="Documentation"
@@ -27,12 +27,14 @@ const ResourcesSection: React.FC = () => {
             linkUrl="#"
           />
         </div>
-        
+
         <div className="bg-cradle-surface rounded-xl p-6">
-          <h3 className="text-lg font-bold font-mono mb-2">Quick Start Example (Ethers.js - Factory Interaction)</h3>
+          <h3 className="text-lg font-bold font-mono mb-2">
+            Quick Start Example (Ethers.js - Factory Interaction)
+          </h3>
           <pre className="bg-black bg-opacity-50 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm font-mono text-cradle-text-primary">
-{`// See GitHub README for full setup and parameter details
+              {`// See GitHub README for full setup and parameter details
 import { ethers } from "ethers";
 import CradleFactoryAbi from "./abis/CradleFactory.json";
 const factoryAddress = "0x8BAE..."; // Sonic Testnet Factory

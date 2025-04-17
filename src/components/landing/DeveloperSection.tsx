@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const DeveloperSection: React.FC = () => {
   // This component is no longer used, but keeping a minimal implementation

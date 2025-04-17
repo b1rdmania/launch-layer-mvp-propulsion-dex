@@ -1,8 +1,11 @@
-
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { toast } from "sonner";
-import { connectWallet, getBalance, switchToSonicNetwork } from '@/contracts/contractService';
-import { DESIGN_SYSTEM } from '@/contracts/config';
+import {
+  connectWallet,
+  getBalance,
+  switchToSonicNetwork,
+} from "@/contracts/contractService";
+import { DESIGN_SYSTEM } from "@/contracts/config";
 
 type WalletContextType = {
   address: string | null;
@@ -18,27 +21,31 @@ const WalletContext = createContext<WalletContextType>({
   address: null,
   isConnected: false,
   isConnecting: false,
-  balance: '0',
-  network: 'Sonic Testnet',
+  balance: "0",
+  network: "Sonic Testnet",
   connect: async () => {},
   disconnect: () => {},
 });
 
 export const useWallet = () => useContext(WalletContext);
 
-export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [address, setAddress] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-  const [balance, setBalance] = useState('0');
-  const [network, setNetwork] = useState('Sonic Testnet');
+  const [balance, setBalance] = useState("0");
+  const [network, setNetwork] = useState("Sonic Testnet");
 
   // Check if wallet is already connected
   useEffect(() => {
     const checkConnection = async () => {
-      if (typeof window !== 'undefined' && window.ethereum) {
+      if (typeof window !== "undefined" && window.ethereum) {
         try {
-          const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+          const accounts = await window.ethereum.request({
+            method: "eth_accounts",
+          });
           if (accounts.length > 0) {
             setAddress(accounts[0]);
             setIsConnected(true);
@@ -46,7 +53,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             setBalance(userBalance);
           }
         } catch (error) {
-          console.error('Error checking wallet connection:', error);
+          console.error("Error checking wallet connection:", error);
         }
       }
     };
@@ -56,7 +63,7 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   // Listen for account changes
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.ethereum) {
+    if (typeof window !== "undefined" && window.ethereum) {
       const handleAccountsChanged = (accounts: string[]) => {
         if (accounts.length === 0) {
           // User disconnected
@@ -70,8 +77,8 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             style: {
               background: DESIGN_SYSTEM.colors.secondaryBackground,
               color: DESIGN_SYSTEM.colors.primaryText,
-              border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
-            }
+              border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+            },
           });
         }
       };
@@ -81,13 +88,16 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         window.location.reload();
       };
 
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-      window.ethereum.on('chainChanged', handleChainChanged);
+      window.ethereum.on("accountsChanged", handleAccountsChanged);
+      window.ethereum.on("chainChanged", handleChainChanged);
 
       return () => {
         if (window.ethereum.removeListener) {
-          window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-          window.ethereum.removeListener('chainChanged', handleChainChanged);
+          window.ethereum.removeListener(
+            "accountsChanged",
+            handleAccountsChanged,
+          );
+          window.ethereum.removeListener("chainChanged", handleChainChanged);
         }
       };
     }
@@ -96,31 +106,31 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const connect = async () => {
     try {
       setIsConnecting(true);
-      
+
       const userAddress = await connectWallet();
-      
+
       setAddress(userAddress);
       setIsConnected(true);
-      
+
       const userBalance = await getBalance(userAddress);
       setBalance(userBalance);
-      
+
       setIsConnecting(false);
       toast.success("Wallet connected successfully", {
         style: {
           background: DESIGN_SYSTEM.colors.secondaryBackground,
           color: DESIGN_SYSTEM.colors.primaryText,
-          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
-        }
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+        },
       });
     } catch (error) {
-      console.error('Error connecting wallet:', error);
+      console.error("Error connecting wallet:", error);
       toast.error("Failed to connect wallet", {
         style: {
           background: DESIGN_SYSTEM.colors.secondaryBackground,
           color: DESIGN_SYSTEM.colors.primaryText,
-          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
-        }
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+        },
       });
       setIsConnecting(false);
     }
@@ -129,13 +139,13 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const disconnect = () => {
     setAddress(null);
     setIsConnected(false);
-    setBalance('0');
+    setBalance("0");
     toast.info("Wallet disconnected", {
       style: {
         background: DESIGN_SYSTEM.colors.secondaryBackground,
         color: DESIGN_SYSTEM.colors.primaryText,
-        border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`
-      }
+        border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+      },
     });
   };
 

@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface StepCardProps {
   number: string;

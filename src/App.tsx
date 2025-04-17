@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,17 +27,66 @@ const App = () => (
           <Routes>
             {/* Index redirect */}
             <Route path="/" element={<Index />} />
-            
+
             {/* Landing page with special layout */}
-            <Route path="/landing" element={<LandingLayout><LandingPage /></LandingLayout>} />
-            
+            <Route
+              path="/landing"
+              element={
+                <LandingLayout>
+                  <LandingPage />
+                </LandingLayout>
+              }
+            />
+
             {/* App routes with standard layout */}
-            <Route path="/app" element={<Layout><DiscoveryPage /></Layout>} />
-            <Route path="/raise/:raiseAddress" element={<Layout><RaiseDetailPage /></Layout>} />
-            <Route path="/claim/:raiseAddress" element={<Layout><ClaimPage /></Layout>} />
-            <Route path="/admin" element={<Layout><AdminPage /></Layout>} />
-            <Route path="/docs" element={<Layout><DocsPage /></Layout>} />
-            <Route path="*" element={<Layout><NotFound /></Layout>} />
+            <Route
+              path="/app"
+              element={
+                <Layout>
+                  <DiscoveryPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="/raise/:raiseAddress"
+              element={
+                <Layout>
+                  <RaiseDetailPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="/claim/:raiseAddress"
+              element={
+                <Layout>
+                  <ClaimPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <Layout>
+                  <AdminPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="/docs"
+              element={
+                <Layout>
+                  <DocsPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Layout>
+                  <NotFound />
+                </Layout>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </WalletProvider>

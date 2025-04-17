@@ -1,8 +1,7 @@
-
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { useWallet } from '@/contexts/WalletContext';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useWallet } from "@/contexts/WalletContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,14 +9,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronDown, Github, ExternalLink } from 'lucide-react';
-import MobileMenu from './MobileMenu';
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown, Github, ExternalLink } from "lucide-react";
+import MobileMenu from "./MobileMenu";
 
 const Header: React.FC = () => {
-  const { address, isConnected, isConnecting, connect, disconnect } = useWallet();
+  const { address, isConnected, isConnecting, connect, disconnect } =
+    useWallet();
   const location = useLocation();
-  
+
   const isActive = (path: string) => {
     return location.pathname === path;
   };
@@ -33,35 +33,43 @@ const Header: React.FC = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link 
-            to="/" 
-            className={`transition-colors ${isActive('/') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/"
+            className={`transition-colors ${
+              isActive("/")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Home
           </Link>
-          <Link 
-            to="/app" 
-            className={`transition-colors ${isActive('/app') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/app"
+            className={`transition-colors ${
+              isActive("/app")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Discover
           </Link>
-          <Link 
-            to="/admin" 
-            className={`transition-colors ${isActive('/admin') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/admin"
+            className={`transition-colors ${
+              isActive("/admin")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Create Sale
           </Link>
-          <Link 
-            to="/docs" 
-            className={`transition-colors ${isActive('/docs') 
-              ? 'text-cradle-accent font-medium' 
-              : 'text-cradle-text-secondary hover:text-cradle-text-primary'}`}
+          <Link
+            to="/docs"
+            className={`transition-colors ${
+              isActive("/docs")
+                ? "text-cradle-accent font-medium"
+                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+            }`}
           >
             Docs
           </Link>
@@ -76,18 +84,24 @@ const Header: React.FC = () => {
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-4">
-              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="text-cradle-text-secondary hover:text-cradle-text-primary" aria-label="GitHub">
+              <a
+                href="https://github.com/b1rdmania/cradleyolo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cradle-text-secondary hover:text-cradle-text-primary"
+                aria-label="GitHub"
+              >
                 <Github size={18} />
               </a>
             </div>
-            
+
             {isConnected ? (
               <div className="flex items-center gap-2">
                 <div className="hidden md:block px-3 py-1 bg-cradle-surface-light rounded-md text-sm font-mono">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
                 </div>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={disconnect}
                   className="text-sm border-cradle-surface-light hover:bg-cradle-surface-light"
                 >
@@ -95,12 +109,12 @@ const Header: React.FC = () => {
                 </Button>
               </div>
             ) : (
-              <Button 
+              <Button
                 onClick={connect}
                 disabled={isConnecting}
                 className="bg-cradle-accent hover:bg-cradle-accent/90 text-white"
               >
-                {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+                {isConnecting ? "Connecting..." : "Connect Wallet"}
               </Button>
             )}
           </div>

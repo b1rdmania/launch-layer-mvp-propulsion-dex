@@ -1,9 +1,14 @@
-
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { RaiseStatus, cancelRaise, finalizeRaise, sweepFunds } from '@/services/api';
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { RaiseStatus } from "@/types/contract-types";
+import {
+  cancelRaise,
+  finalizeRaise,
+  getRaiseAcceptedTokenBalance,
+  sweepRaise as sweepFunds,
+} from "@/contracts/contractService";
 import { toast } from "sonner";
-import { 
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -18,6 +23,7 @@ interface RaiseAdminActionsProps {
   raiseAddress: string;
   status: RaiseStatus;
   isFinalized: boolean;
+  isSwept: boolean;
   presaleStart: number;
   endTime: number;
   onActionSuccess: () => void;
@@ -27,69 +33,76 @@ const RaiseAdminActions: React.FC<RaiseAdminActionsProps> = ({
   raiseAddress,
   status,
   isFinalized,
+  isSwept,
   presaleStart,
   endTime,
-  onActionSuccess
+  onActionSuccess,
 }) => {
-  const [actionType, setActionType] = useState<'cancel' | 'finalize' | 'sweep' | null>(null);
+  const [actionType, setActionType] = useState<
+    "cancel" | "finalize" | "sweep" | null
+  >(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  console.log("status", status);
   const now = Date.now();
   const canCancel = !isFinalized && now < presaleStart;
   const canFinalize = !isFinalized && now >= endTime;
-  const canSweep = isFinalized && status !== 'cancelled';
+  const canSweep = !isSwept && now >= endTime;
 
   const getActionConfig = () => {
     switch (actionType) {
-      case 'cancel':
+      case "cancel":
         return {
-          title: 'Cancel Sale',
-          description: 'Are you sure you want to cancel this sale? This action cannot be undone.',
+          title: "Cancel Sale",
+          description:
+            "Are you sure you want to cancel this sale? This action cannot be undone.",
           action: cancelRaise,
-          successMessage: 'Sale cancelled successfully',
-          buttonText: 'Cancel Sale',
-          buttonClass: 'bg-red-600 hover:bg-red-500',
+          successMessage: "Sale cancelled successfully",
+          buttonText: "Cancel Sale",
+          buttonClass: "bg-red-600 hover:bg-red-500",
         };
-      case 'finalize':
+      case "finalize":
         return {
-          title: 'Finalize Raise',
-          description: 'Finalizing the raise will end the sale and allow contributors to claim their tokens. Continue?',
+          title: "Finalize Raise",
+          description:
+            "Finalizing the raise will end the sale and allow contributors to claim their tokens. Continue?",
           action: finalizeRaise,
-          successMessage: 'Raise finalized successfully',
-          buttonText: 'Finalize Raise',
-          buttonClass: 'bg-purple-600 hover:bg-purple-500',
+          successMessage: "Raise finalized successfully",
+          buttonText: "Finalize Raise",
+          buttonClass: "bg-purple-600 hover:bg-purple-500",
         };
-      case 'sweep':
+      case "sweep":
         return {
-          title: 'Sweep Funds',
-          description: 'Sweeping funds will transfer all raised tokens to your wallet. Continue?',
+          title: "Sweep Funds",
+          description:
+            "Sweeping funds will transfer all raised tokens to your wallet. Continue?",
           action: sweepFunds,
-          successMessage: 'Funds swept successfully',
-          buttonText: 'Sweep Funds',
-          buttonClass: 'bg-amber-600 hover:bg-amber-500',
+          successMessage: "Funds swept successfully",
+          buttonText: "Sweep Funds",
+          buttonClass: "bg-amber-600 hover:bg-amber-500",
         };
       default:
         return {
-          title: '',
-          description: '',
+          title: "",
+          description: "",
           action: async () => false,
-          successMessage: '',
-          buttonText: '',
-          buttonClass: '',
+          successMessage: "",
+          buttonText: "",
+          buttonClass: "",
         };
     }
   };
 
   const handleAction = async () => {
     if (!actionType) return;
-    
+
     const config = getActionConfig();
-    
+
     try {
       setIsProcessing(true);
       const success = await config.action(raiseAddress);
-      
+
       if (success) {
         toast.success(config.successMessage);
         setIsDialogOpen(false);
@@ -105,7 +118,7 @@ const RaiseAdminActions: React.FC<RaiseAdminActionsProps> = ({
     }
   };
 
-  const openDialog = (type: 'cancel' | 'finalize' | 'sweep') => {
+  const openDialog = (type: "cancel" | "finalize" | "sweep") => {
     setActionType(type);
     setIsDialogOpen(true);
   };
@@ -115,45 +128,45 @@ const RaiseAdminActions: React.FC<RaiseAdminActionsProps> = ({
   return (
     <div className="bg-cradle-surface-light p-6 rounded-xl mb-6">
       <h3 className="text-lg font-medium mb-4">Admin Actions</h3>
-      
+
       <div className="flex flex-col space-y-3">
         {canCancel && (
           <Button
             variant="destructive"
-            onClick={() => openDialog('cancel')}
+            onClick={() => openDialog("cancel")}
             className="bg-red-600 hover:bg-red-500"
           >
             Cancel Sale
           </Button>
         )}
-        
+
         {canFinalize && (
           <Button
             variant="default"
-            onClick={() => openDialog('finalize')}
+            onClick={() => openDialog("finalize")}
             className="bg-purple-600 hover:bg-purple-500"
           >
             Finalize Raise
           </Button>
         )}
-        
+
         {canSweep && (
           <Button
             variant="default"
-            onClick={() => openDialog('sweep')}
+            onClick={() => openDialog("sweep")}
             className="bg-amber-600 hover:bg-amber-500"
           >
             Sweep Funds
           </Button>
         )}
-        
+
         {!canCancel && !canFinalize && !canSweep && (
           <p className="text-cradle-text-secondary text-sm py-2">
             No actions available at this time
           </p>
         )}
       </div>
-      
+
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <AlertDialogContent className="bg-cradle-surface border-cradle-surface-light">
           <AlertDialogHeader>
@@ -163,7 +176,7 @@ const RaiseAdminActions: React.FC<RaiseAdminActionsProps> = ({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel 
+            <AlertDialogCancel
               className="bg-cradle-surface-light hover:bg-cradle-surface border-cradle-surface-light text-cradle-text-primary"
               disabled={isProcessing}
             >
@@ -177,7 +190,7 @@ const RaiseAdminActions: React.FC<RaiseAdminActionsProps> = ({
               className={config.buttonClass}
               disabled={isProcessing}
             >
-              {isProcessing ? 'Processing...' : config.buttonText}
+              {isProcessing ? "Processing..." : config.buttonText}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

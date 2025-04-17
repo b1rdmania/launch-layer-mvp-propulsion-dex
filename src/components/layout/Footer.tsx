@@ -1,7 +1,6 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Github, MessagesSquare } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Github, MessagesSquare } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -16,25 +15,41 @@ const Footer: React.FC = () => {
               The token launchpad for Sonic Network
             </p>
           </div>
-          
+
           <div className="flex gap-8 text-sm text-cradle-text-secondary">
-            <Link to="/" className="hover:text-cradle-text-primary transition-colors">
+            <Link
+              to="/"
+              className="hover:text-cradle-text-primary transition-colors"
+            >
               Home
             </Link>
-            <Link to="/docs" className="hover:text-cradle-text-primary transition-colors">
+            <Link
+              to="/docs"
+              className="hover:text-cradle-text-primary transition-colors"
+            >
               Docs
             </Link>
             <div className="flex items-center gap-4">
-              <a href="https://github.com/b1rdmania/cradleyolo" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
+              <a
+                href="https://github.com/b1rdmania/cradleyolo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cradle-text-primary transition-colors flex items-center gap-1"
+              >
                 <Github size={18} /> GitHub
               </a>
-              <a href="https://discord.gg/launchlayer" target="_blank" rel="noopener noreferrer" className="hover:text-cradle-text-primary transition-colors flex items-center gap-1">
+              <a
+                href="https://discord.gg/launchlayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cradle-text-primary transition-colors flex items-center gap-1"
+              >
                 <MessagesSquare size={18} /> Discord
               </a>
             </div>
           </div>
         </div>
-        
+
         <div className="mt-6 pt-4 border-t border-cradle-surface-light text-sm text-cradle-text-secondary text-center">
           © 2025 Launch Layer. All rights reserved.
         </div>

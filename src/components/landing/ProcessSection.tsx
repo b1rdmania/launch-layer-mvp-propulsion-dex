@@ -1,13 +1,14 @@
-
-import React from 'react';
-import DetailCard from './DetailCard';
+import React from "react";
+import DetailCard from "./DetailCard";
 
 const ProcessSection: React.FC = () => {
   return (
     <section className="py-16 bg-cradle-surface">
       <div className="container mx-auto px-8 max-w-[1280px]">
-        <h2 className="text-3xl font-bold text-center mb-12">Transparent On-Chain Process</h2>
-        
+        <h2 className="text-3xl font-bold text-center mb-12">
+          Transparent On-Chain Process
+        </h2>
+
         <div className="grid md:grid-cols-3 gap-8">
           <DetailCard
             number="01"

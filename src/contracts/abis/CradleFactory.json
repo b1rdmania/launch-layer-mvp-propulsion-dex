@@ -78,6 +78,11 @@
         "name": "_maxTokenAllocation",
         "type": "uint256",
         "internalType": "uint256"
+      },
+      {
+        "name": "_metadataURI",
+        "type": "string",
+        "internalType": "string"
       }
     ],
     "outputs": [
@@ -244,5 +249,10 @@
         "internalType": "address"
       }
     ]
+  },
+  {
+    "type": "error",
+    "name": "ZeroAddressOwner",
+    "inputs": []
   }
-] 
+]

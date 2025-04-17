@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -8,7 +7,11 @@ interface FeatureCardProps {
   description: string;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({
+  icon,
+  title,
+  description,
+}) => {
   return (
     <Card className="bg-cradle-surface-light border-cradle-surface hover:scale-[1.02] transition-transform duration-200">
       <CardContent className="p-6">

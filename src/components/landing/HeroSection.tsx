@@ -13,7 +13,7 @@ const HeroSection: React.FC = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
               Launch Tokens on Sonic.
               <br />
-              No Games. Zero Fluff.
+              No Games. No Fluff.
             </h1>
             <p className="text-xl text-cradle-text-secondary mb-8">
               Launch Layer is a permissionless, tokenless launchpad for serious DeFi builders. 

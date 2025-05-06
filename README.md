@@ -17,8 +17,8 @@ To link this project with GitHub:
 ## Smart Contract Integration
 
 This project integrates with the following smart contracts on Sonic Testnet:
-- CradleFactory: Factory contract for creating new token raises
-- CradleRaise: Individual raise contracts created by the factory
+- LaunchFactory: Factory contract for creating new token raises
+- LaunchRaise: Individual raise contracts created by the factory
 - ERC20: Standard token contract for tokens used in raises
 
 To update the contract addresses:

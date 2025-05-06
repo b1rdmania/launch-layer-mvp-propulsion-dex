@@ -1,3 +1,4 @@
+
 import React from "react";
 import ResourceCard from "./ResourceCard";
 
@@ -22,7 +23,7 @@ const ResourcesSection: React.FC = () => {
           />
           <ResourceCard
             title="Example Code"
-            description="Quick start guides and code examples to help you integrate with Cradle's contracts."
+            description="Quick start guides and code examples to help you integrate with Launch Layer's contracts."
             linkText="View Examples"
             linkUrl="#"
           />
@@ -36,11 +37,11 @@ const ResourcesSection: React.FC = () => {
             <code className="text-sm font-mono text-cradle-text-primary">
               {`// See GitHub README for full setup and parameter details
 import { ethers } from "ethers";
-import CradleFactoryAbi from "./abis/CradleFactory.json";
+import LaunchFactoryAbi from "./abis/LaunchFactory.json";
 const factoryAddress = "0x8BAE..."; // Sonic Testnet Factory
 // Assuming 'signer' is connected wallet provider.getSigner()
-const factoryContract = new ethers.Contract(factoryAddress, CradleFactoryAbi, signer);
-// Prepare ALL params for CradleRaise constructor...
+const factoryContract = new ethers.Contract(factoryAddress, LaunchFactoryAbi, signer);
+// Prepare ALL params for LaunchRaise constructor...
 // const tx = await factoryContract.createRaise(...params);
 // const receipt = await tx.wait();
 // Find new raise address from logs...`}

@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Fingerprint,
@@ -17,7 +18,7 @@ const FeaturesSection: React.FC = () => {
           Built for Transparent & Fair Launches on Sonic
         </h2>
         <p className="text-cradle-text-secondary text-center mb-12 max-w-2xl mx-auto">
-          Cradle's V1 platform provides everything you need for a successful
+          Launch Layer's V1 platform provides everything you need for a successful
           token launch on Sonic Network
         </p>
 
@@ -35,7 +36,7 @@ const FeaturesSection: React.FC = () => {
           <FeatureCard
             icon={<Code size={32} className="text-cradle-accent" />}
             title="Factory Deployed"
-            description="Standardized, immutable contracts deployed via the CradleFactory ensure transparency and consistency."
+            description="Standardized, immutable contracts deployed via the LaunchFactory ensure transparency and consistency."
           />
           <FeatureCard
             icon={<Settings size={32} className="text-cradle-accent" />}

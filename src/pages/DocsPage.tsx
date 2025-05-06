@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import {
@@ -29,10 +30,10 @@ const DocsPage = () => {
         {/* Header */}
         <div className="space-y-4">
           <h1 className="text-4xl font-bold text-cradle-text-primary bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-            Cradle Contracts Documentation
+            Launch Layer Contracts Documentation
           </h1>
           <p className="text-xl text-cradle-text-secondary">
-            Smart contracts powering the Cradle.build V1 token launch
+            Smart contracts powering the Launch Layer token launch
             infrastructure
           </p>
           <Separator className="my-6 bg-cradle-surface-light" />
@@ -46,7 +47,7 @@ const DocsPage = () => {
           </div>
           <div className="pl-2 border-l-2 border-cradle-accent">
             <p className="text-cradle-text-secondary mb-4">
-              Cradle is envisioned as a permissionless, tokenless launchpad
+              Launch Layer is envisioned as a permissionless, tokenless launchpad
               built for clean, fixed-price token raises, initially targeting the
               Sonic network. It provides smart contracts, tooling, and aims to
               support frontend components for transparent public token sales,
@@ -72,10 +73,10 @@ const DocsPage = () => {
               <CardContent className="p-6 space-y-2">
                 <h3 className="text-xl font-semibold flex items-center">
                   <Code className="mr-2 text-cradle-accent" size={20} />
-                  CradleFactory.sol
+                  LaunchFactory.sol
                 </h3>
                 <p className="text-cradle-text-secondary">
-                  Deploys and manages instances of CradleRaise contracts,
+                  Deploys and manages instances of LaunchRaise contracts,
                   maintaining a registry of all deployed raises.
                 </p>
               </CardContent>
@@ -84,7 +85,7 @@ const DocsPage = () => {
               <CardContent className="p-6 space-y-2">
                 <h3 className="text-xl font-semibold flex items-center">
                   <Code className="mr-2 text-cradle-accent" size={20} />
-                  CradleRaise.sol
+                  LaunchRaise.sol
                 </h3>
                 <p className="text-cradle-text-secondary">
                   Governs a single fixed-price token sale, handling
@@ -111,7 +112,7 @@ const DocsPage = () => {
                 Core Contracts Developed & Tested
               </h3>
               <p className="text-cradle-text-secondary">
-                <code>CradleFactory.sol</code> and <code>CradleRaise.sol</code>{" "}
+                <code>LaunchFactory.sol</code> and <code>LaunchRaise.sol</code>{" "}
                 contracts implementing the full V1 specification (fixed-price
                 sales, factory deployment, optional presale, min/max limits,
                 hard cap, fee routing, pre-start cancel) have been written based
@@ -160,9 +161,9 @@ const DocsPage = () => {
                 <li>
                   Deployed Mock ERC20s (mTKN @ 0x06...cD, mUSDC @ 0x1B...ed).
                 </li>
-                <li>Deployed CradleFactory (0x8B...cF).</li>
+                <li>Deployed LaunchFactory (0x8B...cF).</li>
                 <li>
-                  Deployed an example CradleRaise instance (0x60...B102) via the
+                  Deployed an example LaunchRaise instance (0x60...B102) via the
                   factory using testnet configuration.
                 </li>
               </ul>
@@ -253,7 +254,7 @@ const DocsPage = () => {
                 </tr>
                 <tr className="hover:bg-cradle-surface/50">
                   <td className="p-4 border-b border-cradle-surface-light font-medium">
-                    Cradle Factory
+                    Launch Factory
                   </td>
                   <td className="p-4 border-b border-cradle-surface-light font-mono text-sm">
                     0x8BAE780580c388f6F7eDA2d6a96D5cD6B0ebDbcF
@@ -262,7 +263,7 @@ const DocsPage = () => {
                 </tr>
                 <tr className="hover:bg-cradle-surface/50">
                   <td className="p-4 border-b border-cradle-surface-light font-medium">
-                    Example Cradle Raise
+                    Example Launch Raise
                   </td>
                   <td className="p-4 border-b border-cradle-surface-light font-mono text-sm">
                     0x6226356cA224cD55d5f4Fec2B51B89d57cf98060
@@ -300,10 +301,10 @@ const DocsPage = () => {
 
           <ul className="list-disc pl-6 text-cradle-text-secondary space-y-2">
             <li>
-              <code>abis/CradleFactory.json</code>
+              <code>abis/LaunchFactory.json</code>
             </li>
             <li>
-              <code>abis/CradleRaise.json</code>
+              <code>abis/LaunchRaise.json</code>
             </li>
             <li>
               <code>abis/MockERC20.json</code>
@@ -320,7 +321,7 @@ const DocsPage = () => {
 
           <div className="pl-2 border-l-2 border-cradle-accent">
             <p className="text-cradle-text-secondary">
-              Cradle is envisioned as a permissionless, tokenless launchpad
+              Launch Layer is envisioned as a permissionless, tokenless launchpad
               built for clean, fixed-price token raises on the Sonic network. It
               provides smart contracts, tooling, and frontend components to
               launch transparent public token sales—integrated with Hedgey
@@ -338,7 +339,7 @@ const DocsPage = () => {
               </AccordionTrigger>
               <AccordionContent>
                 <p className="text-cradle-text-secondary">
-                  Cradle aims to be a neutral infrastructure provider. It does
+                  Launch Layer aims to be a neutral infrastructure provider. It does
                   not hold user funds (post-sweep), offer investment advice, or
                   issue its own platform token. Responsibility for project
                   quality and outcomes rests with the project teams using the
@@ -385,7 +386,7 @@ const DocsPage = () => {
                   </li>
                   <li>
                     Deployment of individual sale contracts via a central{" "}
-                    <code>CradleFactory</code> contract (owner-controlled for
+                    <code>LaunchFactory</code> contract (owner-controlled for
                     V1).
                   </li>
                 </ul>
@@ -397,7 +398,7 @@ const DocsPage = () => {
               className="border-cradle-surface-light"
             >
               <AccordionTrigger className="text-xl font-semibold text-cradle-text-primary">
-                CradleRaise.sol
+                LaunchRaise.sol
               </AccordionTrigger>
               <AccordionContent className="space-y-4">
                 <div>
@@ -544,14 +545,14 @@ const DocsPage = () => {
               className="border-cradle-surface-light"
             >
               <AccordionTrigger className="text-xl font-semibold text-cradle-text-primary">
-                CradleFactory.sol
+                LaunchFactory.sol
               </AccordionTrigger>
               <AccordionContent className="space-y-4">
                 <div>
                   <h4 className="font-bold">Description:</h4>
                   <p className="text-cradle-text-secondary">
                     A factory contract used to deploy new{" "}
-                    <code>CradleRaise</code> instances. Maintains a registry of
+                    <code>LaunchRaise</code> instances. Maintains a registry of
                     deployed raises.
                   </p>
                 </div>
@@ -561,7 +562,7 @@ const DocsPage = () => {
                   <ul className="list-disc pl-6 text-cradle-text-secondary space-y-2">
                     <li>
                       <code>createRaise(...)</code>: Deploys a new{" "}
-                      <code>CradleRaise</code> instance with the specified
+                      <code>LaunchRaise</code> instance with the specified
                       parameters. Restricted to the factory owner.
                     </li>
                     <li>

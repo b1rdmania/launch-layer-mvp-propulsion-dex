@@ -11,15 +11,10 @@ const HeroSection: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="lg:w-1/2">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-              Launch Tokens on Sonic.
-              <br />
-              No Games. Zero Fluff.
+              Launch Layer: Sonic's Native Launchpad. Minus the BS.
             </h1>
             <p className="text-xl text-cradle-text-secondary mb-8">
-              Launch Layer is a permissionless, tokenless launchpad for serious DeFi builders. 
-              Forget raffles, ditch bonding curves, and skip the pointless platform token. 
-              Transparent factory contract raises. Done. Vesting. Seamless. 
-              Your token. Launched right.
+              Permissionless. Tokenless. Zero Games.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/admin">

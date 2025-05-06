@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, LineChart } from "lucide-react";
@@ -10,15 +11,20 @@ const HeroSection: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="lg:w-1/2">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-              Launch tokens on Sonic.
-              <br />
-              No friction. No hype.
+              Sonic: Launch Clean. No Games.
             </h1>
             <p className="text-xl text-cradle-text-secondary mb-8">
-              Launch Layer is a permissionless, tokenless launchpad for serious
-              builders. Transparent raises deployed via factory contracts,
-              seamless integration with Hedgey for vesting, and no platform
-              token required.
+              Launch Layer. Serious DeFi Builds. Zero Fluff.
+              <br />
+              Forget raffles. Ditch bonding curves. Skip the useless platform token.
+              <br />
+              This is pure, permissionless power.
+              <br />
+              Transparent factory contract raises. Done.
+              <br />
+              Token vesting. Seamless.
+              <br />
+              Just your token. Launched right.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/admin">

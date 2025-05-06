@@ -106,7 +106,7 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
 				mono: ['IBM Plex Mono', 'monospace']
 			}
 		}

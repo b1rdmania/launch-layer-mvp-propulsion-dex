@@ -5,7 +5,59 @@ import { Button } from "@/components/ui/button";
 import { RaiseData } from "@/types/contract-types";
 import { getAllRaises, getRaiseDetails } from "@/contracts/contractService";
 import RaiseCard from "@/components/raise/RaiseCard";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Rocket, Package } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+
+// Sample raise data to show when no actual raises are available
+const sampleRaises: Partial<RaiseData>[] = [
+  {
+    address: "sample-1",
+    tokenSymbol: "STK",
+    status: "public",
+    totalAcceptedTokenRaised: "750000",
+    maxAcceptedTokenRaise: "1000000",
+    acceptedTokenSymbol: "SONIC",
+    presaleStart: Date.now() - 86400000, // 1 day ago
+    publicSaleStart: Date.now() - 43200000, // 12 hours ago
+    endTime: Date.now() + 172800000, // 2 days from now
+    metadata: {
+      name: "SonicToken",
+      description: "High-speed cross-chain bridging and liquidity protocol",
+      logoUrl: "/placeholder.svg",
+      bannerUrl: "/placeholder.svg",
+      websiteUrl: "https://example.com",
+      longDescription: "",
+      socialLinks: {
+        twitter: "https://twitter.com",
+        telegram: "https://telegram.org",
+      },
+    },
+  },
+  {
+    address: "sample-2",
+    tokenSymbol: "NXS",
+    status: "upcoming",
+    totalAcceptedTokenRaised: "0",
+    maxAcceptedTokenRaise: "500000",
+    acceptedTokenSymbol: "SONIC",
+    presaleStart: Date.now() + 172800000, // 2 days in future
+    publicSaleStart: Date.now() + 259200000, // 3 days in future
+    endTime: Date.now() + 432000000, // 5 days in future
+    metadata: {
+      name: "NexusDAO",
+      description: "Community-governed cross-chain assets and yield management platform",
+      logoUrl: "/placeholder.svg", 
+      bannerUrl: "/placeholder.svg",
+      websiteUrl: "https://example.com",
+      longDescription: "",
+      socialLinks: {
+        discord: "https://discord.com",
+        medium: "https://medium.com",
+      },
+    },
+  }
+];
 
 const CurrentRaisesSection: React.FC = () => {
   const [raises, setRaises] = useState<RaiseData[]>([]);
@@ -32,6 +84,8 @@ const CurrentRaisesSection: React.FC = () => {
         setRaises(raisesData);
       } catch (error) {
         console.error("Failed to load raises:", error);
+        // If we can't load real raises or there are none, show the sample ones
+        setRaises(sampleRaises as RaiseData[]);
       } finally {
         setIsLoading(false);
       }
@@ -65,18 +119,118 @@ const CurrentRaisesSection: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-launchlayer-surface rounded-xl border border-gray-700 shadow-md mb-10">
-            <div className="max-w-md mx-auto">
-              <p className="text-xl mb-4 font-medium">No active raises at the moment</p>
-              <p className="text-launchlayer-text-secondary mb-6">
-                Check back soon for upcoming token sales or create your own raise
-              </p>
-              <Link to="/app/create">
-                <Button variant="violet">
-                  Create a Raise
-                </Button>
-              </Link>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            {/* Sample Raise Cards when no real raises are available */}
+            <Card className="border-t-2 border-t-launchlayer-violet shadow-md hover:shadow-[0_2px_10px_rgba(167,139,250,0.12)] transition-all duration-300 hover:translate-y-[-2px]">
+              <CardHeader className="pb-2 relative">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="bg-green-500/20 text-green-500 text-xs font-semibold px-2 py-1 rounded-full">
+                    Active
+                  </div>
+                  <span className="text-xs bg-launchlayer-violet/10 text-launchlayer-violet px-2 py-0.5 rounded-full">
+                    75% funded
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full ring-1 ring-gray-700 bg-gradient-to-br from-launchlayer-accent to-launchlayer-violet flex items-center justify-center">
+                    <Rocket size={24} className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="font-bold text-lg">SonicToken</h3>
+                    <p className="text-sm text-launchlayer-text-secondary">$STK</p>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="pt-2">
+                <p className="text-sm text-launchlayer-text-secondary line-clamp-2 mb-4">
+                  High-speed cross-chain bridging and liquidity protocol
+                </p>
+                
+                <div className="mb-2">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-xs text-launchlayer-text-secondary">Raised</span>
+                    <span className="text-xs text-launchlayer-text-secondary">
+                      750K / 1M SONIC
+                    </span>
+                  </div>
+                  <Progress 
+                    value={75} 
+                    className="h-1.5 bg-gray-700"
+                    indicatorClassName="bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet" 
+                  />
+                </div>
+                
+                <div className="flex justify-between items-center pt-2 border-t border-gray-700">
+                  <span className="text-xs text-launchlayer-text-secondary">
+                    Ends in 2d 0h
+                  </span>
+                  
+                  <Link to="/app">
+                    <Button
+                      variant="violet"
+                      size="sm"
+                      className="group"
+                    >
+                      <span>View</span>
+                      <ArrowRight className="h-3.5 w-3.5 ml-1 group-hover:translate-x-0.5 transition-transform duration-200" />
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border-t-2 border-t-launchlayer-violet shadow-md hover:shadow-[0_2px_10px_rgba(167,139,250,0.12)] transition-all duration-300 hover:translate-y-[-2px]">
+              <CardHeader className="pb-2 relative">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="bg-amber-500/20 text-amber-500 text-xs font-semibold px-2 py-1 rounded-full">
+                    Upcoming
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full ring-1 ring-gray-700 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
+                    <Package size={24} className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <h3 className="font-bold text-lg">NexusDAO</h3>
+                    <p className="text-sm text-launchlayer-text-secondary">$NXS</p>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="pt-2">
+                <p className="text-sm text-launchlayer-text-secondary line-clamp-2 mb-4">
+                  Community-governed cross-chain assets and yield management platform
+                </p>
+                
+                <div className="mb-2">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-xs text-launchlayer-text-secondary">Target</span>
+                    <span className="text-xs text-launchlayer-text-secondary">
+                      500K SONIC
+                    </span>
+                  </div>
+                  <div className="w-full h-1.5 bg-gray-700 rounded"></div>
+                </div>
+                
+                <div className="flex justify-between items-center pt-2 border-t border-gray-700">
+                  <span className="text-xs text-launchlayer-text-secondary">
+                    Starts in 2d 0h
+                  </span>
+                  
+                  <Link to="/app">
+                    <Button
+                      variant="violet"
+                      size="sm"
+                      className="group"
+                    >
+                      <span>View</span>
+                      <ArrowRight className="h-3.5 w-3.5 ml-1 group-hover:translate-x-0.5 transition-transform duration-200" />
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
 

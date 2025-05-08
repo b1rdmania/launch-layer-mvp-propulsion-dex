@@ -64,16 +64,6 @@ const AdminPage: React.FC = () => {
     discordUrl: "",
   });
 
-  // Step metadata for the stepper
-  const steps = [
-    { id: "basic", label: "Basic", description: "Project & token details" },
-    { id: "structure", label: "Structure", description: "Sale economics & allocation" },
-    { id: "timing", label: "Timing", description: "Schedule & deadlines" },
-    { id: "whitelist", label: "Whitelist", description: "Access control" },
-    { id: "wallets", label: "Wallets", description: "Recipient addresses" },
-    { id: "review", label: "Review", description: "Deploy sale" },
-  ];
-
   // Update form data
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -911,4 +901,22 @@ const AdminPage: React.FC = () => {
                           <span className="text-gray-400">
                             Token Address:
                           </span>
-                          <span className="truncate max-w-[280px]
+                          <span className="truncate max-w-[280px] font-mono">
+                            {formData.tokenAddress || "Not set"}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-md bg-launchlayer-background">
+                      <h4 className="font-medium mb-2 text-launchlayer-violet">
+                        Sale Structure
+                      </h4>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Price Per Token:
+                          </span>
+                          <span>
+                            {formData.pricePerToken || "Not set"}
+                          </span>

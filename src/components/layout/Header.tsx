@@ -65,16 +65,6 @@ const Header: React.FC = () => {
           >
             Create Sale
           </Link>
-          <Link
-            to="/docs"
-            className={`transition-colors relative ${
-              isActive("/docs")
-                ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0"
-                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
-            }`}
-          >
-            Docs
-          </Link>
         </nav>
 
         {/* Mobile Menu */}

@@ -49,12 +49,6 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             >
               Create Sale
             </Link>
-            <Link
-              to="/docs"
-              className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-violet ${isActive('/docs') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
-            >
-              Docs
-            </Link>
           </nav>
 
           {/* Mobile Menu */}

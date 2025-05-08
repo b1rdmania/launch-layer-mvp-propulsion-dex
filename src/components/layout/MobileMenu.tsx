@@ -91,12 +91,6 @@ const MobileMenu: React.FC = () => {
               Resources
             </h4>
             <div className="pl-2 space-y-3">
-              <Link
-                to="/docs"
-                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
-              >
-                Docs
-              </Link>
               <a
                 href="https://github.com/b1rdmania/launchlayer"
                 target="_blank"

@@ -1,3 +1,4 @@
+
 import React from "react";
 
 interface MarkdownRendererProps {
@@ -11,15 +12,15 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     // Handle headers
     let html = text.replace(
       /^# (.*$)/gm,
-      '<h1 class="text-2xl font-bold mt-6 mb-4">$1</h1>',
+      '<h1 class="text-2xl font-bold mt-6 mb-4 text-launchlayer-text-primary">$1</h1>',
     );
     html = html.replace(
       /^## (.*$)/gm,
-      '<h2 class="text-xl font-bold mt-5 mb-3">$1</h2>',
+      '<h2 class="text-xl font-bold mt-5 mb-3 text-launchlayer-text-primary">$1</h2>',
     );
     html = html.replace(
       /^### (.*$)/gm,
-      '<h3 class="text-lg font-bold mt-4 mb-2">$1</h3>',
+      '<h3 class="text-lg font-bold mt-4 mb-2 text-launchlayer-text-primary">$1</h3>',
     );
 
     // Handle bold and italic
@@ -29,19 +30,19 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     // Handle code blocks with backticks
     html = html.replace(
       /```([^`]*?)```/gms,
-      '<pre class="bg-gray-800 text-gray-200 p-4 rounded-md my-4 overflow-x-auto"><code>$1</code></pre>',
+      '<pre class="bg-launchlayer-surface text-launchlayer-text-primary p-4 rounded-md my-4 overflow-x-auto"><code>$1</code></pre>',
     );
 
     // Handle inline code
     html = html.replace(
       /`([^`]+)`/gm,
-      '<code class="bg-gray-800 text-gray-200 px-1 py-0.5 rounded text-sm">$1</code>',
+      '<code class="bg-launchlayer-surface-light text-launchlayer-text-primary px-1 py-0.5 rounded text-sm">$1</code>',
     );
 
     // Handle lists
     html = html.replace(
       /^\- (.*$)/gm,
-      '<li class="ml-6 list-disc mb-1">$1</li>',
+      '<li class="ml-6 list-disc mb-1 text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-colors">$1</li>',
     );
 
     // Handle paragraphs
@@ -55,7 +56,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
           !para.includes("<li") &&
           !para.startsWith("<pre")
         ) {
-          return `<p class="mb-4 text-cradle-text-secondary">${para}</p>`;
+          return `<p class="mb-4 text-launchlayer-text-secondary">${para}</p>`;
         }
         return para;
       })
@@ -78,3 +79,4 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
 };
 
 export default MarkdownRenderer;
+

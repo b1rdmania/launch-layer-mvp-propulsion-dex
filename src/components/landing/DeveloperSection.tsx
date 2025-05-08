@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, FileCode } from "lucide-react";
+import { ExternalLink, FileCode, Terminal } from "lucide-react";
 
 const DeveloperSection: React.FC = () => {
   return (
@@ -10,14 +10,14 @@ const DeveloperSection: React.FC = () => {
       <div className="container mx-auto px-8 max-w-[1280px]">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="md:w-1/2">
-            <h2 className="text-3xl font-bold mb-4">For Developers</h2>
+            <h2 className="text-3xl font-bold mb-4 tracking-wider">For Developers</h2>
             <p className="text-launchlayer-text-secondary mb-6">
               Launch Layer offers simple, easy-to-use smart contracts for token launches.
               Explore our documentation, try the testnet, or view the source code.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/docs">
-                <Button className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white rounded-lg flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
+                <Button className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white rounded-md flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
                   <FileCode size={18} /> View Docs
                 </Button>
               </Link>
@@ -28,7 +28,7 @@ const DeveloperSection: React.FC = () => {
               >
                 <Button
                   variant="outline"
-                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light rounded-lg flex items-center gap-2 shadow-sm hover:shadow-md transition-all"
+                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light rounded-md flex items-center gap-2 shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
                 >
                   Try Testnet <ExternalLink size={16} />
                 </Button>
@@ -36,7 +36,7 @@ const DeveloperSection: React.FC = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <div className="bg-gradient-to-br from-launchlayer-accent/10 to-launchlayer-secondary/10 p-6 rounded-xl">
+            <div className="bg-launchlayer-background p-6 rounded-xl border border-launchlayer-surface-light">
               <pre className="text-sm font-mono text-launchlayer-text-secondary overflow-x-auto">
                 <code>
 {`// Deploy a new token sale

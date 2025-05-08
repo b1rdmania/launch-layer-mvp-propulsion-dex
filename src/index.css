@@ -9,44 +9,44 @@
 
 @layer base {
   :root {
-    --background: 194 59% 13%;
+    --background: 220 26% 14%;
     --foreground: 0 0% 97.6%;
 
-    --card: 195 57% 20%;
+    --card: 217 24% 22%;
     --card-foreground: 0 0% 97.6%;
 
-    --popover: 195 57% 20%;
+    --popover: 217 24% 22%;
     --popover-foreground: 0 0% 97.6%;
 
-    --primary: 173 51% 52%;
+    --primary: 215 90% 58%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 256 32% 54%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 195 38% 28%;
-    --muted-foreground: 206 25% 76%;
+    --muted: 217 19% 35%;
+    --muted-foreground: 215 8% 70%;
 
-    --accent: 173 51% 52%;
+    --accent: 215 90% 58%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 16 100% 61%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 195 38% 28%;
-    --input: 195 38% 28%;
-    --ring: 173 51% 52%;
+    --border: 217 19% 35%;
+    --input: 217 19% 35%;
+    --ring: 215 90% 58%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 195 57% 20%;
+    --sidebar-background: 217 24% 22%;
     --sidebar-foreground: 0 0% 97.6%;
-    --sidebar-primary: 173 51% 52%;
+    --sidebar-primary: 215 90% 58%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 195 38% 28%;
+    --sidebar-accent: 217 19% 35%;
     --sidebar-accent-foreground: 0 0% 97.6%;
-    --sidebar-border: 195 38% 28%;
-    --sidebar-ring: 173 51% 52%;
+    --sidebar-border: 217 19% 35%;
+    --sidebar-ring: 215 90% 58%;
   }
 
   * {
@@ -59,6 +59,14 @@
       "rlig" 1,
       "calt" 1;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-wider;
+  }
+
+  p {
+    @apply text-[0.95rem] leading-relaxed;
+  }
 }
 
 /* Custom utility classes */
@@ -67,9 +75,7 @@
     text-wrap: balance;
   }
 
-  .animated-gradient {
-    background: linear-gradient(270deg, #41C7B9, #6D5EB3, #0F75DB, #41C7B9);
-    background-size: 300% 300%;
-    animation: gradient-shift 15s ease infinite;
+  .btn-blue {
+    @apply bg-launchlayer-accent text-white hover:brightness-110 hover:scale-[1.02] transition-all;
   }
 }

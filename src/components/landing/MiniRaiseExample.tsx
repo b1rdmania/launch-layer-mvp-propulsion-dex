@@ -9,16 +9,16 @@ const MiniRaiseExample: React.FC = () => {
     <div className="w-full max-w-md mx-auto">
       <div className="flex flex-col">
         <div className="relative">
-          <Card className="border border-cradle-surface-light bg-cradle-surface shadow-lg hover:shadow-xl transition-all animate-float">
+          <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-lg hover:shadow-xl transition-all animate-float">
             <CardHeader className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="bg-gradient-to-br from-blue-500 to-purple-600 w-10 h-10 rounded-full flex items-center justify-center">
+                  <div className="bg-gradient-to-br from-launchlayer-accent to-launchlayer-secondary w-10 h-10 rounded-full flex items-center justify-center">
                     <Image size={20} className="text-white" />
                   </div>
                   <div>
                     <CardTitle className="text-lg">SampleToken</CardTitle>
-                    <p className="text-xs text-cradle-text-secondary">$STK</p>
+                    <p className="text-xs text-launchlayer-text-secondary">$STK</p>
                   </div>
                 </div>
                 <div className="bg-green-500/20 text-green-500 text-xs font-semibold px-2 py-1 rounded-full">
@@ -37,16 +37,16 @@ const MiniRaiseExample: React.FC = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
-                    <p className="text-cradle-text-secondary">Raised</p>
+                    <p className="text-launchlayer-text-secondary">Raised</p>
                     <p className="font-medium">750,000 SONIC</p>
                   </div>
                   <div>
-                    <p className="text-cradle-text-secondary">Goal</p>
+                    <p className="text-launchlayer-text-secondary">Goal</p>
                     <p className="font-medium">1,000,000 SONIC</p>
                   </div>
                 </div>
                 <div className="pt-2">
-                  <button className="w-full bg-cradle-accent hover:bg-cradle-accent/90 text-white py-2 rounded-md font-medium transition-colors">
+                  <button className="w-full bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white py-2 rounded-md font-medium transition-colors">
                     View Raise
                   </button>
                 </div>
@@ -56,15 +56,15 @@ const MiniRaiseExample: React.FC = () => {
         </div>
         
         <div className="flex justify-center py-4">
-          <ArrowUp className="text-cradle-accent animate-pulse-glow" size={24} />
+          <ArrowUp className="text-launchlayer-accent animate-pulse-glow" size={24} />
         </div>
         
-        <div className="bg-cradle-surface p-4 rounded-lg border border-cradle-surface-light">
+        <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light">
           <h4 className="font-mono text-sm mb-2">SonicToken.raise</h4>
-          <p className="text-xs text-cradle-text-secondary mb-2">
+          <p className="text-xs text-launchlayer-text-secondary mb-2">
             Simple, transparent, on-chain token launches
           </p>
-          <div className="bg-cradle-background p-2 rounded font-mono text-xs">
+          <div className="bg-launchlayer-background p-2 rounded font-mono text-xs">
             <code>
               <span className="text-purple-500">factory</span>.
               <span className="text-blue-400">createRaise</span>(

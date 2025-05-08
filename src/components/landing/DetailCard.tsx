@@ -13,12 +13,12 @@ const DetailCard: React.FC<DetailCardProps> = ({
   description,
 }) => {
   return (
-    <div className="p-6 bg-launchlayer-surface-light rounded-xl">
+    <div className="p-6 bg-launchlayer-surface border border-launchlayer-surface-light rounded-lg shadow-sm">
       <div className="flex items-center mb-3">
-        <span className="text-launchlayer-accent font-mono font-bold mr-2">
+        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-launchlayer-accent text-white font-bold mr-3">
           {number}
-        </span>
-        <h3 className="text-xl font-bold">{title}</h3>
+        </div>
+        <h3 className="text-xl font-bold tracking-wider">{title}</h3>
       </div>
       <p className="text-launchlayer-text-secondary">{description}</p>
     </div>

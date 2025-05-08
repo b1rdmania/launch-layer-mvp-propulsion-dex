@@ -19,7 +19,7 @@ const LandingPage: React.FC = () => {
       
       <section className="py-16 bg-launchlayer-background">
         <div className="container mx-auto px-8 max-w-[1280px]">
-          <h2 className="text-3xl font-bold mb-4 text-center">What a Raise Looks Like</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center tracking-wider">What a Raise Looks Like</h2>
           <p className="text-launchlayer-text-secondary mb-10 text-center max-w-2xl mx-auto">
             Simple, transparent, and efficient. Launch Layer provides all the tools you need 
             to create and manage your token raise with minimal friction.

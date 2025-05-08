@@ -3,7 +3,7 @@ import React from "react";
 import {
   Fingerprint,
   LineChart,
-  Code,
+  Terminal,
   Settings,
   Workflow,
   Shield,
@@ -14,7 +14,7 @@ const FeaturesSection: React.FC = () => {
   return (
     <section className="py-16 bg-launchlayer-surface">
       <div className="container mx-auto px-8 max-w-[1280px]">
-        <h2 className="text-3xl font-bold text-center mb-4">
+        <h2 className="text-3xl font-bold text-center mb-4 tracking-wider">
           Built for Transparent & Fair Launches on Sonic
         </h2>
         <p className="text-launchlayer-text-secondary text-center mb-12 max-w-2xl mx-auto">
@@ -34,7 +34,7 @@ const FeaturesSection: React.FC = () => {
             description="Simple, clear pricing. Optional presale phase via Merkle Proof for controlled access."
           />
           <FeatureCard
-            icon={<Code size={32} className="text-launchlayer-accent" />}
+            icon={<Terminal size={32} className="text-launchlayer-accent" />}
             title="Factory Deployed"
             description="Standardized, immutable contracts deployed via the LaunchFactory ensure transparency and consistency."
           />

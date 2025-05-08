@@ -64,18 +64,18 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				launchlayer: {
-					background: '#0A2838', // Teal dark background
+					background: '#0D1117', // Updated solid dark background
 					surface: {
-						DEFAULT: '#134152', // Lighter teal
-						light: '#1D5A6E' // Even lighter teal
+						DEFAULT: '#161B22', // Dark surface
+						light: '#21262D' // Lighter surface
 					},
 					text: {
 						primary: '#F9F9F9', // White text
-						secondary: '#B0C4D4' // Grayish blue for secondary text
+						secondary: '#8B949E' // Secondary text 
 					},
-					accent: '#41C7B9', // Turquoise as primary accent
+					accent: '#3277F5', // Updated to specified blue accent
 					secondary: '#6D5EB3', // Purple as secondary accent
-					blue: '#0F75DB', // Blue for highlights
+					blue: '#3277F5', // Blue for highlights - same as accent
 					error: '#FF6D3B', // Keeping error color
 					success: '#2ECC71' // Keeping success color
 				}
@@ -126,6 +126,9 @@ export default {
 			fontFamily: {
 				sans: ['"Space Grotesk"', 'Helvetica', 'Arial', 'sans-serif'],
 				mono: ['IBM Plex Mono', 'monospace']
+			},
+			letterSpacing: {
+				'wider': '0.2px'
 			}
 		}
 	},

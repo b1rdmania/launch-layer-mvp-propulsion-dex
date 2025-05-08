@@ -1,11 +1,12 @@
+
 import React from "react";
 import DetailCard from "./DetailCard";
 
 const ProcessSection: React.FC = () => {
   return (
-    <section className="py-16 bg-cradle-surface">
+    <section className="py-16 bg-launchlayer-surface">
       <div className="container mx-auto px-8 max-w-[1280px]">
-        <h2 className="text-3xl font-bold text-center mb-12">
+        <h2 className="text-3xl font-bold text-center mb-12 tracking-wider">
           Transparent On-Chain Process
         </h2>
 
@@ -18,7 +19,7 @@ const ProcessSection: React.FC = () => {
           <DetailCard
             number="02"
             title="Deploy via Factory"
-            description="Launch your standardized CradleRaise contract using the secure Cradle Factory. Pay standard gas; configurable fee applied on withdrawal."
+            description="Launch your standardized Launch Layer Raise contract using the secure Launch Layer Factory. Pay standard gas; configurable fee applied on withdrawal."
           />
           <DetailCard
             number="03"

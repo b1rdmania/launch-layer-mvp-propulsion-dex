@@ -6,7 +6,6 @@ import FeaturesSection from "@/components/landing/FeaturesSection";
 import LaunchFlowSection from "@/components/landing/LaunchFlowSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 import MiniRaiseExample from "@/components/landing/MiniRaiseExample";
-import CtaSection from "@/components/landing/CtaSection";
 
 const LandingPage: React.FC = () => {
   return (
@@ -28,7 +27,7 @@ const LandingPage: React.FC = () => {
       
       <LaunchFlowSection />
       <CurrentRaisesSection />
-      <CtaSection />
+      {/* CtaSection removed from here */}
     </div>
   );
 };

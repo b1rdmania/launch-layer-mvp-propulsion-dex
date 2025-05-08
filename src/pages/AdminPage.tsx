@@ -29,7 +29,7 @@ const AdminPage: React.FC = () => {
   // Form state
   const [formData, setFormData] = useState({
     // Basic info
-    projectName: "",
+    projectName: "SampleToken",
     tokenAddress: "",
     acceptedTokenAddress: CONTRACT_ADDRESSES.ACCEPTED_TOKEN, // Default to WS
     description: "",
@@ -911,4 +911,4 @@ const AdminPage: React.FC = () => {
                           <span className="text-gray-400">
                             Token Address:
                           </span>
-                          <span className="truncate max-w-[280px] font-mono">
+                          <span className="truncate max-w-[280px]

@@ -281,830 +281,842 @@ const AdminPage: React.FC = () => {
           ))}
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <div className="space-y-6">
           {/* Basic Info Tab */}
-          <TabsContent value="basic" className="animate-fade-in">
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Basic Information
-                </CardTitle>
-                <CardDescription>
-                  Enter the core details about your project and token
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Project Name
-                  </label>
-                  <Input
-                    name="projectName"
-                    value={formData.projectName}
-                    onChange={handleChange}
-                    placeholder="e.g., BOOM Perpetual DEX"
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Token Address
-                  </label>
-                  <Input
-                    name="tokenAddress"
-                    value={formData.tokenAddress}
-                    onChange={handleChange}
-                    placeholder="e.g., 0x1234..."
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Accepted Token Address (Default: WS)
-                  </label>
-                  <Input
-                    name="acceptedTokenAddress"
-                    value={formData.acceptedTokenAddress}
-                    onChange={handleChange}
-                    placeholder="e.g., 0x039e... (WS)"
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Short Description
-                  </label>
-                  <Input
-                    name="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    placeholder="Brief description (max 150 chars)"
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Long Description (Markdown supported)
-                  </label>
-                  <Textarea
-                    name="longDescription"
-                    value={formData.longDescription}
-                    onChange={handleChange}
-                    placeholder="Detailed project description with markdown support"
-                    rows={6}
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Project Links
-                </CardTitle>
-                <CardDescription>
-                  Add external resources and social links
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {activeTab === "basic" && (
+            <div className="animate-fade-in">
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Basic Information
+                  </CardTitle>
+                  <CardDescription>
+                    Enter the core details about your project and token
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Logo URL
+                      Project Name
                     </label>
                     <Input
-                      name="logoUrl"
-                      value={formData.logoUrl}
+                      name="projectName"
+                      value={formData.projectName}
                       onChange={handleChange}
-                      placeholder="https://example.com/logo.png"
+                      placeholder="e.g., BOOM Perpetual DEX"
                       className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Banner URL
+                      Token Address
                     </label>
                     <Input
-                      name="bannerUrl"
-                      value={formData.bannerUrl}
+                      name="tokenAddress"
+                      value={formData.tokenAddress}
                       onChange={handleChange}
-                      placeholder="https://example.com/banner.png"
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Website URL
-                    </label>
-                    <Input
-                      name="websiteUrl"
-                      value={formData.websiteUrl}
-                      onChange={handleChange}
-                      placeholder="https://yourproject.com"
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      placeholder="e.g., 0x1234..."
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Twitter URL
+                      Accepted Token Address (Default: WS)
                     </label>
                     <Input
-                      name="twitterUrl"
-                      value={formData.twitterUrl}
+                      name="acceptedTokenAddress"
+                      value={formData.acceptedTokenAddress}
                       onChange={handleChange}
-                      placeholder="https://twitter.com/yourproject"
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      placeholder="e.g., 0x039e... (WS)"
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
                     />
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Telegram URL
+                      Short Description
                     </label>
                     <Input
-                      name="telegramUrl"
-                      value={formData.telegramUrl}
+                      name="description"
+                      value={formData.description}
                       onChange={handleChange}
-                      placeholder="https://t.me/yourproject"
+                      placeholder="Brief description (max 150 chars)"
                       className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-1">
-                      Discord URL
+                      Long Description (Markdown supported)
                     </label>
-                    <Input
-                      name="discordUrl"
-                      value={formData.discordUrl}
+                    <Textarea
+                      name="longDescription"
+                      value={formData.longDescription}
                       onChange={handleChange}
-                      placeholder="https://discord.gg/yourproject"
+                      placeholder="Detailed project description with markdown support"
+                      rows={6}
                       className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
                     />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            <div className="mt-8 flex justify-end sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-              <Button
-                onClick={handleNextTab}
-                disabled={!isCurrentTabValid()}
-                variant="accent"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                Next Step
-                <ChevronRight size={16} />
-              </Button>
-            </div>
-          </TabsContent>
-
-          {/* Sale Structure Tab */}
-          <TabsContent value="structure" className="animate-fade-in">
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Sale Structure
-                </CardTitle>
-                <CardDescription>
-                  Define the economics of your token sale
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Price Per Token
-                    </label>
-                    <div className="relative">
-                      <Input
-                        name="pricePerToken"
-                        type="number"
-                        value={formData.pricePerToken}
-                        onChange={handleChange}
-                        placeholder="e.g., 0.1"
-                        className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                      />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                        WS
-                      </div>
-                    </div>
-                    <p className="text-xs mt-1 text-gray-400">
-                      The price per token in WS
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Max Raise Amount
-                    </label>
-                    <div className="relative">
-                      <Input
-                        name="maxRaiseAmount"
-                        type="number"
-                        value={formData.maxRaiseAmount}
-                        onChange={handleChange}
-                        placeholder="e.g., 100000"
-                        className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                      />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                        WS
-                      </div>
-                    </div>
-                    <p className="text-xs mt-1 text-gray-400">
-                      Hard cap for the total raise
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Min Allocation
-                    </label>
-                    <div className="relative">
-                      <Input
-                        name="minAllocation"
-                        type="number"
-                        value={formData.minAllocation}
-                        onChange={handleChange}
-                        placeholder="e.g., 100"
-                        className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                      />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                        TOKEN
-                      </div>
-                    </div>
-                    <p className="text-xs mt-1 text-gray-400">
-                      Minimum amount of tokens a user can purchase
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Max Allocation
-                    </label>
-                    <div className="relative">
-                      <Input
-                        name="maxAllocation"
-                        type="number"
-                        value={formData.maxAllocation}
-                        onChange={handleChange}
-                        placeholder="e.g., 5000"
-                        className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                      />
-                      <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                        TOKEN
-                      </div>
-                    </div>
-                    <p className="text-xs mt-1 text-gray-400">
-                      Maximum amount of tokens a user can purchase
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-              <Button
-                onClick={handlePrevTab}
-                variant="back"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                <ChevronLeft size={16} />
-                Back
-              </Button>
-              <Button
-                onClick={handleNextTab}
-                disabled={!isCurrentTabValid()}
-                variant="accent"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                Next Step
-                <ChevronRight size={16} />
-              </Button>
-            </div>
-          </TabsContent>
-
-          {/* Timing Tab */}
-          <TabsContent value="timing" className="animate-fade-in">
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Sale Timing
-                </CardTitle>
-                <CardDescription>
-                  Set the schedule for your presale and public sale
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Presale Start Date & Time
-                  </label>
-                  <Input
-                    name="presaleStart"
-                    type="datetime-local"
-                    value={formData.presaleStart}
-                    onChange={handleChange}
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                  <p className="text-xs mt-1 text-gray-400">
-                    When the presale phase begins (only whitelisted users can
-                    contribute)
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Public Sale Start Date & Time
-                  </label>
-                  <Input
-                    name="publicSaleStart"
-                    type="datetime-local"
-                    value={formData.publicSaleStart}
-                    onChange={handleChange}
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                  <p className="text-xs mt-1 text-gray-400">
-                    When the public sale phase begins (anyone can contribute)
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium mb-1">
-                    Sale End Date & Time
-                  </label>
-                  <Input
-                    name="endTime"
-                    type="datetime-local"
-                    value={formData.endTime}
-                    onChange={handleChange}
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                  <p className="text-xs mt-1 text-gray-400">
-                    When the entire sale ends
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-              <Button
-                onClick={handlePrevTab}
-                variant="back"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                <ChevronLeft size={16} />
-                Back
-              </Button>
-              <Button
-                onClick={handleNextTab}
-                disabled={!isCurrentTabValid()}
-                variant="accent"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                Next Step
-                <ChevronRight size={16} />
-              </Button>
-            </div>
-          </TabsContent>
-
-          {/* Whitelist Tab */}
-          <TabsContent value="whitelist" className="animate-fade-in">
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Presale Whitelist
-                </CardTitle>
-                <CardDescription>
-                  Configure your presale whitelist settings
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="enablePresale"
-                    name="enablePresale"
-                    checked={formData.enablePresale}
-                    onChange={handleCheckboxChange}
-                    className="rounded bg-launchlayer-background border-gray-700"
-                  />
-                  <label
-                    htmlFor="enablePresale"
-                    className="text-sm font-medium"
-                  >
-                    Enable presale phase with whitelist
-                  </label>
-                </div>
-
-                {formData.enablePresale && (
-                  <>
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Project Links
+                  </CardTitle>
+                  <CardDescription>
+                    Add external resources and social links
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label
-                        className="block text-sm font-medium mb-1"
-                      >
-                        Merkle Root
+                      <label className="block text-sm font-medium mb-1">
+                        Logo URL
                       </label>
                       <Input
-                        name="merkleRoot"
-                        value={formData.merkleRoot}
+                        name="logoUrl"
+                        value={formData.logoUrl}
                         onChange={handleChange}
-                        placeholder="e.g., 0x1234..."
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        placeholder="https://example.com/logo.png"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
                       />
-                      <p
-                        className="text-xs mt-1 text-gray-400"
-                      >
-                        The merkle root of your whitelist addresses
-                      </p>
                     </div>
 
-                    <div
-                      className="p-4 rounded-md bg-launchlayer-background border-l-2 border-launchlayer-violet"
-                    >
-                      <h4
-                        className="font-medium mb-2"
-                      >
-                        Generating a Merkle Root
-                      </h4>
-                      <p
-                        className="text-sm mb-2 text-gray-400"
-                      >
-                        To generate a merkle root:
-                      </p>
-                      <ol
-                        className="text-sm list-decimal ml-5 space-y-1 text-gray-400"
-                      >
-                        <li>
-                          Prepare a CSV file with all whitelisted addresses
-                        </li>
-                        <li>
-                          Use the whitelist tool to generate the merkle root
-                        </li>
-                        <li>Paste the generated merkle root above</li>
-                      </ol>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Banner URL
+                      </label>
+                      <Input
+                        name="bannerUrl"
+                        value={formData.bannerUrl}
+                        onChange={handleChange}
+                        placeholder="https://example.com/banner.png"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      />
                     </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
+                  </div>
 
-            <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-              <Button
-                onClick={handlePrevTab}
-                variant="back"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                <ChevronLeft size={16} />
-                Back
-              </Button>
-              <Button
-                onClick={handleNextTab}
-                disabled={!isCurrentTabValid()}
-                variant="accent"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                Next Step
-                <ChevronRight size={16} />
-              </Button>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Website URL
+                      </label>
+                      <Input
+                        name="websiteUrl"
+                        value={formData.websiteUrl}
+                        onChange={handleChange}
+                        placeholder="https://yourproject.com"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Twitter URL
+                      </label>
+                      <Input
+                        name="twitterUrl"
+                        value={formData.twitterUrl}
+                        onChange={handleChange}
+                        placeholder="https://twitter.com/yourproject"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Telegram URL
+                      </label>
+                      <Input
+                        name="telegramUrl"
+                        value={formData.telegramUrl}
+                        onChange={handleChange}
+                        placeholder="https://t.me/yourproject"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Discord URL
+                      </label>
+                      <Input
+                        name="discordUrl"
+                        value={formData.discordUrl}
+                        onChange={handleChange}
+                        placeholder="https://discord.gg/yourproject"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="mt-8 flex justify-end sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
+                <Button
+                  onClick={handleNextTab}
+                  disabled={!isCurrentTabValid()}
+                  variant="accent"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  Next Step
+                  <ChevronRight size={16} />
+                </Button>
+              </div>
             </div>
-          </TabsContent>
+          )}
+
+          {/* Sale Structure Tab */}
+          {activeTab === "structure" && (
+            <div className="animate-fade-in">
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Sale Structure
+                  </CardTitle>
+                  <CardDescription>
+                    Define the economics of your token sale
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Price Per Token
+                      </label>
+                      <div className="relative">
+                        <Input
+                          name="pricePerToken"
+                          type="number"
+                          value={formData.pricePerToken}
+                          onChange={handleChange}
+                          placeholder="e.g., 0.1"
+                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        />
+                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
+                          WS
+                        </div>
+                      </div>
+                      <p className="text-xs mt-1 text-gray-400">
+                        The price per token in WS
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Max Raise Amount
+                      </label>
+                      <div className="relative">
+                        <Input
+                          name="maxRaiseAmount"
+                          type="number"
+                          value={formData.maxRaiseAmount}
+                          onChange={handleChange}
+                          placeholder="e.g., 100000"
+                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        />
+                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
+                          WS
+                        </div>
+                      </div>
+                      <p className="text-xs mt-1 text-gray-400">
+                        Hard cap for the total raise
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Min Allocation
+                      </label>
+                      <div className="relative">
+                        <Input
+                          name="minAllocation"
+                          type="number"
+                          value={formData.minAllocation}
+                          onChange={handleChange}
+                          placeholder="e.g., 100"
+                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        />
+                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
+                          TOKEN
+                        </div>
+                      </div>
+                      <p className="text-xs mt-1 text-gray-400">
+                        Minimum amount of tokens a user can purchase
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">
+                        Max Allocation
+                      </label>
+                      <div className="relative">
+                        <Input
+                          name="maxAllocation"
+                          type="number"
+                          value={formData.maxAllocation}
+                          onChange={handleChange}
+                          placeholder="e.g., 5000"
+                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        />
+                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
+                          TOKEN
+                        </div>
+                      </div>
+                      <p className="text-xs mt-1 text-gray-400">
+                        Maximum amount of tokens a user can purchase
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
+                <Button
+                  onClick={handlePrevTab}
+                  variant="back"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft size={16} />
+                  Back
+                </Button>
+                <Button
+                  onClick={handleNextTab}
+                  disabled={!isCurrentTabValid()}
+                  variant="accent"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  Next Step
+                  <ChevronRight size={16} />
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Timing Tab */}
+          {activeTab === "timing" && (
+            <div className="animate-fade-in">
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Sale Timing
+                  </CardTitle>
+                  <CardDescription>
+                    Set the schedule for your presale and public sale
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Presale Start Date & Time
+                    </label>
+                    <Input
+                      name="presaleStart"
+                      type="datetime-local"
+                      value={formData.presaleStart}
+                      onChange={handleChange}
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                    />
+                    <p className="text-xs mt-1 text-gray-400">
+                      When the presale phase begins (only whitelisted users can
+                      contribute)
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Public Sale Start Date & Time
+                    </label>
+                    <Input
+                      name="publicSaleStart"
+                      type="datetime-local"
+                      value={formData.publicSaleStart}
+                      onChange={handleChange}
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                    />
+                    <p className="text-xs mt-1 text-gray-400">
+                      When the public sale phase begins (anyone can contribute)
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-1">
+                      Sale End Date & Time
+                    </label>
+                    <Input
+                      name="endTime"
+                      type="datetime-local"
+                      value={formData.endTime}
+                      onChange={handleChange}
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                    />
+                    <p className="text-xs mt-1 text-gray-400">
+                      When the entire sale ends
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
+                <Button
+                  onClick={handlePrevTab}
+                  variant="back"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft size={16} />
+                  Back
+                </Button>
+                <Button
+                  onClick={handleNextTab}
+                  disabled={!isCurrentTabValid()}
+                  variant="accent"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  Next Step
+                  <ChevronRight size={16} />
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Whitelist Tab */}
+          {activeTab === "whitelist" && (
+            <div className="animate-fade-in">
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Presale Whitelist
+                  </CardTitle>
+                  <CardDescription>
+                    Configure your presale whitelist settings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="enablePresale"
+                      name="enablePresale"
+                      checked={formData.enablePresale}
+                      onChange={handleCheckboxChange}
+                      className="rounded bg-launchlayer-background border-gray-700"
+                    />
+                    <label
+                      htmlFor="enablePresale"
+                      className="text-sm font-medium"
+                    >
+                      Enable presale phase with whitelist
+                    </label>
+                  </div>
+
+                  {formData.enablePresale && (
+                    <>
+                      <div>
+                        <label
+                          className="block text-sm font-medium mb-1"
+                        >
+                          Merkle Root
+                        </label>
+                        <Input
+                          name="merkleRoot"
+                          value={formData.merkleRoot}
+                          onChange={handleChange}
+                          placeholder="e.g., 0x1234..."
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        />
+                        <p
+                          className="text-xs mt-1 text-gray-400"
+                        >
+                          The merkle root of your whitelist addresses
+                        </p>
+                      </div>
+
+                      <div
+                        className="p-4 rounded-md bg-launchlayer-background border-l-2 border-launchlayer-violet"
+                      >
+                        <h4
+                          className="font-medium mb-2"
+                        >
+                          Generating a Merkle Root
+                        </h4>
+                        <p
+                          className="text-sm mb-2 text-gray-400"
+                        >
+                          To generate a merkle root:
+                        </p>
+                        <ol
+                          className="text-sm list-decimal ml-5 space-y-1 text-gray-400"
+                        >
+                          <li>
+                            Prepare a CSV file with all whitelisted addresses
+                          </li>
+                          <li>
+                            Use the whitelist tool to generate the merkle root
+                          </li>
+                          <li>Paste the generated merkle root above</li>
+                        </ol>
+                      </div>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+
+              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
+                <Button
+                  onClick={handlePrevTab}
+                  variant="back"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft size={16} />
+                  Back
+                </Button>
+                <Button
+                  onClick={handleNextTab}
+                  disabled={!isCurrentTabValid()}
+                  variant="accent"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  Next Step
+                  <ChevronRight size={16} />
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Wallets Tab */}
-          <TabsContent value="wallets" className="animate-fade-in">
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Wallets & Fees
-                </CardTitle>
-                <CardDescription>
-                  Configure wallet addresses and fee settings
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div>
-                  <label
-                    className="block text-sm font-medium mb-1"
-                  >
-                    Raise Owner Wallet
-                  </label>
-                  <Input
-                    name="ownerWallet"
-                    value={formData.ownerWallet}
-                    onChange={handleChange}
-                    placeholder="e.g., 0x1234..."
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                  <p
-                    className="text-xs mt-1 text-gray-400"
-                  >
-                    The wallet that will control the raise (can finalize,
-                    cancel, sweep)
-                  </p>
-                </div>
-
-                <div>
-                  <label
-                    className="block text-sm font-medium mb-1"
-                  >
-                    Fee Recipient
-                  </label>
-                  <Input
-                    name="feeRecipient"
-                    value={formData.feeRecipient}
-                    onChange={handleChange}
-                    placeholder="e.g., 0x1234..."
-                    className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                  />
-                  <p
-                    className="text-xs mt-1 text-gray-400"
-                  >
-                    The wallet that will receive the platform fee
-                  </p>
-                </div>
-
-                <div>
-                  <label
-                    className="block text-sm font-medium mb-1"
-                  >
-                    Fee (Basis Points)
-                  </label>
-                  <div className="relative">
-                    <Input
-                      name="feeBps"
-                      type="number"
-                      value={formData.feeBps}
-                      onChange={handleChange}
-                      placeholder="e.g., 250"
-                      className="pr-16 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                    <div
-                      className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-400"
+          {activeTab === "wallets" && (
+            <div className="animate-fade-in">
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Wallets & Fees
+                  </CardTitle>
+                  <CardDescription>
+                    Configure wallet addresses and fee settings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
                     >
-                      BPS
-                    </div>
+                      Raise Owner Wallet
+                    </label>
+                    <Input
+                      name="ownerWallet"
+                      value={formData.ownerWallet}
+                      onChange={handleChange}
+                      placeholder="e.g., 0x1234..."
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                    />
+                    <p
+                      className="text-xs mt-1 text-gray-400"
+                    >
+                      The wallet that will control the raise (can finalize,
+                      cancel, sweep)
+                    </p>
                   </div>
-                  <p
-                    className="text-xs mt-1 text-gray-400"
-                  >
-                    The platform fee in basis points (100 BPS = 1%)
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
 
-            <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-              <Button
-                onClick={handlePrevTab}
-                variant="back"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                <ChevronLeft size={16} />
-                Back
-              </Button>
-              <Button
-                onClick={handleNextTab}
-                disabled={!isCurrentTabValid()}
-                variant="accent"
-                size="wide"
-                className="flex items-center gap-2"
-              >
-                Review
-                <ChevronRight size={16} />
-              </Button>
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                    >
+                      Fee Recipient
+                    </label>
+                    <Input
+                      name="feeRecipient"
+                      value={formData.feeRecipient}
+                      onChange={handleChange}
+                      placeholder="e.g., 0x1234..."
+                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                    />
+                    <p
+                      className="text-xs mt-1 text-gray-400"
+                    >
+                      The wallet that will receive the platform fee
+                    </p>
+                  </div>
+
+                  <div>
+                    <label
+                      className="block text-sm font-medium mb-1"
+                    >
+                      Fee (Basis Points)
+                    </label>
+                    <div className="relative">
+                      <Input
+                        name="feeBps"
+                        type="number"
+                        value={formData.feeBps}
+                        onChange={handleChange}
+                        placeholder="e.g., 250"
+                        className="pr-16 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                      />
+                      <div
+                        className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-400"
+                      >
+                        BPS
+                      </div>
+                    </div>
+                    <p
+                      className="text-xs mt-1 text-gray-400"
+                    >
+                      The platform fee in basis points (100 BPS = 1%)
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
+                <Button
+                  onClick={handlePrevTab}
+                  variant="back"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft size={16} />
+                  Back
+                </Button>
+                <Button
+                  onClick={handleNextTab}
+                  disabled={!isCurrentTabValid()}
+                  variant="accent"
+                  size="wide"
+                  className="flex items-center gap-2"
+                >
+                  Review
+                  <ChevronRight size={16} />
+                </Button>
+              </div>
             </div>
-          </TabsContent>
+          )}
 
           {/* Review Tab */}
-          <TabsContent value="review" className="animate-fade-in">
-            <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6 border-t-2 border-t-launchlayer-violet">
-              <CardHeader>
-                <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                  <Info size={18} />
-                  Review & Deploy
-                </CardTitle>
-                <CardDescription>
-                  Review your raise configuration before deployment
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div className="p-4 rounded-md bg-launchlayer-background">
-                    <h4 className="font-medium mb-2 text-launchlayer-violet">
-                      Basic Information
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Project Name:
-                        </span>
-                        <span>
-                          {formData.projectName}
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Token Address:
-                        </span>
-                        <span className="truncate max-w-[280px] font-mono">
-                          {formData.tokenAddress}
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-4 rounded-md bg-launchlayer-background">
-                    <h4 className="font-medium mb-2 text-launchlayer-violet">
-                      Sale Structure
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Price Per Token:
-                        </span>
-                        <span>
-                          {formData.pricePerToken} WS
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Max Raise Amount:
-                        </span>
-                        <span>
-                          {formData.maxRaiseAmount} WS
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Min/Max Allocation:
-                        </span>
-                        <span>
-                          {formData.minAllocation} / {formData.maxAllocation}{" "}
-                          tokens
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-4 rounded-md bg-launchlayer-background">
-                    <h4 className="font-medium mb-2 text-launchlayer-violet">
-                      Timing
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Presale Start:
-                        </span>
-                        <span>
-                          {new Date(formData.presaleStart).toLocaleString()}
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Public Sale Start:
-                        </span>
-                        <span>
-                          {new Date(formData.publicSaleStart).toLocaleString()}
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          End Time:
-                        </span>
-                        <span>
-                          {new Date(formData.endTime).toLocaleString()}
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-4 rounded-md bg-launchlayer-background">
-                    <h4 className="font-medium mb-2 text-launchlayer-violet">
-                      Wallets & Fees
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Owner:
-                        </span>
-                        <span className="truncate max-w-[280px] font-mono">
-                          {formData.ownerWallet}
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Fee Recipient:
-                        </span>
-                        <span className="truncate max-w-[280px] font-mono">
-                          {formData.feeRecipient}
-                        </span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Fee:
-                        </span>
-                        <span>
-                          {(parseFloat(formData.feeBps) / 100).toFixed(2)}%
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="p-4 rounded-md bg-launchlayer-background">
-                    <h4 className="font-medium mb-2 text-launchlayer-violet">
-                      Whitelist
-                    </h4>
-                    <ul className="space-y-1 text-sm">
-                      <li className="flex justify-between">
-                        <span className="text-gray-400">
-                          Presale Enabled:
-                        </span>
-                        <span>
-                          {formData.enablePresale ? "Yes" : "No"}
-                        </span>
-                      </li>
-                      {formData.enablePresale && (
+          {activeTab === "review" && (
+            <div className="animate-fade-in">
+              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6 border-t-2 border-t-launchlayer-violet">
+                <CardHeader>
+                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
+                    <Info size={18} />
+                    Review & Deploy
+                  </CardTitle>
+                  <CardDescription>
+                    Review your raise configuration before deployment
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="p-4 rounded-md bg-launchlayer-background">
+                      <h4 className="font-medium mb-2 text-launchlayer-violet">
+                        Basic Information
+                      </h4>
+                      <ul className="space-y-1 text-sm">
                         <li className="flex justify-between">
                           <span className="text-gray-400">
-                            Merkle Root:
+                            Project Name:
                           </span>
-                          <span className="truncate max-w-[200px] font-mono">
-                            {formData.merkleRoot}
+                          <span>
+                            {formData.projectName}
                           </span>
                         </li>
-                      )}
-                    </ul>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Token Address:
+                          </span>
+                          <span className="truncate max-w-[280px] font-mono">
+                            {formData.tokenAddress}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-md bg-launchlayer-background">
+                      <h4 className="font-medium mb-2 text-launchlayer-violet">
+                        Sale Structure
+                      </h4>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Price Per Token:
+                          </span>
+                          <span>
+                            {formData.pricePerToken} WS
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Max Raise Amount:
+                          </span>
+                          <span>
+                            {formData.maxRaiseAmount} WS
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Min/Max Allocation:
+                          </span>
+                          <span>
+                            {formData.minAllocation} / {formData.maxAllocation}{" "}
+                            tokens
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-md bg-launchlayer-background">
+                      <h4 className="font-medium mb-2 text-launchlayer-violet">
+                        Timing
+                      </h4>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Presale Start:
+                          </span>
+                          <span>
+                            {new Date(formData.presaleStart).toLocaleString()}
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Public Sale Start:
+                          </span>
+                          <span>
+                            {new Date(formData.publicSaleStart).toLocaleString()}
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            End Time:
+                          </span>
+                          <span>
+                            {new Date(formData.endTime).toLocaleString()}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-md bg-launchlayer-background">
+                      <h4 className="font-medium mb-2 text-launchlayer-violet">
+                        Wallets & Fees
+                      </h4>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Owner:
+                          </span>
+                          <span className="truncate max-w-[280px] font-mono">
+                            {formData.ownerWallet}
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Fee Recipient:
+                          </span>
+                          <span className="truncate max-w-[280px] font-mono">
+                            {formData.feeRecipient}
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Fee:
+                          </span>
+                          <span>
+                            {(parseFloat(formData.feeBps) / 100).toFixed(2)}%
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-4 rounded-md bg-launchlayer-background">
+                      <h4 className="font-medium mb-2 text-launchlayer-violet">
+                        Whitelist
+                      </h4>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex justify-between">
+                          <span className="text-gray-400">
+                            Presale Enabled:
+                          </span>
+                          <span>
+                            {formData.enablePresale ? "Yes" : "No"}
+                          </span>
+                        </li>
+                        {formData.enablePresale && (
+                          <li className="flex justify-between">
+                            <span className="text-gray-400">
+                              Merkle Root:
+                            </span>
+                            <span className="truncate max-w-[200px] font-mono">
+                              {formData.merkleRoot}
+                            </span>
+                          </li>
+                        )}
+                      </ul>
+                    </div>
                   </div>
-                </div>
 
-                <div className="mt-8">
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={isSubmitting}
-                    className="w-full py-6 text-lg bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:brightness-110 transition-all"
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center gap-2">
-                        <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></span>
-                        <span>Deploying Raise...</span>
-                      </div>
-                    ) : (
-                      "Deploy Raise"
-                    )}
-                  </Button>
-                </div>
+                  <div className="mt-8">
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={isSubmitting}
+                      className="w-full py-6 text-lg bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:brightness-110 transition-all"
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center gap-2">
+                          <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></span>
+                          <span>Deploying Raise...</span>
+                        </div>
+                      ) : (
+                        "Deploy Raise"
+                      )}
+                    </Button>
+                  </div>
 
-                <p className="mt-4 text-center text-sm text-gray-400">
-                  This will deploy a new CradleRaise contract using the provided
-                  parameters.
-                  <br />
-                  You'll need to approve the transaction in your wallet.
-                </p>
-              </CardContent>
-            </Card>
+                  <p className="mt-4 text-center text-sm text-gray-400">
+                    This will deploy a new CradleRaise contract using the provided
+                    parameters.
+                    <br />
+                    You'll need to approve the transaction in your wallet.
+                  </p>
+                </CardContent>
+              </Card>
 
-            <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-              <Button
-                onClick={handlePrevTab}
-                variant="back"
-                size="wide"
-                disabled={isSubmitting}
-                className="flex items-center gap-2"
-              >
-                <ChevronLeft size={16} />
-                Back
-              </Button>
+              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
+                <Button
+                  onClick={handlePrevTab}
+                  variant="back"
+                  size="wide"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-2"
+                >
+                  <ChevronLeft size={16} />
+                  Back
+                </Button>
+              </div>
             </div>
-          </TabsContent>
-        </Tabs>
+          )}
+        </div>
       </div>
     </div>
   );

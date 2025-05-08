@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Github, ExternalLink } from "lucide-react";
+import { ChevronDown, Github, ExternalLink, Rocket } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 
 const Header: React.FC = () => {
@@ -26,6 +27,7 @@ const Header: React.FC = () => {
     <header className="w-full bg-cradle-surface sticky top-0 z-20 border-b border-cradle-surface-light">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
+          <Rocket size={24} className="text-cradle-accent" />
           <span className="text-2xl font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
             Launch Layer
           </span>
@@ -35,9 +37,9 @@ const Header: React.FC = () => {
         <nav className="hidden md:flex items-center gap-6">
           <Link
             to="/"
-            className={`transition-colors ${
+            className={`transition-colors relative ${
               isActive("/")
-                ? "text-cradle-accent font-medium"
+                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
                 : "text-cradle-text-secondary hover:text-cradle-text-primary"
             }`}
           >
@@ -45,9 +47,9 @@ const Header: React.FC = () => {
           </Link>
           <Link
             to="/app"
-            className={`transition-colors ${
+            className={`transition-colors relative ${
               isActive("/app")
-                ? "text-cradle-accent font-medium"
+                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
                 : "text-cradle-text-secondary hover:text-cradle-text-primary"
             }`}
           >
@@ -55,9 +57,9 @@ const Header: React.FC = () => {
           </Link>
           <Link
             to="/admin"
-            className={`transition-colors ${
+            className={`transition-colors relative ${
               isActive("/admin")
-                ? "text-cradle-accent font-medium"
+                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
                 : "text-cradle-text-secondary hover:text-cradle-text-primary"
             }`}
           >
@@ -65,9 +67,9 @@ const Header: React.FC = () => {
           </Link>
           <Link
             to="/docs"
-            className={`transition-colors ${
+            className={`transition-colors relative ${
               isActive("/docs")
-                ? "text-cradle-accent font-medium"
+                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
                 : "text-cradle-text-secondary hover:text-cradle-text-primary"
             }`}
           >
@@ -112,7 +114,7 @@ const Header: React.FC = () => {
               <Button
                 onClick={connect}
                 disabled={isConnecting}
-                className="bg-cradle-accent hover:bg-cradle-accent/90 text-white"
+                className="bg-cradle-accent hover:bg-cradle-accent/90 text-white shadow-sm hover:shadow-md transition-all"
               >
                 {isConnecting ? "Connecting..." : "Connect Wallet"}
               </Button>

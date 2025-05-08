@@ -1,8 +1,9 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useWallet } from "@/contexts/WalletContext";
-import { Github, MessagesSquare } from "lucide-react";
+import { Github, MessagesSquare, Rocket } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 
 interface LandingLayoutProps {
@@ -18,6 +19,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
       <header className="w-full bg-cradle-surface sticky top-0 z-20 border-b border-cradle-surface-light">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
+            <Rocket size={24} className="text-cradle-accent" />
             <span className="text-2xl font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
               Launch Layer
             </span>
@@ -26,25 +28,25 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           <nav className="hidden md:flex items-center gap-6">
             <Link
               to="/landing"
-              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors"
+              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-cradle-accent hover:after:bottom-[-8px] hover:after:left-0"
             >
               Home
             </Link>
             <Link
               to="/app"
-              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors"
+              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-cradle-accent hover:after:bottom-[-8px] hover:after:left-0"
             >
               Discover
             </Link>
             <Link
               to="/admin"
-              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors"
+              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-cradle-accent hover:after:bottom-[-8px] hover:after:left-0"
             >
               Create Sale
             </Link>
             <Link
               to="/docs"
-              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors"
+              className="text-cradle-text-secondary hover:text-cradle-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-cradle-accent hover:after:bottom-[-8px] hover:after:left-0"
             >
               Docs
             </Link>
@@ -58,14 +60,14 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           <div className="hidden md:block">
             {isConnected ? (
               <Link to="/app">
-                <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white">
+                <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white shadow-sm hover:shadow-md transition-all">
                   Open App
                 </Button>
               </Link>
             ) : (
               <Button
                 onClick={connect}
-                className="bg-cradle-accent hover:bg-cradle-accent/90 text-white"
+                className="bg-cradle-accent hover:bg-cradle-accent/90 text-white shadow-sm hover:shadow-md transition-all"
               >
                 Connect Wallet
               </Button>
@@ -82,9 +84,12 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
         <div className="container mx-auto max-w-[1280px]">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <span className="text-lg font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
-                Launch Layer
-              </span>
+              <div className="flex items-center gap-2">
+                <Rocket size={20} className="text-cradle-accent" />
+                <span className="text-lg font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
+                  Launch Layer
+                </span>
+              </div>
               <p className="text-sm text-cradle-text-secondary mt-1">
                 On-Chain Infrastructure. Not Investment Advice.
               </p>

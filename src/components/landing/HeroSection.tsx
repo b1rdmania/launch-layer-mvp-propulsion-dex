@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, LineChart } from "lucide-react";
+import { ArrowRight, Rocket, Blocks } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection: React.FC = () => {
@@ -23,14 +23,14 @@ const HeroSection: React.FC = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/admin">
-                <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white px-6 py-2 rounded-lg flex items-center gap-2">
+                <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white px-6 py-2 rounded-lg flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
                   Deploy Raise <ArrowRight size={16} />
                 </Button>
               </Link>
               <Link to="/">
                 <Button
                   variant="outline"
-                  className="border-cradle-surface-light hover:bg-cradle-surface-light px-6 py-2 rounded-lg"
+                  className="border-cradle-surface-light hover:bg-cradle-surface-light px-6 py-2 rounded-lg shadow-sm hover:shadow-md transition-all"
                 >
                   View Launches
                 </Button>
@@ -38,11 +38,11 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           <div className="lg:w-1/2 flex justify-center">
-            <div className="bg-gradient-to-br from-cradle-accent/20 to-purple-600/20 p-1 rounded-2xl">
+            <div className="bg-gradient-to-br from-cradle-accent/20 to-purple-600/20 p-1 rounded-2xl shadow-lg">
               <div className="bg-cradle-surface p-8 rounded-xl flex items-center justify-center">
-                <LineChart
+                <Blocks
                   size={240}
-                  className="text-cradle-accent/70"
+                  className="text-cradle-accent"
                   strokeWidth={1.5}
                 />
               </div>

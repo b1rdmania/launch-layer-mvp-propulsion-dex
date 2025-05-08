@@ -1,11 +1,61 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ExternalLink, FileCode } from "lucide-react";
 
 const DeveloperSection: React.FC = () => {
-  // This component is no longer used, but keeping a minimal implementation
-  // in case there are any references to it elsewhere in the codebase
-  return null;
+  return (
+    <section className="py-16 bg-cradle-surface">
+      <div className="container mx-auto px-8 max-w-[1280px]">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="md:w-1/2">
+            <h2 className="text-3xl font-bold mb-4">For Developers</h2>
+            <p className="text-cradle-text-secondary mb-6">
+              Launch Layer offers simple, easy-to-use smart contracts for token launches.
+              Explore our documentation, try the testnet, or view the source code.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/docs">
+                <Button className="bg-cradle-accent hover:bg-cradle-accent/90 text-white rounded-lg flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
+                  <FileCode size={18} /> View Docs
+                </Button>
+              </Link>
+              <a
+                href="https://github.com/b1rdmania/cradleyolo"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="border-cradle-surface-light hover:bg-cradle-surface-light rounded-lg flex items-center gap-2 shadow-sm hover:shadow-md transition-all"
+                >
+                  Try Testnet <ExternalLink size={16} />
+                </Button>
+              </a>
+            </div>
+          </div>
+          <div className="md:w-1/2 flex justify-center">
+            <div className="bg-gradient-to-br from-cradle-accent/10 to-purple-600/10 p-6 rounded-xl">
+              <pre className="text-sm font-mono text-cradle-text-secondary overflow-x-auto">
+                <code>
+{`// Deploy a new token sale
+const factory = await CradleFactory.connect();
+const saleParams = {
+  token: "0x...",
+  price: ethers.utils.parseEther("0.01"),
+  cap: ethers.utils.parseEther("100"),
+  vesting: 30 * 24 * 60 * 60 // 30 days
+};
+await factory.createSale(saleParams);`}
+                </code>
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default DeveloperSection;

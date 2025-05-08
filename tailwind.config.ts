@@ -113,8 +113,8 @@ export default {
 					'50%': { transform: 'translateY(-10px)' }
 				},
 				'pulse-glow': {
-					'0%, 100%': { opacity: '0.6' },
-					'50%': { opacity: '1' }
+					'0%, 100%': { opacity: '0.6', boxShadow: '0 0 5px rgba(50, 119, 245, 0.3)' },
+					'50%': { opacity: '1', boxShadow: '0 0 15px rgba(50, 119, 245, 0.6)' }
 				},
 				'gradient-shift': {
 					'0%': { backgroundPosition: '0% 50%' },
@@ -128,6 +128,10 @@ export default {
                 'fadeOut': {
                     '0%': { opacity: '1', transform: 'translateY(0)' },
                     '100%': { opacity: '0', transform: 'translateY(10px)' },
+                },
+                'shimmer': {
+                    '0%': { backgroundPosition: '-468px 0' },
+                    '100%': { backgroundPosition: '468px 0' }
                 }
 			},
 			animation: {
@@ -138,6 +142,7 @@ export default {
 				'gradient-shift': 'gradient-shift 15s ease infinite',
                 'fade-in': 'fadeIn 0.3s ease-out',
                 'fade-out': 'fadeOut 0.3s ease-out',
+                'shimmer': 'shimmer 1.5s infinite linear'
 			},
 			fontFamily: {
 				sans: ['"Space Grotesk"', 'Helvetica', 'Arial', 'sans-serif'],
@@ -149,6 +154,9 @@ export default {
             lineHeight: {
                 'relaxed': '1.6',
             },
+            backgroundImage: {
+                'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

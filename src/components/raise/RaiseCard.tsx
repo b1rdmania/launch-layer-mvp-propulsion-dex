@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { RaiseData } from "@/types/contract-types";
@@ -69,22 +70,26 @@ const RaiseCard: React.FC<RaiseCardProps> = ({ raise }) => {
   };
 
   return (
-    <div className="bg-cradle-surface rounded-xl p-4 border border-cradle-surface-light hover:scale-[1.03] transition-transform duration-200 shadow-lg">
-      <div className="flex items-center space-x-3 mb-4">
-        <img
-          src={metadata.logoUrl}
-          alt={`${metadata.name} logo`}
-          className="w-12 h-12 rounded-full"
-        />
-        <div>
-          <h3 className="font-medium text-lg">{metadata.name}</h3>
-          <p className="text-sm text-cradle-text-secondary">{tokenSymbol}</p>
+    <div className="bg-launchlayer-surface rounded-xl p-4 border border-launchlayer-surface-light hover:scale-[1.03] transition-transform duration-200 shadow-lg hover:shadow-[0_2px_10px_rgba(50,119,245,0.12)]">
+      <div className="relative">
+        <div className="absolute top-0 left-0 md:relative md:top-auto md:left-auto">
+          <RaiseStatusBadge status={status} className="md:mb-2" />
+        </div>
+        <div className="flex items-center space-x-3 mb-4 mt-6 md:mt-0">
+          <img
+            src={metadata.logoUrl}
+            alt={`${metadata.name} logo`}
+            className="w-12 h-12 rounded-full"
+          />
+          <div>
+            <h3 className="font-medium text-lg">{metadata.name}</h3>
+            <p className="text-sm text-launchlayer-text-secondary">{tokenSymbol}</p>
+          </div>
         </div>
       </div>
 
       <div className="mb-4">
-        <RaiseStatusBadge status={status} />
-        <p className="text-sm mt-2 text-cradle-text-secondary">
+        <p className="text-sm mt-2 text-launchlayer-text-secondary line-clamp-2">
           {metadata.description}
         </p>
       </div>
@@ -93,24 +98,27 @@ const RaiseCard: React.FC<RaiseCardProps> = ({ raise }) => {
         <div className="mb-4">
           <div className="flex justify-between text-sm mb-1">
             <span>Progress</span>
-            <span>
+            <span className="md:inline hidden">
               {formatCurrency(totalAcceptedTokenRaised)} /{" "}
               {formatCurrency(maxAcceptedTokenRaise)} {acceptedTokenSymbol}
+            </span>
+            <span className="md:hidden inline">
+              {formatCurrency(totalAcceptedTokenRaised)}/{formatCurrency(maxAcceptedTokenRaise)}
             </span>
           </div>
           <Progress value={progress} className="h-2" />
         </div>
       )}
 
-      <div className="flex justify-between items-center mt-4">
-        <span className="text-sm text-cradle-text-secondary">
+      <div className="flex flex-col md:flex-row justify-between items-center mt-4 gap-2">
+        <span className="text-xs md:text-sm text-launchlayer-text-secondary w-full md:w-auto text-center md:text-left">
           {getTimeIndicator()}
         </span>
 
-        <Link to={`/raise/${address}`}>
+        <Link to={`/raise/${address}`} className="w-full md:w-auto">
           <Button
-            variant="default"
-            className="bg-cradle-accent hover:bg-cradle-accent/90"
+            variant="accent"
+            className="w-full hover:shadow-[0_0_6px_rgba(50,119,245,0.3)] hover:scale-[1.03]"
           >
             View Sale
           </Button>

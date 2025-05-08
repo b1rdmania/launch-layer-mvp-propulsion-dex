@@ -22,12 +22,18 @@ const buttonVariants = cva(
         accent: "bg-launchlayer-accent text-white hover:bg-launchlayer-accent/90 shadow-button hover:shadow-[0_0_6px_rgba(50,119,245,0.3)]",
         mint: "bg-launchlayer-mint text-white hover:bg-launchlayer-mint/90 shadow-button hover:shadow-[0_0_6px_rgba(99,206,198,0.3)]",
         violet: "bg-launchlayer-violet text-white hover:bg-launchlayer-violet/90 shadow-violet hover:shadow-[0_0_6px_rgba(167,139,250,0.3)]",
+        step: "rounded-full px-4 py-2 font-medium",
+        stepActive: "rounded-full px-4 py-2 bg-launchlayer-accent text-white font-medium",
+        stepCompleted: "rounded-full px-4 py-2 bg-launchlayer-violet text-white font-medium",
+        stepInactive: "rounded-full px-4 py-2 border border-gray-600 text-gray-400 font-medium",
+        back: "border border-launchlayer-mint text-launchlayer-mint hover:bg-launchlayer-mint/10",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
+        wide: "h-11 px-10 py-2",
       },
     },
     defaultVariants: {

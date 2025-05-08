@@ -13,7 +13,7 @@ const MiniRaiseExample: React.FC = () => {
             <CardHeader className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="bg-gradient-to-br from-launchlayer-accent to-launchlayer-secondary w-10 h-10 rounded-full flex items-center justify-center">
+                  <div className="bg-gradient-to-br from-launchlayer-accent to-launchlayer-violet w-10 h-10 rounded-full flex items-center justify-center">
                     <Image size={20} className="text-white" />
                   </div>
                   <div>
@@ -56,11 +56,11 @@ const MiniRaiseExample: React.FC = () => {
         </div>
         
         <div className="flex justify-center py-4">
-          <ArrowUp className="text-launchlayer-accent animate-pulse-glow" size={24} />
+          <ArrowUp className="text-launchlayer-violet animate-pulse-violet" size={24} />
         </div>
         
         <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light card-hover shadow-card">
-          <h4 className="font-mono text-sm mb-2">SonicToken.raise</h4>
+          <h4 className="font-mono text-sm mb-2 text-launchlayer-violet">SonicToken.raise</h4>
           <p className="text-xs text-launchlayer-text-secondary mb-2">
             Simple, transparent, on-chain token launches
           </p>

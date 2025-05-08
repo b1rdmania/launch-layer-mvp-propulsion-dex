@@ -77,6 +77,7 @@ export default {
 					secondary: '#6D5EB3', // Purple as secondary accent
 					blue: '#3277F5', // Blue for highlights - same as accent
 					mint: '#63CEC6', // Mint color for tags and icons (updated as per design doc)
+					violet: '#A78BFA', // New violet color for accents
 					error: '#FF6D3B', // Keeping error color
 					success: '#2ECC71', // Keeping success color
 					"field-bg": '#181A25' // Background for field containers
@@ -84,7 +85,8 @@ export default {
 			},
 			boxShadow: {
 				'card': '0px 2px 8px rgba(0, 0, 0, 0.15)',
-				'button': '0px 2px 8px rgba(50, 119, 245, 0.15)'
+				'button': '0px 2px 8px rgba(50, 119, 245, 0.15)',
+				'violet': '0px 2px 8px rgba(167, 139, 250, 0.15)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -116,6 +118,10 @@ export default {
 					'0%, 100%': { opacity: '0.6', boxShadow: '0 0 5px rgba(50, 119, 245, 0.3)' },
 					'50%': { opacity: '1', boxShadow: '0 0 15px rgba(50, 119, 245, 0.6)' }
 				},
+				'pulse-violet': {
+					'0%, 100%': { opacity: '0.6', boxShadow: '0 0 5px rgba(167, 139, 250, 0.3)' },
+					'50%': { opacity: '1', boxShadow: '0 0 15px rgba(167, 139, 250, 0.6)' }
+				},
 				'gradient-shift': {
 					'0%': { backgroundPosition: '0% 50%' },
 					'50%': { backgroundPosition: '100% 50%' },
@@ -139,6 +145,7 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+				'pulse-violet': 'pulse-violet 4s ease-in-out infinite',
 				'gradient-shift': 'gradient-shift 15s ease infinite',
                 'fade-in': 'fadeIn 0.3s ease-out',
                 'fade-out': 'fadeOut 0.3s ease-out',
@@ -146,7 +153,8 @@ export default {
 			},
 			fontFamily: {
 				sans: ['"Space Grotesk"', 'Helvetica', 'Arial', 'sans-serif'],
-				mono: ['IBM Plex Mono', 'monospace']
+				mono: ['IBM Plex Mono', 'monospace'],
+				satoshi: ['Satoshi', 'sans-serif']
 			},
 			letterSpacing: {
 				'wider': '0.2px'

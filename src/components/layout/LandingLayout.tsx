@@ -19,13 +19,13 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-launchlayer-background">
+    <div className="flex flex-col min-h-screen bg-launchlayer-background font-satoshi">
       {/* Landing page header */}
       <header className="w-full bg-launchlayer-surface sticky top-0 z-20 border-b border-launchlayer-surface-light">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <Rocket size={24} className="text-launchlayer-accent" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
               Launch Layer
             </span>
           </Link>
@@ -45,13 +45,13 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             </Link>
             <Link
               to="/admin"
-              className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-animation ${isActive('/admin') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
+              className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-violet ${isActive('/admin') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
             >
               Create Sale
             </Link>
             <Link
               to="/docs"
-              className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-animation ${isActive('/docs') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
+              className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-violet ${isActive('/docs') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
             >
               Docs
             </Link>
@@ -91,7 +91,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             <div className="mb-4 md:mb-0">
               <div className="flex items-center gap-2">
                 <Rocket size={20} className="text-launchlayer-accent" />
-                <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
+                <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
                   Launch Layer
                 </span>
               </div>

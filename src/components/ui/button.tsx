@@ -20,7 +20,8 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         accent: "bg-launchlayer-accent text-white hover:bg-launchlayer-accent/90 shadow-button hover:shadow-[0_0_6px_rgba(50,119,245,0.3)]",
-        mint: "bg-launchlayer-mint text-white hover:bg-launchlayer-mint/90 shadow-button hover:shadow-[0_0_6px_rgba(50,119,245,0.3)]",
+        mint: "bg-launchlayer-mint text-white hover:bg-launchlayer-mint/90 shadow-button hover:shadow-[0_0_6px_rgba(99,206,198,0.3)]",
+        violet: "bg-launchlayer-violet text-white hover:bg-launchlayer-violet/90 shadow-violet hover:shadow-[0_0_6px_rgba(167,139,250,0.3)]",
       },
       size: {
         default: "h-10 px-4 py-2",

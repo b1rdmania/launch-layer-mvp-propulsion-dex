@@ -27,11 +27,14 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-8 max-w-[1280px] relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="lg:w-1/2">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wider">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wider font-satoshi">
               Launch Tokens on Sonic.
               <br />
               <span className="text-launchlayer-accent">No Games. No Fluff.</span>
             </h1>
+            <div className="border-l-2 border-launchlayer-violet pl-4 mb-6">
+              <p className="text-launchlayer-text-secondary mb-2 text-sm">SIMPLE • ACCESSIBLE • FAIR</p>
+            </div>
             <p className="text-lg text-launchlayer-text-secondary mb-8 leading-relaxed">
               Launch Layer is a permissionless, tokenless launchpad for serious DeFi builders. 
               Forget raffles, ditch bonding curves, and skip the pointless platform token. 
@@ -54,8 +57,8 @@ const HeroSection: React.FC = () => {
               </Link>
               <Link to="/docs">
                 <Button
-                  variant="secondary"
-                  className="bg-launchlayer-surface hover:bg-launchlayer-surface-light px-6 py-2 rounded-md shadow-sm hover:shadow-card transition-all"
+                  variant="violet"
+                  className="px-6 py-2 rounded-md shadow-sm hover:shadow-violet transition-all"
                 >
                   View Docs
                 </Button>

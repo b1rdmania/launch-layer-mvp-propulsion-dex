@@ -1,6 +1,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -46,6 +47,10 @@
     --sidebar-accent-foreground: 0 0% 97.6%;
     --sidebar-border: 217 19% 35%;
     --sidebar-ring: 215 90% 58%;
+    
+    /* New accent color - violet */
+    --highlight: 266 84% 77%;
+    --highlight-foreground: 0 0% 100%;
   }
 
   * {
@@ -53,18 +58,23 @@
   }
 
   body {
-    @apply bg-launchlayer-background text-launchlayer-text-primary font-sans;
+    @apply bg-launchlayer-background text-launchlayer-text-primary font-satoshi;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-wider;
+    @apply tracking-wider font-satoshi;
   }
 
   p {
-    @apply text-[0.95rem] leading-[1.6];
+    @apply text-[0.95rem] leading-[1.6] font-satoshi;
+  }
+  
+  /* Section Headers with Violet Accent */
+  h4, .section-subheading {
+    @apply text-launchlayer-violet font-medium;
   }
 }
 
@@ -89,6 +99,19 @@
   .section-header-blue {
     @apply text-[#3787FB] font-medium;
   }
+  
+  /* Violet accent utility classes */
+  .accent-border {
+    @apply border-l-2 border-launchlayer-violet pl-4;
+  }
+  
+  .section-header-violet {
+    @apply text-launchlayer-violet font-medium;
+  }
+  
+  .badge-violet {
+    @apply bg-launchlayer-violet/20 text-launchlayer-violet text-xs px-2 py-0.5 rounded-full;
+  }
 
   /* Animation utilities */
   .fade-in {
@@ -106,6 +129,10 @@
   .hover-underline-animation {
     @apply relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-launchlayer-accent after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
+  
+  .hover-underline-violet {
+    @apply relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-launchlayer-violet after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
 
   .bg-gradient-blur {
     @apply bg-gradient-to-br from-launchlayer-surface via-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm;
@@ -113,6 +140,10 @@
 
   .text-gradient {
     @apply bg-gradient-to-r from-launchlayer-accent to-launchlayer-mint bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-violet {
+    @apply bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent;
   }
 
   .noise-overlay {
@@ -126,6 +157,21 @@
 
   .shimmer {
     @apply bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:468px_100%] animate-shimmer;
+  }
+  
+  /* Form focus styles with violet */
+  .form-input-violet:focus {
+    @apply border-launchlayer-violet ring-1 ring-launchlayer-violet;
+  }
+  
+  /* Violet icon styles */
+  .icon-violet {
+    @apply text-launchlayer-violet;
+  }
+  
+  /* Card with violet accent */
+  .card-violet {
+    @apply border-t-2 border-t-launchlayer-violet bg-launchlayer-surface;
   }
 }
 
@@ -149,6 +195,17 @@
   50% { 
     opacity: 1;
     box-shadow: 0 0 15px rgba(50, 119, 245, 0.6);
+  }
+}
+
+@keyframes pulse-violet {
+  0%, 100% { 
+    opacity: 0.6;
+    box-shadow: 0 0 5px rgba(167, 139, 250, 0.3);
+  }
+  50% { 
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
   }
 }
 

@@ -1,10 +1,4 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useWallet } from "@/contexts/WalletContext";
-import { createRaise } from "@/contracts/contractService";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -12,52 +6,150 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useWallet } from "@/contexts/WalletContext";
+import { CheckCircle2, CircleCheck, Clock, UploadCloud } from "lucide-react";
+import { createRaise } from "@/contracts/contractService";
 import { toast } from "sonner";
-import { DESIGN_SYSTEM, CONTRACT_ADDRESSES } from "@/contracts/config";
-import { ethers } from "ethers";
-import { Check, Info, ChevronRight, ChevronLeft } from "lucide-react";
+import { DESIGN_SYSTEM } from "@/contracts/config";
+
+// Define a schema for form validation using Zod
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Project name must be at least 2 characters.",
+  }),
+  tokenAddress: z.string().startsWith("0x", {
+    message: "Must be a valid Ethereum address.",
+  }),
+  tokenSymbol: z.string().min(1, {
+    message: "Token symbol must be at least 1 character.",
+  }),
+  description: z.string().max(500, {
+    message: "Description must be less than 500 characters.",
+  }),
+  pricePerToken: z.string().refine(
+    (value) => {
+      try {
+        // Attempt to convert the value to a number
+        const numValue = Number(value);
+        // Check if the conversion is successful and the number is positive
+        return !isNaN(numValue) && numValue > 0;
+      } catch (error) {
+        return false;
+      }
+    },
+    {
+      message: "Price per token must be a valid positive number.",
+    },
+  ),
+  totalTokens: z.string().refine(
+    (value) => {
+      try {
+        // Attempt to convert the value to a number
+        const numValue = Number(value);
+        // Check if the conversion is successful and the number is positive
+        return !isNaN(numValue) && numValue > 0;
+      } catch (error) {
+        return false;
+      }
+    },
+    {
+      message: "Total tokens must be a valid positive number.",
+    },
+  ),
+  softCap: z.string().optional(),
+  hardCap: z.string().refine(
+    (value) => {
+      try {
+        // Attempt to convert the value to a number
+        const numValue = Number(value);
+        // Check if the conversion is successful and the number is positive
+        return !isNaN(numValue) && numValue > 0;
+      } catch (error) {
+        return false;
+      }
+    },
+    {
+      message: "Hard cap must be a valid positive number.",
+    },
+  ),
+  minContribution: z.string().optional(),
+  maxContribution: z.string().optional(),
+  durationInDays: z.string().refine(
+    (value) => {
+      try {
+        // Attempt to convert the value to a number
+        const numValue = Number(value);
+        // Check if the conversion is successful and the number is an integer
+        return !isNaN(numValue) && Number.isInteger(numValue) && numValue > 0;
+      } catch (error) {
+        return false;
+      }
+    },
+    {
+      message: "Duration must be a valid positive integer.",
+    },
+  ),
+  whitelist: z.array(z.string()).optional(),
+  paymentAddress: z.string().optional(),
+  websiteUrl: z.string().optional(),
+  twitterUrl: z.string().optional(),
+  telegramUrl: z.string().optional(),
+  discordUrl: z.string().optional(),
+});
+
+// Define a type for the form values based on the schema
+type FormValues = z.infer<typeof formSchema>;
 
 const AdminPage: React.FC = () => {
-  const navigate = useNavigate();
-  const { address, isConnected, connect } = useWallet();
-
+  // State for the active tab
   const [activeTab, setActiveTab] = useState("basic");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [completedSteps, setCompletedSteps] = useState<Record<string, boolean>>({});
+  const { toast: hookToast } = useToast();
+  const { address, isConnected, balance, network, connect } = useWallet();
 
-  // Form state
+  // Form data state
   const [formData, setFormData] = useState({
-    // Basic info
-    projectName: "SampleToken",
+    name: "",
     tokenAddress: "",
-    acceptedTokenAddress: CONTRACT_ADDRESSES.ACCEPTED_TOKEN, // Default to WS
+    tokenSymbol: "",
     description: "",
-    longDescription: "",
-
-    // Sale structure
     pricePerToken: "",
-    maxRaiseAmount: "",
-    minAllocation: "",
-    maxAllocation: "",
-
-    // Timing
-    presaleStart: "",
-    publicSaleStart: "",
-    endTime: "",
-
-    // Whitelist
-    enablePresale: false,
-    merkleRoot: "",
-
-    // Wallets and fees
-    ownerWallet: "",
-    feeRecipient: "",
-    feeBps: "250", // Default 2.5%
-
-    // URLs
-    logoUrl: "",
-    bannerUrl: "",
+    totalTokens: "",
+    softCap: "",
+    hardCap: "",
+    minContribution: "",
+    maxContribution: "",
+    durationInDays: "",
+    whitelist: [] as string[],
+    paymentAddress: "",
     websiteUrl: "",
     twitterUrl: "",
     telegramUrl: "",
@@ -69,854 +161,759 @@ const AdminPage: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Handle checkbox changes
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: checked }));
-  };
-
-  // Handle tab navigation
-  const handleNextTab = () => {
-    // Mark current step as completed
-    setCompletedSteps(prev => ({
-      ...prev,
-      [activeTab]: true
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
     }));
-
-    if (activeTab === "basic") setActiveTab("structure");
-    else if (activeTab === "structure") setActiveTab("timing");
-    else if (activeTab === "timing") setActiveTab("whitelist");
-    else if (activeTab === "whitelist") setActiveTab("wallets");
-    else if (activeTab === "wallets") setActiveTab("review");
-    
-    // Scroll to top
-    window.scrollTo(0, 0);
   };
 
-  const handlePrevTab = () => {
-    if (activeTab === "structure") setActiveTab("basic");
-    else if (activeTab === "timing") setActiveTab("structure");
-    else if (activeTab === "whitelist") setActiveTab("timing");
-    else if (activeTab === "wallets") setActiveTab("whitelist");
-    else if (activeTab === "review") setActiveTab("wallets");
-    
-    // Scroll to top
-    window.scrollTo(0, 0);
+  // Handle tab change
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
   };
 
-  // Navigate directly to a step if it's completed or the current one
-  const handleStepClick = (stepId: string) => {
-    // Allow navigation to any step without validation
-    setActiveTab(stepId);
-    window.scrollTo(0, 0);
-  };
-
-  // Submit form
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
+
+    // Validate form data
+    if (
+      !formData.name ||
+      !formData.tokenAddress ||
+      !formData.tokenSymbol ||
+      !formData.description ||
+      !formData.pricePerToken ||
+      !formData.totalTokens ||
+      !formData.hardCap ||
+      !formData.durationInDays
+    ) {
+      toast.error("Please fill in all required fields", {
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+        },
+      });
+      return;
+    }
+
+    // Check if wallet is connected
+    if (!isConnected) {
+      toast.error("Please connect your wallet to continue", {
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+        },
+      });
+      return;
+    }
 
     try {
-      // Convert date strings to timestamps using standard JS Date
-      const presaleDate = new Date(formData.presaleStart);
-      const publicSaleDate = new Date(formData.publicSaleStart);
-      const endDate = new Date(formData.endTime);
-
-      // Convert to Unix timestamps (seconds) as BigInt to ensure numeric safety
-      const presaleStartTime = Math.floor(presaleDate.getTime() / 1000);
-      const publicSaleStartTime = Math.floor(publicSaleDate.getTime() / 1000);
-      const endTimeStamp = Math.floor(endDate.getTime() / 1000);
-
-      // Create the raise with BigInt timestamps
-      const raiseAddress = await createRaise({
-        token: formData.tokenAddress,
-        acceptedToken: formData.acceptedTokenAddress,
-        pricePerToken: formData.pricePerToken,
-        presaleStart: presaleStartTime,
-        publicSaleStart: publicSaleStartTime,
-        endTime: endTimeStamp,
-        merkleRoot: formData.merkleRoot || ethers.ZeroHash,
-        raiseOwner: formData.ownerWallet,
-        feeRecipient: formData.feeRecipient,
-        feePercentBasisPoints: parseInt(formData.feeBps),
-        maxAcceptedTokenRaise: formData.maxRaiseAmount,
-        minTokenAllocation: formData.minAllocation,
-        maxTokenAllocation: formData.maxAllocation,
-        metadata: {
-          logoUrl: formData.logoUrl,
-          name: formData.projectName,
-          tokenSymbol: formData.tokenAddress,
-          description: formData.description,
-          longDescription: formData.longDescription,
-          bannerUrl: formData.bannerUrl,
-          websiteUrl: formData.websiteUrl,
-          socialLinks: {
-            twitter: formData.twitterUrl,
-            telegram: formData.telegramUrl,
-            discord: formData.discordUrl,
-          },
+      // Show loading notification
+      toast.loading("Creating your raise...", {
+        id: "create-raise",
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
         },
       });
 
-      toast.success(`Raise created successfully! Address: ${raiseAddress}`);
-      // Redirect to the newly created raise
-      navigate(`/raise/${raiseAddress}`);
+      // Create raise
+      const result = await createRaise({
+        tokenAddress: formData.tokenAddress,
+        tokenSymbol: formData.tokenSymbol,
+        name: formData.name,
+        description: formData.description,
+        pricePerToken: formData.pricePerToken,
+        totalTokens: formData.totalTokens,
+        softCap: formData.softCap,
+        hardCap: formData.hardCap,
+        minContribution: formData.minContribution,
+        maxContribution: formData.maxContribution,
+        durationInDays: formData.durationInDays,
+        whitelist: formData.whitelist,
+        paymentAddress: formData.paymentAddress || address,
+      });
+
+      toast.dismiss("create-raise");
+
+      if (result.success) {
+        toast.success("Raise created successfully!", {
+          style: {
+            background: DESIGN_SYSTEM.colors.secondaryBackground,
+            color: DESIGN_SYSTEM.colors.primaryText,
+            border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+          },
+        });
+        // Reset form data
+        setFormData({
+          name: "",
+          tokenAddress: "",
+          tokenSymbol: "",
+          description: "",
+          pricePerToken: "",
+          totalTokens: "",
+          softCap: "",
+          hardCap: "",
+          minContribution: "",
+          maxContribution: "",
+          durationInDays: "",
+          whitelist: [],
+          paymentAddress: "",
+          websiteUrl: "",
+          twitterUrl: "",
+          telegramUrl: "",
+          discordUrl: "",
+        });
+      } else {
+        toast.error(result.error || "Failed to create raise", {
+          style: {
+            background: DESIGN_SYSTEM.colors.secondaryBackground,
+            color: DESIGN_SYSTEM.colors.primaryText,
+            border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+          },
+        });
+      }
     } catch (error) {
-      console.error("Error creating raise:", error);
-      toast.error("Failed to create raise");
-    } finally {
-      setIsSubmitting(false);
+      toast.dismiss("create-raise");
+      toast.error("An error occurred while creating your raise", {
+        style: {
+          background: DESIGN_SYSTEM.colors.secondaryBackground,
+          color: DESIGN_SYSTEM.colors.primaryText,
+          border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+        },
+      });
+      console.error(error);
     }
   };
 
-  // Get current step number (1-indexed)
-  const getCurrentStepNumber = () => {
-    return steps.findIndex(step => step.id === activeTab) + 1;
-  };
-
-  // Get current step description
-  const getCurrentStepDescription = () => {
-    const step = steps.find(step => step.id === activeTab);
-    return step?.description || '';
-  };
-
-  // Render step status (active, completed, inactive)
-  const getStepButtonVariant = (stepId: string) => {
-    if (stepId === activeTab) return "stepActive";
-    if (completedSteps[stepId]) return "stepCompleted";
-    return "stepInactive";
-  };
-
   return (
-    <div
-      className="container mx-auto px-4 md:px-8 py-8 max-w-[1280px] font-satoshi"
-    >
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2 text-launchlayer-text-primary">
-          Create New Raise
-        </h1>
-        
+    <div className="min-h-screen bg-launchlayer-background">
+      <div className="container px-4 pt-8 pb-16 mx-auto max-w-6xl">
         <div className="mb-8">
-          <p className="text-launchlayer-violet font-medium">
-            Step {getCurrentStepNumber()} of {steps.length} — {steps.find(s => s.id === activeTab)?.label}
-          </p>
-          <p className="text-launchlayer-mint">
-            {getCurrentStepDescription()}
+          <h1 className="text-3xl font-bold mb-2 text-launchlayer-text-primary font-satoshi">
+            Create a New Sale
+          </h1>
+          <p className="text-launchlayer-text-secondary">
+            Launch your token with a simple, transparent, and user-friendly
+            interface
           </p>
         </div>
 
-        {/* Step navigation (desktop) */}
-        <div className="hidden md:flex mb-8 justify-between">
-          {steps.map((step, index) => (
-            <div key={step.id} className="flex items-center">
-              <Button
-                variant={getStepButtonVariant(step.id)}
-                onClick={() => handleStepClick(step.id)}
-                className="relative"
-              >
-                {completedSteps[step.id] && <Check size={16} className="mr-1" />}
-                {index + 1}. {step.label}
-              </Button>
-              {index < steps.length - 1 && (
-                <div className="h-[1px] w-8 bg-gray-600 mx-1"></div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Step navigation (mobile) */}
-        <div className="flex md:hidden mb-6 overflow-x-auto pb-2 gap-2">
-          {steps.map((step, index) => (
-            <Button
-              key={step.id}
-              variant={getStepButtonVariant(step.id)}
-              onClick={() => handleStepClick(step.id)}
-              className="whitespace-nowrap"
+        {/* Step navigation */}
+        <div className="flex justify-center mb-8">
+          <div className="flex gap-2 md:gap-4 overflow-x-auto py-2 px-4 rounded-xl bg-launchlayer-surface">
+            <button
+              onClick={() => handleTabChange("basic")}
+              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-1.5 font-medium ${
+                activeTab === "basic"
+                  ? "bg-launchlayer-accent text-white"
+                  : activeTab === "structure" ||
+                    activeTab === "timing" ||
+                    activeTab === "whitelist" ||
+                    activeTab === "wallets" ||
+                    activeTab === "review"
+                  ? "bg-launchlayer-violet/20 text-launchlayer-violet border border-launchlayer-violet"
+                  : "border border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-surface-light"
+              }`}
             >
-              {completedSteps[step.id] && <Check size={16} />}
-              {index + 1}
-            </Button>
-          ))}
+              {activeTab === "structure" ||
+              activeTab === "timing" ||
+              activeTab === "whitelist" ||
+              activeTab === "wallets" ||
+              activeTab === "review" ? (
+                <CircleCheck className="h-4 w-4" />
+              ) : (
+                "1"
+              )}
+              <span className="hidden sm:inline">Basic</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange("structure")}
+              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-1.5 font-medium ${
+                activeTab === "structure"
+                  ? "bg-launchlayer-accent text-white"
+                  : activeTab === "timing" ||
+                    activeTab === "whitelist" ||
+                    activeTab === "wallets" ||
+                    activeTab === "review"
+                  ? "bg-launchlayer-violet/20 text-launchlayer-violet border border-launchlayer-violet"
+                  : "border border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-surface-light"
+              }`}
+            >
+              {activeTab === "timing" ||
+              activeTab === "whitelist" ||
+              activeTab === "wallets" ||
+              activeTab === "review" ? (
+                <CircleCheck className="h-4 w-4" />
+              ) : (
+                "2"
+              )}
+              <span className="hidden sm:inline">Structure</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange("timing")}
+              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-1.5 font-medium ${
+                activeTab === "timing"
+                  ? "bg-launchlayer-accent text-white"
+                  : activeTab === "whitelist" ||
+                    activeTab === "wallets" ||
+                    activeTab === "review"
+                  ? "bg-launchlayer-violet/20 text-launchlayer-violet border border-launchlayer-violet"
+                  : "border border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-surface-light"
+              }`}
+            >
+              {activeTab === "whitelist" ||
+              activeTab === "wallets" ||
+              activeTab === "review" ? (
+                <CircleCheck className="h-4 w-4" />
+              ) : (
+                "3"
+              )}
+              <span className="hidden sm:inline">Timing</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange("whitelist")}
+              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-1.5 font-medium ${
+                activeTab === "whitelist"
+                  ? "bg-launchlayer-accent text-white"
+                  : activeTab === "wallets" || activeTab === "review"
+                  ? "bg-launchlayer-violet/20 text-launchlayer-violet border border-launchlayer-violet"
+                  : "border border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-surface-light"
+              }`}
+            >
+              {activeTab === "wallets" || activeTab === "review" ? (
+                <CircleCheck className="h-4 w-4" />
+              ) : (
+                "4"
+              )}
+              <span className="hidden sm:inline">Whitelist</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange("wallets")}
+              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-1.5 font-medium ${
+                activeTab === "wallets"
+                  ? "bg-launchlayer-accent text-white"
+                  : activeTab === "review"
+                  ? "bg-launchlayer-violet/20 text-launchlayer-violet border border-launchlayer-violet"
+                  : "border border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-surface-light"
+              }`}
+            >
+              {activeTab === "review" ? <CircleCheck className="h-4 w-4" /> : "5"}
+              <span className="hidden sm:inline">Wallets</span>
+            </button>
+
+            <button
+              onClick={() => handleTabChange("review")}
+              className={`px-4 py-2 rounded-full text-sm transition-all flex items-center gap-1.5 font-medium ${
+                activeTab === "review"
+                  ? "bg-launchlayer-accent text-white"
+                  : "border border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-surface-light"
+              }`}
+            >
+              6
+              <span className="hidden sm:inline">Review</span>
+            </button>
+          </div>
         </div>
 
-        <div className="space-y-6">
-          {/* Basic Info Tab */}
-          {activeTab === "basic" && (
-            <div className="animate-fade-in">
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Basic Information
-                  </CardTitle>
-                  <CardDescription>
-                    Enter the core details about your project and token
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Project Name
-                    </label>
-                    <Input
-                      name="projectName"
-                      value={formData.projectName}
-                      onChange={handleChange}
-                      placeholder="e.g., SampleToken DEX"
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Token Address
-                    </label>
-                    <Input
-                      name="tokenAddress"
-                      value={formData.tokenAddress}
-                      onChange={handleChange}
-                      placeholder="e.g., 0x1234..."
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Accepted Token Address (Default: WS)
-                    </label>
-                    <Input
-                      name="acceptedTokenAddress"
-                      value={formData.acceptedTokenAddress}
-                      onChange={handleChange}
-                      placeholder="e.g., 0x039e... (WS)"
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Short Description
-                    </label>
-                    <Input
-                      name="description"
-                      value={formData.description}
-                      onChange={handleChange}
-                      placeholder="Brief description (max 150 chars)"
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Long Description (Markdown supported)
-                    </label>
-                    <Textarea
-                      name="longDescription"
-                      value={formData.longDescription}
-                      onChange={handleChange}
-                      placeholder="Detailed project description with markdown support"
-                      rows={6}
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Project Links
-                  </CardTitle>
-                  <CardDescription>
-                    Add external resources and social links
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Logo URL
-                      </label>
-                      <Input
-                        name="logoUrl"
-                        value={formData.logoUrl}
-                        onChange={handleChange}
-                        placeholder="https://example.com/logo.png"
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Banner URL
-                      </label>
-                      <Input
-                        name="bannerUrl"
-                        value={formData.bannerUrl}
-                        onChange={handleChange}
-                        placeholder="https://example.com/banner.png"
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Website URL
-                      </label>
-                      <Input
-                        name="websiteUrl"
-                        value={formData.websiteUrl}
-                        onChange={handleChange}
-                        placeholder="https://yourproject.com"
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Twitter URL
-                      </label>
-                      <Input
-                        name="twitterUrl"
-                        value={formData.twitterUrl}
-                        onChange={handleChange}
-                        placeholder="https://twitter.com/yourproject"
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Telegram URL
-                      </label>
-                      <Input
-                        name="telegramUrl"
-                        value={formData.telegramUrl}
-                        onChange={handleChange}
-                        placeholder="https://t.me/yourproject"
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Discord URL
-                      </label>
-                      <Input
-                        name="discordUrl"
-                        value={formData.discordUrl}
-                        onChange={handleChange}
-                        placeholder="https://discord.gg/yourproject"
-                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="mt-8 flex justify-end sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-                <Button
-                  onClick={handleNextTab}
-                  variant="accent"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  Next Step
-                  <ChevronRight size={16} />
-                </Button>
-              </div>
+        {activeTab === "basic" && (
+          <div className="space-y-6">
+            {/* Step header */}
+            <div className="flex flex-col gap-1.5 mb-6">
+              <span className="text-launchlayer-violet text-sm font-medium">
+                Step 1 of 6 — Basic Info
+              </span>
+              <h2 className="text-2xl font-bold text-launchlayer-text-primary">
+                Token & Project Details
+              </h2>
+              <p className="text-launchlayer-text-secondary">
+                This is the core setup for your token sale: accepted token, name,
+                and descriptions.
+              </p>
             </div>
-          )}
 
-          {/* Sale Structure Tab */}
-          {activeTab === "structure" && (
-            <div className="animate-fade-in">
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Sale Structure
-                  </CardTitle>
-                  <CardDescription>
-                    Define the economics of your token sale
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Price Per Token
-                      </label>
-                      <div className="relative">
-                        <Input
-                          name="pricePerToken"
-                          type="number"
-                          value={formData.pricePerToken}
-                          onChange={handleChange}
-                          placeholder="e.g., 0.1"
-                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                        />
-                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                          WS
-                        </div>
-                      </div>
-                      <p className="text-xs mt-1 text-gray-400">
-                        The price per token in WS
-                      </p>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Max Raise Amount
-                      </label>
-                      <div className="relative">
-                        <Input
-                          name="maxRaiseAmount"
-                          type="number"
-                          value={formData.maxRaiseAmount}
-                          onChange={handleChange}
-                          placeholder="e.g., 100000"
-                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                        />
-                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                          WS
-                        </div>
-                      </div>
-                      <p className="text-xs mt-1 text-gray-400">
-                        Hard cap for the total raise
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Min Allocation
-                      </label>
-                      <div className="relative">
-                        <Input
-                          name="minAllocation"
-                          type="number"
-                          value={formData.minAllocation}
-                          onChange={handleChange}
-                          placeholder="e.g., 100"
-                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                        />
-                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                          TOKEN
-                        </div>
-                      </div>
-                      <p className="text-xs mt-1 text-gray-400">
-                        Minimum amount of tokens a user can purchase
-                      </p>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Max Allocation
-                      </label>
-                      <div className="relative">
-                        <Input
-                          name="maxAllocation"
-                          type="number"
-                          value={formData.maxAllocation}
-                          onChange={handleChange}
-                          placeholder="e.g., 5000"
-                          className="pl-20 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                        />
-                        <div className="absolute inset-y-0 left-0 flex items-center px-3 pointer-events-none text-gray-400 font-mono">
-                          TOKEN
-                        </div>
-                      </div>
-                      <p className="text-xs mt-1 text-gray-400">
-                        Maximum amount of tokens a user can purchase
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-                <Button
-                  onClick={handlePrevTab}
-                  variant="back"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft size={16} />
-                  Back
-                </Button>
-                <Button
-                  onClick={handleNextTab}
-                  variant="accent"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  Next Step
-                  <ChevronRight size={16} />
-                </Button>
-              </div>
-            </div>
-          )}
-
-          {/* Timing Tab */}
-          {activeTab === "timing" && (
-            <div className="animate-fade-in">
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Sale Timing
-                  </CardTitle>
-                  <CardDescription>
-                    Set the schedule for your presale and public sale
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Presale Start Date & Time
-                    </label>
-                    <Input
-                      name="presaleStart"
-                      type="datetime-local"
-                      value={formData.presaleStart}
-                      onChange={handleChange}
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                    <p className="text-xs mt-1 text-gray-400">
-                      When the presale phase begins (only whitelisted users can
-                      contribute)
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Public Sale Start Date & Time
-                    </label>
-                    <Input
-                      name="publicSaleStart"
-                      type="datetime-local"
-                      value={formData.publicSaleStart}
-                      onChange={handleChange}
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                    <p className="text-xs mt-1 text-gray-400">
-                      When the public sale phase begins (anyone can contribute)
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-1">
-                      Sale End Date & Time
-                    </label>
-                    <Input
-                      name="endTime"
-                      type="datetime-local"
-                      value={formData.endTime}
-                      onChange={handleChange}
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                    <p className="text-xs mt-1 text-gray-400">
-                      When the entire sale ends
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-                <Button
-                  onClick={handlePrevTab}
-                  variant="back"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft size={16} />
-                  Back
-                </Button>
-                <Button
-                  onClick={handleNextTab}
-                  variant="accent"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  Next Step
-                  <ChevronRight size={16} />
-                </Button>
-              </div>
-            </div>
-          )}
-
-          {/* Whitelist Tab */}
-          {activeTab === "whitelist" && (
-            <div className="animate-fade-in">
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Presale Whitelist
-                  </CardTitle>
-                  <CardDescription>
-                    Configure your presale whitelist settings
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="enablePresale"
-                      name="enablePresale"
-                      checked={formData.enablePresale}
-                      onChange={handleCheckboxChange}
-                      className="rounded bg-launchlayer-background border-gray-700"
-                    />
-                    <label
-                      htmlFor="enablePresale"
-                      className="text-sm font-medium"
-                    >
-                      Enable presale phase with whitelist
-                    </label>
-                  </div>
-
-                  {formData.enablePresale && (
-                    <>
-                      <div>
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-launchlayer-violet">
+                  <UploadCloud className="h-5 w-5" />
+                  Basic Information
+                </CardTitle>
+                <CardDescription>
+                  Core details about your token and project
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
                         <label
-                          className="block text-sm font-medium mb-1"
+                          htmlFor="name"
+                          className="text-sm font-medium text-launchlayer-text-primary"
                         >
-                          Merkle Root
+                          Project Name
                         </label>
                         <Input
-                          name="merkleRoot"
-                          value={formData.merkleRoot}
+                          id="name"
+                          name="name"
+                          placeholder="SampleToken DEX"
+                          value={formData.name}
                           onChange={handleChange}
-                          placeholder="e.g., 0x1234..."
-                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
                         />
-                        <p
-                          className="text-xs mt-1 text-gray-400"
-                        >
-                          The merkle root of your whitelist addresses
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          The name of your project or token sale
                         </p>
                       </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="tokenSymbol"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Token Symbol
+                        </label>
+                        <Input
+                          id="tokenSymbol"
+                          name="tokenSymbol"
+                          placeholder="BOOM"
+                          value={formData.tokenSymbol}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          The symbol used for your token (e.g., ETH, BTC)
+                        </p>
+                      </div>
+                    </div>
 
-                      <div
-                        className="p-4 rounded-md bg-launchlayer-background border-l-2 border-launchlayer-violet"
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="tokenAddress"
+                        className="text-sm font-medium text-launchlayer-text-primary"
                       >
-                        <h4
-                          className="font-medium mb-2"
-                        >
-                          Generating a Merkle Root
-                        </h4>
-                        <p
-                          className="text-sm mb-2 text-gray-400"
-                        >
-                          To generate a merkle root:
-                        </p>
-                        <ol
-                          className="text-sm list-decimal ml-5 space-y-1 text-gray-400"
-                        >
-                          <li>
-                            Prepare a CSV file with all whitelisted addresses
-                          </li>
-                          <li>
-                            Use the whitelist tool to generate the merkle root
-                          </li>
-                          <li>Paste the generated merkle root above</li>
-                        </ol>
-                      </div>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-
-              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-                <Button
-                  onClick={handlePrevTab}
-                  variant="back"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft size={16} />
-                  Back
-                </Button>
-                <Button
-                  onClick={handleNextTab}
-                  variant="accent"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  Next Step
-                  <ChevronRight size={16} />
-                </Button>
-              </div>
-            </div>
-          )}
-
-          {/* Wallets Tab */}
-          {activeTab === "wallets" && (
-            <div className="animate-fade-in">
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Wallets & Fees
-                  </CardTitle>
-                  <CardDescription>
-                    Configure wallet addresses and fee settings
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <label
-                      className="block text-sm font-medium mb-1"
-                    >
-                      Raise Owner Wallet
-                    </label>
-                    <Input
-                      name="ownerWallet"
-                      value={formData.ownerWallet}
-                      onChange={handleChange}
-                      placeholder="e.g., 0x1234..."
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                    <p
-                      className="text-xs mt-1 text-gray-400"
-                    >
-                      The wallet that will control the raise (can finalize,
-                      cancel, sweep)
-                    </p>
-                  </div>
-
-                  <div>
-                    <label
-                      className="block text-sm font-medium mb-1"
-                    >
-                      Fee Recipient
-                    </label>
-                    <Input
-                      name="feeRecipient"
-                      value={formData.feeRecipient}
-                      onChange={handleChange}
-                      placeholder="e.g., 0x1234..."
-                      className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
-                    />
-                    <p
-                      className="text-xs mt-1 text-gray-400"
-                    >
-                      The wallet that will receive the platform fee
-                    </p>
-                  </div>
-
-                  <div>
-                    <label
-                      className="block text-sm font-medium mb-1"
-                    >
-                      Fee (Basis Points)
-                    </label>
-                    <div className="relative">
+                        Token Address
+                      </label>
                       <Input
-                        name="feeBps"
-                        type="number"
-                        value={formData.feeBps}
+                        id="tokenAddress"
+                        name="tokenAddress"
+                        placeholder="0x..."
+                        value={formData.tokenAddress}
                         onChange={handleChange}
-                        placeholder="e.g., 250"
-                        className="pr-16 bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet font-mono"
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary font-mono"
                       />
-                      <div
-                        className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-400"
+                      <p className="text-xs text-launchlayer-text-secondary">
+                        The contract address of your token
+                      </p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="description"
+                        className="text-sm font-medium text-launchlayer-text-primary"
                       >
-                        BPS
+                        Description
+                      </label>
+                      <Textarea
+                        id="description"
+                        name="description"
+                        placeholder="Tell us about your project and what makes it unique"
+                        value={formData.description}
+                        onChange={handleChange}
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary min-h-[120px]"
+                      />
+                      <p className="text-xs text-launchlayer-text-secondary">
+                        A brief description of your project (max 500 characters)
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-launchlayer-violet">
+                  <Clock className="h-5 w-5" />
+                  Social Links
+                </CardTitle>
+                <CardDescription>
+                  Help users find more information about your project
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="websiteUrl"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Website URL
+                        </label>
+                        <Input
+                          id="websiteUrl"
+                          name="websiteUrl"
+                          placeholder="https://example.com"
+                          value={formData.websiteUrl}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="twitterUrl"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          X (Twitter) URL
+                        </label>
+                        <Input
+                          id="twitterUrl"
+                          name="twitterUrl"
+                          placeholder="https://x.com/yourhandle"
+                          value={formData.twitterUrl}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
                       </div>
                     </div>
-                    <p
-                      className="text-xs mt-1 text-gray-400"
-                    >
-                      The platform fee in basis points (100 BPS = 1%)
-                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="telegramUrl"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Telegram URL
+                        </label>
+                        <Input
+                          id="telegramUrl"
+                          name="telegramUrl"
+                          placeholder="https://t.me/yourgroup"
+                          value={formData.telegramUrl}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="discordUrl"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Discord URL
+                        </label>
+                        <Input
+                          id="discordUrl"
+                          name="discordUrl"
+                          placeholder="https://discord.gg/yourinvite"
+                          value={formData.discordUrl}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                      </div>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+                </form>
+              </CardContent>
+            </Card>
 
-              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-                <Button
-                  onClick={handlePrevTab}
-                  variant="back"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft size={16} />
-                  Back
-                </Button>
-                <Button
-                  onClick={handleNextTab}
-                  variant="accent"
-                  size="wide"
-                  className="flex items-center gap-2"
-                >
-                  Review
-                  <ChevronRight size={16} />
-                </Button>
-              </div>
+            <div className="flex justify-end mt-8">
+              <Button
+                onClick={() => handleTabChange("structure")}
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
+              >
+                Next Step
+              </Button>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Review Tab */}
-          {activeTab === "review" && (
-            <div className="animate-fade-in">
-              <Card className="bg-launchlayer-surface border-gray-700 shadow-md mb-6 border-t-2 border-t-launchlayer-violet">
-                <CardHeader>
-                  <CardTitle className="text-launchlayer-violet flex items-center gap-2">
-                    <Info size={18} />
-                    Review & Deploy
-                  </CardTitle>
-                  <CardDescription>
-                    Review your raise configuration before deployment
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div className="p-4 rounded-md bg-launchlayer-background">
-                      <h4 className="font-medium mb-2 text-launchlayer-violet">
-                        Basic Information
-                      </h4>
-                      <ul className="space-y-1 text-sm">
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Project Name:
-                          </span>
-                          <span>
-                            {formData.projectName || "SampleToken"}
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Token Address:
-                          </span>
-                          <span className="truncate max-w-[280px] font-mono">
-                            {formData.tokenAddress || "Not set"}
-                          </span>
-                        </li>
-                      </ul>
+        {activeTab === "structure" && (
+          <div className="space-y-6">
+            {/* Step header */}
+            <div className="flex flex-col gap-1.5 mb-6">
+              <span className="text-launchlayer-violet text-sm font-medium">
+                Step 2 of 6 — Structure
+              </span>
+              <h2 className="text-2xl font-bold text-launchlayer-text-primary">
+                Sale Structure
+              </h2>
+              <p className="text-launchlayer-text-secondary">
+                Define the economics of your token sale including price, caps, and
+                allocations.
+              </p>
+            </div>
+
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-launchlayer-violet">
+                  Token Economics
+                </CardTitle>
+                <CardDescription>
+                  Define the price and allocation of your token
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="pricePerToken"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Price Per Token (SONIC)
+                        </label>
+                        <Input
+                          id="pricePerToken"
+                          name="pricePerToken"
+                          placeholder="0.01"
+                          value={formData.pricePerToken}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          The price of each token in SONIC
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="totalTokens"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Total Tokens For Sale
+                        </label>
+                        <Input
+                          id="totalTokens"
+                          name="totalTokens"
+                          placeholder="1000000"
+                          value={formData.totalTokens}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          The total number of tokens available for sale
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="p-4 rounded-md bg-launchlayer-background">
-                      <h4 className="font-medium mb-2 text-launchlayer-violet">
-                        Sale Structure
-                      </h4>
-                      <ul className="space-y-1 text-sm">
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Price Per Token:
-                          </span>
-                          <span>
-                            {formData.pricePerToken || "Not set"}
-                          </span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="softCap"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Soft Cap (SONIC)
+                        </label>
+                        <Input
+                          id="softCap"
+                          name="softCap"
+                          placeholder="10000"
+                          value={formData.softCap}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          Minimum funding goal (optional)
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="hardCap"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Hard Cap (SONIC)
+                        </label>
+                        <Input
+                          id="hardCap"
+                          name="hardCap"
+                          placeholder="100000"
+                          value={formData.hardCap}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          Maximum funding amount
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="minContribution"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Minimum Contribution (SONIC)
+                        </label>
+                        <Input
+                          id="minContribution"
+                          name="minContribution"
+                          placeholder="100"
+                          value={formData.minContribution}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          Minimum contribution amount per user (optional)
+                        </p>
+                      </div>
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="maxContribution"
+                          className="text-sm font-medium text-launchlayer-text-primary"
+                        >
+                          Maximum Contribution (SONIC)
+                        </label>
+                        <Input
+                          id="maxContribution"
+                          name="maxContribution"
+                          placeholder="10000"
+                          value={formData.maxContribution}
+                          onChange={handleChange}
+                          className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                        />
+                        <p className="text-xs text-launchlayer-text-secondary">
+                          Maximum contribution amount per user (optional)
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={() => handleTabChange("basic")}
+                variant="outline"
+                className="border-launchlayer-surface-light text-launchlayer-text-primary hover:bg-launchlayer-surface-light"
+              >
+                Previous Step
+              </Button>
+              <Button
+                onClick={() => handleTabChange("timing")}
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
+              >
+                Next Step
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "timing" && (
+          <div className="space-y-6">
+            {/* Step header */}
+            <div className="flex flex-col gap-1.5 mb-6">
+              <span className="text-launchlayer-violet text-sm font-medium">
+                Step 3 of 6 — Timing
+              </span>
+              <h2 className="text-2xl font-bold text-launchlayer-text-primary">
+                Sale Schedule
+              </h2>
+              <p className="text-launchlayer-text-secondary">
+                Set the timeline for your token sale
+              </p>
+            </div>
+
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="text-launchlayer-violet">Timeline</CardTitle>
+                <CardDescription>
+                  Define when your token sale starts and ends
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="durationInDays"
+                        className="text-sm font-medium text-launchlayer-text-primary"
+                      >
+                        Duration (days)
+                      </label>
+                      <Input
+                        id="durationInDays"
+                        name="durationInDays"
+                        placeholder="7"
+                        value={formData.durationInDays}
+                        onChange={handleChange}
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary"
+                      />
+                      <p className="text-xs text-launchlayer-text-secondary">
+                        How many days the sale will run for
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-gray-700">
+                      <h3 className="text-sm font-semibold mb-4 text-launchlayer-text-primary">
+                        Sale Timeline Preview
+                      </h3>
+                      <div className="flex flex-col items-center space-y-4">
+                        <div className="w-full max-w-md bg-launchlayer-background p-4 rounded-md">
+                          <div className="flex justify-between mb-2">
+                            <span className="text-sm text-launchlayer-text-secondary">
+                              Start Date:
+                            </span>
+                            <span className="text-sm font-medium">
+                              Immediately after deployment
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-sm text-launchlayer-text-secondary">
+                              End Date:
+                            </span>
+                            <span className="text-sm font-medium">
+                              {formData.durationInDays
+                                ? `${formData.durationInDays} days after deployment`
+                                : "Not set"}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={() => handleTabChange("structure")}
+                variant="outline"
+                className="border-launchlayer-surface-light text-launchlayer-text-primary hover:bg-launchlayer-surface-light"
+              >
+                Previous Step
+              </Button>
+              <Button
+                onClick={() => handleTabChange("whitelist")}
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
+              >
+                Next Step
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "whitelist" && (
+          <div className="space-y-6">
+            {/* Step header */}
+            <div className="flex flex-col gap-1.5 mb-6">
+              <span className="text-launchlayer-violet text-sm font-medium">
+                Step 4 of 6 — Whitelist
+              </span>
+              <h2 className="text-2xl font-bold text-launchlayer-text-primary">
+                Whitelist Settings
+              </h2>
+              <p className="text-launchlayer-text-secondary">
+                Configure whitelist access for your token sale (optional)
+              </p>
+            </div>
+
+            <Card className="border-launchlayer-surface-

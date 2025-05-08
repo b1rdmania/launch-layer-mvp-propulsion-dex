@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import {
   Card,
@@ -68,7 +69,7 @@ const formSchema = z.object({
     },
     {
       message: "Price per token must be a valid positive number.",
-    },
+    }
   ),
   totalTokens: z.string().refine(
     (value) => {
@@ -83,7 +84,7 @@ const formSchema = z.object({
     },
     {
       message: "Total tokens must be a valid positive number.",
-    },
+    }
   ),
   softCap: z.string().optional(),
   hardCap: z.string().refine(
@@ -99,7 +100,7 @@ const formSchema = z.object({
     },
     {
       message: "Hard cap must be a valid positive number.",
-    },
+    }
   ),
   minContribution: z.string().optional(),
   maxContribution: z.string().optional(),
@@ -116,7 +117,7 @@ const formSchema = z.object({
     },
     {
       message: "Duration must be a valid positive integer.",
-    },
+    }
   ),
   whitelist: z.array(z.string()).optional(),
   paymentAddress: z.string().optional(),
@@ -916,4 +917,224 @@ const AdminPage: React.FC = () => {
               </p>
             </div>
 
-            <Card className="border-launchlayer-surface-
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="text-launchlayer-violet">Whitelist</CardTitle>
+                <CardDescription>
+                  Add wallet addresses to restrict who can participate
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <p className="text-sm text-launchlayer-text-secondary">
+                    This feature is coming soon. Currently all sales are open to the public.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={() => handleTabChange("timing")}
+                variant="outline"
+                className="border-launchlayer-surface-light text-launchlayer-text-primary hover:bg-launchlayer-surface-light"
+              >
+                Previous Step
+              </Button>
+              <Button
+                onClick={() => handleTabChange("wallets")}
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
+              >
+                Next Step
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "wallets" && (
+          <div className="space-y-6">
+            {/* Step header */}
+            <div className="flex flex-col gap-1.5 mb-6">
+              <span className="text-launchlayer-violet text-sm font-medium">
+                Step 5 of 6 — Wallets
+              </span>
+              <h2 className="text-2xl font-bold text-launchlayer-text-primary">
+                Payment Address
+              </h2>
+              <p className="text-launchlayer-text-secondary">
+                Configure where payments should be sent
+              </p>
+            </div>
+
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="text-launchlayer-violet">Payment Address</CardTitle>
+                <CardDescription>
+                  Where funds from the sale will be sent
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="paymentAddress"
+                        className="text-sm font-medium text-launchlayer-text-primary"
+                      >
+                        Payment Address (optional)
+                      </label>
+                      <Input
+                        id="paymentAddress"
+                        name="paymentAddress"
+                        placeholder="0x..."
+                        value={formData.paymentAddress}
+                        onChange={handleChange}
+                        className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-accent text-launchlayer-text-primary font-mono"
+                      />
+                      <p className="text-xs text-launchlayer-text-secondary">
+                        If left blank, the connected wallet address will be used
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={() => handleTabChange("whitelist")}
+                variant="outline"
+                className="border-launchlayer-surface-light text-launchlayer-text-primary hover:bg-launchlayer-surface-light"
+              >
+                Previous Step
+              </Button>
+              <Button
+                onClick={() => handleTabChange("review")}
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
+              >
+                Next Step
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "review" && (
+          <div className="space-y-6">
+            {/* Step header */}
+            <div className="flex flex-col gap-1.5 mb-6">
+              <span className="text-launchlayer-violet text-sm font-medium">
+                Step 6 of 6 — Review
+              </span>
+              <h2 className="text-2xl font-bold text-launchlayer-text-primary">
+                Review & Create Sale
+              </h2>
+              <p className="text-launchlayer-text-secondary">
+                Review your token sale details before deployment
+              </p>
+            </div>
+
+            <Card className="border-launchlayer-surface-light bg-launchlayer-surface shadow-card">
+              <CardHeader>
+                <CardTitle className="text-launchlayer-violet">Review Sale Details</CardTitle>
+                <CardDescription>
+                  Check that all details are correct before creating your sale
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium text-launchlayer-text-primary">Basic Information</h3>
+                    <div className="bg-launchlayer-background p-4 rounded-md">
+                      <ul className="space-y-3">
+                        <li className="flex justify-between">
+                          <span className="text-launchlayer-text-secondary">Project Name:</span>
+                          <span className="truncate max-w-[280px]">
+                            {formData.name || "Not set"}
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-launchlayer-text-secondary">Token Symbol:</span>
+                          <span className="truncate max-w-[280px]">
+                            {formData.tokenSymbol || "Not set"}
+                          </span>
+                        </li>
+                        <li className="flex justify-between">
+                          <span className="text-launchlayer-text-secondary">Token Address:</span>
+                          <span className="truncate max-w-[280px] font-mono">
+                            {formData.tokenAddress || "Not set"}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium text-launchlayer-text-primary">Sale Structure</h3>
+                    <div className="bg-launchlayer-background p-4 rounded-md">
+                      <ul className="space-y-3">
+                        <li className="flex justify-between">
+                          <span className="text-launchlayer-text-secondary">Price Per Token:</span>
+                          <span className="truncate max-w-[280px]">
+                            {formData.pricePerToken || "Not set"}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium text-launchlayer-text-primary">Timing</h3>
+                    <div className="bg-launchlayer-background p-4 rounded-md">
+                      <ul className="space-y-3">
+                        <li className="flex justify-between">
+                          <span className="text-launchlayer-text-secondary">Duration:</span>
+                          <span>
+                            {formData.durationInDays
+                              ? `${formData.durationInDays} days`
+                              : "Not set"}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-medium text-launchlayer-text-primary">Payment</h3>
+                    <div className="bg-launchlayer-background p-4 rounded-md">
+                      <ul className="space-y-3">
+                        <li className="flex justify-between">
+                          <span className="text-launchlayer-text-secondary">Payment Address:</span>
+                          <span className="truncate max-w-[280px] font-mono">
+                            {formData.paymentAddress || address || "Not set"}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="flex justify-between mt-8">
+              <Button
+                onClick={() => handleTabChange("wallets")}
+                variant="outline"
+                className="border-launchlayer-surface-light text-launchlayer-text-primary hover:bg-launchlayer-surface-light"
+              >
+                Previous Step
+              </Button>
+              <Button
+                onClick={handleSubmit}
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
+              >
+                Create Sale
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AdminPage;

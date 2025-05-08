@@ -27,7 +27,6 @@ const LandingPage: React.FC = () => {
       
       <LaunchFlowSection />
       <CurrentRaisesSection />
-      {/* CtaSection removed from here */}
     </div>
   );
 };

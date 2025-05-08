@@ -24,13 +24,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     );
 
     // Handle bold and italic
-    html = html.replace(/\*\*(.*)\*\*/gm, "<strong>$1</strong>");
+    html = html.replace(/\*\*(.*)\*\*/gm, '<strong class="text-white">$1</strong>');
     html = html.replace(/\*(.*)\*/gm, "<em>$1</em>");
 
     // Handle code blocks with backticks
     html = html.replace(
       /```([^`]*?)```/gms,
-      '<pre class="bg-launchlayer-surface text-launchlayer-text-primary p-4 rounded-md my-4 overflow-x-auto border-l-2 border-[#3787FB]"><code>$1</code></pre>',
+      '<pre class="bg-launchlayer-surface text-launchlayer-text-primary p-4 rounded-md my-4 overflow-x-auto border-l-2 border-[#3787FB] hover:border-[#3787FB] hover:shadow-[0_0_10px_rgba(50,119,245,0.15)] transition-all">$1<div class="text-xs text-launchlayer-text-secondary mt-2">Solidity contract code</div></pre>',
     );
 
     // Handle inline code
@@ -56,7 +56,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
           !para.includes("<li") &&
           !para.startsWith("<pre")
         ) {
-          return `<p class="mb-4 text-launchlayer-text-secondary">${para}</p>`;
+          return `<p class="mb-4 text-launchlayer-text-secondary leading-[1.6]">${para}</p>`;
         }
         return para;
       })
@@ -69,16 +69,29 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
 
     // Add blue underline to key phrases (adding a class that can be targeted with CSS)
     html = html.replace(
-      /(important|note|warning|caution|tip):/gi,
-      '<span class="text-[#3787FB] underline">$1:</span>'
+      /(important|note|warning|caution|tip|token|launch|sonic|contract|factory):/gi,
+      '<span class="text-[#3787FB] underline font-medium">$1:</span>'
     );
+
+    // Highlight key terms
+    const keyTerms = [
+      "token", "launch", "raise", "sale", "vesting", "contract", "factory", "deployment", 
+      "presale", "public sale", "contribution", "allocation"
+    ];
+
+    keyTerms.forEach(term => {
+      const regex = new RegExp(`\\b${term}\\b`, 'gi');
+      html = html.replace(regex, (match) => {
+        return `<span class="text-[#3787FB] border-b border-[#3787FB]/30">${match}</span>`;
+      });
+    });
 
     return html;
   };
 
   return (
     <div
-      className="markdown-content"
+      className="markdown-content md:grid md:grid-cols-2 md:gap-8"
       dangerouslySetInnerHTML={{ __html: renderMarkdown(markdown) }}
     />
   );

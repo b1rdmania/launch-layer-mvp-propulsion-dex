@@ -18,7 +18,7 @@ const StepCard: React.FC<StepCardProps> = ({
 }) => {
   return (
     <Card className={cn(
-      "bg-launchlayer-surface border border-launchlayer-surface-light shadow-card card-hover", 
+      "bg-launchlayer-surface border border-launchlayer-surface-light shadow-card hover:translate-y-[-2px] hover:shadow-[0_2px_10px_rgba(50,119,245,0.12)] transition-all duration-300", 
       isActive && "border-[#3787FB]"
     )}>
       <CardContent className="p-6 pt-6">
@@ -32,7 +32,7 @@ const StepCard: React.FC<StepCardProps> = ({
           "text-lg font-bold mb-2 tracking-wider",
           isActive && "text-[#3787FB]"
         )}>{title}</h3>
-        <p className="text-launchlayer-text-secondary text-[0.95rem] leading-relaxed">{description}</p>
+        <p className="text-launchlayer-text-secondary text-[0.95rem] leading-[1.6]">{description}</p>
       </CardContent>
     </Card>
   );

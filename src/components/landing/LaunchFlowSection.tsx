@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Clipboard, Timer, CheckCircle, FileExport, Settings } from "lucide-react";
+import { Clipboard, Timer, CheckCircle, FileText, Settings } from "lucide-react";
 
 const LaunchFlowSection: React.FC = () => {
   const steps = [
@@ -22,7 +22,7 @@ const LaunchFlowSection: React.FC = () => {
     },
     { 
       text: "Export data for vesting setup", 
-      icon: <FileExport size={18} className="text-launchlayer-mint" /> 
+      icon: <FileText size={18} className="text-launchlayer-mint" /> 
     },
   ];
 
@@ -40,7 +40,7 @@ const LaunchFlowSection: React.FC = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="flex items-center mb-4 bg-launchlayer-surface p-4 rounded-md border border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all card-hover"
+              className="flex items-center mb-4 bg-launchlayer-surface p-4 rounded-md border border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all hover:translate-y-[-2px] hover:shadow-[0_2px_10px_rgba(50,119,245,0.12)]"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-launchlayer-accent text-white font-bold mr-4">
                 {index + 1}

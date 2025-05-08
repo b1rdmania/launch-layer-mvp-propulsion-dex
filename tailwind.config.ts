@@ -76,7 +76,7 @@ export default {
 					accent: '#3277F5', // Blue accent per the guide
 					secondary: '#6D5EB3', // Purple as secondary accent
 					blue: '#3277F5', // Blue for highlights - same as accent
-					mint: '#5222CB', // Mint color for tags and icons
+					mint: '#63CEC6', // Mint color for tags and icons (updated as per design doc)
 					error: '#FF6D3B', // Keeping error color
 					success: '#2ECC71', // Keeping success color
 					"field-bg": '#181A25' // Background for field containers
@@ -120,14 +120,24 @@ export default {
 					'0%': { backgroundPosition: '0% 50%' },
 					'50%': { backgroundPosition: '100% 50%' },
 					'100%': { backgroundPosition: '0% 50%' }
-				}
+				},
+                'fadeIn': {
+                    '0%': { opacity: '0', transform: 'translateY(10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                'fadeOut': {
+                    '0%': { opacity: '1', transform: 'translateY(0)' },
+                    '100%': { opacity: '0', transform: 'translateY(10px)' },
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
-				'gradient-shift': 'gradient-shift 15s ease infinite'
+				'gradient-shift': 'gradient-shift 15s ease infinite',
+                'fade-in': 'fadeIn 0.3s ease-out',
+                'fade-out': 'fadeOut 0.3s ease-out',
 			},
 			fontFamily: {
 				sans: ['"Space Grotesk"', 'Helvetica', 'Arial', 'sans-serif'],
@@ -135,7 +145,10 @@ export default {
 			},
 			letterSpacing: {
 				'wider': '0.2px'
-			}
+			},
+            lineHeight: {
+                'relaxed': '1.6',
+            },
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -48,59 +49,59 @@ const MobileMenu: React.FC = () => {
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="bg-cradle-surface border-cradle-surface-light w-[85%] max-w-[400px]"
+        className="bg-launchlayer-surface border-launchlayer-surface-light w-[85%] max-w-[400px]"
       >
-        <SheetHeader className="border-b border-cradle-surface-light pb-4 mb-4">
-          <SheetTitle className="text-cradle-text-primary">Menu</SheetTitle>
+        <SheetHeader className="border-b border-launchlayer-surface-light pb-4 mb-4">
+          <SheetTitle className="text-launchlayer-text-primary">Menu</SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-6 pt-2">
           <Link
             to="/"
-            className={`transition-colors ${
+            className={`transition-all duration-200 ${
               isActive("/")
-                ? "text-cradle-accent font-medium"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Home
           </Link>
           <Link
             to="/app"
-            className={`transition-colors ${
+            className={`transition-all duration-200 ${
               isActive("/app")
-                ? "text-cradle-accent font-medium"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Discover
           </Link>
           <Link
             to="/admin"
-            className={`transition-colors ${
+            className={`transition-all duration-200 ${
               isActive("/admin")
-                ? "text-cradle-accent font-medium"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Create Sale
           </Link>
 
           <div className="space-y-2">
-            <h4 className="text-sm font-medium text-cradle-text-primary mb-2">
+            <h4 className="text-sm font-medium text-launchlayer-text-primary mb-2">
               Resources
             </h4>
             <div className="pl-2 space-y-3">
               <Link
                 to="/docs"
-                className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
               >
                 Docs
               </Link>
               <a
-                href="https://github.com/b1rdmania/cradleyolo"
+                href="https://github.com/b1rdmania/launchlayer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cradle-text-secondary hover:text-cradle-accent flex items-center gap-2"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
               >
                 GitHub <ExternalLink size={14} />
               </a>
@@ -110,13 +111,13 @@ const MobileMenu: React.FC = () => {
           <div className="mt-4">
             {isConnected ? (
               <div className="space-y-2 mt-4">
-                <div className="px-3 py-2 bg-cradle-surface-light rounded-md text-sm font-mono text-center">
+                <div className="px-3 py-2 bg-launchlayer-surface-light rounded-md text-sm font-mono text-center">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
                 </div>
                 <Button
                   variant="outline"
                   onClick={disconnect}
-                  className="w-full text-sm border-cradle-surface-light hover:bg-cradle-surface-light"
+                  className="w-full text-sm border-launchlayer-surface-light hover:bg-launchlayer-surface-light"
                 >
                   Disconnect Wallet
                 </Button>
@@ -124,7 +125,7 @@ const MobileMenu: React.FC = () => {
             ) : (
               <Button
                 onClick={connect}
-                className="w-full mt-4 bg-cradle-accent hover:bg-cradle-accent/90 text-white"
+                className="w-full mt-4 bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white hover:shadow-[0_0_6px_rgba(50,119,245,0.3)]"
               >
                 Connect Wallet
               </Button>

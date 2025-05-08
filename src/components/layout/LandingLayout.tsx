@@ -28,25 +28,25 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           <nav className="hidden md:flex items-center gap-6">
             <Link
               to="/landing"
-              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-launchlayer-accent hover:after:bottom-[-8px] hover:after:left-0"
+              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:scale-x-0 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
             >
               Home
             </Link>
             <Link
               to="/app"
-              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-launchlayer-accent hover:after:bottom-[-8px] hover:after:left-0"
+              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:scale-x-0 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
             >
               Discover
             </Link>
             <Link
               to="/admin"
-              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-launchlayer-accent hover:after:bottom-[-8px] hover:after:left-0"
+              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:scale-x-0 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
             >
               Create Sale
             </Link>
             <Link
               to="/docs"
-              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-colors relative hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-launchlayer-accent hover:after:bottom-[-8px] hover:after:left-0"
+              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:scale-x-0 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
             >
               Docs
             </Link>
@@ -60,14 +60,14 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           <div className="hidden md:block">
             {isConnected ? (
               <Link to="/app">
-                <Button className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white shadow-sm hover:shadow-md transition-all">
+                <Button className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white shadow-sm hover:shadow-[0_0_6px_rgba(50,119,245,0.3)] transition-all duration-200">
                   Open App
                 </Button>
               </Link>
             ) : (
               <Button
                 onClick={connect}
-                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white shadow-sm hover:shadow-md transition-all"
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white shadow-sm hover:shadow-[0_0_6px_rgba(50,119,245,0.3)] transition-all duration-200"
               >
                 Connect Wallet
               </Button>
@@ -103,7 +103,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
                 className="hover:text-launchlayer-text-primary transition-colors p-2"
                 aria-label="GitHub"
               >
-                <Github size={20} />
+                <Github size={20} className="hover:brightness-110 transition-all duration-200" />
               </a>
               <a
                 href="https://discord.gg/launchlayer"
@@ -112,7 +112,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
                 className="hover:text-launchlayer-text-primary transition-colors p-2"
                 aria-label="Discord"
               >
-                <MessagesSquare size={20} />
+                <MessagesSquare size={20} className="hover:brightness-110 transition-all duration-200" />
               </a>
             </div>
           </div>
@@ -122,6 +122,18 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      {/* Mobile fixed wallet button */}
+      <div className="fixed bottom-4 inset-x-0 flex justify-center md:hidden z-20">
+        {!isConnected && (
+          <Button
+            onClick={connect}
+            className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white shadow-[0_2px_10px_rgba(50,119,245,0.3)] hover:shadow-[0_0_16px_rgba(50,119,245,0.4)] transition-all duration-200 px-6"
+          >
+            Connect Wallet
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

@@ -5,6 +5,8 @@ import { RaiseData } from "@/types/contract-types";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import RaiseStatusBadge from "./RaiseStatusBadge";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
 
 interface RaiseCardProps {
   raise: RaiseData;
@@ -70,61 +72,68 @@ const RaiseCard: React.FC<RaiseCardProps> = ({ raise }) => {
   };
 
   return (
-    <div className="bg-launchlayer-surface rounded-xl p-4 border border-launchlayer-surface-light hover:scale-[1.03] transition-transform duration-200 shadow-lg hover:shadow-[0_2px_10px_rgba(50,119,245,0.12)]">
-      <div className="relative">
-        <div className="absolute top-0 left-0 md:relative md:top-auto md:left-auto">
-          <RaiseStatusBadge status={status} className="md:mb-2" />
+    <Card className="border-t-2 border-t-launchlayer-violet shadow-md hover:shadow-[0_2px_10px_rgba(167,139,250,0.12)] transition-all duration-300 hover:translate-y-[-2px]">
+      <CardHeader className="pb-2 relative">
+        <div className="flex justify-between items-start mb-4">
+          <RaiseStatusBadge status={status} />
+          {status !== "upcoming" && status !== "cancelled" && (
+            <span className="text-xs bg-launchlayer-violet/10 text-launchlayer-violet px-2 py-0.5 rounded-full">
+              {Math.round(progress)}% funded
+            </span>
+          )}
         </div>
-        <div className="flex items-center space-x-3 mb-4 mt-6 md:mt-0">
+        <div className="flex items-center gap-3">
           <img
             src={metadata.logoUrl}
             alt={`${metadata.name} logo`}
-            className="w-12 h-12 rounded-full"
+            className="w-12 h-12 rounded-full ring-1 ring-gray-700 bg-launchlayer-background"
           />
-          <div>
-            <h3 className="font-medium text-lg">{metadata.name}</h3>
+          <div className="text-left">
+            <h3 className="font-bold text-lg">{metadata.name}</h3>
             <p className="text-sm text-launchlayer-text-secondary">{tokenSymbol}</p>
           </div>
         </div>
-      </div>
-
-      <div className="mb-4">
-        <p className="text-sm mt-2 text-launchlayer-text-secondary line-clamp-2">
+      </CardHeader>
+      
+      <CardContent className="pt-2">
+        <p className="text-sm text-launchlayer-text-secondary line-clamp-2 mb-4">
           {metadata.description}
         </p>
-      </div>
-
-      {status !== "upcoming" && status !== "cancelled" && (
-        <div className="mb-4">
-          <div className="flex justify-between text-sm mb-1">
-            <span>Progress</span>
-            <span className="md:inline hidden">
-              {formatCurrency(totalAcceptedTokenRaised)} /{" "}
-              {formatCurrency(maxAcceptedTokenRaise)} {acceptedTokenSymbol}
-            </span>
-            <span className="md:hidden inline">
-              {formatCurrency(totalAcceptedTokenRaised)}/{formatCurrency(maxAcceptedTokenRaise)}
-            </span>
+        
+        {status !== "upcoming" && status !== "cancelled" && (
+          <div className="mb-2">
+            <div className="flex justify-between text-sm mb-1">
+              <span className="text-xs text-launchlayer-text-secondary">Raised</span>
+              <span className="text-xs text-launchlayer-text-secondary">
+                {formatCurrency(totalAcceptedTokenRaised)} / {formatCurrency(maxAcceptedTokenRaise)} {acceptedTokenSymbol}
+              </span>
+            </div>
+            <Progress 
+              value={progress} 
+              className="h-1.5 bg-gray-700"
+              indicatorClassName="bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet" 
+            />
           </div>
-          <Progress value={progress} className="h-2" />
-        </div>
-      )}
-
-      <div className="flex flex-col md:flex-row justify-between items-center mt-4 gap-2">
-        <span className="text-xs md:text-sm text-launchlayer-text-secondary w-full md:w-auto text-center md:text-left">
+        )}
+      </CardContent>
+      
+      <CardFooter className="flex justify-between items-center pt-2 border-t border-gray-700">
+        <span className="text-xs text-launchlayer-text-secondary">
           {getTimeIndicator()}
         </span>
-
-        <Link to={`/raise/${address}`} className="w-full md:w-auto">
+        
+        <Link to={`/raise/${address}`}>
           <Button
-            variant="accent"
-            className="w-full hover:shadow-[0_0_6px_rgba(50,119,245,0.3)] hover:scale-[1.03]"
+            variant="violet"
+            size="sm"
+            className="group"
           >
-            View Sale
+            <span>View</span>
+            <ArrowRight className="h-3.5 w-3.5 ml-1 group-hover:translate-x-0.5 transition-transform duration-200" />
           </Button>
         </Link>
-      </div>
-    </div>
+      </CardFooter>
+    </Card>
   );
 };
 

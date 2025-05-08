@@ -15,19 +15,19 @@ const RaiseStatusBadge: React.FC<RaiseStatusBadgeProps> = ({
   const getStatusConfig = () => {
     switch (status) {
       case "upcoming":
-        return { label: "Upcoming", bgColor: "bg-gray-700 text-gray-200" };
+        return { label: "Upcoming", bgColor: "bg-gray-700 text-gray-300" };
       case "presale":
-        return { label: "Presale", bgColor: "bg-launchlayer-accent text-white" };
+        return { label: "Presale", bgColor: "bg-launchlayer-accent/20 text-launchlayer-accent" };
       case "public":
-        return { label: "Public Sale", bgColor: "bg-launchlayer-mint text-white" };
+        return { label: "Public Sale", bgColor: "bg-launchlayer-mint/20 text-launchlayer-mint" };
       case "ended":
-        return { label: "Ended", bgColor: "bg-neutral-600 text-neutral-200" };
+        return { label: "Ended", bgColor: "bg-neutral-700/30 text-neutral-300" };
       case "cancelled":
-        return { label: "Cancelled", bgColor: "bg-red-600 text-white" };
+        return { label: "Cancelled", bgColor: "bg-red-600/20 text-red-400" };
       case "finalized":
-        return { label: "Finalized", bgColor: "bg-purple-600 text-white" };
+        return { label: "Finalized", bgColor: "bg-launchlayer-violet/20 text-launchlayer-violet" };
       default:
-        return { label: "Unknown", bgColor: "bg-gray-600 text-gray-200" };
+        return { label: "Unknown", bgColor: "bg-gray-700/30 text-gray-300" };
     }
   };
 
@@ -36,7 +36,7 @@ const RaiseStatusBadge: React.FC<RaiseStatusBadgeProps> = ({
   return (
     <div
       className={cn(
-        "px-2 py-0.5 text-xs rounded-full font-medium inline-block",
+        "px-2.5 py-0.5 text-xs rounded-full font-medium inline-block",
         bgColor,
         className,
       )}

@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { RaiseData } from "@/types/contract-types";
 import { getAllRaises, getRaiseDetails } from "@/contracts/contractService";
 import RaiseCard from "@/components/raise/RaiseCard";
-import { ArrowRight, Rocket, Package } from "lucide-react";
+import { ArrowRight, Rocket, Globe } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
@@ -13,7 +12,7 @@ import { Progress } from "@/components/ui/progress";
 const sampleRaises: Partial<RaiseData>[] = [
   {
     address: "sample-1",
-    tokenSymbol: "STK",
+    tokenSymbol: "SST",
     status: "public",
     totalAcceptedTokenRaised: "750000",
     maxAcceptedTokenRaise: "1000000",
@@ -22,7 +21,7 @@ const sampleRaises: Partial<RaiseData>[] = [
     publicSaleStart: Date.now() - 43200000, // 12 hours ago
     endTime: Date.now() + 172800000, // 2 days from now
     metadata: {
-      name: "SonicToken",
+      name: "SonicSpeed",
       description: "High-speed cross-chain bridging and liquidity protocol",
       logoUrl: "/placeholder.svg",
       bannerUrl: "/placeholder.svg",
@@ -36,7 +35,7 @@ const sampleRaises: Partial<RaiseData>[] = [
   },
   {
     address: "sample-2",
-    tokenSymbol: "NXS",
+    tokenSymbol: "ETG",
     status: "upcoming",
     totalAcceptedTokenRaised: "0",
     maxAcceptedTokenRaise: "500000",
@@ -45,8 +44,8 @@ const sampleRaises: Partial<RaiseData>[] = [
     publicSaleStart: Date.now() + 259200000, // 3 days in future
     endTime: Date.now() + 432000000, // 5 days in future
     metadata: {
-      name: "NexusDAO",
-      description: "Community-governed cross-chain assets and yield management platform",
+      name: "EtherGlobe",
+      description: "Global cross-chain payment infrastructure for seamless transactions",
       logoUrl: "/placeholder.svg", 
       bannerUrl: "/placeholder.svg",
       websiteUrl: "https://example.com",
@@ -136,8 +135,8 @@ const CurrentRaisesSection: React.FC = () => {
                     <Rocket size={24} className="text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-bold text-lg">SonicToken</h3>
-                    <p className="text-sm text-launchlayer-text-secondary">$STK</p>
+                    <h3 className="font-bold text-lg">SonicSpeed</h3>
+                    <p className="text-sm text-launchlayer-text-secondary">$SST</p>
                   </div>
                 </div>
               </CardHeader>
@@ -189,18 +188,18 @@ const CurrentRaisesSection: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full ring-1 ring-gray-700 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center">
-                    <Package size={24} className="text-white" />
+                    <Globe size={24} className="text-white" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-bold text-lg">NexusDAO</h3>
-                    <p className="text-sm text-launchlayer-text-secondary">$NXS</p>
+                    <h3 className="font-bold text-lg">EtherGlobe</h3>
+                    <p className="text-sm text-launchlayer-text-secondary">$ETG</p>
                   </div>
                 </div>
               </CardHeader>
               
               <CardContent className="pt-2">
                 <p className="text-sm text-launchlayer-text-secondary line-clamp-2 mb-4">
-                  Community-governed cross-chain assets and yield management platform
+                  Global cross-chain payment infrastructure for seamless transactions
                 </p>
                 
                 <div className="mb-2">

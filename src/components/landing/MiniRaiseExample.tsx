@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Image, ArrowUp, Package, Rocket } from "lucide-react";
+import { ArrowUp, Package, Rocket, Globe } from "lucide-react";
 
 const MiniRaiseExample: React.FC = () => {
   return (
@@ -19,8 +19,8 @@ const MiniRaiseExample: React.FC = () => {
                       <Rocket size={20} className="text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-lg">SonicToken</CardTitle>
-                      <p className="text-xs text-launchlayer-text-secondary">$STK</p>
+                      <CardTitle className="text-lg">SonicSpeed</CardTitle>
+                      <p className="text-xs text-launchlayer-text-secondary">$SST</p>
                     </div>
                   </div>
                   <div className="bg-green-500/20 text-green-500 text-xs font-semibold px-2 py-1 rounded-full">
@@ -62,7 +62,7 @@ const MiniRaiseExample: React.FC = () => {
           </div>
           
           <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light card-hover shadow-card">
-            <h4 className="font-mono text-sm mb-2 text-launchlayer-violet">SonicToken.raise</h4>
+            <h4 className="font-mono text-sm mb-2 text-launchlayer-violet">SonicSpeed.raise</h4>
             <p className="text-xs text-launchlayer-text-secondary mb-2">
               Simple, transparent, on-chain token launches
             </p>
@@ -88,11 +88,11 @@ const MiniRaiseExample: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="bg-gradient-to-br from-green-400 to-blue-500 w-10 h-10 rounded-full flex items-center justify-center">
-                      <Package size={20} className="text-white" />
+                      <Globe size={20} className="text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-lg">NexusDAO</CardTitle>
-                      <p className="text-xs text-launchlayer-text-secondary">$NXS</p>
+                      <CardTitle className="text-lg">EtherGlobe</CardTitle>
+                      <p className="text-xs text-launchlayer-text-secondary">$ETG</p>
                     </div>
                   </div>
                   <div className="bg-amber-500/20 text-amber-500 text-xs font-semibold px-2 py-1 rounded-full">
@@ -134,9 +134,9 @@ const MiniRaiseExample: React.FC = () => {
           </div>
           
           <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light card-hover shadow-card">
-            <h4 className="font-mono text-sm mb-2 text-launchlayer-violet">NexusDAO.raise</h4>
+            <h4 className="font-mono text-sm mb-2 text-launchlayer-violet">EtherGlobe.raise</h4>
             <p className="text-xs text-launchlayer-text-secondary mb-2">
-              Community-driven governance token launch
+              Global cross-chain payment infrastructure
             </p>
             <div className="bg-launchlayer-background p-2 rounded font-mono text-xs">
               <code>

@@ -1,14 +1,16 @@
 
 import React from "react";
 import DetailCard from "./DetailCard";
+import { Separator } from "@/components/ui/separator";
 
 const ProcessSection: React.FC = () => {
   return (
-    <section className="py-16 bg-launchlayer-surface">
+    <section className="py-16 bg-launchlayer-background">
       <div className="container mx-auto px-8 max-w-[1280px]">
-        <h2 className="text-3xl font-bold text-center mb-12 tracking-wider">
+        <h2 className="text-3xl font-bold text-center mb-3 tracking-wider text-gradient-violet">
           Transparent On-Chain Process
         </h2>
+        <Separator className="max-w-[100px] mx-auto mb-12 bg-launchlayer-violet opacity-40" />
 
         <div className="grid md:grid-cols-3 gap-8">
           <DetailCard

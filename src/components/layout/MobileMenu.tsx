@@ -59,7 +59,7 @@ const MobileMenu: React.FC = () => {
             to="/"
             className={`transition-all duration-200 ${
               isActive("/")
-                ? "text-launchlayer-accent font-medium"
+                ? "text-launchlayer-violet font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
@@ -69,7 +69,7 @@ const MobileMenu: React.FC = () => {
             to="/about"
             className={`transition-all duration-200 ${
               isActive("/about")
-                ? "text-launchlayer-accent font-medium"
+                ? "text-launchlayer-violet font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
@@ -79,7 +79,7 @@ const MobileMenu: React.FC = () => {
             to="/app"
             className={`transition-all duration-200 ${
               isActive("/app")
-                ? "text-launchlayer-accent font-medium"
+                ? "text-launchlayer-violet font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
@@ -89,7 +89,7 @@ const MobileMenu: React.FC = () => {
             to="/admin"
             className={`transition-all duration-200 ${
               isActive("/admin")
-                ? "text-launchlayer-accent font-medium"
+                ? "text-launchlayer-violet font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
@@ -105,7 +105,7 @@ const MobileMenu: React.FC = () => {
                 href="https://github.com/b1rdmania/launchlayer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-violet flex items-center gap-2 transition-all duration-200"
               >
                 GitHub <ExternalLink size={14} />
               </a>
@@ -129,7 +129,7 @@ const MobileMenu: React.FC = () => {
             ) : (
               <Button
                 onClick={connect}
-                className="w-full mt-4 bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white hover:shadow-[0_0_6px_rgba(50,119,245,0.3)]"
+                className="w-full mt-4 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:bg-launchlayer-accent/90 text-white hover:shadow-[0_0_10px_rgba(112,99,248,0.3)]"
               >
                 Connect Wallet
               </Button>

@@ -46,6 +46,16 @@ const Header: React.FC = () => {
             Home
           </Link>
           <Link
+            to="/about"
+            className={`transition-colors relative ${
+              isActive("/about")
+                ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
+            }`}
+          >
+            About
+          </Link>
+          <Link
             to="/app"
             className={`transition-colors relative ${
               isActive("/app")

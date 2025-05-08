@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +8,7 @@ import { WalletProvider } from "@/contexts/WalletContext";
 import Layout from "@/components/layout/Layout";
 import LandingLayout from "@/components/layout/LandingLayout";
 import LandingPage from "@/pages/LandingPage";
+import AboutPage from "@/pages/AboutPage";
 import Index from "@/pages/Index";
 import DiscoveryPage from "@/pages/DiscoveryPage";
 import RaiseDetailPage from "@/pages/RaiseDetailPage";
@@ -35,6 +37,16 @@ const App = () => (
                 <LandingLayout>
                   <LandingPage />
                 </LandingLayout>
+              }
+            />
+
+            {/* About page */}
+            <Route
+              path="/about"
+              element={
+                <Layout>
+                  <AboutPage />
+                </Layout>
               }
             />
 

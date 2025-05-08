@@ -66,6 +66,16 @@ const MobileMenu: React.FC = () => {
             Home
           </Link>
           <Link
+            to="/about"
+            className={`transition-all duration-200 ${
+              isActive("/about")
+                ? "text-launchlayer-accent font-medium"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
+            }`}
+          >
+            About
+          </Link>
+          <Link
             to="/app"
             className={`transition-all duration-200 ${
               isActive("/app")

@@ -38,6 +38,12 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
               Home
             </Link>
             <Link
+              to="/about"
+              className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-animation ${isActive('/about') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
+            >
+              About
+            </Link>
+            <Link
               to="/app"
               className={`text-launchlayer-text-secondary hover:text-launchlayer-text-primary transition-all duration-200 hover-underline-animation ${isActive('/app') ? 'active-step text-launchlayer-text-primary' : 'opacity-70 hover:opacity-100'}`}
             >

@@ -4,11 +4,9 @@ import HeroSection from "@/components/landing/HeroSection";
 import SocialProofSection from "@/components/landing/SocialProofSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import LaunchFlowSection from "@/components/landing/LaunchFlowSection";
-import ProcessSection from "@/components/landing/ProcessSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 import MiniRaiseExample from "@/components/landing/MiniRaiseExample";
 import CtaSection from "@/components/landing/CtaSection";
-import DeveloperSection from "@/components/landing/DeveloperSection";
 
 const LandingPage: React.FC = () => {
   return (
@@ -30,8 +28,6 @@ const LandingPage: React.FC = () => {
       
       <LaunchFlowSection />
       <CurrentRaisesSection />
-      <ProcessSection />
-      <DeveloperSection />
       <CtaSection />
     </div>
   );

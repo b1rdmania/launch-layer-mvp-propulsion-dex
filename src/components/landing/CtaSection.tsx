@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Rocket } from "lucide-react";
 
 const CtaSection: React.FC = () => {
   return (
@@ -14,12 +15,17 @@ const CtaSection: React.FC = () => {
         </p>
         <Link to="/admin">
           <Button
+            variant="accent"
             size="lg"
-            className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white px-8 py-3 rounded-md text-lg transition-all"
+            className="px-8 py-3 rounded-md text-lg flex items-center gap-2"
           >
+            <Rocket size={20} />
             Start Your Raise
           </Button>
         </Link>
+        <div className="mt-6 text-xs text-launchlayer-text-secondary">
+          Built for Builders: Powered by Sonic
+        </div>
       </div>
     </section>
   );

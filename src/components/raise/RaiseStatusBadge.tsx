@@ -1,3 +1,4 @@
+
 import React from "react";
 import { cn } from "@/lib/utils";
 import { RaiseStatus } from "@/types/contract-types";
@@ -16,9 +17,9 @@ const RaiseStatusBadge: React.FC<RaiseStatusBadgeProps> = ({
       case "upcoming":
         return { label: "Upcoming", bgColor: "bg-gray-700 text-gray-200" };
       case "presale":
-        return { label: "Presale", bgColor: "bg-blue-600 text-white" };
+        return { label: "Presale", bgColor: "bg-launchlayer-accent text-white" };
       case "public":
-        return { label: "Public Sale", bgColor: "bg-green-600 text-white" };
+        return { label: "Public Sale", bgColor: "bg-launchlayer-mint text-white" };
       case "ended":
         return { label: "Ended", bgColor: "bg-neutral-600 text-neutral-200" };
       case "cancelled":

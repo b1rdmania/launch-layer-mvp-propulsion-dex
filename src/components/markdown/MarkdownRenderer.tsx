@@ -20,7 +20,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     );
     html = html.replace(
       /^### (.*$)/gm,
-      '<h3 class="text-lg font-bold mt-4 mb-2 text-launchlayer-text-primary">$1</h3>',
+      '<h3 class="text-lg font-bold mt-4 mb-2 text-launchlayer-text-primary section-header-blue">$1</h3>',
     );
 
     // Handle bold and italic
@@ -30,7 +30,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
     // Handle code blocks with backticks
     html = html.replace(
       /```([^`]*?)```/gms,
-      '<pre class="bg-launchlayer-surface text-launchlayer-text-primary p-4 rounded-md my-4 overflow-x-auto"><code>$1</code></pre>',
+      '<pre class="bg-launchlayer-surface text-launchlayer-text-primary p-4 rounded-md my-4 overflow-x-auto border-l-2 border-[#3787FB]"><code>$1</code></pre>',
     );
 
     // Handle inline code
@@ -67,6 +67,12 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
       return `<ul class="mb-4">${match}</ul>`;
     });
 
+    // Add blue underline to key phrases (adding a class that can be targeted with CSS)
+    html = html.replace(
+      /(important|note|warning|caution|tip):/gi,
+      '<span class="text-[#3787FB] underline">$1:</span>'
+    );
+
     return html;
   };
 
@@ -79,4 +85,3 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
 };
 
 export default MarkdownRenderer;
-

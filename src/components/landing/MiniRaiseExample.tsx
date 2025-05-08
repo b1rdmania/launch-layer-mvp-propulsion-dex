@@ -9,7 +9,7 @@ const MiniRaiseExample: React.FC = () => {
     <div className="w-full max-w-md mx-auto">
       <div className="flex flex-col">
         <div className="relative">
-          <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-lg hover:shadow-xl transition-all animate-float">
+          <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-card hover:shadow-lg transition-all animate-float card-hover">
             <CardHeader className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
@@ -46,7 +46,7 @@ const MiniRaiseExample: React.FC = () => {
                   </div>
                 </div>
                 <div className="pt-2">
-                  <button className="w-full bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white py-2 rounded-md font-medium transition-colors">
+                  <button className="w-full bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white py-2 rounded-md font-medium transition-all shadow-button">
                     View Raise
                   </button>
                 </div>
@@ -59,7 +59,7 @@ const MiniRaiseExample: React.FC = () => {
           <ArrowUp className="text-launchlayer-accent animate-pulse-glow" size={24} />
         </div>
         
-        <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light">
+        <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light card-hover shadow-card">
           <h4 className="font-mono text-sm mb-2">SonicToken.raise</h4>
           <p className="text-xs text-launchlayer-text-secondary mb-2">
             Simple, transparent, on-chain token launches

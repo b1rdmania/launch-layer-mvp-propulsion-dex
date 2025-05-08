@@ -1,14 +1,29 @@
 
 import React from "react";
-import { Check } from "lucide-react";
+import { Clipboard, Timer, CheckCircle, FileExport, Settings } from "lucide-react";
 
 const LaunchFlowSection: React.FC = () => {
   const steps = [
-    "Configure your token sale parameters",
-    "Deploy your contract on Sonic",
-    "Community contributes during sale phases",
-    "Finalize and collect your funds",
-    "Export data for vesting setup",
+    { 
+      text: "Configure your token sale parameters", 
+      icon: <Settings size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Deploy your contract on Sonic", 
+      icon: <Clipboard size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Community contributes during sale phases", 
+      icon: <Timer size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Finalize and collect your funds", 
+      icon: <CheckCircle size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Export data for vesting setup", 
+      icon: <FileExport size={18} className="text-launchlayer-mint" /> 
+    },
   ];
 
   return (
@@ -25,12 +40,15 @@ const LaunchFlowSection: React.FC = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="flex items-center mb-4 bg-launchlayer-surface p-4 rounded-md border border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-colors"
+              className="flex items-center mb-4 bg-launchlayer-surface p-4 rounded-md border border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all card-hover"
             >
               <div className="flex items-center justify-center w-8 h-8 rounded-full bg-launchlayer-accent text-white font-bold mr-4">
                 {index + 1}
               </div>
-              <span className="text-[0.95rem]">{step}</span>
+              <div className="flex items-center gap-2">
+                {step.icon}
+                <span className="text-[0.95rem]">{step.text}</span>
+              </div>
             </div>
           ))}
         </div>

@@ -64,7 +64,7 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				launchlayer: {
-					background: '#0D1117', // Updated solid dark background
+					background: '#0D1117', // Solid dark background
 					surface: {
 						DEFAULT: '#161B22', // Dark surface
 						light: '#21262D' // Lighter surface
@@ -73,12 +73,18 @@ export default {
 						primary: '#F9F9F9', // White text
 						secondary: '#8B949E' // Secondary text 
 					},
-					accent: '#3277F5', // Updated to specified blue accent
+					accent: '#3277F5', // Blue accent per the guide
 					secondary: '#6D5EB3', // Purple as secondary accent
 					blue: '#3277F5', // Blue for highlights - same as accent
+					mint: '#5222CB', // Mint color for tags and icons
 					error: '#FF6D3B', // Keeping error color
-					success: '#2ECC71' // Keeping success color
+					success: '#2ECC71', // Keeping success color
+					"field-bg": '#181A25' // Background for field containers
 				}
+			},
+			boxShadow: {
+				'card': '0px 2px 8px rgba(0, 0, 0, 0.15)',
+				'button': '0px 2px 8px rgba(50, 119, 245, 0.15)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -17,7 +17,7 @@ const DeveloperSection: React.FC = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/docs">
-                <Button className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white rounded-md flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
+                <Button variant="accent" className="rounded-md flex items-center gap-2 shadow-button">
                   <FileCode size={18} /> View Docs
                 </Button>
               </Link>
@@ -28,7 +28,7 @@ const DeveloperSection: React.FC = () => {
               >
                 <Button
                   variant="outline"
-                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light rounded-md flex items-center gap-2 shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light rounded-md flex items-center gap-2 shadow-sm hover:shadow-card transition-all hover:scale-[1.02]"
                 >
                   Try Testnet <ExternalLink size={16} />
                 </Button>
@@ -36,7 +36,7 @@ const DeveloperSection: React.FC = () => {
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
-            <div className="bg-launchlayer-background p-6 rounded-xl border border-launchlayer-surface-light">
+            <div className="bg-launchlayer-background p-6 rounded-xl border border-launchlayer-surface-light shadow-card card-hover">
               <pre className="text-sm font-mono text-launchlayer-text-secondary overflow-x-auto">
                 <code>
 {`// Deploy a new token sale

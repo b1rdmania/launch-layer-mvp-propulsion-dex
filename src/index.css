@@ -1,7 +1,6 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -77,5 +76,17 @@
 
   .btn-blue {
     @apply bg-launchlayer-accent text-white hover:brightness-110 hover:scale-[1.02] transition-all;
+  }
+  
+  .card-hover {
+    @apply hover:translate-y-[-2px] transition-transform duration-300 hover:shadow-[0px_2px_8px_rgba(0,0,0,0.15)];
+  }
+  
+  .active-step {
+    @apply relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-[#3787FB] after:bottom-[-4px] after:left-0;
+  }
+  
+  .section-header-blue {
+    @apply text-[#3277F5] font-medium;
   }
 }

@@ -40,14 +40,14 @@ const HeroSection: React.FC = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/admin">
-                <Button className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 hover:brightness-110 hover:scale-[1.02] text-white px-6 py-2 rounded-md flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
+                <Button variant="accent" className="px-6 py-2 rounded-md flex items-center gap-2">
                   Deploy Raise <ArrowRight size={16} />
                 </Button>
               </Link>
               <Link to="/">
                 <Button
                   variant="outline"
-                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-2 rounded-md shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-2 rounded-md shadow-sm hover:shadow-card transition-all"
                 >
                   View Launches
                 </Button>
@@ -55,7 +55,7 @@ const HeroSection: React.FC = () => {
               <Link to="/docs">
                 <Button
                   variant="secondary"
-                  className="bg-launchlayer-surface hover:bg-launchlayer-surface-light px-6 py-2 rounded-md shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+                  className="bg-launchlayer-surface hover:bg-launchlayer-surface-light px-6 py-2 rounded-md shadow-sm hover:shadow-card transition-all"
                 >
                   View Docs
                 </Button>
@@ -63,7 +63,7 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           <div className="lg:w-1/2 flex justify-center">
-            <div className="bg-launchlayer-surface p-1 rounded-2xl shadow-lg border border-launchlayer-surface-light animate-float">
+            <div className="bg-launchlayer-surface p-1 rounded-2xl shadow-card border border-launchlayer-surface-light animate-float">
               <div className="bg-launchlayer-surface p-8 rounded-xl flex items-center justify-center">
                 <Terminal
                   size={240}

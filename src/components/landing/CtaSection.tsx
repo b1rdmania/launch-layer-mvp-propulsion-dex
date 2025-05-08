@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 
 const CtaSection: React.FC = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-launchlayer-surface to-launchlayer-background">
+    <section className="py-16 bg-launchlayer-background">
       <div className="container mx-auto px-8 max-w-[1280px] text-center">
         <h2 className="text-3xl font-bold mb-4 tracking-wider">Launch Your Way on Sonic</h2>
-        <p className="text-xl mb-8 max-w-2xl mx-auto">
+        <p className="text-xl mb-8 max-w-2xl mx-auto text-[0.95rem] leading-relaxed">
           UI-driven deployment via the Factory ensures consistency. Direct smart
           contract interaction offers flexibility. Built natively for Sonic.
         </p>

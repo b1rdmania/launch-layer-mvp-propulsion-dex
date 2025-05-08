@@ -18,7 +18,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       <CardContent className="p-6">
         <div className="mb-4 text-launchlayer-accent">{icon}</div>
         <h3 className="text-lg font-bold mb-2 tracking-wider">{title}</h3>
-        <p className="text-launchlayer-text-secondary">{description}</p>
+        <p className="text-launchlayer-text-secondary text-[0.95rem] leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );

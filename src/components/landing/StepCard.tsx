@@ -16,7 +16,7 @@ const StepCard: React.FC<StepCardProps> = ({ number, title, description }) => {
           {number}
         </div>
         <h3 className="text-lg font-bold mb-2 tracking-wider">{title}</h3>
-        <p className="text-launchlayer-text-secondary text-sm">{description}</p>
+        <p className="text-launchlayer-text-secondary text-[0.95rem] leading-relaxed">{description}</p>
       </CardContent>
     </Card>
   );

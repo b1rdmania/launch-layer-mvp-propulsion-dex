@@ -24,11 +24,11 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-cradle-surface sticky top-0 z-20 border-b border-cradle-surface-light">
+    <header className="w-full bg-launchlayer-surface sticky top-0 z-20 border-b border-launchlayer-surface-light">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <Rocket size={24} className="text-cradle-accent" />
-          <span className="text-2xl font-bold bg-gradient-to-r from-cradle-accent to-blue-400 bg-clip-text text-transparent">
+          <Rocket size={24} className="text-launchlayer-accent" />
+          <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
             Launch Layer
           </span>
         </Link>
@@ -39,8 +39,8 @@ const Header: React.FC = () => {
             to="/"
             className={`transition-colors relative ${
               isActive("/")
-                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Home
@@ -49,8 +49,8 @@ const Header: React.FC = () => {
             to="/app"
             className={`transition-colors relative ${
               isActive("/app")
-                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Discover
@@ -59,8 +59,8 @@ const Header: React.FC = () => {
             to="/admin"
             className={`transition-colors relative ${
               isActive("/admin")
-                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Create Sale
@@ -69,8 +69,8 @@ const Header: React.FC = () => {
             to="/docs"
             className={`transition-colors relative ${
               isActive("/docs")
-                ? "text-cradle-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-cradle-accent after:bottom-[-8px] after:left-0"
-                : "text-cradle-text-secondary hover:text-cradle-text-primary"
+                ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-8px] after:left-0"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Docs
@@ -87,10 +87,10 @@ const Header: React.FC = () => {
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/b1rdmania/cradleyolo"
+                href="https://github.com/b1rdmania/launchlayer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-cradle-text-secondary hover:text-cradle-text-primary"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 aria-label="GitHub"
               >
                 <Github size={18} />
@@ -99,13 +99,13 @@ const Header: React.FC = () => {
 
             {isConnected ? (
               <div className="flex items-center gap-2">
-                <div className="hidden md:block px-3 py-1 bg-cradle-surface-light rounded-md text-sm font-mono">
+                <div className="hidden md:block px-3 py-1 bg-launchlayer-surface-light rounded-md text-sm font-mono">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
                 </div>
                 <Button
                   variant="outline"
                   onClick={disconnect}
-                  className="text-sm border-cradle-surface-light hover:bg-cradle-surface-light"
+                  className="text-sm border-launchlayer-surface-light hover:bg-launchlayer-surface-light"
                 >
                   Disconnect
                 </Button>
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
               <Button
                 onClick={connect}
                 disabled={isConnecting}
-                className="bg-cradle-accent hover:bg-cradle-accent/90 text-white shadow-sm hover:shadow-md transition-all"
+                className="bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white shadow-sm hover:shadow-md transition-all"
               >
                 {isConnecting ? "Connecting..." : "Connect Wallet"}
               </Button>

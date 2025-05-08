@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Check } from "lucide-react";
 
@@ -16,17 +17,17 @@ const LaunchFlowSection: React.FC = () => {
         <h2 className="text-3xl font-bold text-center mb-4">
           Launch Your Token in 5 Easy Steps
         </h2>
-        <p className="text-cradle-text-secondary text-center mb-12 max-w-2xl mx-auto">
-          Cradle streamlines the entire token launch process
+        <p className="text-launchlayer-text-secondary text-center mb-12 max-w-2xl mx-auto">
+          Launch Layer streamlines the entire token launch process
         </p>
 
         <div className="max-w-3xl mx-auto">
           {steps.map((step, index) => (
             <div
               key={index}
-              className="flex items-center mb-4 bg-cradle-surface p-4 rounded-lg"
+              className="flex items-center mb-4 bg-launchlayer-surface p-4 rounded-lg"
             >
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-cradle-accent text-white font-bold mr-4">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-launchlayer-accent text-white font-bold mr-4">
                 {index + 1}
               </div>
               <span>{step}</span>

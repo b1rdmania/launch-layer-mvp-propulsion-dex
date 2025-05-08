@@ -9,44 +9,44 @@
 
 @layer base {
   :root {
-    --background: 0 0% 6.7%;
+    --background: 194 59% 13%;
     --foreground: 0 0% 97.6%;
 
-    --card: 0 0% 10.2%;
+    --card: 195 57% 20%;
     --card-foreground: 0 0% 97.6%;
 
-    --popover: 0 0% 10.2%;
+    --popover: 195 57% 20%;
     --popover-foreground: 0 0% 97.6%;
 
-    --primary: 216 94% 57%;
+    --primary: 173 51% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 16.5%;
-    --secondary-foreground: 0 0% 97.6%;
+    --secondary: 256 32% 54%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 16.5%;
-    --muted-foreground: 0 0% 69%;
+    --muted: 195 38% 28%;
+    --muted-foreground: 206 25% 76%;
 
-    --accent: 216 94% 57%;
+    --accent: 173 51% 52%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 16 100% 61%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 16.5%;
-    --input: 0 0% 16.5%;
-    --ring: 216 94% 57%;
+    --border: 195 38% 28%;
+    --input: 195 38% 28%;
+    --ring: 173 51% 52%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 10.2%;
+    --sidebar-background: 195 57% 20%;
     --sidebar-foreground: 0 0% 97.6%;
-    --sidebar-primary: 216 94% 57%;
+    --sidebar-primary: 173 51% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 16.5%;
+    --sidebar-accent: 195 38% 28%;
     --sidebar-accent-foreground: 0 0% 97.6%;
-    --sidebar-border: 0 0% 16.5%;
-    --sidebar-ring: 216 94% 57%;
+    --sidebar-border: 195 38% 28%;
+    --sidebar-ring: 173 51% 52%;
   }
 
   * {
@@ -54,7 +54,7 @@
   }
 
   body {
-    @apply bg-cradle-background text-cradle-text-primary font-sans;
+    @apply bg-launchlayer-background text-launchlayer-text-primary font-sans;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
@@ -68,7 +68,7 @@
   }
 
   .animated-gradient {
-    background: linear-gradient(270deg, #3277F5, #6E59A5, #8B5CF6, #3277F5);
+    background: linear-gradient(270deg, #41C7B9, #6D5EB3, #0F75DB, #41C7B9);
     background-size: 300% 300%;
     animation: gradient-shift 15s ease infinite;
   }

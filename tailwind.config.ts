@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,19 +63,21 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				cradle: {
-					background: '#111111',
+				launchlayer: {
+					background: '#0A2838', // Teal dark background
 					surface: {
-						DEFAULT: '#1A1A1A',
-						light: '#2A2A2A'
+						DEFAULT: '#134152', // Lighter teal
+						light: '#1D5A6E' // Even lighter teal
 					},
 					text: {
-						primary: '#F9F9F9',
-						secondary: '#B0B6BD'
+						primary: '#F9F9F9', // White text
+						secondary: '#B0C4D4' // Grayish blue for secondary text
 					},
-					accent: '#3277F5',
-					error: '#FF6D3B',
-					success: '#2ECC71'
+					accent: '#41C7B9', // Turquoise as primary accent
+					secondary: '#6D5EB3', // Purple as secondary accent
+					blue: '#0F75DB', // Blue for highlights
+					error: '#FF6D3B', // Keeping error color
+					success: '#2ECC71' // Keeping success color
 				}
 			},
 			borderRadius: {

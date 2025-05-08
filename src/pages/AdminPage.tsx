@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWallet } from "@/contexts/WalletContext";
@@ -120,10 +119,9 @@ const AdminPage: React.FC = () => {
 
   // Navigate directly to a step if it's completed or the current one
   const handleStepClick = (stepId: string) => {
-    if (completedSteps[stepId] || stepId === activeTab) {
-      setActiveTab(stepId);
-      window.scrollTo(0, 0);
-    }
+    // Allow navigation to any step without validation
+    setActiveTab(stepId);
+    window.scrollTo(0, 0);
   };
 
   // Submit form
@@ -181,33 +179,6 @@ const AdminPage: React.FC = () => {
       toast.error("Failed to create raise");
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  // Validation (simplified)
-  const isCurrentTabValid = () => {
-    switch (activeTab) {
-      case "basic":
-        return (
-          formData.projectName && formData.tokenAddress && formData.description
-        );
-      case "structure":
-        return (
-          formData.pricePerToken &&
-          formData.maxRaiseAmount &&
-          formData.minAllocation &&
-          formData.maxAllocation
-        );
-      case "timing":
-        return (
-          formData.presaleStart && formData.publicSaleStart && formData.endTime
-        );
-      case "whitelist":
-        return !formData.enablePresale || formData.merkleRoot;
-      case "wallets":
-        return formData.ownerWallet && formData.feeRecipient && formData.feeBps;
-      default:
-        return true;
     }
   };
 
@@ -304,7 +275,7 @@ const AdminPage: React.FC = () => {
                       name="projectName"
                       value={formData.projectName}
                       onChange={handleChange}
-                      placeholder="e.g., BOOM Perpetual DEX"
+                      placeholder="e.g., SampleToken DEX"
                       className="bg-launchlayer-background border-gray-700 focus:border-launchlayer-violet focus:ring-1 focus:ring-launchlayer-violet"
                     />
                   </div>
@@ -464,7 +435,6 @@ const AdminPage: React.FC = () => {
               <div className="mt-8 flex justify-end sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
                 <Button
                   onClick={handleNextTab}
-                  disabled={!isCurrentTabValid()}
                   variant="accent"
                   size="wide"
                   className="flex items-center gap-2"
@@ -596,7 +566,6 @@ const AdminPage: React.FC = () => {
                 </Button>
                 <Button
                   onClick={handleNextTab}
-                  disabled={!isCurrentTabValid()}
                   variant="accent"
                   size="wide"
                   className="flex items-center gap-2"
@@ -685,7 +654,6 @@ const AdminPage: React.FC = () => {
                 </Button>
                 <Button
                   onClick={handleNextTab}
-                  disabled={!isCurrentTabValid()}
                   variant="accent"
                   size="wide"
                   className="flex items-center gap-2"
@@ -792,7 +760,6 @@ const AdminPage: React.FC = () => {
                 </Button>
                 <Button
                   onClick={handleNextTab}
-                  disabled={!isCurrentTabValid()}
                   variant="accent"
                   size="wide"
                   className="flex items-center gap-2"
@@ -901,7 +868,6 @@ const AdminPage: React.FC = () => {
                 </Button>
                 <Button
                   onClick={handleNextTab}
-                  disabled={!isCurrentTabValid()}
                   variant="accent"
                   size="wide"
                   className="flex items-center gap-2"
@@ -938,7 +904,7 @@ const AdminPage: React.FC = () => {
                             Project Name:
                           </span>
                           <span>
-                            {formData.projectName}
+                            {formData.projectName || "SampleToken"}
                           </span>
                         </li>
                         <li className="flex justify-between">
@@ -946,180 +912,3 @@ const AdminPage: React.FC = () => {
                             Token Address:
                           </span>
                           <span className="truncate max-w-[280px] font-mono">
-                            {formData.tokenAddress}
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="p-4 rounded-md bg-launchlayer-background">
-                      <h4 className="font-medium mb-2 text-launchlayer-violet">
-                        Sale Structure
-                      </h4>
-                      <ul className="space-y-1 text-sm">
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Price Per Token:
-                          </span>
-                          <span>
-                            {formData.pricePerToken} WS
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Max Raise Amount:
-                          </span>
-                          <span>
-                            {formData.maxRaiseAmount} WS
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Min/Max Allocation:
-                          </span>
-                          <span>
-                            {formData.minAllocation} / {formData.maxAllocation}{" "}
-                            tokens
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="p-4 rounded-md bg-launchlayer-background">
-                      <h4 className="font-medium mb-2 text-launchlayer-violet">
-                        Timing
-                      </h4>
-                      <ul className="space-y-1 text-sm">
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Presale Start:
-                          </span>
-                          <span>
-                            {new Date(formData.presaleStart).toLocaleString()}
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Public Sale Start:
-                          </span>
-                          <span>
-                            {new Date(formData.publicSaleStart).toLocaleString()}
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            End Time:
-                          </span>
-                          <span>
-                            {new Date(formData.endTime).toLocaleString()}
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="p-4 rounded-md bg-launchlayer-background">
-                      <h4 className="font-medium mb-2 text-launchlayer-violet">
-                        Wallets & Fees
-                      </h4>
-                      <ul className="space-y-1 text-sm">
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Owner:
-                          </span>
-                          <span className="truncate max-w-[280px] font-mono">
-                            {formData.ownerWallet}
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Fee Recipient:
-                          </span>
-                          <span className="truncate max-w-[280px] font-mono">
-                            {formData.feeRecipient}
-                          </span>
-                        </li>
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Fee:
-                          </span>
-                          <span>
-                            {(parseFloat(formData.feeBps) / 100).toFixed(2)}%
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="p-4 rounded-md bg-launchlayer-background">
-                      <h4 className="font-medium mb-2 text-launchlayer-violet">
-                        Whitelist
-                      </h4>
-                      <ul className="space-y-1 text-sm">
-                        <li className="flex justify-between">
-                          <span className="text-gray-400">
-                            Presale Enabled:
-                          </span>
-                          <span>
-                            {formData.enablePresale ? "Yes" : "No"}
-                          </span>
-                        </li>
-                        {formData.enablePresale && (
-                          <li className="flex justify-between">
-                            <span className="text-gray-400">
-                              Merkle Root:
-                            </span>
-                            <span className="truncate max-w-[200px] font-mono">
-                              {formData.merkleRoot}
-                            </span>
-                          </li>
-                        )}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-8">
-                    <Button
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="w-full py-6 text-lg bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:brightness-110 transition-all"
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center gap-2">
-                          <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></span>
-                          <span>Deploying Raise...</span>
-                        </div>
-                      ) : (
-                        "Deploy Raise"
-                      )}
-                    </Button>
-                  </div>
-
-                  <p className="mt-4 text-center text-sm text-gray-400">
-                    This will deploy a new CradleRaise contract using the provided
-                    parameters.
-                    <br />
-                    You'll need to approve the transaction in your wallet.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <div className="mt-8 flex justify-between sticky bottom-0 pt-4 pb-6 bg-gradient-to-t from-launchlayer-background to-transparent md:static md:bg-none">
-                <Button
-                  onClick={handlePrevTab}
-                  variant="back"
-                  size="wide"
-                  disabled={isSubmitting}
-                  className="flex items-center gap-2"
-                >
-                  <ChevronLeft size={16} />
-                  Back
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default AdminPage;

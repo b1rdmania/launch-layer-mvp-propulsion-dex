@@ -17,7 +17,7 @@ const MiniRaiseExample: React.FC = () => {
                     <Image size={20} className="text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">SampleToken</CardTitle>
+                    <CardTitle className="text-lg">SonicToken</CardTitle>
                     <p className="text-xs text-launchlayer-text-secondary">$STK</p>
                   </div>
                 </div>

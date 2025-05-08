@@ -40,16 +40,18 @@ const AboutPage: React.FC = () => {
             UI-driven deployment via the Factory ensures consistency. Direct smart
             contract interaction offers flexibility. Built natively for Sonic.
           </p>
-          <Link to="/admin">
-            <Button
-              variant="accent"
-              size="lg"
-              className="px-8 py-3 rounded-md text-lg flex items-center gap-2 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:shadow-[0_0_15px_rgba(112,99,248,0.5)] hover:scale-105 transition-all duration-300"
-            >
-              <Rocket size={20} />
-              Start Your Raise
-            </Button>
-          </Link>
+          <div className="flex justify-center">
+            <Link to="/admin">
+              <Button
+                variant="accent"
+                size="lg"
+                className="px-8 py-3 rounded-md text-lg flex items-center gap-2 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:shadow-[0_0_15px_rgba(112,99,248,0.5)] hover:scale-105 transition-all duration-300"
+              >
+                <Rocket size={20} />
+                Start Your Raise
+              </Button>
+            </Link>
+          </div>
           <div className="mt-6 text-xs text-launchlayer-text-secondary">
             Built for Builders: Powered by Sonic
           </div>

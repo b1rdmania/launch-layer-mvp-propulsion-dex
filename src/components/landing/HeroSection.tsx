@@ -25,8 +25,8 @@ const HeroSection: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          <div className="lg:w-1/2">
+        <div className="flex flex-col items-center gap-8">
+          <div className="w-full">
             <div className="inline-block mb-4 px-4 py-2 bg-launchlayer-accent/10 rounded-full backdrop-blur-sm">
               <p className="text-launchlayer-accent font-medium text-sm tracking-wide">
                 THE NEXT-GEN LAUNCHPAD FOR SONIC NETWORK
@@ -75,7 +75,7 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
           
-          <div className="lg:w-1/2 flex justify-center mt-8 lg:mt-0">
+          <div className="w-full max-w-2xl mt-8">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet opacity-30 blur-[60px] rounded-full" />
               

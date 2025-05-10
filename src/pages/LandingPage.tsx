@@ -1,7 +1,6 @@
 
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
-import SocialProofSection from "@/components/landing/SocialProofSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 import MiniRaiseExample from "@/components/landing/MiniRaiseExample";
@@ -10,7 +9,6 @@ const LandingPage: React.FC = () => {
   return (
     <div className="bg-launchlayer-background">
       <HeroSection />
-      <SocialProofSection />
       <FeaturesSection />
       
       <section className="py-16 bg-launchlayer-background">

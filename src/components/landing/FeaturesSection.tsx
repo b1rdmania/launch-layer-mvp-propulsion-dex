@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import {
   Fingerprint,
@@ -40,10 +39,8 @@ const FeaturesSection: React.FC = () => {
         <h2 className="text-3xl font-bold text-center mb-2 tracking-wider slide-in">
           Built for Transparent & Fair Launches on Sonic
         </h2>
-        <p className="text-launchlayer-violet font-medium text-center mb-4 slide-in">Simplified Token Launches</p>
         <p className="text-launchlayer-text-secondary text-center mb-12 max-w-2xl mx-auto slide-in">
-          Launch Layer's V1 platform provides everything you need for a successful
-          token launch on Sonic Network
+          Launch Layer provides everything you need for a successful token launch on Sonic.
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

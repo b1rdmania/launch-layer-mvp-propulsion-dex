@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,24 @@ import { useWallet } from "@/contexts/WalletContext";
 import { ethers } from "ethers";
 import { ArrowRight, Check, Info, Loader2 } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+
+interface SocialLinks {
+  twitter: string;
+  telegram: string;
+  discord: string;
+  medium: string;
+}
+
+interface TokenMetadata {
+  name: string;
+  symbol: string;
+  description: string;
+  longDescription: string;
+  websiteUrl: string;
+  bannerUrl: string;
+  logoUrl: string;
+  socials: SocialLinks;
+}
 
 interface FormData {
   token: string;
@@ -26,21 +45,7 @@ interface FormData {
   maxAcceptedTokenRaise: string;
   minTokenAllocation: string;
   maxTokenAllocation: string;
-  metadata: {
-    name: string;
-    symbol: string;
-    description: string;
-    longDescription: string;
-    websiteUrl: string;
-    bannerUrl: string;
-    logoUrl: string;
-    socials: {
-      twitter: string;
-      telegram: string;
-      discord: string;
-      medium: string;
-    };
-  };
+  metadata: TokenMetadata;
 }
 
 const initialState: FormData = {

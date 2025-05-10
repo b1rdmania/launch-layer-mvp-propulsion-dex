@@ -91,13 +91,17 @@ const AdminPage: React.FC = () => {
     
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
-      setFormValues(prev => ({
-        ...prev,
-        [parent]: {
-          ...prev[parent as keyof FormData],
-          [child]: value
-        }
-      }));
+      if (parent === 'metadata') {
+        setFormValues(prev => ({
+          ...prev,
+          metadata: {
+            ...prev.metadata,
+            [child]: value
+          }
+        }));
+      } else {
+        // Handle other nested structures if needed in the future
+      }
     } else {
       setFormValues(prev => ({
         ...prev,

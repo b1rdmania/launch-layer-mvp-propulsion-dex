@@ -27,12 +27,6 @@ const SocialProofSection: React.FC = () => {
             </div>
             <div className="flex flex-col items-center">
               <div className="bg-launchlayer-surface-light h-12 w-12 rounded-full flex items-center justify-center mb-2">
-                <span className="font-bold text-launchlayer-accent">FJ</span>
-              </div>
-              <p className="text-xs text-launchlayer-text-secondary">Fjord Finance</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="bg-launchlayer-surface-light h-12 w-12 rounded-full flex items-center justify-center mb-2">
                 <span className="font-bold text-launchlayer-accent">DH</span>
               </div>
               <p className="text-xs text-launchlayer-text-secondary">DoraHacks</p>

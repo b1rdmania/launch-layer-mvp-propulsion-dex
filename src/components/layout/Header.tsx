@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     <header className="p-4 sticky top-0 z-40 bg-launchlayer-background/80 backdrop-blur-sm border-b border-gray-800">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <Link to="/" className="text-xl font-bold tracking-wider mr-8">
+          <Link to="/" className="text-xl font-bold tracking-wider mr-8 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
             Launch Layer
           </Link>
 

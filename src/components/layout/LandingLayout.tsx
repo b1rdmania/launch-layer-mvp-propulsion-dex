@@ -3,7 +3,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useWallet } from "@/contexts/WalletContext";
-import { Github, MessagesSquare, Rocket } from "lucide-react";
+import { Github, MessagesSquare } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 
 interface LandingLayoutProps {
@@ -23,11 +23,8 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
       {/* Landing page header */}
       <header className="w-full bg-launchlayer-surface sticky top-0 z-20 border-b border-launchlayer-surface-light">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <Rocket size={24} className="text-launchlayer-accent" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-              Launch Layer
-            </span>
+          <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+            Launch Layer
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
@@ -89,11 +86,8 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
         <div className="container mx-auto max-w-[1280px]">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <div className="flex items-center gap-2">
-                <Rocket size={20} className="text-launchlayer-accent" />
-                <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                  Launch Layer
-                </span>
+              <div className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+                Launch Layer
               </div>
               <p className="text-sm text-launchlayer-text-secondary mt-1">
                 On-Chain Infrastructure. Not Investment Advice.

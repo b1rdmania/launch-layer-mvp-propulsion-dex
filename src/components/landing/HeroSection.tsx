@@ -3,14 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import MovingGradientBackground from "./MovingGradientBackground";
 
 const HeroSection: React.FC = () => {
   return (
     <section className="pt-20 pb-24 md:pt-28 md:pb-32 relative overflow-hidden z-10">
-      {/* Moving Gradient Background */}
-      <MovingGradientBackground />
-      
       {/* Code-like background elements */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div className="hidden lg:block absolute top-1/4 left-10 text-launchlayer-text-secondary/20 font-mono text-xs">

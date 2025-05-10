@@ -35,7 +35,7 @@ const MovingGradientBackground: React.FC = () => {
   };
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="fixed inset-0 overflow-hidden z-0">
       <svg className="hidden">
         <defs>
           <filter id="blurMe">
@@ -59,10 +59,11 @@ const MovingGradientBackground: React.FC = () => {
         className={`gradients-container h-full w-full blur-lg ${isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]"}`}
         onMouseMove={handleMouseMove}
       >
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(50,119,245,0.4)_0,_rgba(50,119,245,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[80%] h-[80%] top-[calc(50%-40%)] left-[calc(50%-40%)] [transform-origin:center_center] animate-first opacity-70" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.4)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[80%] h-[80%] top-[calc(50%-40%)] left-[calc(50%-40%)] [transform-origin:calc(50%-400px)] animate-second opacity-70" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.4)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[80%] h-[80%] top-[calc(50%-40%)] left-[calc(50%-40%)] [transform-origin:calc(50%+400px)] animate-third opacity-70" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.3)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[80%] h-[80%] top-[calc(50%-40%)] left-[calc(50%-40%)] [transform-origin:calc(50%-200px)] animate-fourth opacity-50" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(50,119,245,0.4)_0,_rgba(50,119,245,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:center_center] animate-first opacity-70" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.4)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%-400px)] animate-second opacity-70" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.4)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%+400px)] animate-third opacity-70" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.3)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%-200px)] animate-fourth opacity-50" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.3)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%+200px)] animate-fifth opacity-50" />
 
         <div
           ref={interactiveRef}

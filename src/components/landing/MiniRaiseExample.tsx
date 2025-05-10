@@ -11,7 +11,7 @@ const MiniRaiseExample: React.FC = () => {
       <div className="w-full max-w-md mx-auto">
         <div className="flex flex-col">
           <div className="relative">
-            <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-card hover:shadow-lg transition-all animate-float card-hover">
+            <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-card hover:shadow-lg transition-all card-hover">
               <CardHeader className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -58,7 +58,7 @@ const MiniRaiseExample: React.FC = () => {
           </div>
           
           <div className="flex justify-center py-4">
-            <ArrowUp className="text-launchlayer-violet animate-pulse-violet" size={24} />
+            <ArrowUp className="text-launchlayer-violet" size={24} />
           </div>
           
           <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light card-hover shadow-card">
@@ -83,7 +83,7 @@ const MiniRaiseExample: React.FC = () => {
       <div className="w-full max-w-md mx-auto">
         <div className="flex flex-col">
           <div className="relative">
-            <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-card hover:shadow-lg transition-all animate-float card-hover">
+            <Card className="border border-launchlayer-surface-light bg-launchlayer-surface shadow-card hover:shadow-lg transition-all card-hover">
               <CardHeader className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -130,7 +130,7 @@ const MiniRaiseExample: React.FC = () => {
           </div>
           
           <div className="flex justify-center py-4">
-            <ArrowUp className="text-launchlayer-violet animate-pulse-violet" size={24} />
+            <ArrowUp className="text-launchlayer-violet" size={24} />
           </div>
           
           <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-surface-light card-hover shadow-card">

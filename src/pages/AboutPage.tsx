@@ -5,6 +5,7 @@ import { ExternalLink, FileCode, Rocket, Terminal, Sparkles, Clipboard, Timer, C
 import { Separator } from "@/components/ui/separator";
 import ProcessSection from "@/components/landing/ProcessSection";
 import DeveloperSection from "@/components/landing/DeveloperSection";
+import MiniRaiseExample from "@/components/landing/MiniRaiseExample";
 
 const AboutPage: React.FC = () => {
   // Function to handle scroll animations
@@ -94,6 +95,20 @@ const AboutPage: React.FC = () => {
                 <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
               </svg>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What a Raise Looks Like section - moved from landing page (without animation) */}
+      <section className="py-16 bg-launchlayer-background">
+        <div className="container mx-auto px-8 max-w-[1280px]">
+          <h2 className="text-3xl font-bold mb-4 text-center tracking-wider animate-on-scroll slide-in">What a Raise Looks Like</h2>
+          <p className="text-launchlayer-text-secondary mb-10 text-center max-w-2xl mx-auto animate-on-scroll slide-in">
+            Simple, transparent, and efficient. Launch Layer provides all the tools you need 
+            to create and manage your token raise with minimal friction.
+          </p>
+          <div className="animate-on-scroll slide-in">
+            <MiniRaiseExample />
           </div>
         </div>
       </section>

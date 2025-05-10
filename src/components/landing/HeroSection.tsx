@@ -44,6 +44,8 @@ const HeroSection: React.FC = () => {
               A permissionless, tokenless launchpad for serious DeFi builders. 
               <br className="hidden md:block" />
               Forget raffles, ditch bonding curves, and skip the pointless platform token.
+              <br className="hidden md:block" />
+              Transparent factory contract raises. Done. Vesting. Seamless. Your token. Launched right.
             </p>
             
             <div className="flex flex-wrap gap-4">
@@ -59,6 +61,15 @@ const HeroSection: React.FC = () => {
                   className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg"
                 >
                   View Launches
+                </Button>
+              </Link>
+              <Link to="/docs">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg"
+                >
+                  View Docs
                 </Button>
               </Link>
             </div>

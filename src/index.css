@@ -176,6 +176,14 @@
   .btn-gradient {
     @apply bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet;
   }
+
+  .typing-animation {
+    overflow: hidden;
+    border-right: 2px solid;
+    white-space: nowrap;
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+    width: fit-content;
+  }
 }
 
 /* Animation keyframes */
@@ -210,6 +218,16 @@
     opacity: 1;
     box-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
   }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: currentColor }
 }
 
 /* Mobile optimizations */

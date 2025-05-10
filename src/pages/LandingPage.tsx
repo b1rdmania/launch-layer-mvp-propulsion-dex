@@ -3,7 +3,6 @@ import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import SocialProofSection from "@/components/landing/SocialProofSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
-import LaunchFlowSection from "@/components/landing/LaunchFlowSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 import MiniRaiseExample from "@/components/landing/MiniRaiseExample";
 
@@ -25,7 +24,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
       
-      <LaunchFlowSection />
       <CurrentRaisesSection />
     </div>
   );

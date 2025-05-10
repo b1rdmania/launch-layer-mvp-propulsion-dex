@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, FileCode, Rocket, Terminal, Sparkles } from "lucide-react";
+import { ExternalLink, FileCode, Rocket, Terminal, Sparkles, Clipboard, Timer, CheckCircle, FileText, Settings } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import ProcessSection from "@/components/landing/ProcessSection";
 import DeveloperSection from "@/components/landing/DeveloperSection";
@@ -33,6 +33,30 @@ const AboutPage: React.FC = () => {
       window.removeEventListener("scroll", animateOnScroll);
     };
   }, []);
+  
+  // Define steps for the launch process section
+  const steps = [
+    { 
+      text: "Configure your token sale parameters", 
+      icon: <Settings size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Deploy your contract on Sonic", 
+      icon: <Clipboard size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Community contributes during sale phases", 
+      icon: <Timer size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Finalize and collect your funds", 
+      icon: <CheckCircle size={18} className="text-launchlayer-mint" /> 
+    },
+    { 
+      text: "Export data for vesting setup", 
+      icon: <FileText size={18} className="text-launchlayer-mint" /> 
+    },
+  ];
   
   return (
     <div className="bg-launchlayer-background overflow-hidden">
@@ -75,6 +99,36 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Launch Your Token in 5 Easy Steps section (moved from landing page) */}
+      <section className="py-16 bg-launchlayer-background">
+        <div className="container mx-auto px-8 max-w-[1280px]">
+          <h2 className="text-3xl font-bold text-center mb-4 tracking-wider text-gradient-violet animate-on-scroll slide-in">
+            Launch Your Token in 5 Easy Steps
+          </h2>
+          <p className="text-launchlayer-text-secondary text-center mb-12 max-w-2xl mx-auto text-[0.95rem] leading-relaxed animate-on-scroll slide-in" style={{transitionDelay: "0.1s"}}>
+            Launch Layer streamlines the entire token launch process
+          </p>
+
+          <div className="max-w-3xl mx-auto">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between mb-4 bg-launchlayer-surface p-4 rounded-md border border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all hover:translate-y-[-2px] hover:shadow-[0_2px_10px_rgba(50,119,245,0.12)] animate-on-scroll slide-in"
+                style={{transitionDelay: `${0.1 * (index + 1)}s`}}
+              >
+                <div className="flex items-center">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-launchlayer-accent to-launchlayer-violet text-white font-bold mr-4 shadow-[0_2px_10px_rgba(112,99,248,0.25)] group-hover:shadow-[0_2px_15px_rgba(112,99,248,0.4)] transition-all duration-300">
+                    {index + 1}
+                  </div>
+                  <span className="text-[0.95rem]">{step.text}</span>
+                </div>
+                {step.icon}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* Enhanced Process Section */}
       <section className="py-16 bg-launchlayer-background">
         <div className="container mx-auto px-8 max-w-[1280px]">

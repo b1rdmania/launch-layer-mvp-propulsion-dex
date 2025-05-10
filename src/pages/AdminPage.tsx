@@ -4,14 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 import { useWallet } from "@/contexts/WalletContext";
-import { ethers } from "ethers";
-import { ArrowRight, Check, Info, Loader2 } from "lucide-react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Check, Loader2 } from "lucide-react";
 
 interface SocialLinks {
   twitter: string;
@@ -50,7 +46,7 @@ interface FormData {
 
 const initialState: FormData = {
   token: "",
-  acceptedToken: "",
+  acceptedToken: "0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38",
   pricePerToken: "",
   presaleStart: 0,
   publicSaleStart: 0,
@@ -63,11 +59,11 @@ const initialState: FormData = {
   minTokenAllocation: "",
   maxTokenAllocation: "",
   metadata: {
-    name: "SampleToken DEX",
-    symbol: "SAMPLE",
-    description: "A sample token for Launch Layer demonstration",
-    longDescription: "This is a longer description about the sample token and its use cases within the ecosystem.",
-    websiteUrl: "https://example.com",
+    name: "",
+    symbol: "",
+    description: "",
+    longDescription: "",
+    websiteUrl: "",
     bannerUrl: "",
     logoUrl: "",
     socials: {
@@ -79,12 +75,22 @@ const initialState: FormData = {
   }
 };
 
+// Steps configuration
+const steps = [
+  { id: 1, name: "Basic", description: "Project & token details" },
+  { id: 2, name: "Structure", description: "Raise parameters" },
+  { id: 3, name: "Timing", description: "Schedule settings" },
+  { id: 4, name: "Whitelist", description: "Access control" },
+  { id: 5, name: "Wallets", description: "Fee configuration" },
+  { id: 6, name: "Review", description: "Deploy raise" }
+];
+
 const AdminPage: React.FC = () => {
   const { toast } = useToast();
   const { address, isConnected, connect } = useWallet();
   const [formValues, setFormValues] = useState<FormData>(initialState);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("token");
+  const [currentStep, setCurrentStep] = useState(1);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -99,8 +105,6 @@ const AdminPage: React.FC = () => {
             [child]: value
           }
         }));
-      } else {
-        // Handle other nested structures if needed in the future
       }
     } else {
       setFormValues(prev => ({
@@ -148,7 +152,6 @@ const AdminPage: React.FC = () => {
         variant: "default"
       });
       
-      // Reset form or redirect
     } catch (error) {
       console.error("Error creating raise:", error);
       toast({
@@ -161,490 +164,451 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  const nextTab = () => {
-    if (activeTab === "token") setActiveTab("sale");
-    else if (activeTab === "sale") setActiveTab("metadata");
+  const nextStep = () => {
+    if (currentStep < steps.length) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
-  const prevTab = () => {
-    if (activeTab === "metadata") setActiveTab("sale");
-    else if (activeTab === "sale") setActiveTab("token");
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center mb-2 space-x-2">
+                <div className="bg-launchlayer-violet/20 text-launchlayer-violet rounded-full w-7 h-7 flex items-center justify-center text-sm">1</div>
+                <h2 className="text-xl font-bold text-launchlayer-violet">Basic Information</h2>
+              </div>
+              <p className="text-launchlayer-text-secondary ml-9">Enter the core details about your project and token</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="metadata.name" className="text-base">Project Name</Label>
+                <Input
+                  id="metadata.name"
+                  name="metadata.name"
+                  placeholder="e.g., BOOM Perpetual DEX"
+                  value={formValues.metadata.name}
+                  onChange={handleInputChange}
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="token" className="text-base">Token Address</Label>
+                <Input
+                  id="token"
+                  name="token"
+                  placeholder="e.g., 0x1234..."
+                  value={formValues.token}
+                  onChange={handleInputChange}
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="acceptedToken" className="text-base">Accepted Token Address (Default: WS)</Label>
+                <Input
+                  id="acceptedToken"
+                  name="acceptedToken"
+                  placeholder="0x..."
+                  value={formValues.acceptedToken}
+                  onChange={handleInputChange}
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="metadata.description" className="text-base">Short Description</Label>
+                <Input
+                  id="metadata.description"
+                  name="metadata.description"
+                  placeholder="Brief description (max 150 chars)"
+                  value={formValues.metadata.description}
+                  onChange={handleInputChange}
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  maxLength={150}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      case 2:
+        return (
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center mb-2 space-x-2">
+                <div className="bg-launchlayer-violet/20 text-launchlayer-violet rounded-full w-7 h-7 flex items-center justify-center text-sm">2</div>
+                <h2 className="text-xl font-bold text-launchlayer-violet">Raise Structure</h2>
+              </div>
+              <p className="text-launchlayer-text-secondary ml-9">Configure the token economics for your raise</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="pricePerToken" className="text-base">Price Per Token</Label>
+                <Input
+                  id="pricePerToken"
+                  name="pricePerToken"
+                  placeholder="0.01"
+                  value={formValues.pricePerToken}
+                  onChange={handleInputChange}
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="maxAcceptedTokenRaise" className="text-base">Maximum Raise Amount (Hard Cap)</Label>
+                <Input
+                  id="maxAcceptedTokenRaise"
+                  name="maxAcceptedTokenRaise"
+                  placeholder="100000"
+                  value={formValues.maxAcceptedTokenRaise}
+                  onChange={handleInputChange}
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="minTokenAllocation" className="text-base">Minimum Allocation</Label>
+                  <Input
+                    id="minTokenAllocation"
+                    name="minTokenAllocation"
+                    placeholder="100"
+                    value={formValues.minTokenAllocation}
+                    onChange={handleInputChange}
+                    className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="maxTokenAllocation" className="text-base">Maximum Allocation</Label>
+                  <Input
+                    id="maxTokenAllocation"
+                    name="maxTokenAllocation"
+                    placeholder="10000"
+                    value={formValues.maxTokenAllocation}
+                    onChange={handleInputChange}
+                    className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 3:
+        return (
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center mb-2 space-x-2">
+                <div className="bg-launchlayer-violet/20 text-launchlayer-violet rounded-full w-7 h-7 flex items-center justify-center text-sm">3</div>
+                <h2 className="text-xl font-bold text-launchlayer-violet">Timing</h2>
+              </div>
+              <p className="text-launchlayer-text-secondary ml-9">Set up your raise schedule</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="presaleStart" className="text-base">Presale Start (Optional)</Label>
+                <Input
+                  id="presaleStart"
+                  name="presaleStart"
+                  type="datetime-local"
+                  value={formValues.presaleStart ? new Date(formValues.presaleStart * 1000).toISOString().slice(0, 16) : ""}
+                  onChange={(e) => {
+                    const timestamp = new Date(e.target.value).getTime() / 1000;
+                    setFormValues(prev => ({
+                      ...prev,
+                      presaleStart: timestamp
+                    }));
+                  }}
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="publicSaleStart" className="text-base">Public Sale Start</Label>
+                <Input
+                  id="publicSaleStart"
+                  name="publicSaleStart"
+                  type="datetime-local"
+                  value={formValues.publicSaleStart ? new Date(formValues.publicSaleStart * 1000).toISOString().slice(0, 16) : ""}
+                  onChange={(e) => {
+                    const timestamp = new Date(e.target.value).getTime() / 1000;
+                    setFormValues(prev => ({
+                      ...prev,
+                      publicSaleStart: timestamp
+                    }));
+                  }}
+                  required
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="endTime" className="text-base">Sale End Time</Label>
+                <Input
+                  id="endTime"
+                  name="endTime"
+                  type="datetime-local"
+                  value={formValues.endTime ? new Date(formValues.endTime * 1000).toISOString().slice(0, 16) : ""}
+                  onChange={(e) => {
+                    const timestamp = new Date(e.target.value).getTime() / 1000;
+                    setFormValues(prev => ({
+                      ...prev,
+                      endTime: timestamp
+                    }));
+                  }}
+                  required
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+            </div>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center mb-2 space-x-2">
+                <div className="bg-launchlayer-violet/20 text-launchlayer-violet rounded-full w-7 h-7 flex items-center justify-center text-sm">4</div>
+                <h2 className="text-xl font-bold text-launchlayer-violet">Whitelist</h2>
+              </div>
+              <p className="text-launchlayer-text-secondary ml-9">Configure whitelisted addresses for presale</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="merkleRoot" className="text-base">Whitelist Merkle Root (Optional)</Label>
+                <Input
+                  id="merkleRoot"
+                  name="merkleRoot"
+                  placeholder="0x..."
+                  value={formValues.merkleRoot}
+                  onChange={handleInputChange}
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+                <p className="text-xs text-launchlayer-text-secondary">
+                  Leave default (all zeros) for no whitelist. For a custom whitelist, generate a Merkle root from your addresses.
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      case 5:
+        return (
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center mb-2 space-x-2">
+                <div className="bg-launchlayer-violet/20 text-launchlayer-violet rounded-full w-7 h-7 flex items-center justify-center text-sm">5</div>
+                <h2 className="text-xl font-bold text-launchlayer-violet">Wallets</h2>
+              </div>
+              <p className="text-launchlayer-text-secondary ml-9">Configure wallet addresses and fees</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="raiseOwner" className="text-base">Raise Owner Address</Label>
+                <Input
+                  id="raiseOwner"
+                  name="raiseOwner"
+                  placeholder={address || "0x..."}
+                  value={formValues.raiseOwner || address || ""}
+                  onChange={handleInputChange}
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="feeRecipient" className="text-base">Fee Recipient (Optional)</Label>
+                <Input
+                  id="feeRecipient"
+                  name="feeRecipient"
+                  placeholder="0x..."
+                  value={formValues.feeRecipient}
+                  onChange={handleInputChange}
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="feePercentBasisPoints" className="text-base">Fee Percentage (basis points)</Label>
+                <Input
+                  id="feePercentBasisPoints"
+                  name="feePercentBasisPoints"
+                  type="number"
+                  placeholder="250 (2.5%)"
+                  value={formValues.feePercentBasisPoints}
+                  onChange={(e) => setFormValues(prev => ({
+                    ...prev,
+                    feePercentBasisPoints: parseInt(e.target.value)
+                  }))}
+                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                />
+                <p className="text-xs text-launchlayer-text-secondary">100 basis points = 1%</p>
+              </div>
+            </div>
+          </div>
+        );
+      case 6:
+        return (
+          <div className="space-y-8">
+            <div>
+              <div className="flex items-center mb-2 space-x-2">
+                <div className="bg-launchlayer-violet/20 text-launchlayer-violet rounded-full w-7 h-7 flex items-center justify-center text-sm">6</div>
+                <h2 className="text-xl font-bold text-launchlayer-violet">Review & Launch</h2>
+              </div>
+              <p className="text-launchlayer-text-secondary ml-9">Review your settings and launch your token raise</p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-1">
+                <h3 className="font-medium text-launchlayer-text-primary">Project Name</h3>
+                <p className="text-launchlayer-text-secondary">{formValues.metadata.name || "Not specified"}</p>
+              </div>
+              
+              <div className="space-y-1">
+                <h3 className="font-medium text-launchlayer-text-primary">Token Address</h3>
+                <p className="text-launchlayer-text-secondary font-mono">{formValues.token || "Not specified"}</p>
+              </div>
+              
+              <div className="space-y-1">
+                <h3 className="font-medium text-launchlayer-text-primary">Price Per Token</h3>
+                <p className="text-launchlayer-text-secondary">{formValues.pricePerToken || "Not specified"}</p>
+              </div>
+              
+              <div className="space-y-1">
+                <h3 className="font-medium text-launchlayer-text-primary">Raise Amount</h3>
+                <p className="text-launchlayer-text-secondary">{formValues.maxAcceptedTokenRaise || "Not specified"}</p>
+              </div>
+              
+              <div className="space-y-1">
+                <h3 className="font-medium text-launchlayer-text-primary">Schedule</h3>
+                <p className="text-launchlayer-text-secondary">
+                  {formValues.presaleStart ? `Presale: ${new Date(formValues.presaleStart * 1000).toLocaleString()}, ` : ""}
+                  Public: {formValues.publicSaleStart ? new Date(formValues.publicSaleStart * 1000).toLocaleString() : "Not specified"},
+                  End: {formValues.endTime ? new Date(formValues.endTime * 1000).toLocaleString() : "Not specified"}
+                </p>
+              </div>
+            </div>
+
+            <div className="!mt-12 py-4">
+              {!isConnected ? (
+                <Button 
+                  type="button" 
+                  onClick={connect} 
+                  className="w-full bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
+                >
+                  Connect Wallet to Continue
+                </Button>
+              ) : (
+                <Button 
+                  type="submit" 
+                  disabled={isLoading} 
+                  className="w-full bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Creating Raise...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Launch Token Raise
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-[1280px]">
-      <h1 className="text-3xl font-bold mb-2">Create Token Raise</h1>
-      <p className="text-launchlayer-text-secondary mb-8">
-        Configure and deploy your token raise on Sonic Network
-      </p>
-      
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-8">
-          <TabsTrigger value="token">Token Details</TabsTrigger>
-          <TabsTrigger value="sale">Sale Parameters</TabsTrigger>
-          <TabsTrigger value="metadata">Metadata & Launch</TabsTrigger>
-        </TabsList>
-        
-        <form onSubmit={handleSubmit}>
-          <TabsContent value="token">
-            <Card>
-              <CardHeader>
-                <CardTitle>Token Configuration</CardTitle>
-                <CardDescription>
-                  Set up the token details for your raise
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="token">Token Address</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id="token"
-                      name="token"
-                      placeholder="0x..."
-                      value={formValues.token}
-                      onChange={handleInputChange}
-                      className="font-mono"
-                    />
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Info size={16} />
-                        </Button>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80">
-                        <p className="text-sm">
-                          The address of the ERC20 token you want to sell. This token must be deployed before creating a raise.
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
+    <div className="min-h-screen bg-launchlayer-background">
+      <div className="container mx-auto py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-2 text-white">Create New Raise</h1>
+            <p className="text-launchlayer-text-secondary">
+              Step {currentStep} of {steps.length} — {steps[currentStep - 1].name}
+            </p>
+            <p className="text-launchlayer-text-secondary/80 text-sm">
+              {steps[currentStep - 1].description}
+            </p>
+          </div>
+
+          {/* Step indicators */}
+          <div className="flex justify-between mb-10">
+            {steps.map((step, index) => (
+              <React.Fragment key={step.id}>
+                <div 
+                  className={`flex flex-col items-center ${index + 1 === currentStep ? 'text-launchlayer-violet' : 'text-gray-500'}`}
+                >
+                  <div 
+                    className={`rounded-full w-10 h-10 flex items-center justify-center mb-2 font-semibold 
+                              ${index + 1 === currentStep 
+                                ? 'bg-launchlayer-violet text-white' 
+                                : index + 1 < currentStep 
+                                  ? 'bg-launchlayer-violet/30 text-white'
+                                  : 'bg-launchlayer-card-background text-launchlayer-text-secondary border border-launchlayer-border'
+                              }`}
+                  >
+                    {index + 1}
                   </div>
+                  <span className="text-sm">{step.name}</span>
                 </div>
                 
-                <div className="space-y-2">
-                  <Label htmlFor="acceptedToken">Accepted Payment Token</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id="acceptedToken"
-                      name="acceptedToken"
-                      placeholder="0x... (USDC, WETH, etc.)"
-                      value={formValues.acceptedToken}
-                      onChange={handleInputChange}
-                      className="font-mono"
-                    />
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Info size={16} />
-                        </Button>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80">
-                        <p className="text-sm">
-                          The token you want to accept as payment. Common choices are USDC, WETH, or other stablecoins.
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="pricePerToken">Price Per Token</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id="pricePerToken"
-                      name="pricePerToken"
-                      placeholder="0.01"
-                      value={formValues.pricePerToken}
-                      onChange={handleInputChange}
-                    />
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Info size={16} />
-                        </Button>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80">
-                        <p className="text-sm">
-                          The price of one token in terms of the accepted payment token.
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <div></div> {/* Empty div for spacing */}
-                <Button type="button" onClick={nextTab}>
-                  Next <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="sale">
-            <Card>
-              <CardHeader>
-                <CardTitle>Sale Parameters</CardTitle>
-                <CardDescription>
-                  Configure the timing and limits for your token sale
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="presaleStart">Presale Start (Optional)</Label>
-                    <Input
-                      id="presaleStart"
-                      name="presaleStart"
-                      type="datetime-local"
-                      value={formValues.presaleStart ? new Date(formValues.presaleStart * 1000).toISOString().slice(0, 16) : ""}
-                      onChange={(e) => {
-                        const timestamp = new Date(e.target.value).getTime() / 1000;
-                        setFormValues(prev => ({
-                          ...prev,
-                          presaleStart: timestamp
-                        }));
-                      }}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="publicSaleStart">Public Sale Start</Label>
-                    <Input
-                      id="publicSaleStart"
-                      name="publicSaleStart"
-                      type="datetime-local"
-                      value={formValues.publicSaleStart ? new Date(formValues.publicSaleStart * 1000).toISOString().slice(0, 16) : ""}
-                      onChange={(e) => {
-                        const timestamp = new Date(e.target.value).getTime() / 1000;
-                        setFormValues(prev => ({
-                          ...prev,
-                          publicSaleStart: timestamp
-                        }));
-                      }}
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="endTime">Sale End Time</Label>
-                  <Input
-                    id="endTime"
-                    name="endTime"
-                    type="datetime-local"
-                    value={formValues.endTime ? new Date(formValues.endTime * 1000).toISOString().slice(0, 16) : ""}
-                    onChange={(e) => {
-                      const timestamp = new Date(e.target.value).getTime() / 1000;
-                      setFormValues(prev => ({
-                        ...prev,
-                        endTime: timestamp
-                      }));
-                    }}
-                    required
-                  />
-                </div>
-                
-                <Separator className="my-4" />
-                
-                <div className="space-y-2">
-                  <Label htmlFor="maxAcceptedTokenRaise">Maximum Raise Amount</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id="maxAcceptedTokenRaise"
-                      name="maxAcceptedTokenRaise"
-                      placeholder="100000"
-                      value={formValues.maxAcceptedTokenRaise}
-                      onChange={handleInputChange}
-                    />
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Info size={16} />
-                        </Button>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80">
-                        <p className="text-sm">
-                          The maximum amount of accepted tokens to raise (hardcap).
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="minTokenAllocation">Minimum Allocation</Label>
-                    <Input
-                      id="minTokenAllocation"
-                      name="minTokenAllocation"
-                      placeholder="100"
-                      value={formValues.minTokenAllocation}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="maxTokenAllocation">Maximum Allocation</Label>
-                    <Input
-                      id="maxTokenAllocation"
-                      name="maxTokenAllocation"
-                      placeholder="10000"
-                      value={formValues.maxTokenAllocation}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                
-                <Separator className="my-4" />
-                
-                <div className="space-y-2">
-                  <Label htmlFor="merkleRoot">Whitelist Merkle Root (Optional)</Label>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id="merkleRoot"
-                      name="merkleRoot"
-                      placeholder="0x..."
-                      value={formValues.merkleRoot}
-                      onChange={handleInputChange}
-                      className="font-mono"
-                    />
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Info size={16} />
-                        </Button>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80">
-                        <p className="text-sm">
-                          Optional Merkle root for whitelisted addresses. Leave as default (all zeros) for no whitelist.
-                        </p>
-                      </HoverCardContent>
-                    </HoverCard>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button type="button" variant="outline" onClick={prevTab}>
-                  Back
-                </Button>
-                <Button type="button" onClick={nextTab}>
-                  Next <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="metadata">
-            <Card>
-              <CardHeader>
-                <CardTitle>Project Metadata & Launch</CardTitle>
-                <CardDescription>
-                  Add details about your project and launch your token sale
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="metadata.name">Project Name</Label>
-                    <Input
-                      id="metadata.name"
-                      name="metadata.name"
-                      placeholder="My Token Project"
-                      value={formValues.metadata.name}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="metadata.symbol">Token Symbol</Label>
-                    <Input
-                      id="metadata.symbol"
-                      name="metadata.symbol"
-                      placeholder="TKN"
-                      value={formValues.metadata.symbol}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="metadata.description">Short Description</Label>
-                  <Input
-                    id="metadata.description"
-                    name="metadata.description"
-                    placeholder="A brief description of your project"
-                    value={formValues.metadata.description}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="metadata.longDescription">Long Description</Label>
-                  <Textarea
-                    id="metadata.longDescription"
-                    name="metadata.longDescription"
-                    placeholder="A detailed description of your project, its goals, and use cases"
-                    value={formValues.metadata.longDescription}
-                    onChange={handleInputChange}
-                    rows={4}
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="metadata.websiteUrl">Website URL</Label>
-                  <Input
-                    id="metadata.websiteUrl"
-                    name="metadata.websiteUrl"
-                    placeholder="https://example.com"
-                    value={formValues.metadata.websiteUrl}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="metadata.logoUrl">Logo URL</Label>
-                    <Input
-                      id="metadata.logoUrl"
-                      name="metadata.logoUrl"
-                      placeholder="https://example.com/logo.png"
-                      value={formValues.metadata.logoUrl}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="metadata.bannerUrl">Banner URL</Label>
-                    <Input
-                      id="metadata.bannerUrl"
-                      name="metadata.bannerUrl"
-                      placeholder="https://example.com/banner.png"
-                      value={formValues.metadata.bannerUrl}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                
-                <Separator className="my-4" />
-                
-                <h3 className="text-lg font-medium">Social Media Links</h3>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="twitter">Twitter</Label>
-                    <Input
-                      id="twitter"
-                      name="twitter"
-                      placeholder="https://twitter.com/username"
-                      value={formValues.metadata.socials.twitter}
-                      onChange={handleSocialInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="telegram">Telegram</Label>
-                    <Input
-                      id="telegram"
-                      name="telegram"
-                      placeholder="https://t.me/username"
-                      value={formValues.metadata.socials.telegram}
-                      onChange={handleSocialInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="discord">Discord</Label>
-                    <Input
-                      id="discord"
-                      name="discord"
-                      placeholder="https://discord.gg/invite"
-                      value={formValues.metadata.socials.discord}
-                      onChange={handleSocialInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="medium">Medium</Label>
-                    <Input
-                      id="medium"
-                      name="medium"
-                      placeholder="https://medium.com/@username"
-                      value={formValues.metadata.socials.medium}
-                      onChange={handleSocialInputChange}
-                    />
-                  </div>
-                </div>
-                
-                <Separator className="my-4" />
-                
-                <div className="space-y-2">
-                  <Label htmlFor="raiseOwner">Raise Owner Address</Label>
-                  <Input
-                    id="raiseOwner"
-                    name="raiseOwner"
-                    placeholder={address || "0x..."}
-                    value={formValues.raiseOwner || address || ""}
-                    onChange={handleInputChange}
-                    className="font-mono"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="feeRecipient">Fee Recipient (Optional)</Label>
-                  <Input
-                    id="feeRecipient"
-                    name="feeRecipient"
-                    placeholder="0x..."
-                    value={formValues.feeRecipient}
-                    onChange={handleInputChange}
-                    className="font-mono"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="feePercentBasisPoints">Fee Percentage (basis points)</Label>
-                  <Input
-                    id="feePercentBasisPoints"
-                    name="feePercentBasisPoints"
-                    type="number"
-                    placeholder="250 (2.5%)"
-                    value={formValues.feePercentBasisPoints}
-                    onChange={(e) => setFormValues(prev => ({
-                      ...prev,
-                      feePercentBasisPoints: parseInt(e.target.value)
-                    }))}
-                  />
-                </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button type="button" variant="outline" onClick={prevTab}>
-                  Back
-                </Button>
-                {!isConnected ? (
-                  <Button type="button" onClick={connect}>
-                    Connect Wallet
-                  </Button>
-                ) : (
-                  <Button type="submit" disabled={isLoading}>
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Deploying...
-                      </>
-                    ) : (
-                      <>
-                        <Check className="mr-2 h-4 w-4" />
-                        Deploy Raise
-                      </>
-                    )}
-                  </Button>
+                {index < steps.length - 1 && (
+                  <div className="grow h-[1px] bg-launchlayer-border self-center mx-2 mt-[-20px]" />
                 )}
-              </CardFooter>
-            </Card>
-          </TabsContent>
-        </form>
-      </Tabs>
+              </React.Fragment>
+            ))}
+          </div>
+          
+          <form onSubmit={handleSubmit} className="bg-launchlayer-card-background border border-launchlayer-border p-6 sm:p-8 rounded-lg shadow-lg">
+            {renderStepContent()}
+            
+            <Separator className="my-8" />
+            
+            <div className="flex justify-between">
+              <Button
+                type="button"
+                onClick={prevStep}
+                disabled={currentStep === 1}
+                variant="outline"
+                className={currentStep === 1 ? "opacity-50" : ""}
+              >
+                Back
+              </Button>
+              
+              {currentStep < steps.length ? (
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  variant="default"
+                  className="bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
+                >
+                  Continue
+                </Button>
+              ) : null}
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

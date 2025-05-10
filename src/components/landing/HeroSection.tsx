@@ -3,10 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MovingGradientBackground from "./MovingGradientBackground";
 
 const HeroSection: React.FC = () => {
   return (
     <section className="pt-20 pb-24 md:pt-28 md:pb-32 relative overflow-hidden z-10">
+      {/* Moving Gradient Background */}
+      <MovingGradientBackground />
+      
       {/* Code-like background elements */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div className="hidden lg:block absolute top-1/4 left-10 text-launchlayer-text-secondary/20 font-mono text-xs">
@@ -27,7 +31,7 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           <div className="lg:w-1/2">
-            <div className="inline-block mb-4 px-4 py-2 bg-launchlayer-accent/10 rounded-full">
+            <div className="inline-block mb-4 px-4 py-2 bg-launchlayer-accent/10 rounded-full backdrop-blur-sm">
               <p className="text-launchlayer-accent font-medium text-sm tracking-wide">
                 THE NEXT-GEN LAUNCHPAD FOR SONIC NETWORK
               </p>
@@ -50,7 +54,7 @@ const HeroSection: React.FC = () => {
             
             <div className="flex flex-wrap gap-4">
               <Link to="/admin">
-                <Button variant="accent" size="lg" className="group px-6 py-3 h-14 text-base rounded-lg">
+                <Button variant="accent" size="lg" className="group px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm">
                   Deploy Raise <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -58,7 +62,7 @@ const HeroSection: React.FC = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg"
+                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm"
                 >
                   View Launches
                 </Button>
@@ -67,7 +71,7 @@ const HeroSection: React.FC = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg"
+                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm"
                 >
                   View Docs
                 </Button>
@@ -79,7 +83,7 @@ const HeroSection: React.FC = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet opacity-30 blur-[60px] rounded-full" />
               
-              <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 p-1 rounded-2xl shadow-xl border border-launchlayer-surface-light animate-float relative">
+              <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 p-1 rounded-2xl shadow-xl border border-launchlayer-surface-light animate-float relative backdrop-blur-sm">
                 <div className="bg-gradient-to-br from-[#131821] to-[#1A212E] p-6 md:p-10 rounded-xl flex items-center justify-center backdrop-blur-sm relative">
                   <div className="absolute top-4 left-4 flex space-x-2">
                     <div className="w-3 h-3 bg-red-500 rounded-full" />

@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap");
@@ -184,6 +185,23 @@
     animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
     width: fit-content;
   }
+
+  /* Moving gradient animations */
+  .animate-first {
+    animation: move1 25s infinite;
+  }
+  .animate-second {
+    animation: move2 30s infinite;
+  }
+  .animate-third {
+    animation: move3 35s infinite;
+  }
+  .animate-fourth {
+    animation: move4 40s infinite;
+  }
+  .animate-fifth {
+    animation: move5 45s infinite;
+  }
 }
 
 /* Animation keyframes */
@@ -228,6 +246,42 @@
 @keyframes blink-caret {
   from, to { border-color: transparent }
   50% { border-color: currentColor }
+}
+
+/* Moving background animations */
+@keyframes move1 {
+  0% { transform: translate(0%, 0%) rotate(0deg); }
+  33% { transform: translate(-20%, 20%) rotate(180deg); }
+  66% { transform: translate(20%, 20%) rotate(360deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes move2 {
+  0% { transform: translate(0%, 0%) rotate(0deg); }
+  33% { transform: translate(20%, -10%) rotate(-180deg); }
+  66% { transform: translate(-20%, 20%) rotate(-360deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes move3 {
+  0% { transform: translate(0%, 0%) rotate(0deg); }
+  33% { transform: translate(-10%, -20%) rotate(180deg); }
+  66% { transform: translate(10%, -10%) rotate(360deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes move4 {
+  0% { transform: translate(0%, 0%) rotate(0deg); }
+  33% { transform: translate(10%, 10%) rotate(-180deg); }
+  66% { transform: translate(-10%, -10%) rotate(-360deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+@keyframes move5 {
+  0% { transform: translate(0%, 0%) rotate(0deg); }
+  33% { transform: translate(-15%, -15%) rotate(180deg); }
+  66% { transform: translate(15%, 15%) rotate(360deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
 }
 
 /* Mobile optimizations */

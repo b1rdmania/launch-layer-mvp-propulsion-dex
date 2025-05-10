@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -195,7 +194,7 @@ const AdminPage: React.FC = () => {
                 <Input
                   id="metadata.name"
                   name="metadata.name"
-                  placeholder="e.g., BOOM Perpetual DEX"
+                  placeholder="e.g., Perpetual DEX"
                   value={formValues.metadata.name}
                   onChange={handleInputChange}
                   className="bg-launchlayer-card-background border-launchlayer-border text-white"

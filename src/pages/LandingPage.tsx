@@ -8,8 +8,8 @@ const LandingPage: React.FC = () => {
   return (
     <div className="bg-launchlayer-background">
       <HeroSection />
-      <FeaturesSection />
       <CurrentRaisesSection />
+      <FeaturesSection />
     </div>
   );
 };

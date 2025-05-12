@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
           <div className="mb-4 md:mb-0">
             <div className="flex items-center gap-2">
               <img 
-                src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
+                src="/lovable-uploads/a65bc258-aa72-465f-a387-1875b787c1c4.png" 
                 alt="Launch Layer Logo"
                 className="h-12 w-auto mr-2" 
               />

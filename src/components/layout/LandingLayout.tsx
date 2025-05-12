@@ -95,7 +95,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             <div className="mb-4 md:mb-0">
               <div className="flex items-center">
                 <img 
-                  src="/lovable-uploads/1599dec7-0c67-4bd8-90d2-40ffe4f3daf0.png" 
+                  src="/lovable-uploads/a65bc258-aa72-465f-a387-1875b787c1c4.png" 
                   alt="Launch Layer Logo" 
                   className="h-6 w-auto mr-3" 
                 />

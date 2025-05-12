@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const HeroSection: React.FC = () => {
   return (
     <section className="pt-20 pb-24 md:pt-28 md:pb-32 relative overflow-hidden z-10">
-      {/* Code-like background elements */}
+      {/* Simplified background elements - removed potential duplicates */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div className="hidden lg:block absolute top-1/4 left-10 text-launchlayer-text-secondary/20 font-mono text-xs">
           {`contract LaunchLayerRaise {`}<br />
@@ -24,29 +24,10 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Background logo */}
-      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block z-0">
-        <img 
-          src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
-          alt="Launch Layer Background Logo"
-          className="w-96 h-96" 
-        />
-      </div>
-      
-      {/* Side logo */}
-      <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 opacity-10 hidden xl:block z-0">
-        <img 
-          src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
-          alt="Launch Layer Background Logo"
-          className="w-64 h-64" 
-        />
-      </div>
-
+      {/* Simplified logo background */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
         <div className="flex flex-col items-center gap-8">
           <div className="w-full">
-            {/* Removed the "THE NEXT-GEN LAUNCHPAD FOR SONIC NETWORK" line */}
-          
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tighter leading-tight font-satoshi">
               Launch on 
               <span className="bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent"> Sonic</span>.

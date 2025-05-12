@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
               <img 
                 src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
                 alt="Launch Layer Logo"
-                className="h-6 w-auto" 
+                className="h-6 w-auto mr-2" 
               />
               <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
                 Launch Layer

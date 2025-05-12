@@ -23,7 +23,7 @@ const Header: React.FC = () => {
             <img 
               src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
               alt="Launch Layer Logo" 
-              className="h-8 w-auto mr-2" 
+              className="h-8 w-auto mr-3" 
             />
             <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
               Launch Layer

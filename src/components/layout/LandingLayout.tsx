@@ -27,7 +27,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             <img 
               src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
               alt="Launch Layer Logo" 
-              className="h-8 w-auto mr-2" 
+              className="h-8 w-auto mr-3" 
             />
             <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
               Launch Layer
@@ -97,7 +97,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
                 <img 
                   src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
                   alt="Launch Layer Logo" 
-                  className="h-6 w-auto mr-2" 
+                  className="h-6 w-auto mr-3" 
                 />
                 <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
                   Launch Layer

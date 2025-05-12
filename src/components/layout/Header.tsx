@@ -21,7 +21,7 @@ const Header: React.FC = () => {
         <div className="flex items-center">
           <Link to="/" className="mr-8 flex items-center">
             <img 
-              src="/lovable-uploads/956d018d-c8d0-4a5a-9c0a-695fdf0a364a.png" 
+              src="/lovable-uploads/c51fee80-a5b6-42e5-b0af-fa129d0f3215.png" 
               alt="Launch Layer Logo" 
               className="h-8 w-auto mr-2" 
             />

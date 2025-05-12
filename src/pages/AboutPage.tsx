@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -77,16 +76,9 @@ const AboutPage: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-8 max-w-[1280px] relative z-10">
-          <div className="flex flex-col items-center mb-6">
-            <img 
-              src="/lovable-uploads/956d018d-c8d0-4a5a-9c0a-695fdf0a364a.png" 
-              alt="Launch Layer Logo" 
-              className="h-16 w-auto mb-4 animate-fade-in" 
-            />
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-wider text-center animate-fade-in">
-              About Launch Layer
-            </h1>
-          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-wider text-center animate-fade-in">
+            About Launch Layer
+          </h1>
           <p className="text-launchlayer-text-primary text-lg text-center mb-8 max-w-2xl mx-auto animate-fade-in" style={{animationDelay: "0.2s"}}>
             The premier permissionless, tokenless launchpad for serious DeFi builders on Sonic Network.
           </p>

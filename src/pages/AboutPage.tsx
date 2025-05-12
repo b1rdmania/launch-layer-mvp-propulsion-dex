@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -66,9 +65,9 @@ const AboutPage: React.FC = () => {
         <img 
           src="/lovable-uploads/c51fee80-a5b6-42e5-b0af-fa129d0f3215.png" 
           alt=""
-          className="w-[800px] h-auto opacity-[0.025] select-none"
+          className="w-[900px] h-auto opacity-[0.06] select-none"
           style={{
-            filter: 'grayscale(40%) contrast(80%)'
+            filter: 'grayscale(30%) contrast(90%)'
           }}
         />
       </div>

@@ -3,7 +3,6 @@ import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
-import SocialProofSection from "@/components/landing/SocialProofSection";
 
 const LandingPage: React.FC = () => {
   return (
@@ -11,7 +10,6 @@ const LandingPage: React.FC = () => {
       {/* Content */}
       <div>
         <HeroSection />
-        <SocialProofSection />
         <CurrentRaisesSection />
         <FeaturesSection />
       </div>

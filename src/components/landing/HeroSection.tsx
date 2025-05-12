@@ -100,6 +100,30 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      <style>
+        {`
+          .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid #3277F5;
+            white-space: nowrap;
+            margin: 0;
+            animation: 
+              typing 3.5s steps(40, end),
+              blink-caret 0.75s step-end infinite;
+          }
+          
+          @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+          }
+          
+          @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3277F5 }
+          }
+        `}
+      </style>
     </section>
   );
 };

@@ -19,6 +19,30 @@ const LandingPage: React.FC = () => {
           <FeaturesSection />
         </div>
       </div>
+      
+      <style>
+        {`
+          /* Add any additional global styles for the landing page here */
+          @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+          
+          .floating-logo {
+            animation: float 6s infinite ease-in-out;
+          }
+          
+          @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+          }
+          
+          .rotate-3d {
+            animation: rotate3d 8s infinite linear;
+            transform-style: preserve-3d;
+          }
+        `}
+      </style>
     </div>
   );
 };

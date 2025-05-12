@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -60,6 +61,18 @@ const AboutPage: React.FC = () => {
   
   return (
     <div className="bg-launchlayer-background overflow-hidden">
+      {/* Background logo - added as subtle texture */}
+      <div className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+        <img 
+          src="/lovable-uploads/c51fee80-a5b6-42e5-b0af-fa129d0f3215.png" 
+          alt=""
+          className="w-[800px] h-auto opacity-[0.025] select-none"
+          style={{
+            filter: 'grayscale(40%) contrast(80%)'
+          }}
+        />
+      </div>
+    
       {/* Hero Section with enhanced visuals */}
       <section className="py-20 relative overflow-hidden bg-gradient-to-br from-[#0D1117] to-[#0A0D12]">
         {/* Background elements */}

@@ -539,74 +539,87 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-launchlayer-background">
-      <div className="container mx-auto py-8 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-2 text-launchlayer-text-primary">Create New Raise</h1>
-            <p className="text-launchlayer-text-secondary">
-              Step {currentStep} of {steps.length} — {steps[currentStep - 1].name}
-            </p>
-            <p className="text-launchlayer-text-secondary/80 text-sm">
-              {steps[currentStep - 1].description}
-            </p>
-          </div>
+      <div className="relative">
+        {/* Premium header with gradient background */}
+        <div className="absolute inset-0 w-full h-64 bg-gradient-to-b from-launchlayer-violet/30 to-transparent opacity-50 pointer-events-none" />
+        
+        {/* Premium animated floating shapes in background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-[10%] w-40 h-40 bg-launchlayer-accent/10 rounded-full filter blur-3xl animate-first"></div>
+          <div className="absolute top-10 right-[15%] w-56 h-56 bg-launchlayer-violet/10 rounded-full filter blur-3xl animate-second"></div>
+          <div className="absolute top-40 left-[30%] w-32 h-32 bg-launchlayer-mint/10 rounded-full filter blur-3xl animate-third"></div>
+        </div>
+      
+        <div className="container mx-auto py-8 px-4 fade-in relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-8 space-y-3">
+              <h4 className="section-header-violet text-sm uppercase tracking-wider font-medium">Launch Layer</h4>
+              <h1 className="text-4xl font-bold mb-2 text-gradient-violet">Create New Raise</h1>
+              <p className="text-launchlayer-text-secondary">
+                Step {currentStep} of {steps.length} — {steps[currentStep - 1].name}
+              </p>
+              <p className="text-launchlayer-text-secondary/80 text-sm">
+                {steps[currentStep - 1].description}
+              </p>
+            </div>
 
-          {/* Step indicators */}
-          <div className="flex justify-between mb-10">
-            {steps.map((step, index) => (
-              <React.Fragment key={step.id}>
-                <div 
-                  className={`flex flex-col items-center ${index + 1 === currentStep ? 'text-launchlayer-violet' : 'text-gray-500'}`}
-                >
+            {/* Step indicators with premium styling */}
+            <div className="flex justify-between mb-10 bg-launchlayer-surface/80 backdrop-blur-sm border border-launchlayer-violet/20 rounded-xl p-6 shadow-lg">
+              {steps.map((step, index) => (
+                <React.Fragment key={step.id}>
                   <div 
-                    className={`rounded-full w-10 h-10 flex items-center justify-center mb-2 font-semibold 
-                              ${index + 1 === currentStep 
-                                ? 'bg-launchlayer-violet text-white' 
-                                : index + 1 < currentStep 
-                                  ? 'bg-launchlayer-violet/30 text-white'
-                                  : 'bg-[#1A1A1A] text-launchlayer-text-secondary border border-gray-700'
-                              }`}
+                    className={`flex flex-col items-center ${index + 1 === currentStep ? 'text-launchlayer-violet' : 'text-gray-500'}`}
                   >
-                    {index + 1}
+                    <div 
+                      className={`rounded-full w-10 h-10 flex items-center justify-center mb-2 font-semibold transition-all duration-300
+                                ${index + 1 === currentStep 
+                                  ? 'bg-launchlayer-violet text-white shadow-violet' 
+                                  : index + 1 < currentStep 
+                                    ? 'bg-launchlayer-violet/30 text-white'
+                                    : 'bg-[#1A1A1A] text-launchlayer-text-secondary border border-gray-700'
+                                }`}
+                    >
+                      {index + 1}
+                    </div>
+                    <span className="text-sm hidden md:block">{step.name}</span>
                   </div>
-                  <span className="text-sm">{step.name}</span>
-                </div>
-                
-                {index < steps.length - 1 && (
-                  <div className="grow h-[1px] bg-gray-700 self-center mx-2 mt-[-20px]" />
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-          
-          <form onSubmit={handleSubmit} className="bg-[#1A1A1A] border border-gray-700 p-6 sm:p-8 rounded-lg shadow-lg">
-            {renderStepContent()}
+                  
+                  {index < steps.length - 1 && (
+                    <div className="grow h-[1px] bg-gray-700 self-center mx-2 mt-[-20px]" />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
             
-            <Separator className="my-8 bg-gray-700" />
-            
-            <div className="flex justify-between">
-              <Button
-                type="button"
-                onClick={prevStep}
-                disabled={currentStep === 1}
-                variant="outline"
-                className={currentStep === 1 ? "opacity-50 border-gray-700 text-launchlayer-text-secondary" : "border-gray-700 text-launchlayer-text-secondary"}
-              >
-                Back
-              </Button>
+            <form onSubmit={handleSubmit} className="bg-gradient-blur border border-gray-700/50 p-6 sm:p-8 rounded-lg shadow-lg">
+              {renderStepContent()}
               
-              {currentStep < steps.length ? (
+              <Separator className="my-8 bg-gray-700" />
+              
+              <div className="flex justify-between">
                 <Button
                   type="button"
-                  onClick={nextStep}
-                  variant="default"
-                  className="bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
+                  onClick={prevStep}
+                  disabled={currentStep === 1}
+                  variant="outline"
+                  className={currentStep === 1 ? "opacity-50 border-gray-700 text-launchlayer-text-secondary" : "border-gray-700 text-launchlayer-text-secondary hover:bg-launchlayer-violet/10 hover:text-launchlayer-violet hover:border-launchlayer-violet/50"}
                 >
-                  Continue
+                  Back
                 </Button>
-              ) : null}
-            </div>
-          </form>
+                
+                {currentStep < steps.length ? (
+                  <Button
+                    type="button"
+                    onClick={nextStep}
+                    variant="default"
+                    className="bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white shadow-violet"
+                  >
+                    Continue
+                  </Button>
+                ) : null}
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

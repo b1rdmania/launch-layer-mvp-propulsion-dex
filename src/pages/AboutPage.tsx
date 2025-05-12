@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -73,12 +72,11 @@ const AboutPage: React.FC = () => {
         />
       </div>
     
-      {/* Hero Section with enhanced visuals */}
-      <section className="py-20 relative overflow-hidden bg-gradient-to-br from-[#0D1117] to-[#0A0D12]">
-        {/* Background elements */}
+      {/* Hero Section with enhanced visuals - removed background that was blocking the logo */}
+      <section className="py-20 relative overflow-hidden">
+        {/* Removed the background-blocking gradient elements */}
         <div className="absolute inset-0 w-full h-full">
-          <div className="absolute w-[500px] h-[500px] rounded-full bg-launchlayer-violet/5 blur-[100px] top-0 left-1/2 -translate-x-1/2"></div>
-          <div className="absolute w-[300px] h-[300px] rounded-full bg-launchlayer-accent/5 blur-[80px] bottom-0 left-1/4"></div>
+          {/* Removed the blocking background elements */}
           <div className="absolute top-1/4 right-[10%] text-launchlayer-text-secondary/10 font-mono text-xs hidden lg:block">
             {`contract LaunchLayer {`}<br />
             {`  function launch() external {`}<br />

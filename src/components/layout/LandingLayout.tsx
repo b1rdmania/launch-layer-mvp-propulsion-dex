@@ -23,8 +23,15 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
       {/* Landing page header */}
       <header className="w-full bg-launchlayer-surface sticky top-0 z-20 border-b border-launchlayer-surface-light">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-            Launch Layer
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/lovable-uploads/956d018d-c8d0-4a5a-9c0a-695fdf0a364a.png" 
+              alt="Launch Layer Logo" 
+              className="h-8 w-auto mr-2" 
+            />
+            <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+              Launch Layer
+            </span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
@@ -86,8 +93,15 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
         <div className="container mx-auto max-w-[1280px]">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <div className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                Launch Layer
+              <div className="flex items-center">
+                <img 
+                  src="/lovable-uploads/956d018d-c8d0-4a5a-9c0a-695fdf0a364a.png" 
+                  alt="Launch Layer Logo" 
+                  className="h-6 w-auto mr-2" 
+                />
+                <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+                  Launch Layer
+                </span>
               </div>
               <p className="text-sm text-launchlayer-text-secondary mt-1">
                 On-Chain Infrastructure. Not Investment Advice.

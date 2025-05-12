@@ -37,26 +37,26 @@ const HeroSection: React.FC = () => {
             </h1>
             
             <p className="text-xl md:text-2xl text-launchlayer-text-secondary mb-8 leading-relaxed">
-              A permissionless, tokenless launchpad for serious DeFi builders. 
+              A permissionless launchpad for serious DeFi builders. 
               <br className="hidden md:block" />
-              Forget raffles, ditch bonding curves, and skip the pointless platform token.
+              Forget raffles, ditch bonding curves, and skip the platform token.
               <br className="hidden md:block" />
-              Transparent factory contract raises. Done. Vesting. Seamless. Your token. Launched right.
+              Transparent factory contract raises with seamless Vesting and LPing. Your token. Launched right.
             </p>
             
             <div className="flex flex-wrap gap-4">
-              <Link to="/admin">
+              <Link to="/">
                 <Button variant="accent" size="lg" className="group px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm">
-                  Deploy Raise <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  View Launches <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link to="/">
+              <Link to="/admin">
                 <Button
                   variant="outline"
                   size="lg"
                   className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm"
                 >
-                  View Launches
+                  Deploy Raise
                 </Button>
               </Link>
               <Link to="/docs">

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useWallet } from "@/contexts/WalletContext";
@@ -49,9 +50,9 @@ const ClaimPage: React.FC = () => {
 
     toast.info("Redirecting to Hedgey Finance for token claiming", {
       style: {
-        background: DESIGN_SYSTEM.colors.secondaryBackground,
-        color: DESIGN_SYSTEM.colors.primaryText,
-        border: `1px solid ${DESIGN_SYSTEM.colors.secondaryText}`,
+        background: "#1A1A1A",
+        color: "#F9F9F9",
+        border: "1px solid #333333",
       },
     });
   };
@@ -63,7 +64,7 @@ const ClaimPage: React.FC = () => {
         style={{ fontFamily: DESIGN_SYSTEM.fonts.primary }}
       >
         <div className="flex justify-center items-center min-h-[300px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3277F5]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-launchlayer-violet"></div>
         </div>
       </div>
     );
@@ -71,13 +72,13 @@ const ClaimPage: React.FC = () => {
 
   return (
     <div
-      className="container mx-auto px-8 py-16 max-w-[1280px]"
+      className="container mx-auto px-8 py-16 max-w-[1280px] bg-launchlayer-background"
       style={{ fontFamily: DESIGN_SYSTEM.fonts.primary }}
     >
       <div className="mb-6">
         <Link
           to="/"
-          className="text-[#3277F5] hover:text-[#3277F5]/80 flex items-center gap-1 mb-4"
+          className="text-launchlayer-violet hover:text-launchlayer-violet/80 flex items-center gap-1 mb-4"
         >
           <ArrowLeft size={16} />
           Back to Discovery
@@ -112,7 +113,7 @@ const ClaimPage: React.FC = () => {
                 </p>
                 <Button
                   onClick={connect}
-                  className="w-full bg-[#3277F5] hover:bg-[#3277F5]/90 text-white"
+                  className="w-full bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
                 >
                   Connect Wallet
                 </Button>
@@ -135,7 +136,7 @@ const ClaimPage: React.FC = () => {
                   </p>
                   <Button
                     onClick={handleHedgeyRedirect}
-                    className="w-full bg-[#3277F5] hover:bg-[#3277F5]/90 text-white"
+                    className="w-full bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
                   >
                     Go to Hedgey Finance
                   </Button>

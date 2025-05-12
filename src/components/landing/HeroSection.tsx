@@ -24,6 +24,24 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
+      {/* Background logo */}
+      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-5 hidden lg:block z-0">
+        <img 
+          src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
+          alt="Launch Layer Background Logo"
+          className="w-96 h-96" 
+        />
+      </div>
+      
+      {/* Side logo */}
+      <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 opacity-10 hidden xl:block z-0">
+        <img 
+          src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
+          alt="Launch Layer Background Logo"
+          className="w-64 h-64" 
+        />
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
         <div className="flex flex-col items-center gap-8">
           <div className="w-full">
@@ -75,7 +93,7 @@ const HeroSection: React.FC = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet opacity-30 blur-[60px] rounded-full" />
               
-              <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 p-1 rounded-2xl shadow-xl border border-launchlayer-surface-light animate-float relative backdrop-blur-sm">
+              <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 p-1 rounded-2xl shadow-xl border border-launchlayer-surface-light relative backdrop-blur-sm">
                 <div className="bg-gradient-to-br from-[#131821] to-[#1A212E] p-6 md:p-10 rounded-xl flex items-center justify-center backdrop-blur-sm relative">
                   <div className="absolute top-4 left-4 flex space-x-2">
                     <div className="w-3 h-3 bg-red-500 rounded-full" />

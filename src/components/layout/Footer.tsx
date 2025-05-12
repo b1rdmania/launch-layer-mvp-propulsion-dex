@@ -11,9 +11,9 @@ const Footer: React.FC = () => {
           <div className="mb-4 md:mb-0">
             <div className="flex items-center gap-2">
               <img 
-                src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" 
+                src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
                 alt="Launch Layer Logo"
-                className="h-8 w-auto mr-2" 
+                className="h-12 w-auto mr-2" 
               />
               <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
                 Launch Layer

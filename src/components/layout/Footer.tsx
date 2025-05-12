@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Github, MessagesSquare, Rocket, Twitter } from "lucide-react";
@@ -10,9 +11,9 @@ const Footer: React.FC = () => {
           <div className="mb-4 md:mb-0">
             <div className="flex items-center gap-2">
               <img 
-                src="/lovable-uploads/1599dec7-0c67-4bd8-90d2-40ffe4f3daf0.png" 
+                src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" 
                 alt="Launch Layer Logo"
-                className="h-6 w-auto mr-2" 
+                className="h-8 w-auto mr-2" 
               />
               <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
                 Launch Layer

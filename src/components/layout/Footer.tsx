@@ -15,9 +15,11 @@ const Footer: React.FC = () => {
                 alt="Launch Layer Logo"
                 className="h-6 w-auto mr-2" 
               />
-              <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
-                Launch Layer
-              </span>
+              <img
+                src="/lovable-uploads/53ff7dec-71df-4d87-99e6-1a5bb3246113.png"
+                alt="Launch Layer"
+                className="h-5 w-auto"
+              />
             </div>
             <p className="text-sm text-launchlayer-text-secondary mt-1">
               The token launchpad for Sonic Network

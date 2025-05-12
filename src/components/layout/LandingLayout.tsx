@@ -29,9 +29,11 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
               alt="Launch Layer Logo" 
               className="h-8 w-auto mr-3" 
             />
-            <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-              Launch Layer
-            </span>
+            <img
+              src="/lovable-uploads/53ff7dec-71df-4d87-99e6-1a5bb3246113.png"
+              alt="Launch Layer"
+              className="h-8 w-auto"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
@@ -99,9 +101,11 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
                   alt="Launch Layer Logo" 
                   className="h-6 w-auto mr-3" 
                 />
-                <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                  Launch Layer
-                </span>
+                <img
+                  src="/lovable-uploads/53ff7dec-71df-4d87-99e6-1a5bb3246113.png"
+                  alt="Launch Layer"
+                  className="h-6 w-auto"
+                />
               </div>
               <p className="text-sm text-launchlayer-text-secondary mt-1">
                 On-Chain Infrastructure. Not Investment Advice.

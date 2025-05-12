@@ -59,15 +59,16 @@ const MovingGradientBackground: React.FC = () => {
         className={`gradients-container h-full w-full blur-lg ${isSafari ? "blur-2xl" : "[filter:url(#blurMe)_blur(40px)]"}`}
         onMouseMove={handleMouseMove}
       >
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(50,119,245,0.4)_0,_rgba(50,119,245,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:center_center] animate-first opacity-70" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.4)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%-400px)] animate-second opacity-70" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.4)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%+400px)] animate-third opacity-70" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.3)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%-200px)] animate-fourth opacity-50" />
-        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.3)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%+200px)] animate-fifth opacity-50" />
+        {/* Reduced opacity from 0.4/0.3 to 0.2/0.15 for all gradients to make them more subtle */}
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(50,119,245,0.2)_0,_rgba(50,119,245,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:center_center] animate-first opacity-40" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.2)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%-400px)] animate-second opacity-40" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.2)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%+400px)] animate-third opacity-40" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(167,139,250,0.15)_0,_rgba(167,139,250,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%-200px)] animate-fourth opacity-30" />
+        <div className="absolute [background:radial-gradient(circle_at_center,_rgba(79,209,197,0.15)_0,_rgba(79,209,197,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-[120%] h-[120%] top-[calc(50%-60%)] left-[calc(50%-60%)] [transform-origin:calc(50%+200px)] animate-fifth opacity-30" />
 
         <div
           ref={interactiveRef}
-          className="absolute [background:radial-gradient(circle_at_center,_rgba(50,119,245,0.4)_0,_rgba(50,119,245,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-full h-full -top-1/2 -left-1/2 opacity-70"
+          className="absolute [background:radial-gradient(circle_at_center,_rgba(50,119,245,0.2)_0,_rgba(50,119,245,0)_50%)_no-repeat] [mix-blend-mode:hard-light] w-full h-full -top-1/2 -left-1/2 opacity-40"
         />
       </div>
     </div>

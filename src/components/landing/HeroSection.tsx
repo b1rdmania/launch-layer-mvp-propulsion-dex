@@ -27,14 +27,10 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
         <div className="flex flex-col items-center gap-8">
           <div className="w-full">
-            <div className="inline-block mb-4 px-4 py-2 bg-launchlayer-accent/10 rounded-full backdrop-blur-sm">
-              <p className="text-launchlayer-accent font-medium text-sm tracking-wide">
-                THE NEXT-GEN LAUNCHPAD FOR SONIC NETWORK
-              </p>
-            </div>
+            {/* Removed the "THE NEXT-GEN LAUNCHPAD FOR SONIC NETWORK" line */}
           
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 tracking-tighter leading-tight font-satoshi">
-              Launch Tokens on 
+              Launch on 
               <span className="bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent"> Sonic</span>.
               <br />
               <span className="text-launchlayer-accent">No Games. No Fluff.</span>

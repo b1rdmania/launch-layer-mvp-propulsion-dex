@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -60,11 +59,11 @@ const AboutPage: React.FC = () => {
   ];
   
   return (
-    <div className="relative bg-launchlayer-background overflow-hidden">
-      {/* Large background logo */}
+    <div className="bg-launchlayer-background overflow-hidden">
+      {/* Background logo - added as subtle texture */}
       <div className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
         <img 
-          src="/lovable-uploads/80dcea32-874f-47f5-875a-fa6add3b7ea6.png" 
+          src="/lovable-uploads/1599dec7-0c67-4bd8-90d2-40ffe4f3daf0.png" 
           alt=""
           className="w-[900px] h-auto opacity-[0.06] select-none"
           style={{
@@ -72,10 +71,12 @@ const AboutPage: React.FC = () => {
           }}
         />
       </div>
-
-      {/* Hero Section with enhanced visuals */}
-      <section className="py-20 relative overflow-hidden bg-gradient-to-b from-launchlayer-background via-launchlayer-surface/30 to-launchlayer-background">
+    
+      {/* Hero Section with enhanced visuals - removed background that was blocking the logo */}
+      <section className="py-20 relative overflow-hidden">
+        {/* Removed the background-blocking gradient elements */}
         <div className="absolute inset-0 w-full h-full">
+          {/* Removed the blocking background elements */}
           <div className="absolute top-1/4 right-[10%] text-launchlayer-text-secondary/10 font-mono text-xs hidden lg:block">
             {`contract LaunchLayer {`}<br />
             {`  function launch() external {`}<br />
@@ -109,10 +110,10 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* What a Raise Looks Like section */}
-      <section className="py-16 bg-gradient-to-b from-launchlayer-background/90 via-launchlayer-surface/20 to-launchlayer-background/90">
+      {/* What a Raise Looks Like section - moved from landing page (without animation) */}
+      <section className="py-16 bg-launchlayer-background">
         <div className="container mx-auto px-8 max-w-[1280px]">
-          <h2 className="text-3xl font-bold mb-4 text-center tracking-wider animate-on-scroll slide-in text-gradient-violet">What a Raise Looks Like</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center tracking-wider animate-on-scroll slide-in">What a Raise Looks Like</h2>
           <p className="text-launchlayer-text-secondary mb-10 text-center max-w-2xl mx-auto animate-on-scroll slide-in">
             Simple, transparent, and efficient. Launch Layer provides all the tools you need 
             to create and manage your token raise with minimal friction.
@@ -123,8 +124,8 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Launch Your Token in 5 Easy Steps section */}
-      <section className="py-16 bg-gradient-to-b from-launchlayer-background/90 via-launchlayer-surface/30 to-launchlayer-background/90">
+      {/* Launch Your Token in 5 Easy Steps section (moved from landing page) */}
+      <section className="py-16 bg-launchlayer-background">
         <div className="container mx-auto px-8 max-w-[1280px]">
           <h2 className="text-3xl font-bold text-center mb-4 tracking-wider text-gradient-violet animate-on-scroll slide-in">
             Launch Your Token in 5 Easy Steps
@@ -154,7 +155,7 @@ const AboutPage: React.FC = () => {
       </section>
       
       {/* Enhanced Process Section */}
-      <section className="py-16 bg-gradient-to-b from-launchlayer-surface/20 to-launchlayer-background">
+      <section className="py-16 bg-launchlayer-background">
         <div className="container mx-auto px-8 max-w-[1280px]">
           <h2 className="text-3xl font-bold text-center mb-3 tracking-wider text-gradient-violet animate-on-scroll slide-in">
             Transparent On-Chain Process
@@ -271,7 +272,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* CTA Section with Enhanced Styling */}
-      <section className="py-16 bg-gradient-to-b from-launchlayer-background to-launchlayer-surface relative overflow-hidden">
+      <section className="py-16 bg-launchlayer-surface relative overflow-hidden">
         {/* Background elements */}
         <div className="absolute inset-0 w-full h-full">
           <div className="absolute w-[400px] h-[400px] rounded-full bg-launchlayer-accent/5 blur-[100px] bottom-0 right-0"></div>
@@ -311,56 +312,6 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Add missing CSS for animations */}
-      <style jsx>{`
-        @keyframes pulse-violet {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.8; }
-        }
-        
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        .animate-pulse-violet {
-          animation: pulse-violet 2s ease-in-out infinite;
-        }
-        
-        .animate-shimmer {
-          animation: shimmer 2s infinite;
-        }
-        
-        .text-gradient-violet {
-          background: linear-gradient(to right, #3277F5, #706BF8, #A17EF8);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        
-        .animate-on-scroll {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        .animate-on-scroll.in-view {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        .slide-in {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        .slide-in.in-view {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      `}</style>
     </div>
   );
 };

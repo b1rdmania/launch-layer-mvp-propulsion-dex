@@ -21,9 +21,9 @@ const Header: React.FC = () => {
         <div className="flex items-center">
           <Link to="/" className="mr-8 flex items-center">
             <img 
-              src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png" 
+              src="/lovable-uploads/1599dec7-0c67-4bd8-90d2-40ffe4f3daf0.png" 
               alt="Launch Layer Logo" 
-              className="h-12 w-auto mr-3" 
+              className="h-8 w-auto mr-3" 
             />
             <span className="text-xl font-bold tracking-wider bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
               Launch Layer

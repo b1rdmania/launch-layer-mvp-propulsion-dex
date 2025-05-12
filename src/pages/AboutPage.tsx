@@ -60,17 +60,7 @@ const AboutPage: React.FC = () => {
   
   return (
     <div className="bg-launchlayer-background overflow-hidden">
-      {/* Background logo - added as subtle texture */}
-      <div className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-        <img 
-          src="/lovable-uploads/1599dec7-0c67-4bd8-90d2-40ffe4f3daf0.png" 
-          alt=""
-          className="w-[900px] h-auto opacity-[0.06] select-none"
-          style={{
-            filter: 'grayscale(30%) contrast(90%)'
-          }}
-        />
-      </div>
+      {/* Removed the background logo/image that was here */}
     
       {/* Hero Section with enhanced visuals - removed background that was blocking the logo */}
       <section className="py-20 relative overflow-hidden">

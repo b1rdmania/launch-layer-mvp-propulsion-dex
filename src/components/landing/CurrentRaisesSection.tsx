@@ -6,8 +6,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Trophy, Rocket, Clock, ArrowRight, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 const CurrentRaisesSection: React.FC = () => {
+  const { isMobile } = useDeviceDetect();
+  
   // Sample raises to display when no real raises are available
   const sampleRaises = [
     {
@@ -84,51 +87,51 @@ const CurrentRaisesSection: React.FC = () => {
   };
 
   return (
-    <section className="py-24 relative z-10">
+    <section className="py-16 md:py-24 relative z-10">
       <div className="absolute inset-0 bg-gradient-to-b from-launchlayer-background via-launchlayer-surface/30 to-launchlayer-background opacity-50"></div>
-      <div className="container mx-auto px-8 max-w-[1280px] relative z-10">
-        <div className="flex flex-col items-center mb-12">
-          <span className="px-4 py-1.5 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm font-medium mb-6">
+      <div className="container mx-auto px-5 md:px-8 max-w-[1280px] relative z-10">
+        <div className="flex flex-col items-center mb-8 md:mb-12">
+          <span className="px-4 py-1.5 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm font-medium mb-4 md:mb-6">
             ACTIVE TOKEN SALES
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4 text-center tracking-tight">
             Current Raises
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet rounded-full mb-6"></div>
-          <p className="text-xl text-launchlayer-text-secondary text-center max-w-xl">
+          <div className="w-20 h-1 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet rounded-full mb-4 md:mb-6"></div>
+          <p className="text-lg md:text-xl text-launchlayer-text-secondary text-center max-w-xl px-2">
             Explore the latest token sales launching on Sonic Network
           </p>
         </div>
         
         {activeRaises.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-5 md:gap-8">
             {activeRaises.map((raise, index) => (
               <Card 
                 key={index} 
-                className="group relative bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/90 backdrop-blur-sm border-t-2 border-t-launchlayer-violet border-launchlayer-surface-light overflow-hidden hover:shadow-[0_8px_30px_rgba(50,119,245,0.15)] transition-all duration-300 hover:translate-y-[-8px]"
+                className="group relative bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/90 backdrop-blur-sm border-t-2 border-t-launchlayer-violet border-launchlayer-surface-light overflow-hidden hover:shadow-[0_8px_30px_rgba(50,119,245,0.15)] transition-all duration-300 hover:translate-y-[-6px]"
               >
                 {/* Glowing accent in corner */}
                 <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-[80px] opacity-20 bg-${raise.color === 'purple' ? 'launchlayer-violet' : 'launchlayer-accent'}`} />
                 
                 {getStatusBadge(raise.status)}
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${getIconBg(raise.color)} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+                <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
+                  <div className={`flex ${isMobile ? 'flex-col' : 'items-start'} gap-4`}>
+                    <div className={`${isMobile ? 'mx-auto mb-2' : ''} w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${getIconBg(raise.color)} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
                       {index === 0 ? (
-                        <Zap className="text-white" size={30} />
+                        <Zap className="text-white" size={isMobile ? 24 : 30} />
                       ) : (
-                        <Trophy className="text-white" size={30} />
+                        <Trophy className="text-white" size={isMobile ? 24 : 30} />
                       )}
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-2xl font-bold tracking-tight">{raise.name}</h3>
+                      <div className={`flex ${isMobile ? 'flex-col items-center' : 'items-center'} gap-2 mb-1`}>
+                        <h3 className={`${isMobile ? 'text-xl text-center' : 'text-2xl'} font-bold tracking-tight`}>{raise.name}</h3>
                         <span className="text-sm py-0.5 px-2 bg-launchlayer-surface-light rounded-full text-launchlayer-text-secondary">{raise.tokenSymbol}</span>
                       </div>
-                      <p className="text-launchlayer-text-secondary text-lg mb-6 line-clamp-2">{raise.description}</p>
+                      <p className={`text-launchlayer-text-secondary ${isMobile ? 'text-sm text-center' : 'text-lg'} mb-5 md:mb-6 line-clamp-2`}>{raise.description}</p>
                       
                       {/* Progress bar */}
-                      <div className="mb-6">
+                      <div className="mb-5 md:mb-6">
                         <div className="flex justify-between text-sm mb-2">
                           <span className="font-medium">Progress</span>
                           <span className="text-launchlayer-accent font-bold">{raise.progress}%</span>
@@ -140,21 +143,21 @@ const CurrentRaisesSection: React.FC = () => {
                         />
                       </div>
                       
-                      <div className="flex items-center justify-between">
+                      <div className={`flex ${isMobile ? 'flex-col gap-3' : 'items-center justify-between'}`}>
                         <div className="flex items-center text-sm bg-launchlayer-surface-light px-3 py-1.5 rounded-full">
                           <Clock size={14} className="mr-1.5 text-launchlayer-accent" />
                           <span className="font-medium">{raise.timeLeft} left</span>
                         </div>
-                        <div className="flex gap-3">
+                        <div className={`flex ${isMobile ? 'justify-center' : ''} gap-3 ${isMobile ? 'mt-3' : ''}`}>
                           <Link to={`/raise/${raise.id}`}>
-                            <Button variant="outline" size="sm" className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light transition-all duration-200">
+                            <Button variant="outline" size={isMobile ? "default" : "sm"} className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light transition-all duration-200">
                               View Details
                             </Button>
                           </Link>
                           <Link to={`/raise/${raise.id}`}>
                             <Button 
                               variant={raise.color === 'purple' ? 'violet' : 'accent'} 
-                              size="sm" 
+                              size={isMobile ? "default" : "sm"} 
                               className="group shadow-lg hover:shadow-xl"
                             >
                               <span>Contribute</span>
@@ -178,12 +181,12 @@ const CurrentRaisesSection: React.FC = () => {
           </div>
         )}
         
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-8 md:mt-12">
           <Link to="/app">
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-launchlayer-violet hover:bg-launchlayer-violet/10 text-launchlayer-violet group px-8"
+              className="border-launchlayer-violet hover:bg-launchlayer-violet/10 text-launchlayer-violet group px-6 md:px-8"
             >
               View All Raises
               <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />

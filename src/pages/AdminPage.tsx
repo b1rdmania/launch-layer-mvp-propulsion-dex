@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -190,50 +191,50 @@ const AdminPage: React.FC = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="metadata.name" className="text-base">Project Name</Label>
+                <Label htmlFor="metadata.name" className="text-base text-launchlayer-text-primary">Project Name</Label>
                 <Input
                   id="metadata.name"
                   name="metadata.name"
                   placeholder="e.g., Perpetual DEX"
                   value={formValues.metadata.name}
                   onChange={handleInputChange}
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="token" className="text-base">Token Address</Label>
+                <Label htmlFor="token" className="text-base text-launchlayer-text-primary">Token Address</Label>
                 <Input
                   id="token"
                   name="token"
                   placeholder="e.g., 0x1234..."
                   value={formValues.token}
                   onChange={handleInputChange}
-                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="acceptedToken" className="text-base">Accepted Token Address (Default: WS)</Label>
+                <Label htmlFor="acceptedToken" className="text-base text-launchlayer-text-primary">Accepted Token Address (Default: WS)</Label>
                 <Input
                   id="acceptedToken"
                   name="acceptedToken"
                   placeholder="0x..."
                   value={formValues.acceptedToken}
                   onChange={handleInputChange}
-                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="metadata.description" className="text-base">Short Description</Label>
+                <Label htmlFor="metadata.description" className="text-base text-launchlayer-text-primary">Short Description</Label>
                 <Input
                   id="metadata.description"
                   name="metadata.description"
                   placeholder="Brief description (max 150 chars)"
                   value={formValues.metadata.description}
                   onChange={handleInputChange}
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                   maxLength={150}
                 />
               </div>
@@ -253,51 +254,51 @@ const AdminPage: React.FC = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="pricePerToken" className="text-base">Price Per Token</Label>
+                <Label htmlFor="pricePerToken" className="text-base text-launchlayer-text-primary">Price Per Token</Label>
                 <Input
                   id="pricePerToken"
                   name="pricePerToken"
                   placeholder="0.01"
                   value={formValues.pricePerToken}
                   onChange={handleInputChange}
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="maxAcceptedTokenRaise" className="text-base">Maximum Raise Amount (Hard Cap)</Label>
+                <Label htmlFor="maxAcceptedTokenRaise" className="text-base text-launchlayer-text-primary">Maximum Raise Amount (Hard Cap)</Label>
                 <Input
                   id="maxAcceptedTokenRaise"
                   name="maxAcceptedTokenRaise"
                   placeholder="100000"
                   value={formValues.maxAcceptedTokenRaise}
                   onChange={handleInputChange}
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="minTokenAllocation" className="text-base">Minimum Allocation</Label>
+                  <Label htmlFor="minTokenAllocation" className="text-base text-launchlayer-text-primary">Minimum Allocation</Label>
                   <Input
                     id="minTokenAllocation"
                     name="minTokenAllocation"
                     placeholder="100"
                     value={formValues.minTokenAllocation}
                     onChange={handleInputChange}
-                    className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                    className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="maxTokenAllocation" className="text-base">Maximum Allocation</Label>
+                  <Label htmlFor="maxTokenAllocation" className="text-base text-launchlayer-text-primary">Maximum Allocation</Label>
                   <Input
                     id="maxTokenAllocation"
                     name="maxTokenAllocation"
                     placeholder="10000"
                     value={formValues.maxTokenAllocation}
                     onChange={handleInputChange}
-                    className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                    className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                   />
                 </div>
               </div>
@@ -317,7 +318,7 @@ const AdminPage: React.FC = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="presaleStart" className="text-base">Presale Start (Optional)</Label>
+                <Label htmlFor="presaleStart" className="text-base text-launchlayer-text-primary">Presale Start (Optional)</Label>
                 <Input
                   id="presaleStart"
                   name="presaleStart"
@@ -330,12 +331,12 @@ const AdminPage: React.FC = () => {
                       presaleStart: timestamp
                     }));
                   }}
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="publicSaleStart" className="text-base">Public Sale Start</Label>
+                <Label htmlFor="publicSaleStart" className="text-base text-launchlayer-text-primary">Public Sale Start</Label>
                 <Input
                   id="publicSaleStart"
                   name="publicSaleStart"
@@ -349,12 +350,12 @@ const AdminPage: React.FC = () => {
                     }));
                   }}
                   required
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="endTime" className="text-base">Sale End Time</Label>
+                <Label htmlFor="endTime" className="text-base text-launchlayer-text-primary">Sale End Time</Label>
                 <Input
                   id="endTime"
                   name="endTime"
@@ -368,7 +369,7 @@ const AdminPage: React.FC = () => {
                     }));
                   }}
                   required
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
             </div>
@@ -387,14 +388,14 @@ const AdminPage: React.FC = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="merkleRoot" className="text-base">Whitelist Merkle Root (Optional)</Label>
+                <Label htmlFor="merkleRoot" className="text-base text-launchlayer-text-primary">Whitelist Merkle Root (Optional)</Label>
                 <Input
                   id="merkleRoot"
                   name="merkleRoot"
                   placeholder="0x..."
                   value={formValues.merkleRoot}
                   onChange={handleInputChange}
-                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
                 <p className="text-xs text-launchlayer-text-secondary">
                   Leave default (all zeros) for no whitelist. For a custom whitelist, generate a Merkle root from your addresses.
@@ -416,31 +417,31 @@ const AdminPage: React.FC = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="raiseOwner" className="text-base">Raise Owner Address</Label>
+                <Label htmlFor="raiseOwner" className="text-base text-launchlayer-text-primary">Raise Owner Address</Label>
                 <Input
                   id="raiseOwner"
                   name="raiseOwner"
                   placeholder={address || "0x..."}
                   value={formValues.raiseOwner || address || ""}
                   onChange={handleInputChange}
-                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="feeRecipient" className="text-base">Fee Recipient (Optional)</Label>
+                <Label htmlFor="feeRecipient" className="text-base text-launchlayer-text-primary">Fee Recipient (Optional)</Label>
                 <Input
                   id="feeRecipient"
                   name="feeRecipient"
                   placeholder="0x..."
                   value={formValues.feeRecipient}
                   onChange={handleInputChange}
-                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="font-mono bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="feePercentBasisPoints" className="text-base">Fee Percentage (basis points)</Label>
+                <Label htmlFor="feePercentBasisPoints" className="text-base text-launchlayer-text-primary">Fee Percentage (basis points)</Label>
                 <Input
                   id="feePercentBasisPoints"
                   name="feePercentBasisPoints"
@@ -451,7 +452,7 @@ const AdminPage: React.FC = () => {
                     ...prev,
                     feePercentBasisPoints: parseInt(e.target.value)
                   }))}
-                  className="bg-launchlayer-card-background border-launchlayer-border text-white"
+                  className="bg-launchlayer-card-background border-launchlayer-border text-launchlayer-text-primary"
                 />
                 <p className="text-xs text-launchlayer-text-secondary">100 basis points = 1%</p>
               </div>
@@ -589,7 +590,7 @@ const AdminPage: React.FC = () => {
                 onClick={prevStep}
                 disabled={currentStep === 1}
                 variant="outline"
-                className={currentStep === 1 ? "opacity-50" : ""}
+                className={currentStep === 1 ? "opacity-50 text-launchlayer-text-primary" : "text-launchlayer-text-primary"}
               >
                 Back
               </Button>

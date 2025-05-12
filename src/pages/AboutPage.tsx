@@ -63,7 +63,7 @@ const AboutPage: React.FC = () => {
       {/* Background logo - added as subtle texture */}
       <div className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
         <img 
-          src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
+          src="/lovable-uploads/1599dec7-0c67-4bd8-90d2-40ffe4f3daf0.png" 
           alt=""
           className="w-[900px] h-auto opacity-[0.06] select-none"
           style={{

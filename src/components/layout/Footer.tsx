@@ -10,7 +10,11 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <div className="flex items-center gap-2">
-              <Rocket size={20} className="text-launchlayer-accent" />
+              <img 
+                src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
+                alt="Launch Layer Logo"
+                className="h-6 w-auto" 
+              />
               <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-blue bg-clip-text text-transparent">
                 Launch Layer
               </span>

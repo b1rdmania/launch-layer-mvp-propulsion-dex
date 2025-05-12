@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -63,7 +64,7 @@ const AboutPage: React.FC = () => {
       {/* Background logo - added as subtle texture */}
       <div className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
         <img 
-          src="/lovable-uploads/c51fee80-a5b6-42e5-b0af-fa129d0f3215.png" 
+          src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
           alt=""
           className="w-[900px] h-auto opacity-[0.06] select-none"
           style={{

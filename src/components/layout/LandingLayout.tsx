@@ -25,9 +25,9 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
+              src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png" 
               alt="Launch Layer Logo" 
-              className="h-8 w-auto mr-3" 
+              className="h-12 w-auto mr-3" 
             />
             <span className="text-2xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
               Launch Layer
@@ -95,9 +95,9 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
             <div className="mb-4 md:mb-0">
               <div className="flex items-center">
                 <img 
-                  src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
+                  src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png" 
                   alt="Launch Layer Logo" 
-                  className="h-6 w-auto mr-3" 
+                  className="h-7 w-auto mr-3" 
                 />
                 <span className="text-lg font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
                   Launch Layer

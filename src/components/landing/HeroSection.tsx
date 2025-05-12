@@ -7,6 +7,39 @@ import { Button } from "@/components/ui/button";
 const HeroSection: React.FC = () => {
   return (
     <section className="pt-20 pb-24 md:pt-28 md:pb-32 relative overflow-hidden z-10">
+      {/* Floating logos background */}
+      <div className="absolute inset-0 z-0 opacity-8 overflow-hidden">
+        <div className="logo-grid">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <img 
+              key={i}
+              src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png"
+              alt=""
+              className="floating-logo"
+              style={{
+                position: 'absolute',
+                width: `${Math.random() * 40 + 20}px`,
+                opacity: Math.random() * 0.07 + 0.02,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDuration: `${Math.random() * 20 + 10}s`,
+                animationDelay: `${Math.random() * 5}s`
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Main Hero Logo - Centered and Animated */}
+      <div className="absolute top-[20%] left-[10%] hidden lg:block z-0">
+        <img 
+          src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png" 
+          alt="Launch Layer Logo" 
+          className="w-64 h-64 opacity-10 animate-pulse-slow"
+          style={{ filter: 'blur(2px)' }}
+        />
+      </div>
+
       {/* Code-like background elements */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div className="hidden lg:block absolute top-1/4 left-10 text-launchlayer-text-secondary/20 font-mono text-xs">
@@ -70,6 +103,30 @@ const HeroSection: React.FC = () => {
               </Link>
             </div>
           </div>
+
+          {/* 3D rotating logo effect */}
+          <div className="hidden md:flex justify-center items-center my-8">
+            <div className="logo-3d-container relative w-32 h-32">
+              <img 
+                src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png"
+                alt="Launch Layer Logo 3D"
+                className="absolute w-full h-full animate-spin-slow"
+                style={{animationDuration: '15s'}}
+              />
+              <img 
+                src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png"
+                alt="Launch Layer Logo 3D Layer"
+                className="absolute w-full h-full animate-spin-slow-reverse opacity-70"
+                style={{animationDuration: '12s'}}
+              />
+              <img 
+                src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png"
+                alt="Launch Layer Logo 3D Layer"
+                className="absolute w-full h-full animate-spin-slow opacity-40"
+                style={{animationDuration: '20s', filter: 'blur(2px)'}}
+              />
+            </div>
+          </div>
           
           <div className="w-full max-w-2xl mt-8">
             <div className="relative">
@@ -100,6 +157,47 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Add CSS for the animations */}
+      <style jsx="true">{`
+        @keyframes float-up {
+          0% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+          100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes spin-slow-reverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
+        }
+        
+        @keyframes pulse-slow {
+          0% { opacity: 0.1; transform: scale(1); }
+          50% { opacity: 0.15; transform: scale(1.05); }
+          100% { opacity: 0.1; transform: scale(1); }
+        }
+        
+        .floating-logo {
+          animation: float-up 15s infinite ease-in-out;
+        }
+        
+        .animate-spin-slow {
+          animation: spin-slow 20s infinite linear;
+        }
+        
+        .animate-spin-slow-reverse {
+          animation: spin-slow-reverse 15s infinite linear;
+        }
+        
+        .animate-pulse-slow {
+          animation: pulse-slow 8s infinite ease-in-out;
+        }
+      `}</style>
     </section>
   );
 };

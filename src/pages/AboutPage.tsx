@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -63,7 +64,7 @@ const AboutPage: React.FC = () => {
       {/* Background logo - added as subtle texture */}
       <div className="fixed inset-0 w-full h-full flex items-center justify-center pointer-events-none z-0 overflow-hidden">
         <img 
-          src="/lovable-uploads/708854fc-3856-4ab9-ba67-14cb88f2b944.png" 
+          src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png" 
           alt=""
           className="w-[900px] h-auto opacity-[0.06] select-none"
           style={{
@@ -87,6 +88,14 @@ const AboutPage: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-8 max-w-[1280px] relative z-10">
+          <div className="flex justify-center mb-8">
+            <img 
+              src="/lovable-uploads/e117309c-add3-4b3f-b49b-ee89f91a2df3.png" 
+              alt="Launch Layer Logo" 
+              className="w-32 h-32 animate-pulse"
+            />
+          </div>
+          
           <h1 className="text-4xl sm:text-5xl font-bold tracking-wider text-center animate-fade-in">
             About Launch Layer
           </h1>

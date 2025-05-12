@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection: React.FC = () => {
@@ -67,6 +67,15 @@ const HeroSection: React.FC = () => {
                   View Docs
                 </Button>
               </Link>
+              <a 
+                href="https://x.com/launchlayerio"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 border border-launchlayer-surface-light hover:bg-launchlayer-surface-light rounded-lg px-6 py-3 h-14 text-base backdrop-blur-sm hover:brightness-110 hover:scale-[1.03] transition-all duration-200"
+              >
+                <X size={18} />
+                <span>@launchlayerio</span>
+              </a>
             </div>
           </div>
           

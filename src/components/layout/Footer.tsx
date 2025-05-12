@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { Github, MessagesSquare, Rocket, Twitter } from "lucide-react";
+import { Github, MessagesSquare, Rocket, X } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -57,13 +57,13 @@ const Footer: React.FC = () => {
                 <Github size={18} />
               </a>
               <a
-                href="https://twitter.com/launchlayer"
+                href="https://x.com/launchlayerio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-launchlayer-text-primary transition-colors flex items-center gap-1"
-                aria-label="Twitter"
+                aria-label="X (Twitter)"
               >
-                <Twitter size={18} />
+                <X size={18} />
               </a>
               <a
                 href="https://discord.gg/launchlayer"

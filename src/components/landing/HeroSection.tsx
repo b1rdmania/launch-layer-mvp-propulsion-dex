@@ -41,7 +41,7 @@ const HeroSection: React.FC = () => {
               <br className="hidden md:block" />
               Forget raffles, ditch bonding curves, and skip the platform token.
               <br className="hidden md:block" />
-              Transparent factory contract raises with seamless Vesting and LPing. Your token. Launched right.
+              Transparent raises, seamless vesting. Your token. Launched right.
             </p>
             
             <div className="flex flex-wrap gap-4">

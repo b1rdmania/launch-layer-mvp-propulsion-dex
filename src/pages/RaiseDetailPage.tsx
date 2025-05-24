@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useWallet } from "@/contexts/WalletContext";
@@ -363,7 +362,7 @@ const RaiseDetailPage: React.FC = () => {
                 <h2 className="text-xl font-medium mb-4 text-launchlayer-text-primary">Claim Tokens</h2>
                 <p className="text-launchlayer-text-secondary mb-4">
                   This raise has been finalized. You can now claim your tokens
-                  through Hedgey Finance.
+                  through Magna Vesting.
                 </p>
                 <Link to={`/claim/${raise.address}`}>
                   <Button className="w-full bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white">

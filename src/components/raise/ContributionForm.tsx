@@ -124,7 +124,7 @@ const ContributionForm: React.FC<ContributionFormProps> = ({
 
       if (success) {
         toast.success(
-          `Contribution successful! You paid ${tokenCost} ${raise.acceptedTokenSymbol} for an estimated ${tokenAmount} ${raise.tokenSymbol}. Claiming via Hedgey available after sale ends.`,
+          `Contribution successful! You paid ${tokenCost} ${raise.acceptedTokenSymbol} for an estimated ${tokenAmount} ${raise.tokenSymbol}. Claiming via Magna available after sale ends.`,
         );
         setAmount("");
         setIsApproved(false);
@@ -159,9 +159,9 @@ const ContributionForm: React.FC<ContributionFormProps> = ({
             <Button
               variant="default"
               className="w-full bg-cradle-accent hover:bg-cradle-accent/90"
-              onClick={() => window.open("https://hedgey.finance", "_blank")}
+              onClick={() => window.open("https://www.magna.so", "_blank")}
             >
-              Claim Tokens via Hedgey
+              Claim Tokens via Magna
             </Button>
           )}
         </div>

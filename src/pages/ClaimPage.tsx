@@ -42,13 +42,12 @@ const ClaimPage: React.FC = () => {
     loadRaiseData();
   }, [raiseAddress, navigate]);
 
-  const handleHedgeyRedirect = () => {
-    // Redirect to Hedgey with the token address
-    // In a real implementation, this would use the actual token address from the raise
-    const hedgeyUrl = "https://hedgey.finance";
-    window.open(hedgeyUrl, "_blank");
+  const handleMagnaRedirect = () => {
+    // Redirect to Magna Vesting
+    const magnaUrl = "https://www.magna.so";
+    window.open(magnaUrl, "_blank");
 
-    toast.info("Redirecting to Hedgey Finance for token claiming", {
+    toast.info("Redirecting to Magna Vesting for token claiming", {
       style: {
         background: "#1A1A1A",
         color: "#F9F9F9",
@@ -87,7 +86,7 @@ const ClaimPage: React.FC = () => {
           Claim Your {raiseName} Tokens
         </h1>
         <p className="text-[#B0B6BD] max-w-2xl mb-6">
-          Tokens from this raise are distributed through Hedgey vesting
+          Tokens from this raise are distributed through Magna vesting
           contracts. Connect your wallet to access your allocation.
         </p>
       </div>
@@ -100,7 +99,7 @@ const ClaimPage: React.FC = () => {
                 Token Claim Process
               </h2>
               <p className="text-[#B0B6BD]">
-                Vested tokens are managed by Hedgey Finance, a secure token
+                Vested tokens are managed by Magna Vesting, a secure token
                 vesting protocol. Your tokens will be distributed according to
                 the vesting schedule established by the project team.
               </p>
@@ -131,19 +130,19 @@ const ClaimPage: React.FC = () => {
 
                 <div>
                   <p className="text-[#B0B6BD] mb-4">
-                    Your tokens are managed through Hedgey Finance. Click below
+                    Your tokens are managed through Magna Vesting. Click below
                     to access the vesting dashboard.
                   </p>
                   <Button
-                    onClick={handleHedgeyRedirect}
+                    onClick={handleMagnaRedirect}
                     className="w-full bg-launchlayer-violet hover:bg-launchlayer-violet/90 text-white"
                   >
-                    Go to Hedgey Finance
+                    Go to Magna Vesting
                   </Button>
                   <p className="text-xs text-[#B0B6BD] mt-2">
-                    Note: Cradle does not control the vesting contracts or have
+                    Note: Launch Layer does not control the vesting contracts or have
                     custody of your tokens. All claims are processed directly
-                    through Hedgey.
+                    through Magna.
                   </p>
                 </div>
               </div>
@@ -160,14 +159,14 @@ const ClaimPage: React.FC = () => {
           <li className="flex gap-2">
             <div className="min-w-5 mt-1">•</div>
             <p>
-              After connecting your wallet, you'll be directed to Hedgey
-              Finance.
+              After connecting your wallet, you'll be directed to Magna
+              Vesting.
             </p>
           </li>
           <li className="flex gap-2">
             <div className="min-w-5 mt-1">•</div>
             <p>
-              Hedgey will display your vested token balance and upcoming unlock
+              Magna will display your vested token balance and upcoming unlock
               schedule.
             </p>
           </li>
@@ -175,7 +174,7 @@ const ClaimPage: React.FC = () => {
             <div className="min-w-5 mt-1">•</div>
             <p>
               Claimable tokens can be transferred to your wallet directly
-              through the Hedgey interface.
+              through the Magna interface.
             </p>
           </li>
           <li className="flex gap-2">

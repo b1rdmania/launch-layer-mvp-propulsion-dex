@@ -1,76 +1,117 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, FileCode, Terminal } from "lucide-react";
+import { ExternalLink, FileCode, Book, Terminal } from "lucide-react";
 
 const DeveloperSection: React.FC = () => {
   return (
-    <section className="py-16 bg-launchlayer-surface">
-      <div className="container mx-auto px-8 max-w-[1280px]">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="md:w-1/2">
-            <h2 className="text-3xl font-bold mb-4 tracking-wider text-gradient-violet">For Developers</h2>
-            <p className="text-launchlayer-text-secondary mb-6">
-              Launch Layer offers simple, easy-to-use smart contracts for token launches.
-              Explore our documentation, try the testnet, or view the source code.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="https://github.com/b1rdmania/launchlayer"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="accent" className="rounded-md flex items-center gap-2 shadow-button px-5 py-3 text-sm">
-                  <FileCode size={18} /> View Source
-                </Button>
-              </a>
-              <a
-                href="https://github.com/b1rdmania/launchlayer"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="outline"
-                  className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light rounded-md flex items-center gap-2 shadow-sm hover:shadow-[0_2px_15px_rgba(112,99,248,0.15)] transition-all hover:scale-[1.02] px-5 py-3 text-sm"
-                >
-                  Try Testnet <ExternalLink size={16} />
-                </Button>
-              </a>
-            </div>
+    <section className="py-24 bg-launchlayer-background relative overflow-hidden">
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-launchlayer-violet/5 via-transparent to-launchlayer-accent/5"></div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="inline-block">
+            <span className="text-sm font-medium text-launchlayer-violet bg-launchlayer-violet/10 px-3 py-1 rounded-full mb-4 inline-block">
+              Resources
+            </span>
           </div>
-          <div className="md:w-1/2 flex justify-center">
-            <div className="bg-[#1E1E2A] p-6 rounded-xl border-l-2 border-launchlayer-violet shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_4px_25px_rgba(112,99,248,0.2)] hover:translate-y-[-2px] transition-all duration-300">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-launchlayer-mint font-mono">Factory.js</span>
-                <span className="text-xs text-launchlayer-text-secondary">JavaScript</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient-violet">
+            For Developers
+          </h2>
+          <p className="text-lg text-launchlayer-text-secondary max-w-2xl mx-auto leading-relaxed">
+            Launch Layer offers simple, easy-to-use smart contracts for token launches. 
+            Explore our documentation, try the testnet, or view the source code.
+          </p>
+        </div>
+
+        {/* Code Example */}
+        <div className="mb-12">
+          <div className="bg-[#0D1117] border border-launchlayer-surface-light rounded-2xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_40px_rgba(167,139,250,0.15)] transition-all duration-300">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
-              <pre className="text-sm font-mono text-launchlayer-text-secondary overflow-x-auto relative">
-                <div className="absolute left-0 top-0 bottom-0 flex flex-col text-gray-500 pr-3 text-xs select-none opacity-40">
-                  <span>1</span>
-                  <span>2</span>
-                  <span>3</span>
-                  <span>4</span>
-                  <span>5</span>
-                  <span>6</span>
-                  <span>7</span>
-                  <span>8</span>
-                </div>
-                <code className="pl-6">
-{`// Deploy a new token sale
-const factory = await LaunchLayerFactory.connect();
-const saleParams = {
-  token: "0x...",
-  price: ethers.utils.parseEther("0.01"),
-  cap: ethers.utils.parseEther("100"),
-  vesting: 30 * 24 * 60 * 60 // 30 days
-};
-await factory.createSale(saleParams);`}
+              <span className="text-xs text-launchlayer-text-secondary font-mono bg-launchlayer-surface px-2 py-1 rounded">
+                JavaScript
+              </span>
+            </div>
+            
+            <div className="relative">
+              <div className="absolute left-0 top-0 bottom-0 flex flex-col text-launchlayer-text-secondary/40 pr-4 text-sm font-mono select-none min-w-[2rem]">
+                {Array.from({ length: 11 }, (_, i) => (
+                  <span key={i + 1} className="leading-6">{i + 1}</span>
+                ))}
+              </div>
+              
+              <pre className="pl-12 text-sm font-mono leading-6 overflow-x-auto">
+                <code>
+                  <span className="text-launchlayer-text-secondary">// Deploy a new token sale</span>{'\n'}
+                  <span className="text-purple-400">const</span> <span className="text-blue-300">factory</span> <span className="text-white">=</span> <span className="text-purple-400">await</span> <span className="text-yellow-300">LaunchLayerFactory</span><span className="text-white">.</span><span className="text-blue-300">connect</span><span className="text-white">();</span>{'\n'}
+                  <span className="text-purple-400">const</span> <span className="text-blue-300">saleParams</span> <span className="text-white">=</span> <span className="text-white">{'{'}</span>{'\n'}
+                  <span className="text-white">  </span><span className="text-red-300">token</span><span className="text-white">:</span> <span className="text-green-300">"0x..."</span><span className="text-white">,</span>{'\n'}
+                  <span className="text-white">  </span><span className="text-red-300">price</span><span className="text-white">:</span> <span className="text-blue-300">ethers</span><span className="text-white">.</span><span className="text-blue-300">utils</span><span className="text-white">.</span><span className="text-yellow-300">parseEther</span><span className="text-white">(</span><span className="text-green-300">"0.01"</span><span className="text-white">),</span>{'\n'}
+                  <span className="text-white">  </span><span className="text-red-300">cap</span><span className="text-white">:</span> <span className="text-blue-300">ethers</span><span className="text-white">.</span><span className="text-blue-300">utils</span><span className="text-white">.</span><span className="text-yellow-300">parseEther</span><span className="text-white">(</span><span className="text-green-300">"100"</span><span className="text-white">),</span>{'\n'}
+                  <span className="text-white">  </span><span className="text-red-300">vesting</span><span className="text-white">:</span> <span className="text-orange-300">30</span> <span className="text-white">*</span> <span className="text-orange-300">24</span> <span className="text-white">*</span> <span className="text-orange-300">60</span> <span className="text-white">*</span> <span className="text-orange-300">60</span> <span className="text-launchlayer-text-secondary">// 30 days</span>{'\n'}
+                  <span className="text-white">{'};'}</span>{'\n'}
+                  {'\n'}
+                  <span className="text-purple-400">await</span> <span className="text-blue-300">factory</span><span className="text-white">.</span><span className="text-yellow-300">createSale</span><span className="text-white">(</span><span className="text-blue-300">saleParams</span><span className="text-white">);</span>
                 </code>
               </pre>
-              <div className="text-xs text-launchlayer-text-secondary mt-2 text-right">Handles deployment logic</div>
             </div>
           </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap justify-center gap-6">
+          <a
+            href="https://github.com/b1rdmania/launchlayer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+          >
+            <Button 
+              variant="outline" 
+              className="h-14 px-8 bg-launchlayer-surface border-launchlayer-surface-light hover:bg-launchlayer-surface-light hover:border-launchlayer-violet/50 transition-all duration-300 group-hover:shadow-[0_4px_20px_rgba(167,139,250,0.2)] group-hover:scale-[1.02]"
+            >
+              <Book className="w-5 h-5 mr-3 text-launchlayer-violet" />
+              <span className="text-base font-medium">Documentation</span>
+            </Button>
+          </a>
+
+          <a
+            href="https://github.com/b1rdmania/launchlayer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+          >
+            <Button 
+              variant="outline" 
+              className="h-14 px-8 bg-launchlayer-surface border-launchlayer-surface-light hover:bg-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all duration-300 group-hover:shadow-[0_4px_20px_rgba(50,119,245,0.2)] group-hover:scale-[1.02]"
+            >
+              <Terminal className="w-5 h-5 mr-3 text-launchlayer-accent" />
+              <span className="text-base font-medium">Testnet Demo</span>
+            </Button>
+          </a>
+
+          <a
+            href="https://github.com/b1rdmania/launchlayer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+          >
+            <Button 
+              variant="outline" 
+              className="h-14 px-8 bg-launchlayer-surface border-launchlayer-surface-light hover:bg-launchlayer-surface-light hover:border-launchlayer-mint/50 transition-all duration-300 group-hover:shadow-[0_4px_20px_rgba(99,206,198,0.2)] group-hover:scale-[1.02]"
+            >
+              <FileCode className="w-5 h-5 mr-3 text-launchlayer-mint" />
+              <span className="text-base font-medium">GitHub Repo</span>
+              <ExternalLink className="w-4 h-4 ml-2 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </Button>
+          </a>
         </div>
       </div>
     </section>

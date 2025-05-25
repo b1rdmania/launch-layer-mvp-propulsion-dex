@@ -1,11 +1,8 @@
-
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import ProcessSection from "@/components/landing/ProcessSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
-import ResourcesSection from "@/components/landing/ResourcesSection";
-import SocialProofSection from "@/components/landing/SocialProofSection";
 
 const LandingPage: React.FC = () => {
   return (
@@ -123,8 +120,6 @@ const LandingPage: React.FC = () => {
 
       <ProcessSection />
       <CurrentRaisesSection />
-      <ResourcesSection />
-      <SocialProofSection />
     </div>
   );
 };

@@ -1,14 +1,12 @@
 
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
-import FeaturesSection from "@/components/landing/FeaturesSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-launchlayer-background via-launchlayer-background to-launchlayer-surface">
       <HeroSection />
-      <FeaturesSection />
       
       {/* Core Principles Section */}
       <section className="py-16 md:py-24 bg-launchlayer-background relative">
@@ -56,62 +54,6 @@ const LandingPage: React.FC = () => {
               <h3 className="text-xl font-semibold mb-2 text-launchlayer-text-primary">Efficient</h3>
               <p className="text-launchlayer-text-secondary">
                 Fixed-price sales with instant finalization. No bonding curves, no price discovery games.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-16 md:py-24 bg-launchlayer-surface relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px]">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-launchlayer-text-primary">
-              Simple <span className="text-launchlayer-accent">Launch Process</span>
-            </h2>
-            <p className="text-lg text-launchlayer-text-secondary max-w-3xl mx-auto">
-              Four steps to launch your token on Sonic. No complexity, no compromises.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-launchlayer-accent rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                1
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Deploy Token</h3>
-              <p className="text-sm text-launchlayer-text-secondary">
-                Create your ERC-20 token contract on Sonic Network
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-launchlayer-violet rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                2
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Configure Sale</h3>
-              <p className="text-sm text-launchlayer-text-secondary">
-                Set price, allocations, and timeline for your token sale
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-launchlayer-mint rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                3
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Launch & Raise</h3>
-              <p className="text-sm text-launchlayer-text-secondary">
-                Go live and accept contributions from your community
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-launchlayer-blue rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                4
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Magna Vesting Integration</h3>
-              <p className="text-sm text-launchlayer-text-secondary">
-                Easy post-sale workflow. Export allocation data for seamless vesting schedule setup on Magna.
               </p>
             </div>
           </div>

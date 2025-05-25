@@ -2,150 +2,129 @@
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
+import ProcessSection from "@/components/landing/ProcessSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
-import BackgroundPatternSection from "@/components/landing/BackgroundPatternSection";
-import { useDeviceDetect } from "@/hooks/useDeviceDetect";
-import { Card, CardContent } from "@/components/ui/card";
-import { Star, CheckCircle, FileCode, Settings, Clipboard, Timer, FileText } from "lucide-react";
+import ResourcesSection from "@/components/landing/ResourcesSection";
+import SocialProofSection from "@/components/landing/SocialProofSection";
 
 const LandingPage: React.FC = () => {
-  const { isMobile, isIOS } = useDeviceDetect();
-  
-  // Add iOS-specific class if needed
-  React.useEffect(() => {
-    if (isIOS) {
-      document.body.classList.add('ios-device');
-    } else {
-      document.body.classList.remove('ios-device');
-    }
-    
-    return () => {
-      document.body.classList.remove('ios-device');
-    };
-  }, [isIOS]);
-
-  // Premium features for the about section
-  const premiumFeatures = [
-    {
-      title: "Zero Platform Token",
-      description: "No proprietary token required. Launch on Sonic without unnecessary token dependencies.",
-      icon: <Star size={24} className="text-launchlayer-violet" />
-    },
-    {
-      title: "Permissionless Design",
-      description: "Anyone can launch without approval processes or gatekeeping.",
-      icon: <CheckCircle size={24} className="text-launchlayer-violet" />
-    },
-    {
-      title: "Fixed Price Mechanics",
-      description: "Simple, transparent pricing for participants with no complex bonding curves.",
-      icon: <FileCode size={24} className="text-launchlayer-violet" />
-    }
-  ];
-
-  // Define steps for the launch process section
-  const steps = [
-    { 
-      text: "Configure your token sale parameters", 
-      icon: <Settings size={18} className="text-launchlayer-mint" /> 
-    },
-    { 
-      text: "Deploy your contract on Sonic", 
-      icon: <Clipboard size={18} className="text-launchlayer-mint" /> 
-    },
-    { 
-      text: "Community contributes during sale phases", 
-      icon: <Timer size={18} className="text-launchlayer-mint" /> 
-    },
-    { 
-      text: "Finalize and collect your funds", 
-      icon: <CheckCircle size={18} className="text-launchlayer-mint" /> 
-    },
-    { 
-      text: "Export data for Magna vesting setup", 
-      icon: <FileText size={18} className="text-launchlayer-mint" /> 
-    },
-  ];
-  
   return (
-    <div className="bg-launchlayer-background overflow-hidden">
-      <BackgroundPatternSection />
-      {/* Content */}
-      <div className="relative z-10">
-        <HeroSection />
-        <CurrentRaisesSection />
-        <FeaturesSection />
-
-        {/* Core Principles Section */}
-        <section className="py-16 bg-launchlayer-background relative">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full bg-launchlayer-accent/5 blur-[80px]"></div>
-          </div>
-          
-          <div className="container mx-auto px-8 max-w-[1280px]">
-            <div className="text-center mb-12">
-              <span className="px-3 py-1 text-xs font-medium rounded-full bg-launchlayer-accent/10 text-launchlayer-accent mb-2 inline-block">Core Principles</span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-wider bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                Built For Serious Builders
-              </h2>
-              <p className="text-launchlayer-text-secondary max-w-2xl mx-auto">
-                Launch Layer was designed with the core principles that matter most to DeFi projects
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {premiumFeatures.map((feature, index) => (
-                <Card key={index} className="h-full border border-launchlayer-surface-light bg-gradient-to-b from-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm hover:border-launchlayer-violet/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_-5px_rgba(167,139,250,0.1)]">
-                  <CardContent className="p-6 h-full">
-                    <div className="flex flex-col h-full">
-                      <div className="mb-4 p-3 rounded-full bg-launchlayer-surface-light w-fit">
-                        {feature.icon}
-                      </div>
-                      <h3 className="text-xl font-bold mb-2 text-launchlayer-text-primary">{feature.title}</h3>
-                      <p className="text-launchlayer-text-secondary">{feature.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Launch Process Section */}
-        <section className="py-16 bg-launchlayer-surface/50">
-          <div className="container mx-auto px-8 max-w-[1280px]">
-            <div className="text-center mb-12">
-              <span className="px-3 py-1 text-xs font-medium rounded-full bg-launchlayer-accent/10 text-launchlayer-accent mb-2 inline-block">Process</span>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-wider bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                Launch Your Token in 5 Easy Steps
-              </h2>
-              <p className="text-launchlayer-text-secondary max-w-2xl mx-auto">
-                Launch Layer streamlines the entire token launch process
-              </p>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-              {steps.map((step, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between mb-5 bg-gradient-to-r from-launchlayer-surface to-launchlayer-surface p-5 rounded-xl border border-launchlayer-surface-light hover:border-launchlayer-violet/50 transition-all hover:translate-y-[-2px] hover:shadow-[0_8px_20px_rgba(50,119,245,0.12)] group"
-                >
-                  <div className="flex items-center">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-launchlayer-accent to-launchlayer-violet text-white font-bold mr-5 shadow-[0_2px_10px_rgba(112,99,248,0.25)] group-hover:shadow-[0_2px_15px_rgba(112,99,248,0.4)] transition-all duration-300">
-                      {index + 1}
-                    </div>
-                    <span className="text-[1rem] font-medium">{step.text}</span>
-                  </div>
-                  {step.icon}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-launchlayer-background via-launchlayer-background to-launchlayer-surface">
+      <HeroSection />
+      <FeaturesSection />
       
-      {/* iOS safe area bottom padding */}
-      {isIOS && <div className="h-8 md:hidden"></div>}
+      {/* Core Principles Section */}
+      <section className="py-16 md:py-24 bg-launchlayer-background relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px]">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-launchlayer-text-primary">
+              Built on <span className="text-launchlayer-accent">Simple Principles</span>
+            </h2>
+            <p className="text-lg text-launchlayer-text-secondary max-w-3xl mx-auto">
+              No gimmicks, no platform tokens, no artificial barriers. Just transparent, efficient token launches.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light">
+              <div className="w-12 h-12 bg-launchlayer-accent/20 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-launchlayer-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-launchlayer-text-primary">Permissionless</h3>
+              <p className="text-launchlayer-text-secondary">
+                Deploy your token sale without approval, KYC, or gatekeepers. Your project, your timeline.
+              </p>
+            </div>
+
+            <div className="bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light">
+              <div className="w-12 h-12 bg-launchlayer-violet/20 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-launchlayer-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-launchlayer-text-primary">Transparent</h3>
+              <p className="text-launchlayer-text-secondary">
+                All contracts are open source. No hidden fees, no surprise mechanics, no platform tokens required.
+              </p>
+            </div>
+
+            <div className="bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light">
+              <div className="w-12 h-12 bg-launchlayer-mint/20 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-launchlayer-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-launchlayer-text-primary">Efficient</h3>
+              <p className="text-launchlayer-text-secondary">
+                Fixed-price sales with instant finalization. No bonding curves, no price discovery games.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 md:py-24 bg-launchlayer-surface relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px]">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-launchlayer-text-primary">
+              Simple <span className="text-launchlayer-accent">Launch Process</span>
+            </h2>
+            <p className="text-lg text-launchlayer-text-secondary max-w-3xl mx-auto">
+              Four steps to launch your token on Sonic. No complexity, no compromises.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-launchlayer-accent rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
+                1
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Deploy Token</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Create your ERC-20 token contract on Sonic Network
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-launchlayer-violet rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
+                2
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Configure Sale</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Set price, allocations, and timeline for your token sale
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-launchlayer-mint rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
+                3
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Launch & Raise</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Go live and accept contributions from your community
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-launchlayer-blue rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
+                4
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-launchlayer-text-primary">Magna Vesting Integration</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Easy post-sale workflow. Export allocation data for seamless vesting schedule setup on Magna.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProcessSection />
+      <CurrentRaisesSection />
+      <ResourcesSection />
+      <SocialProofSection />
     </div>
   );
 };

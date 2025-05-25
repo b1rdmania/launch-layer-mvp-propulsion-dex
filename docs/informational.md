@@ -8,7 +8,7 @@ Welcome to Launch Layer. Our platform provides decentralized, open-source tools 
 
 ***
 
-## ⚖️ Terms of Service
+## Terms of Service
 
 **Last Updated:** YYYY-MM-DD
 
@@ -21,7 +21,7 @@ Welcome to Launch Layer. Our platform provides decentralized, open-source tools 
 
 ***
 
-## 🛡️ Privacy Policy
+## Privacy Policy
 
 **Last Updated:** YYYY-MM-DD
 
@@ -32,7 +32,7 @@ Welcome to Launch Layer. Our platform provides decentralized, open-source tools 
 
 ***
 
-## ⚠️ Risk Disclosure
+## Risk Disclosure
 
 Participating in token sales and interacting with blockchain technology involves significant risks. Please carefully consider the following:
 
@@ -44,8 +44,8 @@ Participating in token sales and interacting with blockchain technology involves
 
 ***
 
-## ❓ Questions & Contact
+## Questions & Contact
 
-If you have any questions regarding these terms, policies, or disclosures, please reach out through our official community channels (see [Resources](resources.md)) or contact us at \[YOUR\_CONTACT\_EMAIL\_OR\_METHOD\_HERE].
+If you have any questions regarding these terms, policies, or disclosures, please reach out through our official community channels (see [Resources](resources.md)) or contact us at [YOUR_CONTACT_EMAIL_OR_METHOD_HERE].
 
 By using Launch Layer, you acknowledge that you have read, understood, and agree to these terms and disclosures.

@@ -2,7 +2,7 @@
 icon: file-contract
 ---
 
-# Legal & Information
+# 📜 Legal & Information
 
 Welcome to Launch Layer. Our platform provides decentralized, open-source tools for the Sonic network. By using our services, you agree to the terms outlined below.
 

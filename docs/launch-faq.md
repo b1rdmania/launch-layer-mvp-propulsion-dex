@@ -1,4 +1,4 @@
-# Frequently Asked Questions (Launching)
+# ❓ Frequently Asked Questions (Launching)
 
 Here are some common questions project teams have about launching their token on Launch Layer:
 

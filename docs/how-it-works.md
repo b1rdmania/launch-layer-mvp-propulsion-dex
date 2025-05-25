@@ -1,4 +1,4 @@
-# How It Works: The Launch Layer Process
+# ⚙️ How It Works: The Launch Layer Process
 
 Launching your token on Launch Layer is designed to be a transparent and straightforward on-chain experience. Here's a breakdown of the core stages involved when a project launches with us:
 

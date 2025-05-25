@@ -1,4 +1,4 @@
-# Why Launch on Launch Layer?
+# 🤔 Why Launch on Launch Layer?
 
 Choosing the right launchpad is crucial for your project's success. Launch Layer is designed to be the most straightforward, fair, and community-centric platform on the Sonic network. Here's why builders are choosing us:
 

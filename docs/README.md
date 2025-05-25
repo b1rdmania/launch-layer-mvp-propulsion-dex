@@ -4,7 +4,7 @@ cover: assets/launchlayerlogowhite.png
 coverY: 0
 ---
 
-# Welcome to Launch Layer
+# 👋 Welcome to Launch Layer
 
 ## Welcome to our Docs
 

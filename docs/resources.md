@@ -2,7 +2,7 @@
 icon: info
 ---
 
-# Launch Layer Resources
+# ℹ️ Launch Layer Resources
 
 Welcome to the central hub for all things Launch Layer! Here you'll find essential links, guides, and information to help you navigate our platform and the wider Sonic ecosystem.
 

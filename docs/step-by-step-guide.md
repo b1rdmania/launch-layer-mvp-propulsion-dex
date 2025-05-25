@@ -4,7 +4,7 @@ description: >-
   what you need to do:
 ---
 
-# Step-by-Step Guide: Participating in a Launch
+# 🚶 Step-by-Step Guide: Participating in a Launch
 
 * [ ] **Stay Informed & Check Eligibility:**
   * Follow the project's official announcements for sale dates, times, token details, and specific participation instructions.

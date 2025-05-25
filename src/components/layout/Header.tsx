@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="p-4 sticky top-0 z-40 bg-launchlayer-background/80 backdrop-blur-sm border-b border-gray-800">
+    <header className="p-4 sticky top-0 z-40 bg-launchlayer-background/80 backdrop-blur-sm border-b border-launchlayer-surface-light">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="mr-8 flex items-center">
@@ -36,7 +36,7 @@ const Header: React.FC = () => {
                 to="/landing"
                 className={`relative transition-all duration-200 ${
                   isActive("/landing")
-                    ? "text-launchlayer-violet font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-violet after:bottom-[-4px] after:left-0"
+                    ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-4px] after:left-0"
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
                 to="/app"
                 className={`relative transition-all duration-200 ${
                   isActive("/app")
-                    ? "text-launchlayer-violet font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-violet after:bottom-[-4px] after:left-0"
+                    ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-4px] after:left-0"
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                 to="/admin"
                 className={`relative transition-all duration-200 ${
                   isActive("/admin")
-                    ? "text-launchlayer-violet font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-violet after:bottom-[-4px] after:left-0"
+                    ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-4px] after:left-0"
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
@@ -74,23 +74,33 @@ const Header: React.FC = () => {
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          {isConnected ? (
-            <div className="hidden md:flex items-center gap-2">
-              <span className="px-3 py-1 bg-launchlayer-surface rounded-md text-sm font-mono">
-                {address?.slice(0, 6)}...{address?.slice(-4)}
-              </span>
-              <Button variant="outline" size="sm" onClick={disconnect} className="border-launchlayer-surface-light">
-                Disconnect
-              </Button>
-            </div>
-          ) : (
-            <Button
-              onClick={connect}
-              className="hidden md:flex items-center bg-launchlayer-accent hover:bg-launchlayer-accent/90 text-white"
-            >
-              Connect Wallet
-            </Button>
+        <div className="flex items-center gap-3">
+          {!isMobile && (
+            <>
+              {isConnected ? (
+                <div className="flex items-center gap-3">
+                  <span className="px-3 py-2 bg-launchlayer-surface rounded-lg text-sm font-mono border border-launchlayer-surface-light">
+                    {address?.slice(0, 6)}...{address?.slice(-4)}
+                  </span>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={disconnect} 
+                    className="border-launchlayer-surface-light hover:bg-launchlayer-surface-light"
+                  >
+                    Disconnect
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={connect}
+                  variant="accent"
+                  className="text-white"
+                >
+                  Connect Wallet
+                </Button>
+              )}
+            </>
           )}
 
           <MobileMenu />

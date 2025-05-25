@@ -2,7 +2,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, X, MessagesSquare } from "lucide-react";
 import { useWallet } from "@/contexts/WalletContext";
 import {
   Sheet,
@@ -51,35 +51,26 @@ const MobileMenu: React.FC = () => {
         side="right"
         className="bg-launchlayer-surface border-launchlayer-surface-light w-[85%] max-w-[400px]"
       >
-        <SheetHeader className="border-b border-launchlayer-surface-light pb-4 mb-4">
+        <SheetHeader className="border-b border-launchlayer-surface-light pb-4 mb-6">
           <SheetTitle className="text-launchlayer-text-primary">Menu</SheetTitle>
         </SheetHeader>
-        <nav className="flex flex-col gap-6 pt-2">
+        
+        <nav className="flex flex-col gap-6">
           <Link
-            to="/"
+            to="/landing"
             className={`transition-all duration-200 ${
-              isActive("/")
-                ? "text-launchlayer-violet font-medium"
+              isActive("/landing")
+                ? "text-launchlayer-accent font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Home
           </Link>
           <Link
-            to="/about"
-            className={`transition-all duration-200 ${
-              isActive("/about")
-                ? "text-launchlayer-violet font-medium"
-                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
-            }`}
-          >
-            About
-          </Link>
-          <Link
             to="/app"
             className={`transition-all duration-200 ${
               isActive("/app")
-                ? "text-launchlayer-violet font-medium"
+                ? "text-launchlayer-accent font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
@@ -89,33 +80,57 @@ const MobileMenu: React.FC = () => {
             to="/admin"
             className={`transition-all duration-200 ${
               isActive("/admin")
-                ? "text-launchlayer-violet font-medium"
+                ? "text-launchlayer-accent font-medium"
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
             Create Sale
           </Link>
 
-          <div className="space-y-2">
-            <h4 className="text-sm font-medium text-launchlayer-text-primary mb-2">
+          <div className="space-y-4 pt-2">
+            <h4 className="text-sm font-medium text-launchlayer-text-primary">
               Resources
             </h4>
-            <div className="pl-2 space-y-3">
+            <div className="pl-2 space-y-4">
+              <a
+                href="https://launch-layer.gitbook.io/launchlayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
+              >
+                Documentation <ExternalLink size={14} />
+              </a>
               <a
                 href="https://github.com/b1rdmania/launchlayer"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-launchlayer-text-secondary hover:text-launchlayer-violet flex items-center gap-2 transition-all duration-200"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
               >
-                GitHub <ExternalLink size={14} />
+                GitHub <Github size={14} />
+              </a>
+              <a
+                href="https://x.com/launchlayerio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
+              >
+                X (Twitter) <X size={14} />
+              </a>
+              <a
+                href="https://discord.gg/launchlayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"
+              >
+                Discord <MessagesSquare size={14} />
               </a>
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-6 pt-4 border-t border-launchlayer-surface-light">
             {isConnected ? (
-              <div className="space-y-2 mt-4">
-                <div className="px-3 py-2 bg-launchlayer-surface-light rounded-md text-sm font-mono text-center">
+              <div className="space-y-3">
+                <div className="px-3 py-2 bg-launchlayer-surface-light rounded-lg text-sm font-mono text-center border border-launchlayer-surface-light">
                   {address?.slice(0, 6)}...{address?.slice(-4)}
                 </div>
                 <Button
@@ -129,7 +144,8 @@ const MobileMenu: React.FC = () => {
             ) : (
               <Button
                 onClick={connect}
-                className="w-full mt-4 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:bg-launchlayer-accent/90 text-white hover:shadow-[0_0_10px_rgba(112,99,248,0.3)]"
+                variant="accent"
+                className="w-full text-white"
               >
                 Connect Wallet
               </Button>

@@ -46,14 +46,14 @@ const HeroSection: React.FC = () => {
               Transparent raises, seamless vesting. Your token. Launched right.
             </p>
             
-            <div className="flex flex-wrap gap-3 md:gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
               <Link to="/app" className="w-full sm:w-auto">
                 <Button variant="accent" size="lg" className="group w-full sm:w-auto px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm">
                   View Launches <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <div className={`grid ${isMobile ? 'grid-cols-2' : 'inline-flex'} gap-3 md:gap-4 w-full sm:w-auto`}>
-                <Link to="/admin" className={isMobile ? "col-span-1" : ""}>
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full sm:w-auto">
+                <Link to="/admin" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="lg"
@@ -62,7 +62,7 @@ const HeroSection: React.FC = () => {
                     Deploy Raise
                   </Button>
                 </Link>
-                <a href="https://launch-layer.gitbook.io/launchlayer" target="_blank" rel="noopener noreferrer" className={isMobile ? "col-span-1" : ""}>
+                <a href="https://launch-layer.gitbook.io/launchlayer" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="lg"

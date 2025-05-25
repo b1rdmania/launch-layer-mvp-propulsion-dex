@@ -6,7 +6,7 @@ icon: parachute-box
 
 Airdrops are a popular way for projects to distribute tokens, reward community members, and bootstrap their ecosystem. On Launch Layer, we champion an approach to airdrops that is on-chain, transparent, and empowers individual projects.
 
-## 🔑 Key Principles for Airdrops with Launch Layer
+## Key Principles for Airdrops with Launch Layer
 
 While specific airdrop mechanics are designed and implemented by each project, Launch Layer encourages adherence to these core principles for any distribution leveraging the Sonic network:
 
@@ -15,7 +15,7 @@ While specific airdrop mechanics are designed and implemented by each project, L
 * **Community First:** Airdrops should aim to reward genuine contributors, early supporters, and active community members, fostering a strong and engaged user base.
 * **No Platform Hoops:** Users should not be required to hold a specific Launch Layer platform token or jump through unnecessary hoops to claim airdrops from projects building on Sonic. Eligibility should be based on a project's own defined criteria.
 
-## 🙋 Participating in an Airdrop (For Users)
+## Participating in an Airdrop (For Users)
 
 If a project announces an airdrop that utilizes Launch Layer principles or infrastructure:
 
@@ -24,7 +24,7 @@ If a project announces an airdrop that utilizes Launch Layer principles or infra
 3. **Verify Eligibility:** The project's interface will usually allow you to check if your wallet address meets the specified criteria (e.g., held an NFT at a snapshot date, interacted with a dApp, etc.).
 4. **Claim Securely:** If eligible, you'll be able to initiate a transaction from your wallet to claim the tokens directly. Remember, you only sign transactions on sites you trust.
 
-## 🚀 Launching an Airdrop (For Projects)
+## Launching an Airdrop (For Projects)
 
 Projects looking to conduct an airdrop on Sonic can embrace the Launch Layer ethos:
 
@@ -33,27 +33,17 @@ Projects looking to conduct an airdrop on Sonic can embrace the Launch Layer eth
 * **Communicate Effectively:** Provide clear, timely, and accessible information to your community about the airdrop's purpose, eligibility, how to claim, and the claim period.
 * **Consider Phased or Milestone-Based Airdrops:** Instead of a single large drop, you might engage your community over time with multiple smaller airdrops tied to specific contributions or milestones.
 
-## 💡 Common Airdrop Models & Ideas
+## Common Airdrop Models & Ideas
 
 Projects often use a variety of models for their airdrops. Here are some common approaches:
 
-| Airdrop Model                      | Brief Description                                                              | Typical Use Case                                       | Key Consideration                                    |
-| ---------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------ | ---------------------------------------------------- |
-| **NFT Holder Airdrops**        | Distributing tokens to wallets holding specific NFTs.                          | Rewarding collectors, specific community segments.     | Snapshot timing, NFT contract address accuracy.      |
+| Airdrop Model                   | Brief Description                                                              | Typical Use Case                                       | Key Consideration                                    |
+| ------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------ | ---------------------------------------------------- |
+| **NFT Holder Airdrops**         | Distributing tokens to wallets holding specific NFTs.                          | Rewarding collectors, specific community segments.     | Snapshot timing, NFT contract address accuracy.      |
 | **Token Holder Snapshots**      | Airdropping to wallets holding another token at a specific block height.       | Rewarding loyalty, existing token holders.             | Snapshot block, minimum holding amounts.             |
 | **Testnet Participant Rewards** | Rewarding users who actively participated in a testnet phase.                  | Incentivizing testing, gathering feedback.             | Verifiable participation, quality of feedback.       |
-| **Governance Incentives**      | Airdropping to users who have voted or participated in governance.             | Encouraging DAO participation, decentralizing control. | Voting records, proposal interaction.                |
+| **Governance Incentives**       | Airdropping to users who have voted or participated in governance.             | Encouraging DAO participation, decentralizing control. | Voting records, proposal interaction.                |
 | **Early Adopter/User Activity** | Distributing based on early usage of a dApp or specific valuable interactions. | Rewarding early support, driving platform usage.       | Defining meaningful interactions, preventing sybils. |
-
-<!-- 
-Consideration for future: If this page becomes very long, GitBook Tabs could be used 
-to separate content for "User Perspective" and "Project Perspective."
--->
-
-<!-- 
-Consideration for future: If specific airdrop "recipes" (e.g., "How to Airdrop to NFT Holders") 
-get their own detailed sub-pages, this section could use GitBook Cards to link to them.
--->
 
 ***
 

@@ -8,9 +8,7 @@ Welcome to Launch Layer. Our platform provides decentralized, open-source tools 
 
 ***
 
-## ⚖️ Terms of Service
-
-**Last Updated:** YYYY-MM-DD
+## Terms of Service
 
 1. **Service Description:** Launch Layer provides software and smart contract infrastructure ("Services") that enable projects to conduct token sales and users to participate in them on the Sonic blockchain. Launch Layer is a technology provider and is not a party to any agreement or transaction between projects launching tokens and their participants.
 2. **No Investment Advice:** Launch Layer does not provide financial, investment, legal, tax, or any other professional advice. Information provided through our Services or documentation is for informational purposes only. You should conduct your own thorough research (DYOR) before participating in any token sale.
@@ -21,7 +19,7 @@ Welcome to Launch Layer. Our platform provides decentralized, open-source tools 
 
 ***
 
-## 🛡️ Privacy Policy
+## Privacy Policy
 
 **Last Updated:** YYYY-MM-DD
 
@@ -32,7 +30,7 @@ Welcome to Launch Layer. Our platform provides decentralized, open-source tools 
 
 ***
 
-## ⚠️ Risk Disclosure
+## ⚠ Risk Disclosure
 
 Participating in token sales and interacting with blockchain technology involves significant risks. Please carefully consider the following:
 
@@ -44,8 +42,8 @@ Participating in token sales and interacting with blockchain technology involves
 
 ***
 
-## ✉️ Questions & Contact
+## Questions & Contact
 
-If you have any questions regarding these terms, policies, or disclosures, please reach out through our official community channels (see [Resources](resources.md)) or contact us at [YOUR_CONTACT_EMAIL_OR_METHOD_HERE].
+If you have any questions regarding these terms, policies, or disclosures, please reach out through our official community channels (see [Resources](resources.md))&#x20;
 
 By using Launch Layer, you acknowledge that you have read, understood, and agree to these terms and disclosures.

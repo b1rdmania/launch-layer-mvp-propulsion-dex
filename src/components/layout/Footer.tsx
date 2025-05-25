@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
                 <X size={18} />
               </a>
               <a
-                href="https://discord.gg/launchlayer"
+                href="https://discord.gg/xVCnBxVU4X"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-launchlayer-text-primary transition-colors flex items-center gap-1"

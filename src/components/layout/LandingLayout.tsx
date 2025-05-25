@@ -143,7 +143,7 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
                 <X size={20} />
               </a>
               <a
-                href="https://discord.gg/launchlayer"
+                href="https://discord.gg/xVCnBxVU4X"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-launchlayer-accent transition-colors p-2 hover:scale-[1.1] transition-transform duration-200"

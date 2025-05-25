@@ -117,7 +117,7 @@ const MobileMenu: React.FC = () => {
                 X (Twitter) <X size={14} />
               </a>
               <a
-                href="https://discord.gg/launchlayer"
+                href="https://discord.gg/xVCnBxVU4X"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-launchlayer-text-secondary hover:text-launchlayer-accent flex items-center gap-2 transition-all duration-200"

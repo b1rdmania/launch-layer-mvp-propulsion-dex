@@ -11,4 +11,36 @@ Welcome to token launching, simplified! Launch Layer provides an open, transpare
 
 ---
 
+## 🛠️ Key Configurable Sale Parameters
+
+When launching your token, project teams have control over several key parameters to tailor the sale to their needs:
+
+| Parameter                 | Description                                                                      | Example / Notes                                     |
+| ------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **Token Price**           | The fixed price at which each token will be sold during the sale.                | e.g., 0.05 USDC per MYTOKEN                         |
+| **Sale Allocation**       | The total number of tokens available for sale in this specific launch.           | e.g., 10,000,000 MYTOKEN                            |
+| **Max Contribution**      | The maximum amount a single wallet address can contribute (and thus purchase).   | e.g., 500 USDC per wallet                           |
+| **Min Contribution**      | (Optional) The minimum amount a single wallet address must contribute.           | e.g., 50 USDC per wallet                            |
+| **Whitelist Spots**       | Number of addresses eligible for a guaranteed allocation phase (if applicable).  | Managed via a Merkle Root or on-chain list.       |
+| **Sale Start Time**       | The exact date and time (UTC) when the sale (or first phase) begins.             | e.g., 2024-08-01 14:00 UTC                          |
+| **Sale End Time**         | The exact date and time (UTC) when the sale (or final phase) concludes.          | e.g., 2024-08-03 14:00 UTC                          |
+| **Vesting Schedule**      | (Optional) Details on how tokens are released to participants post-TGE.          | e.g., 25% at TGE, then 25% monthly for 3 months.    |
+
+<!-- 
+Consideration for future: If this page expands significantly with distinct information for 
+Project Teams vs. Participants beyond what sub-pages cover, GitBook Tabs could be used here.
+
+Example Tab Structure:
+
+### <แท็บชื่อ="For Project Teams">
+Content specific to project teams viewing this overview...
+### </แท็บ>
+
+### <แท็บชื่อ="For Participants">
+Content specific to participants viewing this overview...
+### </แท็บ>
+-->
+
+---
+
 Dive into the subsections to understand **why** you should choose Launch Layer, **how** the process works from start to finish, a detailed **step-by-step guide**, and answers to common **FAQs**. 

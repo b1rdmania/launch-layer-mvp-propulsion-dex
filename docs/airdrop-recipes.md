@@ -2,6 +2,11 @@
 
 Airdrops are a popular way for projects to distribute tokens, reward community members, and bootstrap their ecosystem. On Launch Layer, we champion an approach to airdrops that is on-chain, transparent, and empowers individual projects.
 
+<!-- 
+Consideration for future: If this page becomes very long, GitBook Tabs could be used 
+to separate content for "User Perspective" and "Project Perspective."
+-->
+
 ## 🌟 Key Principles for Airdrops with Launch Layer
 
 While specific airdrop mechanics are designed and implemented by each project, Launch Layer encourages adherence to these core principles for any distribution leveraging the Sonic network:
@@ -31,13 +36,20 @@ Projects looking to conduct an airdrop on Sonic can embrace the Launch Layer eth
 
 ## 🤔 Common Airdrop Models & Ideas
 
-Projects often use a variety of models for their airdrops, including:
+Projects often use a variety of models for their airdrops. Here are some common approaches:
 
-*   **🖼️ NFT Holder Airdrops:** Distributing tokens to wallets that hold specific NFTs (from your project or a partner project).
-*   **💰 Token Holder Snapshots:** Airdropping to wallets that held a certain amount of another token (e.g., your project's governance token if launching a new utility token, or a related ecosystem token) at a specific block height.
-*   **🧪 Testnet Participant Rewards:** Rewarding users who actively participated in your testnet phase, providing valuable feedback.
-*   **🗳️ Governance Participation Incentives:** Encouraging involvement by airdropping to users who have voted on proposals or participated in governance.
-*   **🎉 Early Adopter & User Activity Rewards:** Distributing tokens based on early usage of your dApp or specific valuable interactions.
+| Airdrop Model                          | Brief Description                                                                 | Typical Use Case                                       | Key Consideration                                    |
+| :------------------------------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------- | :--------------------------------------------------- |
+| 🖼️ **NFT Holder Airdrops**             | Distributing tokens to wallets holding specific NFTs.                             | Rewarding collectors, specific community segments.     | Snapshot timing, NFT contract address accuracy.      |
+| 💰 **Token Holder Snapshots**          | Airdropping to wallets holding another token at a specific block height.        | Rewarding loyalty, existing token holders.             | Snapshot block, minimum holding amounts.             |
+| 🧪 **Testnet Participant Rewards**     | Rewarding users who actively participated in a testnet phase.                     | Incentivizing testing, gathering feedback.             | Verifiable participation, quality of feedback.       |
+| 🗳️ **Governance Incentives**         | Airdropping to users who have voted or participated in governance.              | Encouraging DAO participation, decentralizing control. | Voting records, proposal interaction.                |
+| 🎉 **Early Adopter/User Activity**     | Distributing based on early usage of a dApp or specific valuable interactions. | Rewarding early support, driving platform usage.       | Defining meaningful interactions, preventing sybils. |
+
+<!-- 
+Consideration for future: If specific airdrop "recipes" (e.g., "How to Airdrop to NFT Holders") 
+get their own detailed sub-pages, this section could use GitBook Cards to link to them.
+-->
 
 ---
 

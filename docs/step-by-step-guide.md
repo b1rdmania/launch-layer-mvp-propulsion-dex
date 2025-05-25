@@ -2,22 +2,25 @@
 
 Ready to get involved in a Launch Layer token sale? Here's a clear guide to what you need to do:
 
-1.  **📢 Stay Informed & Check Eligibility:**
+<!-- Optional: Consider embedding a short video here demonstrating the wallet connection & contribution process. -->
+<!-- Example: <iframe width="560" height="315" src="YOUR_VIDEO_EMBED_URL" frameborder="0" allowfullscreen></iframe> -->
+
+- [ ] **📢 Stay Informed & Check Eligibility:**
     *   Follow the project's official announcements for sale dates, times, token details, and specific participation instructions.
     *   Carefully review any eligibility criteria. Some sales might have whitelist spots, require holding specific NFTs, or have other conditions.
     *   All official sale information will be available on the Launch Layer interface for that specific launch.
 
-2.  **🔗 Connect Your Wallet:**
+- [ ] **🔗 Connect Your Wallet:**
     *   On the day of the sale, navigate to the project's unique launch page on Launch Layer.
     *   Connect your Sonic-compatible wallet (e.g., MetaMask properly configured for the Sonic network).
     *   Ensure your wallet is funded with the correct tokens required for participation (e.g., $SONIC or specific stablecoins, as specified by the sale).
 
-3.  **💸 Contribute Funds:**
+- [ ] **💸 Contribute Funds:**
     *   Once the sale phase you're eligible for is active (e.g., Whitelist Round, FCFS Round), the contribution interface will become available.
     *   Enter the amount you wish to contribute. Be mindful of any minimum or maximum allocation limits per participant.
     *   Review the transaction details carefully and confirm the transaction in your wallet.
 
-4.  **🎉 Claim Your Tokens:**
+- [ ] **🎉 Claim Your Tokens:**
     *   After the sale concludes and the token generation event (TGE) has occurred (as announced by the project), tokens will become claimable.
     *   Return to the same Launch Layer page for that sale.
     *   Follow the on-screen instructions to claim your tokens to your connected wallet.

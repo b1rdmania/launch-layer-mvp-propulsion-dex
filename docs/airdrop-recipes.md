@@ -1,17 +1,20 @@
-# 🎁 Airdrop Recipes
+# 🎉 Claimable Airdrops
 
-## 👥 For Users
+Airdrops on Launch Layer are all about rewarding your community and growing your project in a fair, transparent way. Everything happens on-chain—no middlemen, no platform tokens, and no hidden requirements. Whether you're a user or a protocol, Launch Layer makes it easy to participate in or run airdrop campaigns.
 
-- Discover and claim airdrops via a unified interface. (TODO: Confirm if Launch Layer has a UI for airdrop claims)
-- Eligibility does not require holding a platform token or participating in the token sale unless specified by the project.
+## 👤 For Users
 
-## 🛠️ For Protocols
+- Discover and claim airdrops from a single, easy-to-use dashboard. (TODO: Confirm if Launch Layer has a UI for airdrop claims)
+- Each project sets its own eligibility rules; you don't need to hold a platform token or join a sale unless the project says so.
+- All claims are non-custodial and handled directly by your wallet.
 
-- Configure custom airdrop campaigns. (TODO: Confirm if Launch Layer supports this and how)
-- Select eligibility criteria (NFTs, tokens, whitelists).
-- Configure allocation logic and schedule snapshots.
-- Deposit tokens into secure contract.
+## 🏗️ For Protocols
 
-## 🏅 Whitelisted Airdrop Recipe Assets
+- Launch custom airdrop campaigns to engage your community. (TODO: Confirm if Launch Layer supports this and how)
+- Choose who's eligible (NFTs, tokens, whitelists, etc.).
+- Set up snapshot timing and allocation logic.
+- Deposit tokens into secure smart contracts for distribution—no third-party custody.
 
-- TODO: List Sonic ecosystem NFTs/tokens eligible for airdrops on Launch Layer. 
+## 🏆 Eligible Airdrop Assets
+
+- (TODO: List or link to eligible assets for airdrop campaigns) 

@@ -1,17 +1,9 @@
-# Launch Layer Documentation
+![Launch Layer Logo](assets/launchlayerlogowhite.png)
 
-Welcome to the Launch Layer documentation! This site provides everything you need to understand, use, and contribute to Launch Layer—the permissionless, tokenless launchpad for clean, fixed-price token raises on the Sonic network.
+# 🚀 Welcome to Launch Layer Docs
 
-Launch Layer provides smart contracts, tooling, and frontend components for transparent public token sales, with integration for Hedgey Finance post-sale vesting. It is designed for serious DeFi builders—no platform token, no raffles, no bonding curves, and no unnecessary complexity. The platform is neutral infrastructure: it does not hold user funds (post-sweep), offer investment advice, or issue its own token. Project teams are responsible for their own launches and outcomes.
+Launch Layer is your open-source, community-powered launchpad for the Sonic network. We believe in making token launches accessible, transparent, and fair for everyone—no gatekeeping, no platform tokens, and no unnecessary complexity. Whether you're a builder or a participant, Launch Layer gives you the tools to create, join, and grow new projects with confidence.
 
----
+Our mission is to empower the next wave of DeFi innovation by providing neutral, permissionless infrastructure for clean, fixed-price token launches. Everything is on-chain, non-custodial, and designed for simplicity.
 
-## Navigation
-
-Use the navigation menu or the links in the table of contents (SUMMARY.md) to explore:
-- How to run a fixed price raise
-- Airdrop recipes
-- Resources and integrations
-- Terms, policies, and more
-
-For the full outline, see [SUMMARY.md](./SUMMARY.md). 
+Ready to launch or join the next big thing? Dive in using the sidebar or table of contents! 

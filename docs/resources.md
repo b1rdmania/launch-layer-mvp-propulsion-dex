@@ -1,23 +1,26 @@
-# 🗂️ Resources
+# 🧰 Launch Layer Resources
 
-## 🪙 Launch Layer NFT
+Launch Layer is built for the community, by the community. Everything you need to get started, connect, and grow is right here—open-source, transparent, and always accessible.
+
+## 🖼️ Launch Layer NFT
 
 - TODO: Add details about Launch Layer NFT utility, supply, and distribution if applicable.
 
-## 🌉 Bridging Funds to Sonic
+## 🌉 How to Bridge to Sonic
 
-- Use [bridge.sonic.link](https://bridge.sonic.link/) or other supported bridges to move assets to Sonic. (TODO: Confirm official bridge and process)
-- Include gas on destination for new wallets.
-- Swap for $SONIC on supported DEXs.
+- Move assets to Sonic using [bridge.sonic.link](https://bridge.sonic.link/) or another supported bridge. (TODO: Confirm official bridge and process)
+- Be sure to include gas for Sonic transactions, especially if your wallet is new.
+- Swap for $SONIC on any supported DEX.
 
-## 🔗 Official Links
+## 🔗 Official Channels
 
 - Website: [https://launchlayer.io](https://launchlayer.io/)
 - Twitter: [https://twitter.com/launch_layer](https://twitter.com/launch_layer)
 - Discord: TODO: Add Discord link
-- Telegram: TODO: Add Telegram link
-- GitHub: [https://github.com/b1rdmania/launchlayer](https://github.com/b1rdmania/launchlayer)
+- Docs: [https://www.launchlayer.io/docs](https://www.launchlayer.io/docs)
 
-## 🤝 Key Partners
+## 🤝 Partners & Integrations
 
-- TODO: List Launch Layer's key partners and collaborators in the Sonic ecosystem. 
+- (TODO: List or link to key partners)
+
+If you have questions or want to get involved, reach out to the team or join the community—everyone's welcome! 

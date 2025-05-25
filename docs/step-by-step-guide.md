@@ -1,30 +1,30 @@
 # 📖 Step-by-Step Guide: Participating in a Launch
 
-Ready to get involved in a Launch Layer token sale? Here's what you need to do:
+Ready to get involved in a Launch Layer token sale? Here's a clear guide to what you need to do:
 
-1.  **Stay Informed & Check Eligibility:**
-    *   Follow the project's announcements for sale dates, times, and token details.
-    *   Carefully review the eligibility criteria. Some sales might have whitelist spots or specific requirements.
+1.  **📢 Stay Informed & Check Eligibility:**
+    *   Follow the project's official announcements for sale dates, times, token details, and specific participation instructions.
+    *   Carefully review any eligibility criteria. Some sales might have whitelist spots, require holding specific NFTs, or have other conditions.
     *   All official sale information will be available on the Launch Layer interface for that specific launch.
 
-2.  **Connect Your Wallet:**
-    *   On the day of the sale, navigate to the project's launch page on Launch Layer.
-    *   Connect your Sonic-compatible wallet (e.g., MetaMask configured for Sonic).
-    *   Ensure your wallet is funded with the necessary tokens for participation (e.g., $SONIC or stablecoins, as specified by the sale).
+2.  **🔗 Connect Your Wallet:**
+    *   On the day of the sale, navigate to the project's unique launch page on Launch Layer.
+    *   Connect your Sonic-compatible wallet (e.g., MetaMask properly configured for the Sonic network).
+    *   Ensure your wallet is funded with the correct tokens required for participation (e.g., $SONIC or specific stablecoins, as specified by the sale).
 
-3.  **Contribute Funds:**
-    *   Once the sale phase you're eligible for is active (e.g., Whitelist, FCFS), the contribution interface will open.
-    *   Enter the amount you wish to contribute, up to any specified maximum allocation.
-    *   Confirm the transaction in your wallet.
+3.  **💸 Contribute Funds:**
+    *   Once the sale phase you're eligible for is active (e.g., Whitelist Round, FCFS Round), the contribution interface will become available.
+    *   Enter the amount you wish to contribute. Be mindful of any minimum or maximum allocation limits per participant.
+    *   Review the transaction details carefully and confirm the transaction in your wallet.
 
-4.  **Claim Your Tokens:**
-    *   After the sale concludes and the token generation event (TGE) occurs, tokens will become claimable.
-    *   Return to the Launch Layer page for that sale.
-    *   Follow the instructions to claim your tokens to your wallet.
-    *   Be aware of any vesting schedules if the project has implemented one – you may claim portions of your tokens over time.
+4.  **🎉 Claim Your Tokens:**
+    *   After the sale concludes and the token generation event (TGE) has occurred (as announced by the project), tokens will become claimable.
+    *   Return to the same Launch Layer page for that sale.
+    *   Follow the on-screen instructions to claim your tokens to your connected wallet.
+    *   Be aware of any vesting schedules if the project has implemented one – this means you may claim portions of your tokens over time, not all at once.
 
 ---
 
-> **⚠️ Important Notes:**
-> * Always double-check URLs and ensure you are interacting with the official Launch Layer site and contract addresses.
-> * Launch Layer does not offer investment advice. DYOR (Do Your Own Research) before participating. 
+> **⚠️ Important Reminders:**
+> * Always triple-check URLs and ensure you are interacting with the official Launch Layer website and the correct smart contract addresses. Scammers are clever!
+> * Launch Layer provides the platform but does not offer investment advice. Always Do Your Own Research (DYOR) before participating in any token sale. Understand the project, its tokenomics, and the risks involved. 

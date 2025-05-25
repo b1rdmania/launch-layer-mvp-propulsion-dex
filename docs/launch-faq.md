@@ -1,26 +1,45 @@
 # ❓ Frequently Asked Questions (Launching)
 
-Here are some common questions about launching your token on Launch Layer:
+Here are some common questions project teams have about launching their token on Launch Layer:
 
 <details>
-<summary>Can I use Launch Layer for other types of token sales besides fixed price?</summary>
+<summary>🤔 Can I use Launch Layer for other types of token sales besides fixed price?</summary>
 
-Not at this moment. Launch Layer is currently specialized in fixed-price launches to ensure simplicity and fairness. We believe this model offers the clearest and most straightforward path for new projects and their communities. We may explore other models in the future based on community feedback.
+Not at this moment. Launch Layer is currently specialized in fixed-price launches to ensure simplicity, fairness, and clarity. We believe this model offers the most straightforward path for new projects and their communities. We may explore other auction models in the future based on evolving needs and community feedback.
 </details>
 
--   **Who determines the fixed price for a token sale?**
-    *   The project team launching the token sets the price. Launch Layer provides the infrastructure but does not dictate sale terms.
+<details>
+<summary>💰 Who determines the fixed price for a token sale?</summary>
 
--   **Are there limits on how much can be raised or how much individuals can contribute?**
-    *   Yes, project teams can define parameters such as total sale amount (hard cap), minimum and maximum contribution amounts per participant, and overall timelines for the sale phases.
+*   The project team launching the token sets the price. Launch Layer provides the decentralized infrastructure but does not dictate sale terms, pricing, or tokenomics.
+</details>
 
--   **What are the fees for using Launch Layer?**
-    *   Launch Layer is designed to be highly cost-effective. Any platform fees are minimal and will be transparently disclosed to project teams before they initiate a launch. Our goal is to maximize the funds going to the project.
+<details>
+<summary>⚖️ Are there limits on how much can be raised or how much individuals can contribute?</summary>
 
--   **Which blockchain network does Launch Layer support?**
-    *   All launches are conducted on the Sonic network.
+*   Yes, project teams have full control to define parameters such as the total sale amount (hard cap), minimum and maximum contribution amounts per participant, and overall timelines for the sale phases (e.g., whitelist, FCFS).
+</details>
 
--   **What kind of support does Launch Layer offer to project teams?**
-    *   While Launch Layer is a permissionless platform, we offer comprehensive documentation, and our team is active in the community to answer questions. For specific collaborations or deeper support, project teams can reach out.
+<details>
+<summary>🪙 What are the fees for using Launch Layer?</summary>
 
-Ready to launch? [Get started on Launch Layer!](https://launchlayer.io/) Or, if you have more questions, join our community channels! 
+*   Launch Layer is designed to be highly cost-effective for projects. Any platform fees are minimal and will be transparently disclosed to project teams before they decide to initiate a launch. Our primary goal is to maximize the funds going directly to the project for its development and growth.
+</details>
+
+<details>
+<summary>🌐 Which blockchain network does Launch Layer support?</summary>
+
+*   All launches are conducted exclusively on the **Sonic network**.
+</details>
+
+<details>
+<summary>🤝 What kind of support does Launch Layer offer to project teams?</summary>
+
+*   While Launch Layer is a permissionless, decentralized platform, we offer comprehensive documentation and guides. Our team is also active in the broader Sonic community to answer general questions. For specific collaborations or deeper technical support, project teams can reach out through our official channels.
+</details>
+
+---
+
+🚀 Ready to launch? Visit [launchlayer.io](https://launchlayer.io/) to get started!
+
+💬 Have more questions? Join our community channels (links in the Resources section)! 

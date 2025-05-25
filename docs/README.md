@@ -20,7 +20,7 @@ layout:
 
 # Welcome to Launch Layer
 
-## Welcome to our Docs
+## Welcome to our Docs v1
 
 Launch Layer is your open-source, community-powered launchpad for the Sonic network. We believe in making token launches accessible, transparent, and fair for everyone—no gatekeeping, no platform tokens, and no unnecessary complexity.
 

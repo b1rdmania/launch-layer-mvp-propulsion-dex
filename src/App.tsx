@@ -8,13 +8,11 @@ import { WalletProvider } from "@/contexts/WalletContext";
 import Layout from "@/components/layout/Layout";
 import LandingLayout from "@/components/layout/LandingLayout";
 import LandingPage from "@/pages/LandingPage";
-import AboutPage from "@/pages/AboutPage";
 import Index from "@/pages/Index";
 import DiscoveryPage from "@/pages/DiscoveryPage";
 import RaiseDetailPage from "@/pages/RaiseDetailPage";
 import ClaimPage from "@/pages/ClaimPage";
 import AdminPage from "@/pages/AdminPage";
-import DocsPage from "@/pages/DocsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,16 +35,6 @@ const App = () => (
                 <LandingLayout>
                   <LandingPage />
                 </LandingLayout>
-              }
-            />
-
-            {/* About page */}
-            <Route
-              path="/about"
-              element={
-                <Layout>
-                  <AboutPage />
-                </Layout>
               }
             />
 
@@ -80,14 +68,6 @@ const App = () => (
               element={
                 <Layout>
                   <AdminPage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/docs"
-              element={
-                <Layout>
-                  <DocsPage />
                 </Layout>
               }
             />

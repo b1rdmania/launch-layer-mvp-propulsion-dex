@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
             <div className="flex gap-6 text-sm text-launchlayer-text-secondary">
               <Link
-                to="/"
+                to="/landing"
                 className="hover:text-launchlayer-text-primary transition-colors hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-launchlayer-accent hover:after:bottom-[-4px] hover:after:left-0 relative"
               >
                 Home
@@ -38,12 +38,14 @@ const Footer: React.FC = () => {
               >
                 App
               </Link>
-              <Link
-                to="/docs"
+              <a
+                href="https://launch-layer.gitbook.io/launchlayer"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-launchlayer-text-primary transition-colors hover:after:content-[''] hover:after:absolute hover:after:w-full hover:after:h-0.5 hover:after:bg-launchlayer-accent hover:after:bottom-[-4px] hover:after:left-0 relative"
               >
                 Docs
-              </Link>
+              </a>
             </div>
             
             <div className="flex items-center gap-4 mt-4 md:mt-0">

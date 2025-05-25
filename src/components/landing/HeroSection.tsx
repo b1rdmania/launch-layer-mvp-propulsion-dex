@@ -47,7 +47,7 @@ const HeroSection: React.FC = () => {
             </p>
             
             <div className="flex flex-wrap gap-3 md:gap-4">
-              <Link to="/" className="w-full sm:w-auto">
+              <Link to="/app" className="w-full sm:w-auto">
                 <Button variant="accent" size="lg" className="group w-full sm:w-auto px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm">
                   View Launches <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -62,7 +62,7 @@ const HeroSection: React.FC = () => {
                     Deploy Raise
                   </Button>
                 </Link>
-                <Link to="/docs" className={isMobile ? "col-span-1" : ""}>
+                <a href="https://launch-layer.gitbook.io/launchlayer" target="_blank" rel="noopener noreferrer" className={isMobile ? "col-span-1" : ""}>
                   <Button
                     variant="outline"
                     size="lg"
@@ -70,7 +70,7 @@ const HeroSection: React.FC = () => {
                   >
                     View Docs
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>

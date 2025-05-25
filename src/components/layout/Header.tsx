@@ -33,24 +33,14 @@ const Header: React.FC = () => {
           {!isMobile && (
             <nav className="hidden md:flex items-center gap-6">
               <Link
-                to="/"
+                to="/landing"
                 className={`relative transition-all duration-200 ${
-                  isActive("/")
+                  isActive("/landing")
                     ? "text-launchlayer-violet font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-violet after:bottom-[-4px] after:left-0"
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
                 Home
-              </Link>
-              <Link
-                to="/about"
-                className={`relative transition-all duration-200 ${
-                  isActive("/about")
-                    ? "text-launchlayer-violet font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-violet after:bottom-[-4px] after:left-0"
-                    : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
-                }`}
-              >
-                About
               </Link>
               <Link
                 to="/app"
@@ -72,6 +62,14 @@ const Header: React.FC = () => {
               >
                 Create Sale
               </Link>
+              <a
+                href="https://launch-layer.gitbook.io/launchlayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary relative transition-all duration-200"
+              >
+                Docs
+              </a>
             </nav>
           )}
         </div>

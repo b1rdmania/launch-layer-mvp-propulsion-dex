@@ -2,7 +2,7 @@
 
 * [👋 Welcome to Launch Layer](README.md)
 * [🪙 Launch Your Token](fixed-price-mode.md)
-  * [🤔 Why Launch on Launch Layer?](why-launch-on-launch-layer.md)
+  * [✨ Why Launch on Launch Layer?](why-launch-on-launch-layer.md)
   * [⚙️ How It Works: The Launch Layer Process](how-it-works.md)
   * [🚶 Step-by-Step Guide: Participating in a Launch](step-by-step-guide.md)
   * [❓ Frequently Asked Questions (Launching)](launch-faq.md)

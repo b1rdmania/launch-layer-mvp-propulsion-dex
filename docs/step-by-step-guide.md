@@ -2,6 +2,7 @@
 description: >-
   Ready to get involved in a Launch Layer token sale? Here's a clear guide to
   what you need to do:
+icon: list
 ---
 
 # 🚶 Step-by-Step Guide: Participating in a Launch

@@ -2,8 +2,6 @@
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
-import ResourcesSection from "@/components/landing/ResourcesSection";
-import DeveloperSection from "@/components/landing/DeveloperSection";
 
 const LandingPage: React.FC = () => {
   return (
@@ -63,10 +61,6 @@ const LandingPage: React.FC = () => {
       </section>
 
       <CurrentRaisesSection />
-      
-      <ResourcesSection />
-      
-      <DeveloperSection />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 ---
-icon: sourcetree
+icon: info
 ---
 
 # Launch Layer Resources

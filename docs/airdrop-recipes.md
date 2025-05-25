@@ -1,3 +1,7 @@
+---
+icon: parachute-box
+---
+
 # Airdrops on Launch Layer
 
 Airdrops are a popular way for projects to distribute tokens, reward community members, and bootstrap their ecosystem. On Launch Layer, we champion an approach to airdrops that is on-chain, transparent, and empowers individual projects.

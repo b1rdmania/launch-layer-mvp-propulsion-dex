@@ -1,6 +1,10 @@
+---
+icon: grid-horizontal
+---
+
 # Launch Your Token
 
-Welcome to token launching, simplified! Launch Layer provides an open, transparent, and fair platform for fixed-price token raises on the Sonic network. This section is your comprehensive guide to getting your project off the ground.
+Welcome to token launching, simplified! Launch Layer provides an open, transparent, and fair platform for fixed-price token raises on the Sonic network. This section is your comprehensive guide to get
 
 ### ✨ Key Features of Launching with Us:
 

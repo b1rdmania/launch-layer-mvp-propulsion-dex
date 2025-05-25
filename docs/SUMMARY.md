@@ -9,5 +9,5 @@
 * [ℹ️ Launch Layer Resources](resources.md)
 * [📦 Airdrops on Launch Layer](airdrop-recipes.md)
 * [📜 Legal & Information](informational.md)
-  * [Terms of Service](informational.md#⚖️-terms-of-service)
-  * [Privacy Policy](informational.md#��️-privacy-policy)
+  * [⚖️ Terms of Service](informational.md#⚖️-terms-of-service)
+  * [🛡️ Privacy Policy](informational.md#��️-privacy-policy)

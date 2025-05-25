@@ -6,12 +6,12 @@ icon: info
 
 Welcome to the central hub for all things Launch Layer! Here you'll find essential links, guides, and information to help you navigate our platform and the wider Sonic ecosystem.
 
-## The Launch Layer NFT
+## 💎 The Launch Layer NFT
 
 * The Launch Layer NFT is a special token designed to reward early adopters and active community members. (This is a conceptual placeholder sentence)
 * Further details regarding its utility, total supply, distribution methods, and how to acquire it will be announced through our official channels. Stay tuned for updates!
 
-## Bridging to the Sonic Network
+## 🌉 Bridging to the Sonic Network
 
 Moving your assets to the Sonic network is your gateway to participating in launches and engaging with the ecosystem. Here's a general guide:
 
@@ -27,7 +27,7 @@ Moving your assets to the Sonic network is your gateway to participating in laun
 
 > **Important:** Always double-check bridge URLs and be cautious of phishing sites. Transaction times can vary. Only bridge assets you understand and are comfortable with.
 
-## Official Launch Layer Channels
+## 📢 Official Launch Layer Channels
 
 Stay connected and get the latest updates directly from the source. These can be styled as Cards in GitBook:
 
@@ -49,14 +49,14 @@ Alternatively, this information can be presented in a table:
 | Discord       | [Join our Community!](YOUR_DISCORD_LINK_HERE/)                        | Community hub, support, discussions.           |
 | Documentation | [https://www.launchlayer.io/docs](https://www.launchlayer.io/docs)    | Comprehensive guides and platform information. |
 
-## For Developers
+## 👨‍💻 For Developers
 
 Launch Layer is committed to open-source principles.
 
 * Our smart contracts and platform infrastructure are (or will be) publicly available for review and integration.
 * Developers can find more information, including contract addresses and integration guides, on our [GitHub Repository](YOUR_GITHUB_LINK_HERE/).
 
-## Partners & Integrations
+## 🤝 Partners & Integrations
 
 Launch Layer thrives on collaboration and aims to integrate seamlessly with the broader Sonic ecosystem.
 
@@ -64,7 +64,7 @@ Launch Layer thrives on collaboration and aims to integrate seamlessly with the 
 * Official partners and key integrations will be announced and featured here as they are formalized.
 <!-- Consider using Cards here if you have multiple partners with logos/short descriptions -->
 
-## Staying Safe in Web3
+## 🛡️ Staying Safe in Web3
 
 Navigating the decentralized web requires vigilance. Here are some essential safety tips:
 

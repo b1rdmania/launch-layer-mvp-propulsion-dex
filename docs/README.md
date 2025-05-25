@@ -6,7 +6,7 @@ coverY: 0
 
 # 👋 Welcome to Launch Layer
 
-## Welcome to our Docs
+## 📖 Welcome to our Docs
 
 Launch Layer is your open-source, community-powered launchpad for the Sonic network. We believe in making token launches accessible, transparent, and fair for everyone—no gatekeeping, no platform tokens, and no unnecessary complexity.
 
@@ -14,11 +14,11 @@ Whether you're a builder or a participant, Launch Layer gives you the tools to c
 
 ***
 
-### Our Mission
+### 🎯 Our Mission
 
 Our mission is to empower the next wave of Sonic DeFi innovation by providing neutral, permissionless infrastructure for clean, fixed-price token launches. Everything is on-chain, non-custodial, and designed for simplicity.
 
-### Explore Our Documentation
+### 🗺️ Explore Our Documentation
 
 This documentation provides everything you need to understand and utilize Launch Layer effectively. Explore the key areas below (these can be styled as Cards in GitBook for a more visual navigation):
 

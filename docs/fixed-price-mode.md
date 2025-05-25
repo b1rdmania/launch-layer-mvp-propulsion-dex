@@ -6,7 +6,7 @@ icon: coin
 
 Welcome to token launching, simplified! Launch Layer provides an open, transparent, and fair platform for fixed-price token raises on the Sonic network. This section is your comprehensive guide to get
 
-### ✨ Key Features of Launching with Us:
+### &#x20;Key Features of Launching with Us:
 
 * **Fixed Price, Maximum Clarity:** No complex curves or auctions. Set a clear price for predictable participation.
 * **Community First:** Built-in tools for guaranteed whitelist allocations and open FCFS (First-Come, First-Served) rounds.

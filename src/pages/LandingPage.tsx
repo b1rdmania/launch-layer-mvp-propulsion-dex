@@ -1,7 +1,7 @@
+
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
-import ProcessSection from "@/components/landing/ProcessSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 
 const LandingPage: React.FC = () => {
@@ -118,7 +118,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      <ProcessSection />
       <CurrentRaisesSection />
     </div>
   );

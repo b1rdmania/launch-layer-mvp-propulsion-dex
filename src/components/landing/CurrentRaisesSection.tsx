@@ -87,10 +87,16 @@ const CurrentRaisesSection: React.FC = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 relative z-10">
-      <div className="absolute inset-0 bg-gradient-to-b from-launchlayer-background via-launchlayer-surface/30 to-launchlayer-background opacity-50"></div>
+    <section className="py-20 md:py-24 bg-launchlayer-background relative z-10 overflow-hidden">
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-[0.01] bg-noise"></div>
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-launchlayer-accent/3 via-transparent to-launchlayer-violet/3"></div>
+      {/* Mobile section indicator */}
+      <div className="md:hidden absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-launchlayer-violet via-launchlayer-accent to-launchlayer-mint opacity-60"></div>
+      
       <div className="container mx-auto px-5 md:px-8 max-w-[1280px] relative z-10">
-        <div className="flex flex-col items-center mb-8 md:mb-12">
+        <div className="flex flex-col items-center mb-10 md:mb-12">
           <span className="px-4 py-1.5 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm font-medium mb-4 md:mb-6">
             ACTIVE TOKEN SALES
           </span>
@@ -104,17 +110,17 @@ const CurrentRaisesSection: React.FC = () => {
         </div>
         
         {activeRaises.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-5 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {activeRaises.map((raise, index) => (
               <Card 
                 key={index} 
-                className="group relative bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/90 backdrop-blur-sm border-t-2 border-t-launchlayer-violet border-launchlayer-surface-light overflow-hidden hover:shadow-[0_8px_30px_rgba(50,119,245,0.15)] transition-all duration-300 hover:translate-y-[-6px]"
+                className="group relative bg-gradient-to-br from-launchlayer-surface/90 to-launchlayer-surface/70 backdrop-blur-sm border border-launchlayer-surface-light overflow-hidden hover:shadow-[0_8px_30px_rgba(50,119,245,0.15)] transition-all duration-300 hover:translate-y-[-6px]"
               >
                 {/* Glowing accent in corner */}
                 <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-[80px] opacity-20 bg-${raise.color === 'purple' ? 'launchlayer-violet' : 'launchlayer-accent'}`} />
                 
                 {getStatusBadge(raise.status)}
-                <CardContent className={`${isMobile ? 'p-4' : 'p-6'}`}>
+                <CardContent className={`${isMobile ? 'p-5' : 'p-6'}`}>
                   <div className={`flex ${isMobile ? 'flex-col' : 'items-start'} gap-4`}>
                     <div className={`${isMobile ? 'mx-auto mb-2' : ''} w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${getIconBg(raise.color)} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
                       {index === 0 ? (
@@ -181,7 +187,7 @@ const CurrentRaisesSection: React.FC = () => {
           </div>
         )}
         
-        <div className="flex justify-center mt-8 md:mt-12">
+        <div className="flex justify-center mt-10 md:mt-12">
           <Link to="/app">
             <Button 
               variant="outline" 

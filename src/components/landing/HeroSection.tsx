@@ -27,27 +27,27 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Floating Mascot */}
-      <div className="absolute top-1/4 right-4 md:right-12 lg:right-20 z-5 hidden md:block">
-        <div className="relative">
-          <img 
-            src="/lovable-uploads/27e46760-a877-4046-81f5-5a9cff92d823.png" 
-            alt="Launch Layer Mascot" 
-            className="w-24 h-24 lg:w-32 lg:h-32 animate-bounce drop-shadow-lg"
-            style={{
-              animationDuration: '3s',
-              animationDelay: '1s'
-            }}
-          />
-          {/* Subtle glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-launchlayer-accent/20 to-launchlayer-violet/20 rounded-full blur-xl -z-10 scale-150"></div>
-        </div>
-      </div>
-
       {/* Simplified logo background */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
         <div className="flex flex-col items-center gap-6 md:gap-8">
-          <div className="w-full">
+          <div className="w-full relative">
+            {/* Floating Mascot - positioned near the heading */}
+            <div className="absolute top-0 -right-4 md:right-8 lg:right-16 z-5 hidden md:block">
+              <div className="relative">
+                <img 
+                  src="/lovable-uploads/27e46760-a877-4046-81f5-5a9cff92d823.png" 
+                  alt="Launch Layer Mascot" 
+                  className="w-20 h-20 lg:w-28 lg:h-28 animate-bounce drop-shadow-lg"
+                  style={{
+                    animationDuration: '3s',
+                    animationDelay: '1s'
+                  }}
+                />
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-launchlayer-accent/20 to-launchlayer-violet/20 rounded-full blur-xl -z-10 scale-150"></div>
+              </div>
+            </div>
+
             <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 tracking-tighter leading-tight font-satoshi">
               Launch on 
               <span className="bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent"> Sonic</span>.

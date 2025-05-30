@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, FileCode, Book, Terminal } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const DeveloperSection: React.FC = () => {
   return (
@@ -82,12 +83,7 @@ const DeveloperSection: React.FC = () => {
             </Button>
           </a>
 
-          <a
-            href="https://github.com/b1rdmania/launchlayer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group"
-          >
+          <Link to="/admin" className="group">
             <Button 
               variant="outline" 
               className="h-14 px-8 bg-launchlayer-surface border-launchlayer-surface-light hover:bg-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all duration-300 group-hover:shadow-[0_4px_20px_rgba(50,119,245,0.2)] group-hover:scale-[1.02]"
@@ -95,7 +91,7 @@ const DeveloperSection: React.FC = () => {
               <Terminal className="w-5 h-5 mr-3 text-launchlayer-accent" />
               <span className="text-base font-medium">Testnet Demo</span>
             </Button>
-          </a>
+          </Link>
 
           <a
             href="https://github.com/b1rdmania/launchlayer"

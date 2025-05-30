@@ -555,9 +555,14 @@ const AdminPage: React.FC = () => {
             <div className="mb-8 space-y-3">
               <h4 className="section-header-violet text-sm uppercase tracking-wider font-medium">Launch Layer</h4>
               <h1 className="text-4xl font-bold mb-2 text-gradient-violet">Create New Raise</h1>
-              <p className="text-launchlayer-text-secondary">
-                Step {currentStep} of {steps.length} — {steps[currentStep - 1].name}
-              </p>
+              <div className="flex items-center gap-2 mb-2">
+                <p className="text-launchlayer-text-secondary">
+                  Step {currentStep} of {steps.length} — {steps[currentStep - 1].name}
+                </p>
+                <span className="text-xs bg-launchlayer-accent/20 text-launchlayer-accent px-2 py-1 rounded-full">
+                  Currently live on testnet
+                </span>
+              </div>
               <p className="text-launchlayer-text-secondary/80 text-sm">
                 {steps[currentStep - 1].description}
               </p>

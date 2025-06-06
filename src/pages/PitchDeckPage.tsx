@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight, Target, Zap, Shield, TrendingUp, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
+import MovingGradientBackground from "@/components/landing/MovingGradientBackground";
 
 interface Slide {
   id: number;
@@ -166,8 +167,11 @@ const PitchDeckPage: React.FC = () => {
 // Individual Slide Components
 const TitleSlide: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="text-center max-w-4xl mx-auto">
+    <div className="min-h-screen flex items-center justify-center p-8 relative overflow-hidden">
+      {/* Add the moving gradient background */}
+      <MovingGradientBackground />
+      
+      <div className="text-center max-w-4xl mx-auto relative z-10">
         <div className="mb-8">
           <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
             Launch Layer
@@ -183,7 +187,7 @@ const TitleSlide: React.FC = () => {
           An integrated ecosystem for launching Web3 projects, powered by real yield and automated liquidity.
         </p>
         
-        <div className="inline-block bg-launchlayer-surface border border-launchlayer-surface-light rounded-2xl p-6 shadow-2xl backdrop-blur-sm">
+        <div className="inline-block bg-launchlayer-surface/80 backdrop-blur-md border border-launchlayer-surface-light rounded-2xl p-6 shadow-2xl">
           <p className="text-launchlayer-text-secondary font-mono">
             birdmania@launchlayer.io
           </p>

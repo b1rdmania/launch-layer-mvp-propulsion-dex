@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight, Target, Zap, Shield, TrendingUp, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -353,7 +352,7 @@ const TractionSlide: React.FC = () => {
                 <div className="w-3 h-3 bg-launchlayer-mint rounded-full mt-2 mr-4 flex-shrink-0"></div>
                 <div>
                   <h4 className="font-semibold text-launchlayer-text-primary mb-1">BD Secured</h4>
-                  <p className="text-launchlayer-text-secondary text-sm">Onboarded senior BD lead from Fjord to drive partnerships.</p>
+                  <p className="text-launchlayer-text-secondary text-sm">Onboarded senior BD lead with proven partnerships experience.</p>
                 </div>
               </div>
               
@@ -439,7 +438,7 @@ const TeamSlide: React.FC = () => {
               
               <div className="p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl hover:shadow-[0_8px_32px_rgba(50,119,245,0.15)] transition-all duration-300">
                 <h4 className="font-bold text-launchlayer-text-primary mb-1">BD Lead</h4>
-                <p className="text-launchlayer-accent text-sm font-medium mb-2">Head of Partnerships (Ex-Fjord)</p>
+                <p className="text-launchlayer-accent text-sm font-medium mb-2">Head of Partnerships</p>
                 <p className="text-launchlayer-text-secondary text-sm">Strategic partnerships & ecosystem development</p>
               </div>
             </div>

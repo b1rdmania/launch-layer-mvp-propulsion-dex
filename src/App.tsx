@@ -1,34 +1,33 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster";
 import { WalletProvider } from "@/contexts/WalletContext";
-import Layout from "@/components/layout/Layout";
-import LandingLayout from "@/components/layout/LandingLayout";
-import LandingPage from "@/pages/LandingPage";
+
+// Pages
 import Index from "@/pages/Index";
+import LandingPage from "@/pages/LandingPage";
 import DiscoveryPage from "@/pages/DiscoveryPage";
 import RaiseDetailPage from "@/pages/RaiseDetailPage";
-import ClaimPage from "@/pages/ClaimPage";
 import AdminPage from "@/pages/AdminPage";
-import NotFound from "./pages/NotFound";
+import ClaimPage from "@/pages/ClaimPage";
+import DocsPage from "@/pages/DocsPage";
+import NotFound from "@/pages/NotFound";
+import PitchDeckPage from "@/pages/PitchDeckPage";
+
+// Layout Components
+import LandingLayout from "@/components/layout/LandingLayout";
+import Layout from "@/components/layout/Layout";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
       <WalletProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+        <Router>
           <Routes>
-            {/* Index redirect */}
-            <Route path="/" element={<Index />} />
-
-            {/* Landing page with special layout */}
+            {/* Landing page route */}
             <Route
               path="/landing"
               element={
@@ -37,8 +36,19 @@ const App = () => (
                 </LandingLayout>
               }
             />
-
-            {/* App routes with standard layout */}
+            
+            {/* Pitch deck route */}
+            <Route path="/pitch" element={<PitchDeckPage />} />
+            
+            {/* App routes with layout */}
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <Index />
+                </Layout>
+              }
+            />
             <Route
               path="/app"
               element={
@@ -48,18 +58,10 @@ const App = () => (
               }
             />
             <Route
-              path="/raise/:raiseAddress"
+              path="/app/raise/:address"
               element={
                 <Layout>
                   <RaiseDetailPage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/claim/:raiseAddress"
-              element={
-                <Layout>
-                  <ClaimPage />
                 </Layout>
               }
             />
@@ -72,18 +74,28 @@ const App = () => (
               }
             />
             <Route
-              path="*"
+              path="/claim/:address"
               element={
                 <Layout>
-                  <NotFound />
+                  <ClaimPage />
                 </Layout>
               }
             />
+            <Route
+              path="/docs/*"
+              element={
+                <Layout>
+                  <DocsPage />
+                </Layout>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
+        </Router>
+        <Toaster />
       </WalletProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </QueryClientProvider>
+  );
+}
 
 export default App;

@@ -23,27 +23,27 @@ const PitchDeckPage: React.FC = () => {
     },
     {
       id: 2,
-      title: "The Opportunity",
+      title: "The Opportunity & Our Solution",
       component: <OpportunitySlide />
     },
     {
       id: 3,
-      title: "The Platform",
+      title: "The Integrated Platform & Our Moat",
       component: <PlatformSlide />
     },
     {
       id: 4,
-      title: "Traction & GTM",
+      title: "Traction & Go-To-Market",
       component: <TractionSlide />
     },
     {
       id: 5,
-      title: "Business Model & Ask",
+      title: "Business Model & The Ask",
       component: <BusinessSlide />
     },
     {
       id: 6,
-      title: "Team & Vision",
+      title: "Team, Vision & Contact",
       component: <TeamSlide />
     }
   ];
@@ -78,7 +78,6 @@ const PitchDeckPage: React.FC = () => {
     }
   };
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === ' ') {
@@ -203,7 +202,7 @@ const OpportunitySlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            The Airlock Solution
+            From Fragmented Launches to a Smart Ecosystem
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -247,21 +246,21 @@ const OpportunitySlide: React.FC = () => {
               <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mr-4">
                 <span className="text-launchlayer-violet font-bold">1</span>
               </div>
-              <p className="text-launchlayer-text-secondary">Users stake assets into Airlocks; their principal remains fully liquid</p>
+              <p className="text-launchlayer-text-secondary">Users stake assets into <strong>Airlocks</strong>; their principal remains fully liquid</p>
             </div>
             <ArrowRight className="w-6 h-6 text-launchlayer-accent mx-auto" />
             <div className="flex items-center p-4 bg-launchlayer-background/50 rounded-xl border border-launchlayer-surface-light">
               <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mr-4">
                 <span className="text-launchlayer-mint font-bold">2</span>
               </div>
-              <p className="text-launchlayer-text-secondary">We generate real validator & early-ops yield (10-25% APY target)</p>
+              <p className="text-launchlayer-text-secondary">We generate <strong>real validator & early-ops yield (10-25% APY target)</strong></p>
             </div>
             <ArrowRight className="w-6 h-6 text-launchlayer-accent mx-auto" />
             <div className="flex items-center p-4 bg-launchlayer-background/50 rounded-xl border border-launchlayer-surface-light">
               <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mr-4">
                 <span className="text-launchlayer-accent font-bold">3</span>
               </div>
-              <p className="text-launchlayer-text-secondary">This compounded yield automatically buys users guaranteed allocations in curated TGEs</p>
+              <p className="text-launchlayer-text-secondary">This compounded yield automatically buys users <strong>guaranteed allocations</strong> in curated TGEs</p>
             </div>
           </div>
         </div>
@@ -276,7 +275,7 @@ const PlatformSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            The Integrated Flywheel
+            The Three Pillars of Launch Layer
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -339,7 +338,7 @@ const TractionSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Built & Ready
+            Building Now, Launching Soon
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -395,9 +394,9 @@ const TractionSlide: React.FC = () => {
             <h3 className="text-2xl font-bold mb-6 text-launchlayer-mint">Go-To-Market Strategy</h3>
             
             <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm border border-launchlayer-surface-light rounded-3xl p-6 shadow-2xl">
-              <h4 className="font-bold text-launchlayer-text-primary mb-4 text-center">Initial Target Chains</h4>
+              <h4 className="font-bold text-launchlayer-text-primary mb-4 text-center">Initial Chains</h4>
               <p className="text-launchlayer-text-secondary text-sm mb-4 text-center">
-                Strategically targeting deployment to maximize impact, liquidity, and user adoption:
+                We are strategically targeting deployment on <strong>Base, Hype, MegaETH, and Sonic</strong> to maximize impact, liquidity, and user adoption:
               </p>
               
               <div className="grid grid-cols-2 gap-4">
@@ -443,7 +442,7 @@ const BusinessSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Revenue Engine
+            A Sustainable Engine & The Fuel We Need
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -452,8 +451,10 @@ const BusinessSlide: React.FC = () => {
           <div>
             <h3 className="text-2xl font-bold mb-6 text-launchlayer-mint flex items-center">
               <DollarSign className="w-8 h-8 mr-3" />
-              Business Model
+              Fees at Every Step
             </h3>
+            
+            <p className="text-launchlayer-text-secondary mb-6">Our protocol captures value from:</p>
             
             <div className="space-y-4 mb-6">
               <div className="flex items-center justify-between p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
@@ -483,7 +484,7 @@ const BusinessSlide: React.FC = () => {
                   </div>
                   <span className="text-launchlayer-text-primary">AMM Trades</span>
                 </div>
-                <span className="text-launchlayer-mint font-semibold">Protocol share of fees</span>
+                <span className="text-launchlayer-mint font-semibold">Protocol fee</span>
               </div>
             </div>
 
@@ -539,7 +540,7 @@ const TeamSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Battle-Tested Team
+            The Team to Build It & The Future We See
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -596,7 +597,7 @@ const TeamSlide: React.FC = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm border border-launchlayer-surface-light rounded-3xl p-8 shadow-2xl">
-            <h3 className="text-2xl font-bold mb-4 text-launchlayer-text-primary">Our Vision</h3>
+            <h3 className="text-2xl font-bold mb-4 text-launchlayer-text-primary">Vision</h3>
             <p className="text-lg text-launchlayer-text-secondary leading-relaxed">
               To become the <span className="text-launchlayer-accent font-semibold">ubiquitous, cross-chain standard</span> for how quality projects go to market and how users gain 
               <span className="text-launchlayer-violet font-semibold"> capital-efficient access</span> to the future of Web3.

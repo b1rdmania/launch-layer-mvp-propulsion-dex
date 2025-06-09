@@ -34,7 +34,7 @@ const PitchDeckPage: React.FC = () => {
       id: 2,
       title: "The Opportunity",
       content: (
-        <div className="space-y-8">
+        <div className="space-y-6">
           <div className="text-center">
             <span className="px-6 py-3 rounded-full bg-launchlayer-violet/10 text-launchlayer-violet text-lg font-medium">
               THE OPPORTUNITY
@@ -42,9 +42,8 @@ const PitchDeckPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Problem Section */}
             <div className="bg-launchlayer-surface rounded-xl border-2 border-red-400/30 p-6 space-y-4">
-              <h3 className="text-2xl font-bold text-red-400 border-b border-launchlayer-surface-light pb-2">
+              <h3 className="text-2xl font-bold text-red-400 border-b border-launchlayer-surface-light pb-3">
                 The Problem
               </h3>
               <ul className="space-y-3 text-sm text-launchlayer-text-secondary">
@@ -63,9 +62,8 @@ const PitchDeckPage: React.FC = () => {
               </ul>
             </div>
 
-            {/* Solution Section */}
             <div className="bg-launchlayer-surface rounded-xl border-2 border-launchlayer-mint/30 p-6 space-y-4">
-              <h3 className="text-2xl font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-2">
+              <h3 className="text-2xl font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-3">
                 Our Solution
               </h3>
               <div className="space-y-4">
@@ -106,7 +104,7 @@ const PitchDeckPage: React.FC = () => {
       id: 3,
       title: "How it Works: The Airlock Mechanism",
       content: (
-        <div className="space-y-8">
+        <div className="space-y-6">
           <div className="text-center space-y-3">
             <span className="px-6 py-3 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-lg font-medium">
               THE AIRLOCK MECHANISM
@@ -158,7 +156,7 @@ const PitchDeckPage: React.FC = () => {
       id: 4,
       title: "The Integrated Flywheel",
       content: (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="text-center space-y-3">
             <span className="px-6 py-3 rounded-full bg-launchlayer-mint/10 text-launchlayer-mint text-lg font-medium">
               THE INTEGRATED FLYWHEEL
@@ -166,12 +164,12 @@ const PitchDeckPage: React.FC = () => {
             <h2 className="text-2xl md:text-3xl font-bold">Three standalone pillars forming a continuous loop</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-launchlayer-surface p-5 rounded-xl border-t-4 border-t-launchlayer-violet space-y-3">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-launchlayer-surface p-4 rounded-xl border-t-4 border-t-launchlayer-violet space-y-2">
               <h3 className="text-lg font-bold text-launchlayer-violet border-b border-launchlayer-surface-light pb-2">
                 Airlocks (Yield Engine)
               </h3>
-              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+              <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
                 <li className="flex items-start space-x-2">
                   <span className="text-launchlayer-violet mt-1 text-xs">•</span>
                   <span>Liquid staking (principal unlocked)</span>
@@ -187,11 +185,11 @@ const PitchDeckPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="bg-launchlayer-surface p-5 rounded-xl border-t-4 border-t-launchlayer-accent space-y-3">
+            <div className="bg-launchlayer-surface p-4 rounded-xl border-t-4 border-t-launchlayer-accent space-y-2">
               <h3 className="text-lg font-bold text-launchlayer-accent border-b border-launchlayer-surface-light pb-2">
                 Launch Layer (Premium Launchpad)
               </h3>
-              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+              <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
                 <li className="flex items-start space-x-2">
                   <span className="text-launchlayer-accent mt-1 text-xs">•</span>
                   <span>Magna-powered TGE rails ($3.5B+ distributed)</span>
@@ -207,11 +205,11 @@ const PitchDeckPage: React.FC = () => {
               </ul>
             </div>
 
-            <div className="bg-launchlayer-surface p-5 rounded-xl border-t-4 border-t-launchlayer-mint space-y-3">
+            <div className="bg-launchlayer-surface p-4 rounded-xl border-t-4 border-t-launchlayer-mint space-y-2">
               <h3 className="text-lg font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-2">
                 Propulsion Finance (DEX)
               </h3>
-              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+              <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
                 <li className="flex items-start space-x-2">
                   <span className="text-launchlayer-mint mt-1 text-xs">•</span>
                   <span>Algebra v4 concentrated liquidity AMM</span>
@@ -228,7 +226,7 @@ const PitchDeckPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="text-center bg-launchlayer-surface p-4 rounded-xl border border-launchlayer-accent/30">
+          <div className="text-center bg-launchlayer-surface p-3 rounded-xl border border-launchlayer-accent/30">
             <p className="text-base font-bold text-launchlayer-accent">
               <strong>Moat:</strong> Our integrated flywheel compounds users, liquidity, and TVL—generating defensible, recurring protocol revenue.
             </p>
@@ -240,56 +238,54 @@ const PitchDeckPage: React.FC = () => {
       id: 5,
       title: "Traction, GTM, Revenue",
       content: (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="text-center">
             <span className="px-6 py-3 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-lg font-medium">
               TRACTION & REVENUE
             </span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Traction Section */}
-            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-5 space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-4 space-y-3">
               <h3 className="text-xl font-bold text-launchlayer-accent border-b border-launchlayer-surface-light pb-2">
                 Traction Today
               </h3>
-              <div className="space-y-3">
-                <div className="flex items-start space-x-3 p-3 bg-launchlayer-background rounded-lg">
-                  <Check className="text-green-400 mt-1 flex-shrink-0" size={16} />
-                  <div className="text-sm">
+              <div className="space-y-2">
+                <div className="flex items-start space-x-3 p-2 bg-launchlayer-background rounded-lg">
+                  <Check className="text-green-400 mt-1 flex-shrink-0" size={14} />
+                  <div className="text-xs">
                     <strong className="text-launchlayer-text-primary">MVP Deployed:</strong>
                     <span className="text-launchlayer-text-secondary ml-1">Core contracts on Sepolia testnet, dashboard testing complete</span>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3 p-3 bg-launchlayer-background rounded-lg">
-                  <Check className="text-green-400 mt-1 flex-shrink-0" size={16} />
-                  <div className="text-sm">
+                <div className="flex items-start space-x-3 p-2 bg-launchlayer-background rounded-lg">
+                  <Check className="text-green-400 mt-1 flex-shrink-0" size={14} />
+                  <div className="text-xs">
                     <strong className="text-launchlayer-text-primary">Team Proven:</strong>
                     <span className="text-launchlayer-text-secondary ml-1">Experienced yield-generation & validator ops</span>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3 p-3 bg-launchlayer-background rounded-lg">
-                  <Check className="text-green-400 mt-1 flex-shrink-0" size={16} />
-                  <div className="text-sm">
+                <div className="flex items-start space-x-3 p-2 bg-launchlayer-background rounded-lg">
+                  <Check className="text-green-400 mt-1 flex-shrink-0" size={14} />
+                  <div className="text-xs">
                     <strong className="text-launchlayer-text-primary">Ecosystem Partnerships:</strong>
                     <span className="text-launchlayer-text-secondary ml-1">Strategic integrations and GTM discussions</span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-3 bg-launchlayer-violet/10 rounded-lg border border-launchlayer-violet/30">
-                <h4 className="font-bold text-launchlayer-violet mb-1 text-sm">Initial Target Chains:</h4>
-                <p className="text-launchlayer-text-secondary text-sm">Base, Hype, MegaETH, Sonic</p>
+              <div className="p-2 bg-launchlayer-violet/10 rounded-lg border border-launchlayer-violet/30">
+                <h4 className="font-bold text-launchlayer-violet mb-1 text-xs">Initial Target Chains:</h4>
+                <p className="text-launchlayer-text-secondary text-xs">Base, Hype, MegaETH, Sonic</p>
               </div>
             </div>
 
-            {/* Revenue Section */}
-            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-5 space-y-4">
+            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-4 space-y-3">
               <h3 className="text-xl font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-2">
                 Revenue Model
               </h3>
-              <p className="text-sm text-launchlayer-text-secondary mb-3">Protocol captures fees from:</p>
-              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+              <p className="text-xs text-launchlayer-text-secondary mb-2">Protocol captures fees from:</p>
+              <ul className="space-y-1 text-xs text-launchlayer-text-secondary">
                 <li className="flex items-start space-x-2">
                   <span className="text-launchlayer-mint mt-1 text-xs">•</span>
                   <span>Project Raises (~5% platform fee)</span>
@@ -304,9 +300,9 @@ const PitchDeckPage: React.FC = () => {
                 </li>
               </ul>
 
-              <div className="bg-launchlayer-accent/10 p-4 rounded-xl border border-launchlayer-accent/30">
-                <h4 className="font-bold text-launchlayer-accent mb-2 text-sm">Example:</h4>
-                <p className="text-launchlayer-text-secondary text-sm">
+              <div className="bg-launchlayer-accent/10 p-3 rounded-xl border border-launchlayer-accent/30">
+                <h4 className="font-bold text-launchlayer-accent mb-1 text-xs">Example:</h4>
+                <p className="text-launchlayer-text-secondary text-xs">
                   A single $5M Airlock fueling four $2M TGEs = ~$500K protocol revenue per cycle.
                 </p>
               </div>
@@ -319,50 +315,48 @@ const PitchDeckPage: React.FC = () => {
       id: 6,
       title: "Battle-Tested Team & Strategic Partners",
       content: (
-        <div className="space-y-10">
+        <div className="space-y-8">
           <div className="text-center">
             <span className="px-6 py-3 rounded-full bg-launchlayer-violet/10 text-launchlayer-violet text-lg font-medium">
               TEAM & PARTNERS
             </span>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Core Team Section */}
-            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-8 space-y-6">
+          <div className="grid md:grid-cols-2 gap-10">
+            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-6 space-y-5">
               <h3 className="text-2xl font-bold text-launchlayer-accent border-b border-launchlayer-surface-light pb-3">
                 Core Team
               </h3>
-              <div className="space-y-4">
-                <div className="bg-launchlayer-background p-5 rounded-xl border-l-4 border-l-launchlayer-violet">
+              <div className="space-y-3">
+                <div className="bg-launchlayer-background p-4 rounded-xl border-l-4 border-l-launchlayer-violet">
                   <h4 className="font-bold text-launchlayer-violet text-lg">Andy (Co-Founder)</h4>
                   <p className="text-launchlayer-text-secondary">Product & Strategy</p>
                 </div>
-                <div className="bg-launchlayer-background p-5 rounded-xl border-l-4 border-l-launchlayer-accent">
+                <div className="bg-launchlayer-background p-4 rounded-xl border-l-4 border-l-launchlayer-accent">
                   <h4 className="font-bold text-launchlayer-accent text-lg">Stable (Co-Founder)</h4>
                   <p className="text-launchlayer-text-secondary">Business Development & Partnerships</p>
                 </div>
-                <div className="bg-launchlayer-background p-5 rounded-xl border-l-4 border-l-launchlayer-mint">
+                <div className="bg-launchlayer-background p-4 rounded-xl border-l-4 border-l-launchlayer-mint">
                   <h4 className="font-bold text-launchlayer-mint text-lg">Jitin (Tech Lead)</h4>
                   <p className="text-launchlayer-text-secondary">Yield-generation & validator ops (via Infrasingularity)</p>
                 </div>
               </div>
             </div>
 
-            {/* Strategic Partners Section */}
-            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-8 space-y-6">
+            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-6 space-y-5">
               <h3 className="text-2xl font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-3">
                 Strategic Partners
               </h3>
-              <div className="space-y-4">
-                <div className="bg-launchlayer-background p-5 rounded-xl border-l-4 border-l-launchlayer-violet">
+              <div className="space-y-3">
+                <div className="bg-launchlayer-background p-4 rounded-xl border-l-4 border-l-launchlayer-violet">
                   <h4 className="font-bold text-launchlayer-violet text-lg">Hype Marketing Agency</h4>
                   <p className="text-launchlayer-text-secondary">GTM & community</p>
                 </div>
-                <div className="bg-launchlayer-background p-5 rounded-xl border-l-4 border-l-launchlayer-accent">
+                <div className="bg-launchlayer-background p-4 rounded-xl border-l-4 border-l-launchlayer-accent">
                   <h4 className="font-bold text-launchlayer-accent text-lg">Nakamoto Labs / Eli Bernstein</h4>
                   <p className="text-launchlayer-text-secondary">Legal counsel</p>
                 </div>
-                <div className="bg-launchlayer-background p-5 rounded-xl border-l-4 border-l-launchlayer-mint">
+                <div className="bg-launchlayer-background p-4 rounded-xl border-l-4 border-l-launchlayer-mint">
                   <h4 className="font-bold text-launchlayer-mint text-lg">Airfoil Studios</h4>
                   <p className="text-launchlayer-text-secondary">Front-end coherence</p>
                 </div>
@@ -376,24 +370,50 @@ const PitchDeckPage: React.FC = () => {
       id: 7,
       title: "Vision & Contact",
       content: (
-        <div className="flex flex-col items-center justify-center h-full text-center space-y-12">
-          <div className="space-y-8">
+        <div className="flex flex-col items-center justify-center h-full text-center space-y-10">
+          <div className="space-y-6">
             <span className="px-6 py-3 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-lg font-medium">
               OUR VISION
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold max-w-5xl mx-auto leading-tight">
-              To become the ubiquitous standard for how quality Web3 projects launch, scale, and sustainably retain liquidity and users cross-chain.
-            </h2>
+            
+            <div className="max-w-4xl mx-auto space-y-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-launchlayer-text-primary leading-tight">
+                Launch Layer is building the dominant Web3 launch infrastructure, capturing sustainable revenue across every stage of token launches—staking, presale allocations, and liquidity provisioning.
+              </h2>
+              
+              <p className="text-lg text-launchlayer-text-secondary leading-relaxed">
+                We're engineering a defensible protocol that delivers predictable returns by owning:
+              </p>
+              
+              <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                <div className="bg-launchlayer-surface p-4 rounded-xl border-l-4 border-l-launchlayer-violet">
+                  <h3 className="font-bold text-launchlayer-violet text-sm mb-1">Automated Yield-to-Presale</h3>
+                  <p className="text-launchlayer-text-secondary text-xs">Allocation</p>
+                </div>
+                <div className="bg-launchlayer-surface p-4 rounded-xl border-l-4 border-l-launchlayer-accent">
+                  <h3 className="font-bold text-launchlayer-accent text-sm mb-1">Institutional-Grade Launch</h3>
+                  <p className="text-launchlayer-text-secondary text-xs">Infrastructure</p>
+                </div>
+                <div className="bg-launchlayer-surface p-4 rounded-xl border-l-4 border-l-launchlayer-mint">
+                  <h3 className="font-bold text-launchlayer-mint text-sm mb-1">Deep Liquidity Flywheel</h3>
+                  <p className="text-launchlayer-text-secondary text-xs">(DEX)</p>
+                </div>
+              </div>
+              
+              <p className="text-lg font-bold text-launchlayer-accent">
+                A high-margin, scalable model designed for market leadership.
+              </p>
+            </div>
           </div>
           
-          <div className="space-y-6 bg-launchlayer-surface p-8 rounded-xl border border-launchlayer-surface-light">
+          <div className="space-y-4 bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light">
             <h3 className="text-2xl font-bold text-launchlayer-violet">Contact</h3>
-            <div className="text-launchlayer-text-secondary space-y-2 text-lg">
+            <div className="text-launchlayer-text-secondary space-y-1 text-lg">
               <p><strong className="text-launchlayer-text-primary">Andy</strong></p>
               <p><strong className="text-launchlayer-text-primary">andy@launchlayer.io</strong></p>
               <p><strong className="text-launchlayer-text-primary">Telegram - @birdman1a</strong></p>
             </div>
-            <div className="pt-4 border-t border-launchlayer-surface-light">
+            <div className="pt-3 border-t border-launchlayer-surface-light">
               <p className="text-base text-launchlayer-accent font-bold">
                 <strong>MVP Demo:</strong> <span className="text-launchlayer-accent">launchlayer.io/landing</span>
               </p>

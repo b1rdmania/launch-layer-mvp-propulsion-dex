@@ -203,7 +203,7 @@ const OpportunitySlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Web3 Launches Are Broken. We Fixed Them.
+            The Airlock Solution
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -276,7 +276,7 @@ const PlatformSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Three Pillars. One Unstoppable Machine.
+            The Integrated Flywheel
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -339,7 +339,7 @@ const TractionSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Ship Fast. Scale Faster.
+            Built & Ready
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -443,7 +443,7 @@ const BusinessSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Print Money. Need Money.
+            Revenue Engine
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -539,7 +539,7 @@ const TeamSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            We Build. We Ship. We Win.
+            Battle-Tested Team
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>

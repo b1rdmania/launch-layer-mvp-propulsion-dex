@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Rocket, TrendingUp, Shield, Database, Repeat, Users, DollarSign, Target, Zap, Star, ArrowRight, BarChart3, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,35 +27,35 @@ const PitchDeckPage: React.FC = () => {
       id: 1,
       title: "Cover Slide",
       content: (
-        <div className="flex flex-col items-center justify-center h-full text-center space-y-8 md:space-y-12 relative px-4">
+        <div className="flex flex-col items-center justify-center h-full text-center space-y-6 md:space-y-8 relative px-4">
           {/* Decorative background elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-20 left-20 w-24 h-24 md:w-32 md:h-32 bg-launchlayer-accent/10 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-20 w-32 h-32 md:w-40 md:h-40 bg-launchlayer-violet/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-            <div className="absolute top-1/2 right-1/3 w-20 h-20 md:w-24 md:h-24 bg-launchlayer-mint/10 rounded-full blur-2xl animate-pulse delay-2000"></div>
+            <div className="absolute top-10 md:top-20 left-10 md:left-20 w-16 h-16 md:w-32 md:h-32 bg-launchlayer-accent/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-10 md:bottom-20 right-10 md:right-20 w-20 h-20 md:w-40 md:h-40 bg-launchlayer-violet/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute top-1/2 right-1/3 w-12 h-12 md:w-24 md:h-24 bg-launchlayer-mint/10 rounded-full blur-2xl animate-pulse delay-2000"></div>
           </div>
           
-          <div className="space-y-6 md:space-y-8 relative z-10">
-            <div className="flex items-center justify-center space-x-2 md:space-x-4 mb-4">
-              <Rocket className="w-8 h-8 md:w-12 md:h-12 text-launchlayer-accent" />
-              <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+          <div className="space-y-4 md:space-y-6 relative z-10">
+            <div className="flex items-center justify-center space-x-2 md:space-x-4 mb-2 md:mb-4">
+              <Rocket className="w-6 h-6 md:w-12 md:h-12 text-launchlayer-accent" />
+              <h1 className="text-2xl md:text-5xl lg:text-7xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
                 Launch Layer
               </h1>
-              <Rocket className="w-8 h-8 md:w-12 md:h-12 text-launchlayer-violet" />
+              <Rocket className="w-6 h-6 md:w-12 md:h-12 text-launchlayer-violet" />
             </div>
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-launchlayer-text-primary flex items-center justify-center space-x-2 md:space-x-3">
-              <Zap className="w-6 h-6 md:w-8 md:h-8 text-launchlayer-accent" />
+            <h2 className="text-lg md:text-3xl lg:text-4xl font-bold text-launchlayer-text-primary flex items-center justify-center space-x-2 md:space-x-3">
+              <Zap className="w-5 h-5 md:w-8 md:h-8 text-launchlayer-accent" />
               <span>Built for What's Next.</span>
-              <Zap className="w-6 h-6 md:w-8 md:h-8 text-launchlayer-violet" />
+              <Zap className="w-5 h-5 md:w-8 md:h-8 text-launchlayer-violet" />
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-launchlayer-text-secondary max-w-3xl mx-auto">
+            <p className="text-base md:text-xl lg:text-2xl text-launchlayer-text-secondary max-w-3xl mx-auto px-4">
               Chain-agnostic yield, launch, and liquidity infrastructure.
             </p>
           </div>
           
-          <div className="text-sm md:text-base text-launchlayer-text-secondary bg-launchlayer-surface/50 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-launchlayer-surface-light">
+          <div className="text-xs md:text-base text-launchlayer-text-secondary bg-launchlayer-surface/50 backdrop-blur-sm rounded-xl p-2 md:p-4 border border-launchlayer-surface-light">
             <p className="flex items-center justify-center space-x-2">
-              <Users className="w-4 h-4" />
+              <Users className="w-3 h-3 md:w-4 md:h-4" />
               <span>[Andy / andy@launchlayer.io / @birdman1a]</span>
             </p>
           </div>
@@ -67,47 +66,47 @@ const PitchDeckPage: React.FC = () => {
       id: 2,
       title: "The Opportunity",
       content: (
-        <div className="space-y-4 md:space-y-6 px-4">
+        <div className="space-y-3 md:space-y-6 px-2 md:px-4">
           <div className="text-center">
-            <span className="px-4 md:px-6 py-2 md:py-3 rounded-full bg-launchlayer-violet/10 text-launchlayer-violet text-base md:text-lg font-medium flex items-center justify-center space-x-2 w-fit mx-auto">
-              <Target className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="px-3 md:px-6 py-2 md:py-3 rounded-full bg-launchlayer-violet/10 text-launchlayer-violet text-sm md:text-lg font-medium flex items-center justify-center space-x-2 w-fit mx-auto">
+              <Target className="w-3 h-3 md:w-5 md:h-5" />
               <span>THE OPPORTUNITY</span>
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6">
             {/* Problem Section */}
-            <div className="bg-launchlayer-surface rounded-xl border-2 border-red-400/30 p-4 md:p-6 space-y-3 md:space-y-4">
-              <h3 className="text-lg md:text-2xl font-bold text-red-400 border-b border-launchlayer-surface-light pb-2 md:pb-3 flex items-center space-x-2">
-                <Shield className="w-5 h-5 md:w-6 md:h-6" />
+            <div className="bg-launchlayer-surface rounded-xl border-2 border-red-400/30 p-3 md:p-6 space-y-2 md:space-y-4">
+              <h3 className="text-base md:text-2xl font-bold text-red-400 border-b border-launchlayer-surface-light pb-2 md:pb-3 flex items-center space-x-2">
+                <Shield className="w-4 h-4 md:w-6 md:h-6" />
                 <span>The Problem</span>
               </h3>
               <ul className="space-y-2 md:space-y-3 text-xs md:text-sm text-launchlayer-text-secondary">
                 <li className="flex items-start space-x-2 md:space-x-3">
-                  <span className="text-red-400 mt-1 text-base md:text-lg">🚫</span>
+                  <div className="w-3 h-3 bg-red-400 rounded-full mt-1 flex-shrink-0"></div>
                   <div><strong className="text-launchlayer-text-primary">Users:</strong> Whitelist grind, capital risk, timing stress</div>
                 </li>
                 <li className="flex items-start space-x-2 md:space-x-3">
-                  <span className="text-red-400 mt-1 text-base md:text-lg">⚠️</span>
+                  <div className="w-3 h-3 bg-red-400 rounded-full mt-1 flex-shrink-0"></div>
                   <div><strong className="text-launchlayer-text-primary">Projects:</strong> Complex fundraising, vesting challenges</div>
                 </li>
                 <li className="flex items-start space-x-2 md:space-x-3">
-                  <span className="text-red-400 mt-1 text-base md:text-lg">🔗</span>
+                  <div className="w-3 h-3 bg-red-400 rounded-full mt-1 flex-shrink-0"></div>
                   <div><strong className="text-launchlayer-text-primary">Chains:</strong> Lack integrated solutions for sticky TVL</div>
                 </li>
               </ul>
             </div>
 
             {/* Solution Section */}
-            <div className="bg-launchlayer-surface rounded-xl border-2 border-launchlayer-mint/30 p-4 md:p-6 space-y-3 md:space-y-4">
-              <h3 className="text-lg md:text-2xl font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-2 md:pb-3 flex items-center space-x-2">
-                <Rocket className="w-5 h-5 md:w-6 md:h-6" />
+            <div className="bg-launchlayer-surface rounded-xl border-2 border-launchlayer-mint/30 p-3 md:p-6 space-y-2 md:space-y-4">
+              <h3 className="text-base md:text-2xl font-bold text-launchlayer-mint border-b border-launchlayer-surface-light pb-2 md:pb-3 flex items-center space-x-2">
+                <Rocket className="w-4 h-4 md:w-6 md:h-6" />
                 <span>Our Solution</span>
               </h3>
-              <div className="space-y-3 md:space-y-4">
+              <div className="space-y-2 md:space-y-4">
                 <div className="flex items-start space-x-2 md:space-x-3">
-                  <div className="w-5 h-5 md:w-6 md:h-6 bg-launchlayer-violet/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Database className="w-2.5 h-2.5 md:w-3 md:h-3 text-launchlayer-violet" />
+                  <div className="w-4 h-4 md:w-6 md:h-6 bg-launchlayer-violet/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Database className="w-2 h-2 md:w-3 md:h-3 text-launchlayer-violet" />
                   </div>
                   <div>
                     <h4 className="font-bold text-launchlayer-violet text-xs md:text-sm">Airlocks (Yield Automation)</h4>
@@ -115,8 +114,8 @@ const PitchDeckPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-start space-x-2 md:space-x-3">
-                  <div className="w-5 h-5 md:w-6 md:h-6 bg-launchlayer-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Rocket className="w-2.5 h-2.5 md:w-3 md:h-3 text-launchlayer-accent" />
+                  <div className="w-4 h-4 md:w-6 md:h-6 bg-launchlayer-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Rocket className="w-2 h-2 md:w-3 md:h-3 text-launchlayer-accent" />
                   </div>
                   <div>
                     <h4 className="font-bold text-launchlayer-accent text-xs md:text-sm">Launch Layer (Premium Launchpad)</h4>
@@ -124,8 +123,8 @@ const PitchDeckPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-start space-x-2 md:space-x-3">
-                  <div className="w-5 h-5 md:w-6 md:h-6 bg-launchlayer-mint/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Repeat className="w-2.5 h-2.5 md:w-3 md:h-3 text-launchlayer-mint" />
+                  <div className="w-4 h-4 md:w-6 md:h-6 bg-launchlayer-mint/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Repeat className="w-2 h-2 md:w-3 md:h-3 text-launchlayer-mint" />
                   </div>
                   <div>
                     <h4 className="font-bold text-launchlayer-mint text-xs md:text-sm">Propulsion Finance (Advanced DEX)</h4>
@@ -136,20 +135,20 @@ const PitchDeckPage: React.FC = () => {
             </div>
 
             {/* Market Chart */}
-            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-4 md:p-6 space-y-3 md:space-y-4">
-              <h3 className="text-lg md:text-xl font-bold text-launchlayer-accent border-b border-launchlayer-surface-light pb-2 md:pb-3 flex items-center space-x-2">
-                <BarChart3 className="w-4 h-4 md:w-5 md:h-5" />
+            <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-3 md:p-6 space-y-2 md:space-y-4">
+              <h3 className="text-base md:text-xl font-bold text-launchlayer-accent border-b border-launchlayer-surface-light pb-2 md:pb-3 flex items-center space-x-2">
+                <BarChart3 className="w-3 h-3 md:w-5 md:h-5" />
                 <span>Market Opportunity</span>
               </h3>
-              <div className="h-32 md:h-40">
+              <div className="h-24 md:h-40">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={marketData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={20}
-                      outerRadius={50}
+                      innerRadius={15}
+                      outerRadius={35}
                       paddingAngle={5}
                       dataKey="value"
                     >
@@ -163,7 +162,7 @@ const PitchDeckPage: React.FC = () => {
               </div>
               <div className="text-center">
                 <p className="text-xs text-launchlayer-text-secondary">
-                  <span className="inline-block w-3 h-3 bg-launchlayer-accent rounded-full mr-2"></span>
+                  <span className="inline-block w-2 h-2 md:w-3 md:h-3 bg-launchlayer-accent rounded-full mr-2"></span>
                   Our addressable market
                 </p>
               </div>
@@ -176,63 +175,63 @@ const PitchDeckPage: React.FC = () => {
       id: 3,
       title: "How it Works: The Airlock Mechanism",
       content: (
-        <div className="space-y-4 md:space-y-6 px-4">
+        <div className="space-y-3 md:space-y-6 px-2 md:px-4">
           <div className="text-center space-y-2 md:space-y-3">
-            <span className="px-4 md:px-6 py-2 md:py-3 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-base md:text-lg font-medium flex items-center justify-center space-x-2 w-fit mx-auto">
-              <Zap className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="px-3 md:px-6 py-2 md:py-3 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm md:text-lg font-medium flex items-center justify-center space-x-2 w-fit mx-auto">
+              <Zap className="w-3 h-3 md:w-5 md:h-5" />
               <span>THE AIRLOCK MECHANISM</span>
             </span>
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold">Seamless automation—from staking to allocation</h2>
+            <h2 className="text-lg md:text-2xl lg:text-3xl font-bold">Seamless automation—from staking to allocation</h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-            <div className="text-center space-y-3 md:space-y-4 p-4 md:p-6 bg-launchlayer-surface rounded-xl border-2 border-launchlayer-violet/30 relative">
-              <div className="absolute top-2 md:top-3 left-2 md:left-3 w-6 h-6 md:w-8 md:h-8 bg-launchlayer-violet rounded-full flex items-center justify-center">
-                <span className="text-sm md:text-lg font-bold text-white">1</span>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-6">
+            <div className="text-center space-y-2 md:space-y-4 p-3 md:p-6 bg-launchlayer-surface rounded-xl border-2 border-launchlayer-violet/30 relative">
+              <div className="absolute top-2 md:top-3 left-2 md:left-3 w-5 h-5 md:w-8 md:h-8 bg-launchlayer-violet rounded-full flex items-center justify-center">
+                <span className="text-xs md:text-lg font-bold text-white">1</span>
               </div>
-              <div className="pt-2 md:pt-4">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <Database className="w-6 h-6 md:w-8 md:h-8 text-launchlayer-violet" />
+              <div className="pt-1 md:pt-4">
+                <div className="w-10 h-10 md:w-16 md:h-16 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4">
+                  <Database className="w-5 h-5 md:w-8 md:h-8 text-launchlayer-violet" />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-violet mb-2 md:mb-3">Stake</h3>
+                <h3 className="text-base md:text-xl font-bold text-launchlayer-violet mb-1 md:mb-3">Stake</h3>
                 <p className="text-xs md:text-sm text-launchlayer-text-secondary leading-relaxed">
                   Users deposit assets into Airlocks. Principal always liquid (withdraw anytime).
                 </p>
               </div>
               {/* Arrow to next step - hidden on mobile */}
               <div className="hidden lg:block absolute -right-3 top-1/2 transform -translate-y-1/2">
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-launchlayer-accent" />
+                <ArrowRight className="w-4 h-4 md:w-6 md:h-6 text-launchlayer-accent" />
               </div>
             </div>
 
-            <div className="text-center space-y-3 md:space-y-4 p-4 md:p-6 bg-launchlayer-surface rounded-xl border-2 border-launchlayer-mint/30 relative">
-              <div className="absolute top-2 md:top-3 left-2 md:left-3 w-6 h-6 md:w-8 md:h-8 bg-launchlayer-mint rounded-full flex items-center justify-center">
-                <span className="text-sm md:text-lg font-bold text-white">2</span>
+            <div className="text-center space-y-2 md:space-y-4 p-3 md:p-6 bg-launchlayer-surface rounded-xl border-2 border-launchlayer-mint/30 relative">
+              <div className="absolute top-2 md:top-3 left-2 md:left-3 w-5 h-5 md:w-8 md:h-8 bg-launchlayer-mint rounded-full flex items-center justify-center">
+                <span className="text-xs md:text-lg font-bold text-white">2</span>
               </div>
-              <div className="pt-2 md:pt-4">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <TrendingUp className="w-6 h-6 md:w-8 md:h-8 text-launchlayer-mint" />
+              <div className="pt-1 md:pt-4">
+                <div className="w-10 h-10 md:w-16 md:h-16 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4">
+                  <TrendingUp className="w-5 h-5 md:w-8 md:h-8 text-launchlayer-mint" />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-mint mb-2 md:mb-3">Earn Yield + Boost</h3>
+                <h3 className="text-base md:text-xl font-bold text-launchlayer-mint mb-1 md:mb-3">Earn Yield + Boost</h3>
                 <p className="text-xs md:text-sm text-launchlayer-text-secondary leading-relaxed">
                   Generate validator yield (10-15% APY) plus project-funded bonus rewards.
                 </p>
               </div>
               {/* Arrow to next step - hidden on mobile */}
               <div className="hidden lg:block absolute -right-3 top-1/2 transform -translate-y-1/2">
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-launchlayer-mint" />
+                <ArrowRight className="w-4 h-4 md:w-6 md:h-6 text-launchlayer-mint" />
               </div>
             </div>
 
-            <div className="text-center space-y-3 md:space-y-4 p-4 md:p-6 bg-launchlayer-surface rounded-xl border-2 border-launchlayer-accent/30 relative">
-              <div className="absolute top-2 md:top-3 left-2 md:left-3 w-6 h-6 md:w-8 md:h-8 bg-launchlayer-accent rounded-full flex items-center justify-center">
-                <span className="text-sm md:text-lg font-bold text-white">3</span>
+            <div className="text-center space-y-2 md:space-y-4 p-3 md:p-6 bg-launchlayer-surface rounded-xl border-2 border-launchlayer-accent/30 relative">
+              <div className="absolute top-2 md:top-3 left-2 md:left-3 w-5 h-5 md:w-8 md:h-8 bg-launchlayer-accent rounded-full flex items-center justify-center">
+                <span className="text-xs md:text-lg font-bold text-white">3</span>
               </div>
-              <div className="pt-2 md:pt-4">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
-                  <Rocket className="w-6 h-6 md:w-8 md:h-8 text-launchlayer-accent" />
+              <div className="pt-1 md:pt-4">
+                <div className="w-10 h-10 md:w-16 md:h-16 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4">
+                  <Rocket className="w-5 h-5 md:w-8 md:h-8 text-launchlayer-accent" />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-accent mb-2 md:mb-3">Automated Allocation</h3>
+                <h3 className="text-base md:text-xl font-bold text-launchlayer-accent mb-1 md:mb-3">Automated Allocation</h3>
                 <p className="text-xs md:text-sm text-launchlayer-text-secondary leading-relaxed">
                   Yield auto-mints guaranteed presale allocations. Zero whitelist grind.
                 </p>
@@ -241,12 +240,12 @@ const PitchDeckPage: React.FC = () => {
           </div>
 
           {/* Visual flow indicator */}
-          <div className="flex justify-center items-center space-x-3 md:space-x-4 pt-3 md:pt-4">
-            <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-launchlayer-violet rounded-full animate-pulse"></div>
-            <div className="w-6 h-0.5 md:w-8 md:h-0.5 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint"></div>
-            <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-launchlayer-mint rounded-full animate-pulse delay-500"></div>
-            <div className="w-6 h-0.5 md:w-8 md:h-0.5 bg-gradient-to-r from-launchlayer-mint to-launchlayer-accent"></div>
-            <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-launchlayer-accent rounded-full animate-pulse delay-1000"></div>
+          <div className="flex justify-center items-center space-x-2 md:space-x-4 pt-2 md:pt-4">
+            <div className="w-2 h-2 md:w-3 md:h-3 bg-launchlayer-violet rounded-full animate-pulse"></div>
+            <div className="w-4 h-0.5 md:w-8 md:h-0.5 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint"></div>
+            <div className="w-2 h-2 md:w-3 md:h-3 bg-launchlayer-mint rounded-full animate-pulse delay-500"></div>
+            <div className="w-4 h-0.5 md:w-8 md:h-0.5 bg-gradient-to-r from-launchlayer-mint to-launchlayer-accent"></div>
+            <div className="w-2 h-2 md:w-3 md:h-3 bg-launchlayer-accent rounded-full animate-pulse delay-1000"></div>
           </div>
         </div>
       )
@@ -687,34 +686,34 @@ const PitchDeckPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
-      {/* Main Content - Removed header */}
-      <main className="container mx-auto p-4 md:p-6 min-h-screen flex flex-col">
+      {/* Main Content */}
+      <main className="container mx-auto p-2 md:p-6 min-h-screen flex flex-col">
         {/* Slide Content */}
-        <div className="flex-1 bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-4 md:p-8 mb-4 md:mb-6 overflow-y-auto">
+        <div className="flex-1 bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-3 md:p-8 mb-3 md:mb-6 overflow-y-auto">
           <div className="h-full">
             {slides[currentSlide].content}
           </div>
         </div>
 
         {/* Navigation */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-2">
           <Button
             variant="outline"
             onClick={prevSlide}
             disabled={currentSlide === 0}
             className="flex items-center space-x-1 md:space-x-2 px-2 md:px-4 py-1 md:py-2 h-auto text-xs md:text-sm"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={14} />
             <span className="hidden sm:inline">Previous</span>
           </Button>
 
           {/* Slide Indicators */}
-          <div className="flex space-x-1 md:space-x-2 overflow-x-auto no-scrollbar py-1">
+          <div className="flex space-x-1 md:space-x-2 overflow-x-auto py-1">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all ${
+                className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all flex-shrink-0 ${
                   index === currentSlide 
                     ? 'bg-launchlayer-accent' 
                     : 'bg-launchlayer-surface-light hover:bg-launchlayer-text-secondary'
@@ -731,20 +730,10 @@ const PitchDeckPage: React.FC = () => {
             className="flex items-center space-x-1 md:space-x-2 px-2 md:px-4 py-1 md:py-2 h-auto text-xs md:text-sm"
           >
             <span className="hidden sm:inline">Next</span>
-            <ChevronRight size={16} />
+            <ChevronRight size={14} />
           </Button>
         </div>
       </main>
-
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { WalletProvider } from "@/contexts/WalletContext";
 
 // Pages
 import PitchDeckPage from "@/pages/PitchDeckPage";
+import WhitePaperPage from "@/pages/WhitePaperPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ function App() {
             <Route path="/pitch" element={<PitchDeckPage />} />
             <Route path="/landing" element={<PitchDeckPage />} />
             <Route path="/app" element={<PitchDeckPage />} />
+            <Route path="/whitepaper" element={<WhitePaperPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

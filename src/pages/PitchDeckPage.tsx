@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Play, Pause, Check, Rocket, TrendingUp, Shield, Database, Repeat, Users, DollarSign, Target, Zap, Star, ArrowRight, BarChart3 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause, Check, Rocket, TrendingUp, Shield, Database, Repeat, Users, DollarSign, Target, Zap, Star, ArrowRight, BarChart3, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 
@@ -49,7 +50,7 @@ const PitchDeckPage: React.FC = () => {
               <Zap className="w-8 h-8 text-launchlayer-violet" />
             </h2>
             <p className="text-xl md:text-2xl text-launchlayer-text-secondary max-w-3xl mx-auto">
-              ⚡ Chain-agnostic yield, launch, and liquidity infrastructure. 🚀
+              Chain-agnostic yield, launch, and liquidity infrastructure.
             </p>
           </div>
           
@@ -561,15 +562,15 @@ const PitchDeckPage: React.FC = () => {
             <div className="max-w-4xl mx-auto space-y-6">
               <h2 className="text-2xl md:text-3xl font-bold text-launchlayer-text-primary leading-tight flex items-center justify-center space-x-3">
                 <Rocket className="w-8 h-8 text-launchlayer-accent" />
-                <span>Launch Layer is building the dominant Web3 launch infrastructure 🚀</span>
+                <span>Launch Layer is building the dominant Web3 launch infrastructure</span>
               </h2>
               
               <p className="text-lg text-launchlayer-text-secondary leading-relaxed">
-                💰 Capturing sustainable revenue across every stage of token launches—staking, presale allocations, and liquidity provisioning.
+                Capturing sustainable revenue across every stage of token launches—staking, presale allocations, and liquidity provisioning.
               </p>
               
               <p className="text-lg text-launchlayer-text-secondary leading-relaxed">
-                🔧 We're engineering a defensible protocol that delivers predictable returns by owning:
+                We're engineering a defensible protocol that delivers predictable returns by owning:
               </p>
               
               <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -579,7 +580,7 @@ const PitchDeckPage: React.FC = () => {
                   </div>
                   <h3 className="font-bold text-launchlayer-violet text-sm mb-1 flex items-center space-x-1">
                     <Database className="w-4 h-4" />
-                    <span>⚡ Automated Yield-to-Presale</span>
+                    <span>Automated Yield-to-Presale</span>
                   </h3>
                   <p className="text-launchlayer-text-secondary text-xs">Allocation</p>
                 </div>
@@ -589,7 +590,7 @@ const PitchDeckPage: React.FC = () => {
                   </div>
                   <h3 className="font-bold text-launchlayer-accent text-sm mb-1 flex items-center space-x-1">
                     <Rocket className="w-4 h-4" />
-                    <span>🏛️ Institutional-Grade Launch</span>
+                    <span>Institutional-Grade Launch</span>
                   </h3>
                   <p className="text-launchlayer-text-secondary text-xs">Infrastructure</p>
                 </div>
@@ -599,7 +600,7 @@ const PitchDeckPage: React.FC = () => {
                   </div>
                   <h3 className="font-bold text-launchlayer-mint text-sm mb-1 flex items-center space-x-1">
                     <Repeat className="w-4 h-4" />
-                    <span>💎 Deep Liquidity Flywheel</span>
+                    <span>Deep Liquidity Flywheel</span>
                   </h3>
                   <p className="text-launchlayer-text-secondary text-xs">(DEX)</p>
                 </div>
@@ -607,38 +608,63 @@ const PitchDeckPage: React.FC = () => {
               
               <p className="text-lg font-bold text-launchlayer-accent flex items-center justify-center space-x-2">
                 <TrendingUp className="w-6 h-6" />
-                <span>📈 A high-margin, scalable model designed for market leadership.</span>
+                <span>A high-margin, scalable model designed for market leadership.</span>
               </p>
             </div>
           </div>
           
-          <div className="space-y-4 bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light relative overflow-hidden">
-            <div className="absolute top-2 right-2">
-              <Users className="w-8 h-8 text-launchlayer-violet/20" />
+          <div className="grid md:grid-cols-2 gap-6 w-full max-w-4xl">
+            <div className="space-y-4 bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light relative overflow-hidden">
+              <div className="absolute top-2 right-2">
+                <Users className="w-8 h-8 text-launchlayer-violet/20" />
+              </div>
+              <h3 className="text-2xl font-bold text-launchlayer-violet flex items-center space-x-2">
+                <Users className="w-6 h-6" />
+                <span>Contact</span>
+              </h3>
+              <div className="text-launchlayer-text-secondary space-y-1 text-lg">
+                <p className="flex items-center space-x-2">
+                  <Rocket className="w-4 h-4" />
+                  <strong className="text-launchlayer-text-primary">Andy</strong>
+                </p>
+                <p className="flex items-center space-x-2">
+                  <span className="w-4 h-4 text-center">@</span>
+                  <strong className="text-launchlayer-text-primary">andy@launchlayer.io</strong>
+                </p>
+                <p className="flex items-center space-x-2">
+                  <span className="w-4 h-4 text-center">T</span>
+                  <strong className="text-launchlayer-text-primary">@birdman1a</strong>
+                </p>
+              </div>
+              <div className="pt-3 border-t border-launchlayer-surface-light">
+                <p className="text-base text-launchlayer-accent font-bold flex items-center space-x-2">
+                  <Rocket className="w-5 h-5" />
+                  <span><strong>MVP Demo:</strong> <span className="text-launchlayer-accent">launchlayer.io/landing</span></span>
+                </p>
+              </div>
             </div>
-            <h3 className="text-2xl font-bold text-launchlayer-violet flex items-center justify-center space-x-2">
-              <Users className="w-6 h-6" />
-              <span>📞 Contact</span>
-            </h3>
-            <div className="text-launchlayer-text-secondary space-y-1 text-lg">
-              <p className="flex items-center justify-center space-x-2">
-                <span>🚀</span>
-                <strong className="text-launchlayer-text-primary">Andy</strong>
-              </p>
-              <p className="flex items-center justify-center space-x-2">
-                <span>📧</span>
-                <strong className="text-launchlayer-text-primary">andy@launchlayer.io</strong>
-              </p>
-              <p className="flex items-center justify-center space-x-2">
-                <span>💬</span>
-                <strong className="text-launchlayer-text-primary">Telegram - @birdman1a</strong>
-              </p>
-            </div>
-            <div className="pt-3 border-t border-launchlayer-surface-light">
-              <p className="text-base text-launchlayer-accent font-bold flex items-center justify-center space-x-2">
-                <Rocket className="w-5 h-5" />
-                <span><strong>🖥️ MVP Demo:</strong> <span className="text-launchlayer-accent">launchlayer.io/landing</span></span>
-              </p>
+
+            <div className="space-y-4 bg-launchlayer-surface p-6 rounded-xl border border-launchlayer-surface-light relative overflow-hidden">
+              <div className="absolute top-2 right-2">
+                <FileText className="w-8 h-8 text-launchlayer-mint/20" />
+              </div>
+              <h3 className="text-2xl font-bold text-launchlayer-mint flex items-center space-x-2">
+                <FileText className="w-6 h-6" />
+                <span>Resources</span>
+              </h3>
+              <div className="space-y-3">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start space-x-2 border-launchlayer-mint/30 hover:bg-launchlayer-mint/10"
+                  onClick={() => window.open('/whitepaper', '_blank')}
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Technical White Paper</span>
+                </Button>
+                <p className="text-xs text-launchlayer-text-secondary">
+                  Comprehensive technical documentation and architecture overview for investors and technical reviewers.
+                </p>
+              </div>
             </div>
           </div>
         </div>

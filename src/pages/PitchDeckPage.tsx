@@ -1,687 +1,431 @@
-
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ArrowRight, Target, Zap, Shield, TrendingUp, Users, DollarSign, CheckCircle, Building } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useDeviceDetect } from "@/hooks/useDeviceDetect";
-import MovingGradientBackground from "@/components/landing/MovingGradientBackground";
-
-interface Slide {
-  id: number;
-  title: string;
-  component: React.ReactNode;
-}
 
 const PitchDeckPage: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const { isMobile } = useDeviceDetect();
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
 
-  const slides: Slide[] = [
+  const slides = [
     {
       id: 1,
       title: "Cover Slide",
-      component: <TitleSlide />
+      content: (
+        <div className="flex flex-col items-center justify-center h-full text-center space-y-8">
+          <div className="space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+              Launch Layer
+            </h1>
+            <h2 className="text-2xl md:text-3xl font-semibold text-launchlayer-text-primary">
+              Built for What's Next.
+            </h2>
+            <p className="text-lg md:text-xl text-launchlayer-text-secondary max-w-2xl mx-auto">
+              Chain-agnostic yield, launch, and liquidity infrastructure.
+            </p>
+          </div>
+          
+          <div className="text-sm text-launchlayer-text-secondary space-y-1">
+            <p>[Your Name / Email / Telegram]</p>
+          </div>
+        </div>
+      )
     },
     {
       id: 2,
       title: "The Opportunity",
-      component: <OpportunitySlide />
+      content: (
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="px-4 py-2 rounded-full bg-launchlayer-violet/10 text-launchlayer-violet text-sm font-medium">
+              THE OPPORTUNITY
+            </span>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Problem */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-launchlayer-accent">The Problem</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Web3 token launches represent a $10B+ market, currently fragmented and inefficient:
+              </p>
+              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                <li>• <strong>Users:</strong> Whitelist grind, capital risk, timing stress</li>
+                <li>• <strong>Projects:</strong> Complex fundraising, vesting challenges</li>
+                <li>• <strong>Chains:</strong> Lack integrated solutions for sticky TVL</li>
+              </ul>
+            </div>
+
+            {/* Solution */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-launchlayer-mint">Our Solution</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                One seamless stack solving user friction and liquidity challenges—fully automated.
+              </p>
+              <div className="space-y-3 text-sm">
+                <div>
+                  <h4 className="font-semibold text-launchlayer-violet">1. Airlocks (Yield Automation)</h4>
+                  <p className="text-launchlayer-text-secondary">Automated yield-driven presale allocations</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-launchlayer-accent">2. Launch Layer (Premium Launchpad)</h4>
+                  <p className="text-launchlayer-text-secondary">Institutional-grade launches via Magna</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-launchlayer-mint">3. Propulsion Finance (Advanced DEX)</h4>
+                  <p className="text-launchlayer-text-secondary">Deep liquidity via Algebra v4 AMM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     },
     {
       id: 3,
       title: "How it Works: The Airlock Mechanism",
-      component: <AirlockMechanismSlide />
+      content: (
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="px-4 py-2 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm font-medium">
+              THE AIRLOCK MECHANISM
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold mt-4">Seamless automation—from staking to allocation</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center space-y-4 p-6 bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light">
+              <div className="w-12 h-12 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-2xl font-bold text-launchlayer-violet">1</span>
+              </div>
+              <h3 className="text-lg font-bold text-launchlayer-violet">Stake</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Users deposit assets into Airlocks. Principal always liquid (withdraw anytime).
+              </p>
+            </div>
+
+            <div className="text-center space-y-4 p-6 bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light">
+              <div className="w-12 h-12 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-2xl font-bold text-launchlayer-accent">2</span>
+              </div>
+              <h3 className="text-lg font-bold text-launchlayer-accent">Earn Yield + Boost</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Generate validator yield (10-15% APY), plus project-funded bonus rewards.
+              </p>
+            </div>
+
+            <div className="text-center space-y-4 p-6 bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light">
+              <div className="w-12 h-12 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-2xl font-bold text-launchlayer-mint">3</span>
+              </div>
+              <h3 className="text-lg font-bold text-launchlayer-mint">Automated Allocation</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Yield auto-mints guaranteed presale allocations. Zero whitelist grind.
+              </p>
+            </div>
+          </div>
+        </div>
+      )
     },
     {
       id: 4,
       title: "The Integrated Flywheel",
-      component: <PlatformSlide />
+      content: (
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="px-4 py-2 rounded-full bg-launchlayer-mint/10 text-launchlayer-mint text-sm font-medium">
+              THE INTEGRATED FLYWHEEL
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold mt-4">Three standalone pillars forming a continuous loop</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-launchlayer-surface p-6 rounded-xl border-t-4 border-t-launchlayer-violet">
+              <h3 className="text-lg font-bold text-launchlayer-violet mb-3">Airlocks (Yield Engine)</h3>
+              <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                <li>• Liquid staking (principal unlocked)</li>
+                <li>• High-yield validator APY</li>
+                <li>• Project-funded "Degen Pools"</li>
+              </ul>
+            </div>
+
+            <div className="bg-launchlayer-surface p-6 rounded-xl border-t-4 border-t-launchlayer-accent">
+              <h3 className="text-lg font-bold text-launchlayer-accent mb-3">Launch Layer (Premium Launchpad)</h3>
+              <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                <li>• Magna-powered TGE rails ($3.5B+ distributed)</li>
+                <li>• Curated and permissionless launch lanes</li>
+                <li>• Cross-chain token delivery</li>
+              </ul>
+            </div>
+
+            <div className="bg-launchlayer-surface p-6 rounded-xl border-t-4 border-t-launchlayer-mint">
+              <h3 className="text-lg font-bold text-launchlayer-mint mb-3">Propulsion Finance (DEX)</h3>
+              <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                <li>• Algebra v4 concentrated liquidity AMM</li>
+                <li>• Upgrade path: Uniswap v4 hooks</li>
+                <li>• MEV capture via order-flow auctions</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="text-center bg-launchlayer-surface p-4 rounded-xl">
+            <p className="text-sm font-medium text-launchlayer-accent">
+              <strong>Moat:</strong> Our integrated flywheel compounds users, liquidity, and TVL—generating defensible, recurring protocol revenue.
+            </p>
+          </div>
+        </div>
+      )
     },
     {
       id: 5,
       title: "Traction, GTM, Revenue",
-      component: <TractionSlide />
+      content: (
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="px-4 py-2 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm font-medium">
+              TRACTION & REVENUE
+            </span>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Traction */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-launchlayer-accent">Traction Today</h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start space-x-2">
+                  <span className="text-green-400">✅</span>
+                  <div>
+                    <strong>MVP Deployed:</strong> Core contracts on Sepolia testnet, dashboard testing complete
+                  </div>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="text-green-400">✅</span>
+                  <div>
+                    <strong>Team Proven:</strong> Experienced yield-generation & validator ops
+                  </div>
+                </div>
+                <div className="flex items-start space-x-2">
+                  <span className="text-green-400">✅</span>
+                  <div>
+                    <strong>Ecosystem Partnerships:</strong> Strategic integrations and GTM discussions
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4">
+                <h4 className="font-semibold text-launchlayer-violet mb-2">Initial Target Chains:</h4>
+                <p className="text-sm text-launchlayer-text-secondary">Base, Hype, MegaETH, Sonic</p>
+              </div>
+            </div>
+
+            {/* Revenue */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-launchlayer-mint">Revenue Model</h3>
+              <p className="text-sm text-launchlayer-text-secondary mb-3">Protocol captures fees from:</p>
+              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                <li>• Project Raises (~5% platform fee)</li>
+                <li>• User Yield (~10% of generated yield)</li>
+                <li>• AMM Trading Fees (protocol share)</li>
+              </ul>
+
+              <div className="bg-launchlayer-surface p-4 rounded-xl mt-4">
+                <h4 className="font-semibold text-launchlayer-accent mb-2">Example:</h4>
+                <p className="text-sm text-launchlayer-text-secondary">
+                  A single $5M Airlock fueling four $2M TGEs = ~$500K protocol revenue per cycle.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     },
     {
       id: 6,
       title: "Battle-Tested Team & Strategic Partners",
-      component: <TeamSlide />
+      content: (
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="px-4 py-2 rounded-full bg-launchlayer-violet/10 text-launchlayer-violet text-sm font-medium">
+              TEAM & PARTNERS
+            </span>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Core Team */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-launchlayer-accent">Core Team</h3>
+              <div className="space-y-3">
+                <div className="bg-launchlayer-surface p-4 rounded-xl">
+                  <h4 className="font-semibold text-launchlayer-violet">Andy (Co-Founder)</h4>
+                  <p className="text-sm text-launchlayer-text-secondary">Product & Strategy</p>
+                </div>
+                <div className="bg-launchlayer-surface p-4 rounded-xl">
+                  <h4 className="font-semibold text-launchlayer-accent">Stable (Co-Founder)</h4>
+                  <p className="text-sm text-launchlayer-text-secondary">Technical Architecture & Ops</p>
+                </div>
+                <div className="bg-launchlayer-surface p-4 rounded-xl">
+                  <h4 className="font-semibold text-launchlayer-mint">Jitin (Tech Lead)</h4>
+                  <p className="text-sm text-launchlayer-text-secondary">Yield-generation & validator ops (via Infrasingularity)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Strategic Partners */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-launchlayer-mint">Strategic Partners</h3>
+              <div className="space-y-3">
+                <div className="bg-launchlayer-surface p-4 rounded-xl">
+                  <h4 className="font-semibold text-launchlayer-violet">Hype Marketing Agency</h4>
+                  <p className="text-sm text-launchlayer-text-secondary">GTM & community</p>
+                </div>
+                <div className="bg-launchlayer-surface p-4 rounded-xl">
+                  <h4 className="font-semibold text-launchlayer-accent">Nakamoto Labs/Eli Bernstein</h4>
+                  <p className="text-sm text-launchlayer-text-secondary">Legal counsel</p>
+                </div>
+                <div className="bg-launchlayer-surface p-4 rounded-xl">
+                  <h4 className="font-semibold text-launchlayer-mint">Airfoil Studios</h4>
+                  <p className="text-sm text-launchlayer-text-secondary">Front-end coherence</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
     },
     {
       id: 7,
       title: "Vision & Contact",
-      component: <VisionContactSlide />
+      content: (
+        <div className="flex flex-col items-center justify-center h-full text-center space-y-8">
+          <div className="space-y-6">
+            <span className="px-4 py-2 rounded-full bg-launchlayer-accent/10 text-launchlayer-accent text-sm font-medium">
+              OUR VISION
+            </span>
+            <h2 className="text-2xl md:text-4xl font-bold max-w-4xl mx-auto leading-tight">
+              To become the ubiquitous standard for how quality Web3 projects launch, scale, and sustainably retain liquidity and users cross-chain.
+            </h2>
+          </div>
+          
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-launchlayer-violet">Contact</h3>
+            <div className="text-launchlayer-text-secondary space-y-1">
+              <p>[Your Name]</p>
+              <p>[Your Email]</p>
+              <p>[Telegram]</p>
+            </div>
+            <div className="pt-4">
+              <p className="text-sm text-launchlayer-text-secondary">
+                <strong>MVP Demo:</strong> <span className="text-launchlayer-accent">launchlayer.io/landing</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      )
     }
   ];
 
-  const nextSlide = () => {
-    if (currentSlide < slides.length - 1) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide(currentSlide + 1);
-        setIsTransitioning(false);
-      }, 150);
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isAutoPlay) {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 5000);
     }
+    return () => clearInterval(interval);
+  }, [isAutoPlay, slides.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
   const prevSlide = () => {
-    if (currentSlide > 0) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide(currentSlide - 1);
-        setIsTransitioning(false);
-      }, 150);
-    }
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   const goToSlide = (index: number) => {
-    if (index !== currentSlide) {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide(index);
-        setIsTransitioning(false);
-      }, 150);
-    }
+    setCurrentSlide(index);
   };
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        e.preventDefault();
-        nextSlide();
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prevSlide();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentSlide]);
-
   return (
-    <div className="min-h-screen bg-launchlayer-background overflow-hidden relative">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-[0.02] bg-noise"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-launchlayer-accent/5 via-transparent to-launchlayer-violet/5"></div>
-      
+    <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
+      {/* Header */}
+      <header className="bg-launchlayer-surface border-b border-launchlayer-surface-light p-4">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <img 
+              src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" 
+              alt="Launch Layer Logo" 
+              className="h-8 w-auto" 
+            />
+            <h1 className="text-xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+              Launch Layer Pitch Deck
+            </h1>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsAutoPlay(!isAutoPlay)}
+              className="flex items-center space-x-2"
+            >
+              {isAutoPlay ? <Pause size={16} /> : <Play size={16} />}
+              <span>{isAutoPlay ? 'Pause' : 'Auto Play'}</span>
+            </Button>
+            
+            <div className="text-sm text-launchlayer-text-secondary">
+              {currentSlide + 1} / {slides.length}
+            </div>
+          </div>
+        </div>
+      </header>
+
       {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <main className="container mx-auto p-6 h-[calc(100vh-80px)] flex flex-col">
         {/* Slide Content */}
-        <div className={`flex-1 transition-all duration-300 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-          {slides[currentSlide].component}
+        <div className="flex-1 bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-8 mb-6 overflow-hidden">
+          <div className="h-full">
+            {slides[currentSlide].content}
+          </div>
         </div>
 
         {/* Navigation */}
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="bg-launchlayer-surface/80 backdrop-blur-md border border-launchlayer-surface-light rounded-2xl p-4 shadow-xl">
-            <div className="flex items-center gap-4">
-              {/* Previous Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={prevSlide}
-                disabled={currentSlide === 0}
-                className="w-10 h-10 rounded-full bg-launchlayer-surface-light/50 hover:bg-launchlayer-accent/20 disabled:opacity-30"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
+        <div className="flex items-center justify-between">
+          <Button
+            variant="outline"
+            onClick={prevSlide}
+            disabled={currentSlide === 0}
+            className="flex items-center space-x-2"
+          >
+            <ChevronLeft size={16} />
+            <span>Previous</span>
+          </Button>
 
-              {/* Slide Indicators */}
-              <div className="flex gap-2">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentSlide
-                        ? 'bg-launchlayer-accent scale-125 shadow-[0_0_8px_rgba(50,119,245,0.6)]'
-                        : 'bg-launchlayer-text-secondary/30 hover:bg-launchlayer-text-secondary/50'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              {/* Next Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={nextSlide}
-                disabled={currentSlide === slides.length - 1}
-                className="w-10 h-10 rounded-full bg-launchlayer-surface-light/50 hover:bg-launchlayer-accent/20 disabled:opacity-30"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Slide Counter */}
-        <div className="fixed top-8 right-8 z-50">
-          <div className="bg-launchlayer-surface/60 backdrop-blur-md border border-launchlayer-surface-light rounded-xl px-4 py-2">
-            <span className="text-sm font-mono text-launchlayer-text-secondary">
-              {currentSlide + 1} / {slides.length}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Individual Slide Components
-const TitleSlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8 relative overflow-hidden">
-      <MovingGradientBackground />
-      
-      <div className="text-center max-w-4xl mx-auto relative z-10">
-        <div className="mb-8">
-          <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-            Launch Layer
-          </h1>
-          <div className="w-32 h-1 bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet rounded-full mx-auto mb-8 animate-pulse-glow"></div>
-        </div>
-        
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 text-launchlayer-text-primary">
-          Built for What's Next.
-        </h2>
-        
-        <p className="text-lg md:text-xl text-launchlayer-text-secondary mb-8 max-w-3xl mx-auto leading-relaxed">
-          Chain-agnostic yield, launch, and liquidity infrastructure.
-        </p>
-        
-        <div className="inline-block bg-launchlayer-surface/80 backdrop-blur-md border border-launchlayer-surface-light rounded-2xl p-6 shadow-2xl">
-          <p className="text-launchlayer-text-secondary font-mono">
-            andy@launchlayer.io
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const OpportunitySlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            The Opportunity
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
-        </div>
-
-        {/* The Problem Section */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-launchlayer-error">The Problem</h2>
-          <p className="text-lg text-launchlayer-text-secondary mb-6">
-            Web3 token launches represent a <span className="text-launchlayer-accent font-semibold">$10B+ market</span>, currently fragmented, inefficient, and high-risk:
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl p-6">
-              <div className="flex items-center mb-3">
-                <Users className="w-6 h-6 text-launchlayer-error mr-3" />
-                <h3 className="text-lg font-bold text-launchlayer-text-primary">Users</h3>
-              </div>
-              <p className="text-launchlayer-text-secondary text-sm">
-                Struggle with presale timing, Discord/Telegram whitelist grind, and locking capital at risk.
-              </p>
-            </div>
-
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl p-6">
-              <div className="flex items-center mb-3">
-                <Building className="w-6 h-6 text-launchlayer-error mr-3" />
-                <h3 className="text-lg font-bold text-launchlayer-text-primary">Projects</h3>
-              </div>
-              <p className="text-launchlayer-text-secondary text-sm">
-                Battle complexity around fundraising, vesting, and unsustainable liquidity at launch.
-              </p>
-            </div>
-
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl p-6">
-              <div className="flex items-center mb-3">
-                <Target className="w-6 h-6 text-launchlayer-error mr-3" />
-                <h3 className="text-lg font-bold text-launchlayer-text-primary">Chains</h3>
-              </div>
-              <p className="text-launchlayer-text-secondary text-sm">
-                Lack integrated solutions for sustainable, sticky long-term TVL.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Our Solution Section */}
-        <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm border border-launchlayer-surface-light rounded-3xl p-8 shadow-2xl mb-8">
-          <h2 className="text-3xl font-bold mb-4 text-launchlayer-accent">Our Solution</h2>
-          <p className="text-lg text-launchlayer-text-secondary mb-6">
-            <span className="text-launchlayer-accent font-bold">Launch Layer:</span> One seamless stack solving user friction, presale inefficiency, and liquidity challenges—fully automated, zero hassle.
-          </p>
-          
-          <h3 className="text-xl font-semibold mb-4 text-launchlayer-text-primary">Built around three standalone pillars:</h3>
-          
-          <div className="space-y-4">
-            <div className="flex items-start p-4 bg-launchlayer-background/50 rounded-xl border border-launchlayer-surface-light">
-              <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mr-4 mt-1">
-                <span className="text-launchlayer-accent font-bold">1</span>
-              </div>
-              <div>
-                <h4 className="font-bold text-launchlayer-text-primary mb-1">Airlocks (Yield Automation)</h4>
-                <p className="text-launchlayer-text-secondary text-sm">
-                  Automated yield-driven presale allocations. No whitelist grind, zero calendar stress, no capital risk.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start p-4 bg-launchlayer-background/50 rounded-xl border border-launchlayer-surface-light">
-              <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mr-4 mt-1">
-                <span className="text-launchlayer-violet font-bold">2</span>
-              </div>
-              <div>
-                <h4 className="font-bold text-launchlayer-text-primary mb-1">Launch Layer (Premium Launchpad)</h4>
-                <p className="text-launchlayer-text-secondary text-sm">
-                  Institutional-grade launches powered by Magna ($3.5B+ token distributions). Curated and permissionless lanes.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start p-4 bg-launchlayer-background/50 rounded-xl border border-launchlayer-surface-light">
-              <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mr-4 mt-1">
-                <span className="text-launchlayer-mint font-bold">3</span>
-              </div>
-              <div>
-                <h4 className="font-bold text-launchlayer-text-primary mb-1">Propulsion Finance (Advanced DEX)</h4>
-                <p className="text-launchlayer-text-secondary text-sm">
-                  Deep, instant liquidity via Algebra v4 AMM with upgrade roadmap: Uniswap v4 hooks, OFA MEV capture.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Why Now Section */}
-        <div className="text-center">
-          <h3 className="text-2xl font-bold mb-4 text-launchlayer-mint">Why Now?</h3>
-          <p className="text-lg text-launchlayer-text-secondary">
-            Sustainable token launches demand simplicity, automation, and deep liquidity. 
-            <span className="text-launchlayer-accent font-semibold"> Launch Layer delivers all three</span> in one capital-efficient growth cycle.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const AirlockMechanismSlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            How it Works: The Airlock Mechanism
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto mb-6"></div>
-          <p className="text-xl text-launchlayer-text-secondary">
-            Seamless automation—from staking to allocation:
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          <div className="flex items-center p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl hover:shadow-[0_8px_32px_rgba(50,119,245,0.15)] transition-all duration-300">
-            <div className="w-16 h-16 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mr-6">
-              <span className="text-launchlayer-accent font-bold text-2xl">1</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-2 text-launchlayer-text-primary">Stake</h3>
-              <p className="text-launchlayer-text-secondary text-lg">
-                Users deposit assets into Airlocks. <span className="text-launchlayer-accent font-semibold">Principal always liquid</span> (withdraw anytime).
-              </p>
-            </div>
+          {/* Slide Indicators */}
+          <div className="flex space-x-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  index === currentSlide 
+                    ? 'bg-launchlayer-accent' 
+                    : 'bg-launchlayer-surface-light hover:bg-launchlayer-text-secondary'
+                }`}
+              />
+            ))}
           </div>
 
-          <ArrowRight className="w-8 h-8 text-launchlayer-accent mx-auto" />
-
-          <div className="flex items-center p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl hover:shadow-[0_8px_32px_rgba(167,139,250,0.15)] transition-all duration-300">
-            <div className="w-16 h-16 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mr-6">
-              <span className="text-launchlayer-violet font-bold text-2xl">2</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-2 text-launchlayer-text-primary">Earn Yield + Boost</h3>
-              <p className="text-launchlayer-text-secondary text-lg">
-                Airlocks generate <span className="text-launchlayer-violet font-semibold">validator yield (10-15% APY)</span>, supplemented by project-funded bonus rewards.
-              </p>
-            </div>
-          </div>
-
-          <ArrowRight className="w-8 h-8 text-launchlayer-accent mx-auto" />
-
-          <div className="flex items-center p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl hover:shadow-[0_8px_32px_rgba(99,206,198,0.15)] transition-all duration-300">
-            <div className="w-16 h-16 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mr-6">
-              <span className="text-launchlayer-mint font-bold text-2xl">3</span>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-2 text-launchlayer-text-primary">Automated Allocation</h3>
-              <p className="text-launchlayer-text-secondary text-lg">
-                Yield auto-mints <span className="text-launchlayer-mint font-semibold">guaranteed presale allocations</span>, zero whitelist grind, zero capital lock.
-              </p>
-            </div>
-          </div>
+          <Button
+            variant="outline"
+            onClick={nextSlide}
+            disabled={currentSlide === slides.length - 1}
+            className="flex items-center space-x-2"
+          >
+            <span>Next</span>
+            <ChevronRight size={16} />
+          </Button>
         </div>
-
-        <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-launchlayer-accent/10 via-launchlayer-violet/10 to-launchlayer-mint/10 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-6">
-            <p className="text-launchlayer-text-secondary italic">
-              Visual flowchart illustration: "Stake → Earn Yield + Boost → Automated Presale Access"
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const PlatformSlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            The Integrated Flywheel
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto mb-6"></div>
-          <p className="text-xl text-launchlayer-text-secondary">
-            Three standalone pillars forming a continuous loop:
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-6 hover:shadow-[0_8px_32px_rgba(50,119,245,0.15)] transition-all duration-300 hover:scale-105">
-            <div className="w-12 h-12 bg-launchlayer-accent/20 rounded-xl flex items-center justify-center mb-4">
-              <Zap className="w-6 h-6 text-launchlayer-accent" />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-launchlayer-text-primary">Airlocks (Yield Engine)</h3>
-            <ul className="text-launchlayer-text-secondary text-sm leading-relaxed space-y-1">
-              <li>• Liquid staking (principal unlocked)</li>
-              <li>• High-yield validator APY</li>
-              <li>• Project-funded "Degen Pools"</li>
-            </ul>
-          </div>
-
-          <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-6 hover:shadow-[0_8px_32px_rgba(167,139,250,0.15)] transition-all duration-300 hover:scale-105">
-            <div className="w-12 h-12 bg-launchlayer-violet/20 rounded-xl flex items-center justify-center mb-4">
-              <Shield className="w-6 h-6 text-launchlayer-violet" />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-launchlayer-text-primary">Launch Layer (Premium Launchpad)</h3>
-            <ul className="text-launchlayer-text-secondary text-sm leading-relaxed space-y-1">
-              <li>• Magna-powered TGE rails ($3.5B+ distributed)</li>
-              <li>• Curated (vetted) and permissionless launch lanes</li>
-              <li>• Cross-chain token delivery</li>
-            </ul>
-          </div>
-
-          <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-6 hover:shadow-[0_8px_32px_rgba(99,206,198,0.15)] transition-all duration-300 hover:scale-105">
-            <div className="w-12 h-12 bg-launchlayer-mint/20 rounded-xl flex items-center justify-center mb-4">
-              <TrendingUp className="w-6 h-6 text-launchlayer-mint" />
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-launchlayer-text-primary">Propulsion Finance (DEX)</h3>
-            <ul className="text-launchlayer-text-secondary text-sm leading-relaxed space-y-1">
-              <li>• Algebra v4 concentrated liquidity AMM</li>
-              <li>• Upgrade path: Uniswap v4 hooks (TWAMM, limits)</li>
-              <li>• MEV capture via order-flow auctions</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-r from-launchlayer-accent/10 via-launchlayer-violet/10 to-launchlayer-mint/10 backdrop-blur-sm border border-launchlayer-surface-light rounded-3xl p-8 shadow-2xl">
-          <h3 className="text-2xl font-bold mb-4 text-center text-launchlayer-text-primary">Moat</h3>
-          <p className="text-lg text-launchlayer-text-secondary text-center leading-relaxed max-w-4xl mx-auto">
-            Our <span className="text-launchlayer-accent font-semibold">integrated flywheel</span> compounds users, liquidity, and TVL—generating 
-            <span className="text-launchlayer-violet font-semibold"> defensible, recurring protocol revenue</span>.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const TractionSlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Traction, GTM, Revenue
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12 mb-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-launchlayer-accent">Traction Today</h3>
-            
-            <div className="space-y-4">
-              <div className="flex items-start p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-                <CheckCircle className="w-6 h-6 text-launchlayer-accent mt-1 mr-4 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-launchlayer-text-primary mb-1">MVP Deployed</h4>
-                  <p className="text-launchlayer-text-secondary text-sm">
-                    Core contracts deployed on Sepolia testnet. Dashboard testing complete, automation API underway.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-                <CheckCircle className="w-6 h-6 text-launchlayer-accent mt-1 mr-4 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-launchlayer-text-primary mb-1">Team Proven</h4>
-                  <p className="text-launchlayer-text-secondary text-sm">
-                    Experienced yield-generation & validator ops (Infrasingularity). Senior BD hire onboarded (ex-Fjord).
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-start p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-                <CheckCircle className="w-6 h-6 text-launchlayer-accent mt-1 mr-4 flex-shrink-0" />
-                <div>
-                  <h4 className="font-semibold text-launchlayer-text-primary mb-1">Ecosystem Partnerships</h4>
-                  <p className="text-launchlayer-text-secondary text-sm">
-                    Strategic integrations and active GTM discussions (Algebra).
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-launchlayer-mint">Initial Target Chains</h3>
-            
-            <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm border border-launchlayer-surface-light rounded-3xl p-6 shadow-2xl mb-8">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-launchlayer-background/50 rounded-xl p-4 text-center border border-launchlayer-surface-light">
-                  <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-launchlayer-accent font-bold text-sm">B</span>
-                  </div>
-                  <p className="text-launchlayer-text-primary font-medium">Base</p>
-                </div>
-                
-                <div className="bg-launchlayer-background/50 rounded-xl p-4 text-center border border-launchlayer-surface-light">
-                  <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-launchlayer-violet font-bold text-sm">H</span>
-                  </div>
-                  <p className="text-launchlayer-text-primary font-medium">Hype</p>
-                </div>
-                
-                <div className="bg-launchlayer-background/50 rounded-xl p-4 text-center border border-launchlayer-surface-light">
-                  <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-launchlayer-mint font-bold text-sm">M</span>
-                  </div>
-                  <p className="text-launchlayer-text-primary font-medium">MegaETH</p>
-                </div>
-                
-                <div className="bg-launchlayer-background/50 rounded-xl p-4 text-center border border-launchlayer-surface-light">
-                  <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full mx-auto mb-2 flex items-center justify-center">
-                    <span className="text-launchlayer-accent font-bold text-sm">S</span>
-                  </div>
-                  <p className="text-launchlayer-text-primary font-medium">Sonic</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-2xl font-bold mb-6 text-launchlayer-mint flex items-center justify-center">
-            <DollarSign className="w-8 h-8 mr-3" />
-            Revenue Model
-          </h3>
-          
-          <p className="text-center text-launchlayer-text-secondary mb-6">Protocol captures fees from:</p>
-          
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="text-center p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-              <p className="text-launchlayer-text-primary font-medium">Project Raises</p>
-              <p className="text-launchlayer-accent font-semibold">~5% platform fee</p>
-            </div>
-            
-            <div className="text-center p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-              <p className="text-launchlayer-text-primary font-medium">User Yield</p>
-              <p className="text-launchlayer-violet font-semibold">~10% of generated yield</p>
-            </div>
-            
-            <div className="text-center p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-              <p className="text-launchlayer-text-primary font-medium">AMM Trading Fees</p>
-              <p className="text-launchlayer-mint font-semibold">Protocol share</p>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-launchlayer-accent/20 to-launchlayer-violet/20 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-6 text-center">
-            <h4 className="font-bold text-launchlayer-text-primary mb-2">Example</h4>
-            <p className="text-launchlayer-text-secondary leading-relaxed">
-              A single <span className="text-launchlayer-accent font-semibold">$5M Airlock</span> fueling four $2M TGEs = 
-              <span className="text-launchlayer-violet font-semibold"> ~$500K protocol revenue</span> per cycle.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const TeamSlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Battle-Tested Team & Strategic Partners
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-launchlayer-accent flex items-center">
-              <Users className="w-8 h-8 mr-3" />
-              Core Team
-            </h3>
-            
-            <div className="space-y-4">
-              <div className="p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl hover:shadow-[0_8px_32px_rgba(50,119,245,0.15)] transition-all duration-300">
-                <h4 className="font-bold text-launchlayer-text-primary mb-1">Andy</h4>
-                <p className="text-launchlayer-accent text-sm font-medium mb-2">Co-Founder</p>
-                <p className="text-launchlayer-text-secondary text-sm">Product & Strategy</p>
-              </div>
-              
-              <div className="p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl hover:shadow-[0_8px_32px_rgba(167,139,250,0.15)] transition-all duration-300">
-                <h4 className="font-bold text-launchlayer-text-primary mb-1">Stable</h4>
-                <p className="text-launchlayer-violet text-sm font-medium mb-2">Co-Founder</p>
-                <p className="text-launchlayer-text-secondary text-sm">Technical Architecture & Ops</p>
-              </div>
-              
-              <div className="p-6 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl hover:shadow-[0_8px_32px_rgba(99,206,198,0.15)] transition-all duration-300">
-                <h4 className="font-bold text-launchlayer-text-primary mb-1">Jitin</h4>
-                <p className="text-launchlayer-mint text-sm font-medium mb-2">Tech Lead (via Infrasingularity)</p>
-                <p className="text-launchlayer-text-secondary text-sm">Yield-generation & validator ops</p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-2xl font-bold mb-6 text-launchlayer-violet">Strategic Partners</h3>
-            
-            <div className="space-y-4">
-              <div className="p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-                <h4 className="font-semibold text-launchlayer-text-primary mb-1">Hype Marketing Agency</h4>
-                <p className="text-launchlayer-text-secondary text-sm">GTM & community</p>
-              </div>
-              
-              <div className="p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-                <h4 className="font-semibold text-launchlayer-text-primary mb-1">Nakamoto Labs/Eli Bernstein</h4>
-                <p className="text-launchlayer-text-secondary text-sm">Legal counsel</p>
-              </div>
-              
-              <div className="p-4 bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-xl">
-                <h4 className="font-semibold text-launchlayer-text-primary mb-1">Airfoil Studios</h4>
-                <p className="text-launchlayer-text-secondary text-sm">Front-end coherence</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VisionContactSlide: React.FC = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Vision & Contact
-          </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
-        </div>
-
-        <div className="space-y-12">
-          <div className="bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/80 backdrop-blur-sm border border-launchlayer-surface-light rounded-3xl p-8 shadow-2xl">
-            <h3 className="text-2xl font-bold mb-4 text-launchlayer-text-primary">Our Vision</h3>
-            <p className="text-lg text-launchlayer-text-secondary leading-relaxed">
-              To become the <span className="text-launchlayer-accent font-semibold">ubiquitous standard</span> for how quality Web3 projects launch, scale, and sustainably retain 
-              <span className="text-launchlayer-violet font-semibold"> liquidity and users cross-chain</span>.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-8">
-              <h4 className="text-xl font-bold mb-4 text-launchlayer-text-primary">Contact</h4>
-              <div className="space-y-3 mb-4">
-                <p className="text-launchlayer-text-secondary">
-                  <span className="text-launchlayer-accent font-medium">Email:</span> andy@launchlayer.io
-                </p>
-                <p className="text-launchlayer-text-secondary">
-                  <span className="text-launchlayer-violet font-medium">Telegram:</span> @birdman1a
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm border border-launchlayer-surface-light rounded-2xl p-8">
-              <h4 className="text-xl font-bold mb-4 text-launchlayer-text-primary">MVP Demo</h4>
-              <div className="bg-launchlayer-background rounded-xl p-4 font-mono text-launchlayer-mint text-sm mb-4">
-                launchlayer.io/landing
-              </div>
-              <Button 
-                variant="accent" 
-                className="w-full bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet hover:scale-105 transition-all duration-300"
-              >
-                View Live Demo
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+      </main>
     </div>
   );
 };

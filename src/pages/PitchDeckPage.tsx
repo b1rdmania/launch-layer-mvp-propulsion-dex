@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowRight, Target, Zap, Shield, TrendingUp, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -204,7 +203,7 @@ const OpportunitySlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            From Fragmented Launches to a Smart Ecosystem
+            Web3 Launches Are Broken. We Fixed Them.
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -277,7 +276,7 @@ const PlatformSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            The Three Pillars of Launch Layer
+            Three Pillars. One Unstoppable Machine.
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -340,7 +339,7 @@ const TractionSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            Building Now, Launching Soon
+            Ship Fast. Scale Faster.
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -444,7 +443,7 @@ const BusinessSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            A Sustainable Engine & The Fuel We Need
+            Print Money. Need Money.
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>
@@ -540,7 +539,7 @@ const TeamSlide: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gradient-violet">
-            The Team to Build It & The Future We See
+            We Build. We Ship. We Win.
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-mint rounded-full mx-auto"></div>
         </div>

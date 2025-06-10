@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -8,10 +7,16 @@ import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 const HeroSection: React.FC = () => {
   const { isMobile } = useDeviceDetect();
   
-  console.log("HeroSection rendering - Pitch Deck Version");
+  console.log("HeroSection rendering - Pitch Deck Version v3");
+  console.log("=== THIS IS THE PITCH DECK HERO SECTION ===");
   
   return (
     <section className="pt-16 md:pt-20 pb-16 md:pb-24 relative overflow-hidden z-10">
+      {/* DEBUGGING BANNER */}
+      <div className="bg-green-500 text-white text-center py-1 text-sm">
+        ✅ PITCH DECK HERO SECTION LOADED CORRECTLY
+      </div>
+      
       {/* Simplified background elements - removed potential duplicates */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div className="hidden lg:block absolute top-1/4 left-10 text-launchlayer-text-secondary/20 font-mono text-xs">

@@ -8,10 +8,17 @@ import { FileText, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const LandingPage: React.FC = () => {
-  console.log("LandingPage rendering - PITCH DECK VERSION v2");
+  console.log("=== PITCH DECK LANDING PAGE LOADING ===");
+  console.log("Route: ", window.location.pathname);
+  console.log("Component: LandingPage - PITCH DECK VERSION");
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-launchlayer-background via-launchlayer-background to-launchlayer-surface">
+      {/* DEBUGGING BANNER - REMOVE AFTER FIXING */}
+      <div className="bg-red-500 text-white text-center py-2 font-bold">
+        🚨 PITCH DECK VERSION - IF YOU SEE OLD CONTENT, THERE'S A CACHING ISSUE 🚨
+      </div>
+      
       {/* Page Header with Beta Badge */}
       <div className="bg-launchlayer-surface border-b border-launchlayer-surface-light">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">

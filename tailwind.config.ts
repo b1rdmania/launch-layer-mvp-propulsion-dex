@@ -71,7 +71,7 @@ export default {
 					},
 					text: {
 						primary: '#F9F9F9', // White text
-						secondary: '#8B949E' // Secondary text 
+						secondary: '#A8B3C1' // Lighter secondary text for better readability
 					},
 					accent: '#3277F5', // Blue accent per the guide
 					secondary: '#6D5EB3', // Purple as secondary accent

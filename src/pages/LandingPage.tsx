@@ -3,10 +3,34 @@ import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 import DeveloperSection from "@/components/landing/DeveloperSection";
+import { Link } from "react-router-dom";
+import { FileText, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-launchlayer-background via-launchlayer-background to-launchlayer-surface">
+      {/* Page Header with Beta Badge */}
+      <div className="bg-launchlayer-surface border-b border-launchlayer-surface-light">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <span className="text-sm font-medium text-launchlayer-accent bg-launchlayer-accent/10 px-3 py-1 rounded-full">
+              PAGE 1
+            </span>
+            <h1 className="text-lg font-bold text-launchlayer-text-primary">
+              Pitch Deck (Beta Version)
+            </h1>
+          </div>
+          <Link to="/whitepaper">
+            <Button variant="outline" size="sm" className="flex items-center space-x-2">
+              <FileText size={16} />
+              <span>Technical White Paper</span>
+              <ArrowRight size={14} />
+            </Button>
+          </Link>
+        </div>
+      </div>
+
       <HeroSection />
       
       {/* Section Separator */}
@@ -15,7 +39,7 @@ const LandingPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-launchlayer-violet/10 to-transparent h-px top-1"></div>
       </div>
       
-      {/* Core Principles Section - Alternating background */}
+      {/* Core Principles Section - Page 2 */}
       <section className="py-16 md:py-24 bg-launchlayer-surface relative overflow-hidden">
         {/* Subtle texture overlay */}
         <div className="absolute inset-0 opacity-[0.02] bg-noise"></div>
@@ -26,7 +50,7 @@ const LandingPage: React.FC = () => {
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-block mb-4">
               <span className="text-sm font-medium text-launchlayer-accent bg-launchlayer-accent/10 px-3 py-1 rounded-full">
-                CORE PRINCIPLES
+                PAGE 2 - CORE PRINCIPLES
               </span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-launchlayer-text-primary">
@@ -92,6 +116,16 @@ const LandingPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Page 3 - Current Raises */}
+      <div className="bg-launchlayer-background py-4">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <span className="text-sm font-medium text-launchlayer-violet bg-launchlayer-violet/10 px-3 py-1 rounded-full">
+              PAGE 3 - CURRENT RAISES
+            </span>
+          </div>
+        </div>
+      </div>
       <CurrentRaisesSection />
       
       {/* Section Separator */}
@@ -102,6 +136,16 @@ const LandingPage: React.FC = () => {
         <div className="md:hidden absolute right-0 top-0 bottom-0 w-1 bg-gradient-to-b from-launchlayer-mint via-launchlayer-accent to-launchlayer-violet"></div>
       </div>
       
+      {/* Page 4 - Developer Section */}
+      <div className="bg-launchlayer-background py-4">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <span className="text-sm font-medium text-launchlayer-mint bg-launchlayer-mint/10 px-3 py-1 rounded-full">
+              PAGE 4 - DEVELOPER RESOURCES
+            </span>
+          </div>
+        </div>
+      </div>
       <DeveloperSection />
     </div>
   );

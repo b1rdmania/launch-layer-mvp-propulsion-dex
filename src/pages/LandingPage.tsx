@@ -8,6 +8,8 @@ import { FileText, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const LandingPage: React.FC = () => {
+  console.log("LandingPage rendering - PITCH DECK VERSION v2");
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-launchlayer-background via-launchlayer-background to-launchlayer-surface">
       {/* Page Header with Beta Badge */}
@@ -15,7 +17,7 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <span className="text-sm font-medium text-launchlayer-accent bg-launchlayer-accent/10 px-3 py-1 rounded-full">
-              PAGE 1
+              PAGE 1 - PITCH DECK ACTIVE
             </span>
             <h1 className="text-lg font-bold text-launchlayer-text-primary">
               Pitch Deck (Beta Version)

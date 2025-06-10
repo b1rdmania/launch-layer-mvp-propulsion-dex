@@ -8,6 +8,8 @@ import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 const HeroSection: React.FC = () => {
   const { isMobile } = useDeviceDetect();
   
+  console.log("HeroSection rendering - Pitch Deck Version");
+  
   return (
     <section className="pt-16 md:pt-20 pb-16 md:pb-24 relative overflow-hidden z-10">
       {/* Simplified background elements - removed potential duplicates */}

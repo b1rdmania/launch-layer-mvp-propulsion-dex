@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { WalletProvider } from "@/contexts/WalletContext";
 
 // Pages
-import PitchDeckPage from "@/pages/PitchDeckPage";
+import LandingPage from "@/pages/LandingPage";
 import WhitePaperPage from "@/pages/WhitePaperPage";
 import NotFound from "@/pages/NotFound";
 
@@ -17,11 +17,11 @@ function App() {
       <WalletProvider>
         <Router>
           <Routes>
-            {/* Main route now shows the pitch deck */}
-            <Route path="/" element={<PitchDeckPage />} />
-            <Route path="/pitch" element={<PitchDeckPage />} />
-            <Route path="/landing" element={<PitchDeckPage />} />
-            <Route path="/app" element={<PitchDeckPage />} />
+            {/* Main route now shows the landing page */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/pitch" element={<LandingPage />} />
+            <Route path="/app" element={<LandingPage />} />
             <Route path="/whitepaper" element={<WhitePaperPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

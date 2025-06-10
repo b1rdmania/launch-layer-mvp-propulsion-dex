@@ -1,23 +1,24 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Rocket, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useDeviceDetect } from "@/hooks/useDeviceDetect";
 
 const HeroSection: React.FC = () => {
   const { isMobile } = useDeviceDetect();
   
-  console.log("HeroSection rendering - Pitch Deck Version v3");
-  console.log("=== THIS IS THE PITCH DECK HERO SECTION ===");
+  console.log("HeroSection rendering - NEW Pitch Deck Version");
+  console.log("=== NEW PITCH DECK HERO SECTION ===");
   
   return (
     <section className="pt-16 md:pt-20 pb-16 md:pb-24 relative overflow-hidden z-10">
       {/* DEBUGGING BANNER */}
       <div className="bg-green-500 text-white text-center py-1 text-sm">
-        ✅ PITCH DECK HERO SECTION LOADED CORRECTLY
+        ✅ NEW PITCH DECK HERO SECTION LOADED
       </div>
       
-      {/* Simplified background elements - removed potential duplicates */}
+      {/* Simplified background elements */}
       <div className="absolute inset-0 z-0 opacity-5">
         <div className="hidden lg:block absolute top-1/4 left-10 text-launchlayer-text-secondary/20 font-mono text-xs">
           {`contract LaunchLayerRaise {`}<br />
@@ -34,26 +35,35 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Simplified logo background */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative z-10">
-        <div className="flex flex-col items-center gap-6 md:gap-8">
+        <div className="flex flex-col items-center gap-6 md:gap-8 text-center">
           <div className="w-full">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 tracking-tighter leading-tight font-satoshi">
-              Launch on 
-              <span className="bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent"> Sonic</span>.
-              <br />
-              <span className="text-launchlayer-accent">No Games. No Fluff.</span>
+            {/* Main title with rocket icons */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 md:mb-8 tracking-tighter leading-tight font-satoshi">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <Rocket className="text-launchlayer-accent" size={isMobile ? 32 : 48} />
+                <span className="bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent">
+                  Launch Layer
+                </span>
+                <Rocket className="text-launchlayer-violet" size={isMobile ? 32 : 48} />
+              </div>
             </h1>
             
-            <p className="text-lg md:text-2xl text-launchlayer-text-secondary mb-6 md:mb-8 leading-relaxed">
-              A permissionless launchpad for serious DeFi builders. 
-              <br className="hidden md:block" />
-              Forget raffles, ditch bonding curves, and skip the platform token.
-              <br className="hidden md:block" />
-              Transparent raises, seamless vesting. Your token. Launched right.
+            {/* Built for What's Next with lightning bolts */}
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8 tracking-tight leading-tight">
+              <div className="flex items-center justify-center gap-3">
+                <Zap className="text-launchlayer-accent" size={isMobile ? 24 : 36} />
+                <span className="text-launchlayer-text-primary">Built for What's Next.</span>
+                <Zap className="text-launchlayer-violet" size={isMobile ? 24 : 36} />
+              </div>
+            </h2>
+            
+            {/* Subtitle */}
+            <p className="text-lg md:text-2xl text-launchlayer-text-secondary mb-8 md:mb-10 leading-relaxed max-w-4xl mx-auto">
+              Chain-agnostic yield, launch, and liquidity infrastructure.
             </p>
             
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center">
               <Link to="/app" className="w-full sm:w-auto">
                 <Button variant="accent" size="lg" className="group w-full sm:w-auto px-6 py-3 h-14 text-base rounded-lg backdrop-blur-sm">
                   View Launches <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -102,7 +112,7 @@ const HeroSection: React.FC = () => {
                       </span>
                     </div>
                     <div className="mt-4 text-green-400 whitespace-nowrap">
-                      ✓ Deployed: <span className="underline">SonicRaise_0x456...890</span>
+                      ✓ Deployed: <span className="underline">ChainAgnosticRaise_0x456...890</span>
                     </div>
                   </div>
                 </div>

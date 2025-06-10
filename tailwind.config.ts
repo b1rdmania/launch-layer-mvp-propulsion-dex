@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -70,7 +71,7 @@ export default {
 					},
 					text: {
 						primary: '#F9F9F9', // White text
-						secondary: '#B8C5D1' // Lighter secondary text for better readability
+						secondary: '#8B949E' // Secondary text 
 					},
 					accent: '#3277F5', // Blue accent per the guide
 					secondary: '#6D5EB3', // Purple as secondary accent

@@ -1,10 +1,8 @@
+
 import React from "react";
 import HeroSection from "@/components/landing/HeroSection";
 import CurrentRaisesSection from "@/components/landing/CurrentRaisesSection";
 import DeveloperSection from "@/components/landing/DeveloperSection";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight, BarChart3, TrendingUp, BookOpen } from "lucide-react";
 
 const LandingPage: React.FC = () => {
   return (
@@ -16,114 +14,8 @@ const LandingPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-launchlayer-accent/20 to-transparent h-px"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-launchlayer-violet/10 to-transparent h-px top-1"></div>
       </div>
-
-      {/* Investor Materials Section */}
-      <section className="py-16 md:py-20 bg-launchlayer-background relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02] bg-noise"></div>
-        <div className="md:hidden absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-launchlayer-violet via-launchlayer-accent to-launchlayer-mint"></div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] relative">
-          <div className="text-center mb-12 md:mb-16">
-            <div className="inline-block mb-4">
-              <span className="text-sm font-medium text-launchlayer-violet bg-launchlayer-violet/10 px-3 py-1 rounded-full">
-                PAGE 1 - INVESTOR MATERIALS
-              </span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-launchlayer-text-primary">
-              <span className="text-launchlayer-violet">Investor</span> Documentation
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-launchlayer-violet to-launchlayer-accent rounded-full mx-auto mb-4"></div>
-            <p className="text-lg text-launchlayer-text-secondary max-w-3xl mx-auto">
-              Comprehensive materials covering our vision, technology, and market opportunity.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-launchlayer-surface-light hover:shadow-[0_8px_30px_rgba(167,139,250,0.1)] transition-all duration-300">
-              <div className="w-12 h-12 bg-launchlayer-violet/20 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="w-6 h-6 text-launchlayer-violet" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4 text-launchlayer-text-primary">Interactive Pitch Deck (Beta Version)</h3>
-              <p className="text-launchlayer-text-secondary mb-6 leading-relaxed text-base">
-                Explore our comprehensive 7-slide presentation covering market opportunity, 
-                technology architecture, revenue model, and team expertise. This is an early 
-                version updated regularly with the latest developments.
-              </p>
-              <div className="mb-6">
-                <div className="text-sm text-launchlayer-text-secondary bg-launchlayer-violet/10 p-3 rounded-lg border border-launchlayer-violet/20 mb-4">
-                  <p className="font-medium text-launchlayer-violet mb-1">Beta Version Note</p>
-                  <p>This presentation is actively being refined based on investor feedback and product development progress.</p>
-                </div>
-                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                  <li className="flex items-start space-x-2">
-                    <TrendingUp className="w-4 h-4 text-launchlayer-violet mt-0.5 flex-shrink-0" />
-                    <span>Market analysis and competitive landscape</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <TrendingUp className="w-4 h-4 text-launchlayer-accent mt-0.5 flex-shrink-0" />
-                    <span>Technical architecture and product roadmap</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <TrendingUp className="w-4 h-4 text-launchlayer-mint mt-0.5 flex-shrink-0" />
-                    <span>Team credentials and strategic partnerships</span>
-                  </li>
-                </ul>
-              </div>
-              <Link to="/pitch">
-                <Button variant="outline" className="w-full border-launchlayer-violet/30 hover:bg-launchlayer-violet/10 group">
-                  <span>View Pitch Deck</span>
-                  <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
-
-            <div className="bg-launchlayer-surface/50 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-launchlayer-surface-light hover:shadow-[0_8px_30px_rgba(50,119,245,0.1)] transition-all duration-300">
-              <div className="w-12 h-12 bg-launchlayer-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <BookOpen className="w-6 h-6 text-launchlayer-accent" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4 text-launchlayer-text-primary">Technical White Paper</h3>
-              <p className="text-launchlayer-text-secondary mb-6 leading-relaxed text-base">
-                Deep dive into our technical architecture, economic model, and implementation strategy. 
-                Comprehensive documentation for technical due diligence and integration planning.
-              </p>
-              <div className="mb-6">
-                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                  <li className="flex items-start space-x-2">
-                    <BarChart3 className="w-4 h-4 text-launchlayer-accent mt-0.5 flex-shrink-0" />
-                    <span>Chain-agnostic infrastructure design</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <BarChart3 className="w-4 h-4 text-launchlayer-mint mt-0.5 flex-shrink-0" />
-                    <span>Revenue model and tokenomics</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <BarChart3 className="w-4 h-4 text-launchlayer-violet mt-0.5 flex-shrink-0" />
-                    <span>Smart contract architecture</span>
-                  </li>
-                  <li className="flex items-start space-x-2">
-                    <BarChart3 className="w-4 h-4 text-launchlayer-accent mt-0.5 flex-shrink-0" />
-                    <span>Deployment roadmap and milestones</span>
-                  </li>
-                </ul>
-              </div>
-              <Link to="/whitepaper">
-                <Button variant="outline" className="w-full border-launchlayer-accent/30 hover:bg-launchlayer-accent/10 group">
-                  <span>Read White Paper</span>
-                  <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
       
-      {/* Section Separator */}
-      <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-launchlayer-accent/20 to-transparent h-px"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-launchlayer-violet/10 to-transparent h-px top-1"></div>
-      </div>
-      
-      {/* Core Principles Section */}
+      {/* Core Principles Section - Alternating background */}
       <section className="py-16 md:py-24 bg-launchlayer-surface relative overflow-hidden">
         {/* Subtle texture overlay */}
         <div className="absolute inset-0 opacity-[0.02] bg-noise"></div>
@@ -134,7 +26,7 @@ const LandingPage: React.FC = () => {
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-block mb-4">
               <span className="text-sm font-medium text-launchlayer-accent bg-launchlayer-accent/10 px-3 py-1 rounded-full">
-                PAGE 2 - CORE PRINCIPLES
+                CORE PRINCIPLES
               </span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-launchlayer-text-primary">

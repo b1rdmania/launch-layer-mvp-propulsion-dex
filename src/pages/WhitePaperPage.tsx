@@ -1,5 +1,6 @@
+
 import React from "react";
-import { ArrowLeft, FileText, Rocket, Database, TrendingUp, Shield, Target, Users } from "lucide-react";
+import { ArrowLeft, FileText, Database, Shield, Target, Layers, GitBranch, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -29,344 +30,261 @@ const WhitePaperPage: React.FC = () => {
                 className="h-6 md:h-8 w-auto" 
               />
               <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                Technical White Paper
+                Technical White Paper MVP
               </h1>
             </div>
           </div>
           
           <div className="flex items-center space-x-2 text-xs md:text-sm text-launchlayer-text-secondary">
             <FileText className="w-4 h-4" />
-            <span className="hidden md:inline">Chain-agnostic infrastructure</span>
+            <span className="hidden md:inline">Version 1.1 - June 2025</span>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto p-4 md:p-6 max-w-4xl">
-        <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-4 md:p-8 space-y-6 md:space-y-8">
+      <main className="container mx-auto p-4 md:p-6 max-w-5xl">
+        <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-6 md:p-10 space-y-8">
           
           {/* Title Section */}
-          <div className="text-center space-y-3 md:space-y-4 border-b border-launchlayer-surface-light pb-6 md:pb-8">
-            <div className="flex items-center justify-center space-x-3 mb-3 md:mb-4">
-              <Rocket className="w-8 md:w-10 h-8 md:h-10 text-launchlayer-accent" />
-              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                Launch Layer
-              </h1>
+          <div className="text-center space-y-4 border-b border-launchlayer-surface-light pb-8">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+              Launch Layer Airlock
+            </h1>
+            <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper (MVP v1.1)</h2>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-launchlayer-text-secondary">
+              <span><strong>Version:</strong> 1.1</span>
+              <span><strong>Date:</strong> June 14, 2025</span>
+              <span><strong>Status:</strong> <span className="text-launchlayer-accent">Draft</span></span>
             </div>
-            <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper</h2>
-            <p className="text-base md:text-lg text-launchlayer-accent font-medium">
-              Chain-agnostic yield, launch, and liquidity infrastructure.
+          </div>
+
+          {/* Abstract */}
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
+                <FileText className="w-4 h-4 text-launchlayer-accent" />
+              </div>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Abstract</h3>
+            </div>
+            <p className="text-launchlayer-text-secondary leading-relaxed">
+              The Launch Layer Airlock is a modular, multi-chain yield-to-access protocol. This document outlines the technical architecture for the Minimum Viable Product (MVP), which enables users to stake assets into strategy-specific vaults, earn sustainable real yield, and automatically convert that yield into guaranteed allocations for curated Token Generation Events (TGEs). The MVP architecture prioritizes security, user choice, and capital efficiency by offering two distinct, transparent yield strategies at launch: a proprietary "Core Yield" strategy and a "Blue-Chip" strategy powered by established third-party protocols. The system is designed for initial deployment on Base, MegaETH, HyperEVM, and Monad.
             </p>
-          </div>
+          </section>
 
-          {/* Content Sections */}
-          <div className="space-y-6 md:space-y-8">
-            
-            {/* Introduction */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-accent">1</span>
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Introduction</h3>
+          {/* Introduction */}
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-violet">1</span>
               </div>
-              <p className="text-sm md:text-base text-launchlayer-text-secondary leading-relaxed">
-                Launch Layer addresses persistent inefficiencies and risks in Web3 token launches by creating an integrated infrastructure platform that combines automated yield generation, curated token presales, and deep, sustainable liquidity. This white paper outlines the core mechanisms, technical details, and economic model underpinning the Launch Layer ecosystem.
-              </p>
-              <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2 text-sm md:text-base">
-                  <Database className="w-4 h-4" />
-                  <span>Core Components:</span>
-                </h4>
-                <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary">
-                  <li><strong>Airlocks:</strong> Yield-driven automated presale allocations</li>
-                  <li><strong>Launch Layer (Launchpad):</strong> Institutional-grade token launch infrastructure</li>
-                  <li><strong>Propulsion Finance (DEX):</strong> Advanced AMM providing sustainable liquidity and MEV rebates</li>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Introduction</h3>
+            </div>
+            <p className="text-launchlayer-text-secondary leading-relaxed">
+              The primary goal of the Airlock MVP is to validate the core user journey: transforming passively generated yield into early-stage project exposure without locking up principal capital. To achieve this while maximizing user trust and mitigating regulatory risk, the MVP will separate distinct yield strategies into discrete, user-selected vaults, rather than operating as a single, discretionary "managed fund." This empowers users to consciously select their preferred risk-to-reward profile.
+            </p>
+          </section>
+
+          {/* Core Architecture */}
+          <section className="space-y-6">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-mint">2</span>
+              </div>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Core Architecture (Hybrid Model)</h3>
+            </div>
+            <p className="text-launchlayer-text-secondary leading-relaxed">
+              The Airlock MVP architecture is composed of a primary user-facing contract (AirlockRouter) that directs user funds to one of several underlying Strategy Vaults based on the user's explicit choice.
+            </p>
+
+            {/* Airlock Router */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
+                <GitBranch className="w-5 h-5" />
+                <span>2.1. Airlock Router (AirlockRouter.sol)</span>
+              </h4>
+              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
+                <p className="text-launchlayer-text-secondary mb-3">This is the central smart contract that users interact with.</p>
+                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                  <li><strong className="text-launchlayer-text-primary">Function:</strong> Acts as a trusted router or "factory" for deposits and withdrawals. It does not hold user funds directly for extended periods but routes them to the appropriate Strategy Vault.</li>
+                  <li><strong className="text-launchlayer-text-primary">User Interaction:</strong> A user calls the <code className="bg-launchlayer-surface px-2 py-1 rounded">deposit(strategyId, amount)</code> function, specifying which strategy they want to use.</li>
+                  <li><strong className="text-launchlayer-text-primary">Registry:</strong> The router maintains a registry of whitelisted, audited Strategy Vault contracts to ensure user funds can only be sent to secure, approved destinations.</li>
                 </ul>
               </div>
-            </section>
+            </div>
 
-            {/* Market Opportunity */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-violet">2</span>
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Market Opportunity & Rationale</h3>
-              </div>
-              <p className="text-sm md:text-base text-launchlayer-text-secondary leading-relaxed">
-                Web3 token launches represent a fragmented $10B+ market characterized by:
+            {/* Strategy Vaults */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-violet flex items-center space-x-2">
+                <Database className="w-5 h-5" />
+                <span>2.2. Strategy Vaults (StrategyVault.sol - Interface)</span>
+              </h4>
+              <p className="text-launchlayer-text-secondary">
+                Each Strategy Vault is a standalone contract that holds user funds and executes a specific yield-generation strategy. For the MVP, two initial types will be deployed on each target chain:
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-red-400">
-                  <h4 className="font-bold text-red-400 mb-2 flex items-center space-x-2 text-sm">
-                    <Users className="w-4 h-4" />
-                    <span>User-side:</span>
-                  </h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">Risky presales, whitelist inefficiency, locked capital without yield.</p>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                  <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2 text-sm">
-                    <Rocket className="w-4 h-4" />
-                    <span>Project-side:</span>
-                  </h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">Complex fundraising mechanics, difficult liquidity provisioning.</p>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-                  <h4 className="font-bold text-launchlayer-mint mb-2 flex items-center space-x-2 text-sm">
-                    <Shield className="w-4 h-4" />
-                    <span>Chain-side:</span>
-                  </h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">No standardized turnkey infrastructure for retaining sustainable TVL and liquidity.</p>
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-launchlayer-text-secondary">
-                Launch Layer solves these inefficiencies through integrated automation, capturing a significant share of transaction fees and staking yields, creating a self-sustaining revenue loop.
-              </p>
-            </section>
-
-            {/* Technical Architecture */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-mint">3</span>
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Technical Architecture & Key Mechanisms</h3>
-              </div>
-
-              {/* Airlocks */}
-              <div className="space-y-2 md:space-y-3">
-                <h4 className="text-base md:text-lg font-bold text-launchlayer-violet flex items-center space-x-2">
-                  <Database className="w-4 md:w-5 h-4 md:h-5" />
-                  <span>A. Airlocks (Yield-to-Allocation Engine)</span>
-                </h4>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg">
-                  <h5 className="font-bold text-launchlayer-text-primary mb-2 text-sm md:text-base">Mechanism Overview:</h5>
-                  <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                    <li>Users stake chain-native tokens into dedicated staking vaults ("Airlocks").</li>
-                    <li>Principal remains always liquid and withdrawable anytime.</li>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-violet">
+                  <h5 className="font-bold text-launchlayer-violet mb-2">CoreYieldVault.sol (Proprietary Strategy)</h5>
+                  <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                    <li><strong>Yield Source:</strong> Interfaces with a secure, permissioned oracle managed by Infrasingularity</li>
+                    <li><strong>Mechanism:</strong> The vault's asset value is updated based on data reported by the Infrasingularity oracle</li>
                   </ul>
-                  <h5 className="font-bold text-launchlayer-text-primary mb-2 mt-3 md:mt-4 text-sm md:text-base">Yield Generation and Allocation Automation:</h5>
-                  <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                    <li>Validator & early-ops yield generation (~10–15% APY baseline) supplemented by project-specific bonus streams.</li>
-                    <li>Fully automated smart contract-driven yield compounding.</li>
-                    <li>Yield auto-allocated into presale allocations via integrated vault logic—no additional capital lock or whitelist required.</li>
-                  </ul>
-                  <h5 className="font-bold text-launchlayer-text-primary mb-2 mt-3 md:mt-4 text-sm md:text-base">Technical Details:</h5>
-                  <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                    <li>Solidity smart contracts deployed cross-chain (target chains: Base, Hype, MegaETH, Sonic).</li>
-                    <li>Chainlink oracles for price & APY feeds, mitigating price manipulation and market volatility.</li>
-                    <li>Internal yield compounding & allocation logic audited, fully autonomous after deployment.</li>
+                </div>
+                <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
+                  <h5 className="font-bold text-launchlayer-mint mb-2">BlueChipVault.sol (External Strategy)</h5>
+                  <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                    <li><strong>Yield Source:</strong> Interfaces with established, audited vaults from leading multi-chain yield aggregators like Beefy Finance</li>
+                    <li><strong>Mechanism:</strong> Acts as a "vault-of-a-vault," programmatically depositing user funds into whitelisted Beefy vaults</li>
                   </ul>
                 </div>
               </div>
+            </div>
 
-              {/* Launch Layer */}
-              <div className="space-y-2 md:space-y-3">
-                <h4 className="text-base md:text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
-                  <Rocket className="w-4 md:w-5 h-4 md:h-5" />
-                  <span>B. Launch Layer (Institutional-grade Launchpad)</span>
-                </h4>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg">
-                  <h5 className="font-bold text-launchlayer-text-primary mb-2 text-sm md:text-base">Curated & Permissionless Launch Paths:</h5>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                    <div>
-                      <h6 className="font-bold text-launchlayer-accent mb-1 text-sm">Curated Launches:</h6>
-                      <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                        <li>Rigorous project vetting (tech, team, tokenomics).</li>
-                        <li>Guaranteed yield-based presale allocation for Airlock stakers.</li>
-                        <li>Institutional-grade token vesting managed via Magna (trusted platform, $3.5B+ distributed).</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h6 className="font-bold text-launchlayer-mint mb-1 text-sm">Permissionless Launches:</h6>
-                      <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                        <li>Open-market path for experimental projects.</li>
-                        <li>100% AMM liquidity at launch for instant market validation.</li>
-                        <li>Automatic price discovery and liquidity pool deployment.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Propulsion Finance */}
-              <div className="space-y-2 md:space-y-3">
-                <h4 className="text-base md:text-lg font-bold text-launchlayer-mint flex items-center space-x-2">
-                  <TrendingUp className="w-4 md:w-5 h-4 md:h-5" />
-                  <span>C. Propulsion Finance (Advanced DEX & Liquidity Engine)</span>
-                </h4>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                    <div>
-                      <h6 className="font-bold text-launchlayer-mint mb-2 text-sm">Initial Deployment: Algebra v4 AMM:</h6>
-                      <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                        <li>Concentrated liquidity management.</li>
-                        <li>Dynamic fee model to optimize capital efficiency and incentivize LPs.</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h6 className="font-bold text-launchlayer-accent mb-2 text-sm">Future Roadmap Upgrades:</h6>
-                      <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                        <li>Uniswap v4 custom hooks: Automated liquidity management, TWAMM, native limit orders.</li>
-                        <li>Order-flow auction (OFA): MEV-capture mechanism via solver-based intent matching.</li>
-                        <li>Advanced AMM Logic: Potential transition towards Ambient or PMM pools.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Economic Model */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-accent">4</span>
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Economic Model & Revenue Streams</h3>
-              </div>
-              <p className="text-sm md:text-base text-launchlayer-text-secondary">
-                Launch Layer captures significant, recurring protocol revenue via three distinct but integrated streams:
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-violet">
-                  <h4 className="font-bold text-launchlayer-violet mb-2 text-sm">Staking Yield:</h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">~10% protocol share from yield generated within Airlock vaults.</p>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                  <h4 className="font-bold text-launchlayer-accent mb-2 text-sm">Launchpad Fees:</h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">5% standard platform fee from project token raises.</p>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-                  <h4 className="font-bold text-launchlayer-mint mb-2 text-sm">DEX Trading Revenue:</h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">Fixed protocol share from Propulsion Finance AMM trading volume (~0.05–0.15% per transaction).</p>
-                </div>
-              </div>
-              <div className="bg-launchlayer-surface p-3 md:p-4 rounded-lg border border-launchlayer-accent/30">
-                <h4 className="font-bold text-launchlayer-accent mb-2 text-sm md:text-base">Example Revenue Calculation (Single Cycle):</h4>
-                <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary">
-                  <li><strong>Airlock TVL:</strong> $5,000,000</li>
-                  <li><strong>Yield Generation:</strong> 15% annualized (~$750,000 per year)</li>
-                  <li><strong>Four TGEs:</strong> each raising $2,000,000, total raise $8,000,000 (5% fee = $400,000)</li>
-                  <li><strong>AMM trading volume:</strong> $50M per cycle (~$25,000–$75,000 revenue)</li>
-                  <li><strong className="text-launchlayer-accent">Total revenue per cycle:</strong> Easily exceeding ~$500K protocol revenue with scalable TVL and launch activity.</li>
+            {/* Share Token Model */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
+                <Layers className="w-5 h-5" />
+                <span>2.3. Share Token (sToken) Model</span>
+              </h4>
+              <div className="bg-launchlayer-background p-4 rounded-lg">
+                <p className="text-launchlayer-text-secondary mb-3">Each Strategy Vault will issue its own distinct ERC-20 share token.</p>
+                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                  <li><strong className="text-launchlayer-text-primary">Example:</strong> A user depositing ETH into the CoreYieldVault on Base will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sCoreETH</code>. A user depositing into the BlueChipVault will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sBlueChipETH</code>.</li>
+                  <li><strong className="text-launchlayer-text-primary">Value Accrual:</strong> The value of each sToken appreciates as yield is generated within its specific vault, ensuring complete isolation of risks and rewards.</li>
                 </ul>
               </div>
-            </section>
+            </div>
+          </section>
 
-            {/* Roadmap */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-violet">5</span>
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Roadmap & Deployment Plan</h3>
+          {/* Detailed Mechanisms */}
+          <section className="space-y-6">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-accent">3</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-green-500">
-                  <h4 className="font-bold text-green-500 mb-2 text-sm">Current Status:</h4>
-                  <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                    <li>Smart contracts deployed and tested on Ethereum (Sepolia testnet).</li>
-                    <li>Dashboard UI complete, automation API integration in progress.</li>
-                  </ul>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                  <h4 className="font-bold text-launchlayer-accent mb-2 text-sm">Q3-Q4 2025:</h4>
-                  <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                    <li>Mainnet deployment on target chains</li>
-                    <li>Curated launch partnerships</li>
-                    <li>Propulsion Finance AMM MVP</li>
-                  </ul>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-                  <h4 className="font-bold text-launchlayer-mint mb-2 text-sm">Q1-Q2 2026:</h4>
-                  <ul className="space-y-1 text-xs md:text-sm text-launchlayer-text-secondary list-disc list-inside">
-                    <li>Advanced DEX upgrades (OFA, custom hooks)</li>
-                    <li>Cross-chain expansion</li>
-                    <li>Full revenue stream activation</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Detailed Mechanisms</h3>
+            </div>
 
-            {/* Team */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-mint">6</span>
+            {/* User Flow */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-violet">3.1. User Flow & Choice</h4>
+              <p className="text-launchlayer-text-secondary">
+                The front-end will present a simple UI for each chain (e.g., "The HyperEVM ETH Airlock"). Upon clicking "Stake," the user will be presented with a clear choice:
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-launchlayer-violet/10 p-4 rounded-lg border border-launchlayer-violet/30">
+                  <h5 className="font-bold text-launchlayer-violet mb-2">Core Yield (Recommended)</h5>
+                  <p className="text-sm text-launchlayer-text-secondary">Our proprietary strategy powered by Infrasingularity's validator operations.</p>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Team & Strategic Partnerships</h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg">
-                  <h4 className="font-bold text-launchlayer-accent mb-3 flex items-center space-x-2 text-sm md:text-base">
-                    <Users className="w-4 md:w-5 h-4 md:h-5" />
-                    <span>Core Team:</span>
-                  </h4>
-                  <ul className="space-y-2 text-xs md:text-sm text-launchlayer-text-secondary">
-                    <li><strong className="text-launchlayer-text-primary">Andy:</strong> Co-Founder (Product & Strategy Lead)</li>
-                    <li><strong className="text-launchlayer-text-primary">Stable:</strong> Co-Founder (Technical Architecture & Operations)</li>
-                    <li><strong className="text-launchlayer-text-primary">Jitin (via Infrasingularity):</strong> Tech Lead, Validator & Yield Generation Specialist</li>
-                  </ul>
-                </div>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg">
-                  <h4 className="font-bold text-launchlayer-mint mb-3 flex items-center space-x-2 text-sm md:text-base">
-                    <Shield className="w-4 md:w-5 h-4 md:h-5" />
-                    <span>Key Strategic Partners:</span>
-                  </h4>
-                  <ul className="space-y-2 text-xs md:text-sm text-launchlayer-text-secondary">
-                    <li><strong className="text-launchlayer-text-primary">Hype Marketing:</strong> GTM & Community Engagement</li>
-                    <li><strong className="text-launchlayer-text-primary">Nakamoto Labs/Eli Bernstein:</strong> Legal and Compliance Counsel</li>
-                    <li><strong className="text-launchlayer-text-primary">Airfoil Studios:</strong> Front-end UX/UI and Design Cohesion</li>
-                  </ul>
+                <div className="bg-launchlayer-mint/10 p-4 rounded-lg border border-launchlayer-mint/30">
+                  <h5 className="font-bold text-launchlayer-mint mb-2">Blue-Chip Stable</h5>
+                  <p className="text-sm text-launchlayer-text-secondary">A trusted strategy powered by Beefy Finance, earning yield from blue-chip DeFi protocols.</p>
                 </div>
               </div>
-            </section>
+            </div>
 
-            {/* Conclusion */}
-            <section className="space-y-3 md:space-y-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-bold text-launchlayer-accent">7</span>
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-launchlayer-text-primary">Conclusion & Investment Thesis</h3>
+            {/* Instant Withdrawal */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-mint">3.2. Instant Withdrawal & Liquidity Buffers</h4>
+              <div className="bg-launchlayer-background p-4 rounded-lg">
+                <p className="text-launchlayer-text-secondary mb-3">To enable instant withdrawals, each Strategy Vault will maintain its own Liquidity Buffer.</p>
+                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                  <li><strong className="text-launchlayer-text-primary">Mechanism:</strong> A dynamically managed percentage of each vault's TVL will be held in a liquid state within the contract itself.</li>
+                  <li><strong className="text-launchlayer-text-primary">Queueing:</strong> In rare bank run scenarios, withdrawal requests enter a short, transparent queue to be fulfilled as capital returns from the underlying strategy.</li>
+                </ul>
               </div>
-              <div className="bg-launchlayer-surface p-4 md:p-6 rounded-lg border border-launchlayer-accent/30">
-                <p className="text-sm md:text-base text-launchlayer-text-secondary leading-relaxed mb-3 md:mb-4">
-                  Launch Layer provides an essential, defensible infrastructure solution for a large and growing Web3 launch market. Through automated yield generation, curated token allocation, and integrated liquidity solutions, Launch Layer delivers clear, recurring protocol revenue streams. Its modular, upgradeable infrastructure is scalable across multiple chains, positioning it to become the de facto standard for Web3 launches.
+            </div>
+
+            {/* TGE Allocation */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-accent">3.3. TGE Allocation & Vesting</h4>
+              <div className="bg-launchlayer-background p-4 rounded-lg">
+                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                  <li><strong className="text-launchlayer-text-primary">Yield Snapshot:</strong> For a given TGE, a snapshot calculates accrued yield as (current value of user's sTokens) - (initial principal deposited).</li>
+                  <li><strong className="text-launchlayer-text-primary">Whitelist Generation:</strong> This data populates a merkle tree, where each user's allocation is proportional to their yield contribution.</li>
+                  <li><strong className="text-launchlayer-text-primary">Automated Claim:</strong> The Launch Layer TGE contract allows whitelisted users to claim tokens, automatically sent to Magna-powered vesting contracts.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Security */}
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-violet">4</span>
+              </div>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Security & Multi-Chain Deployment</h3>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-green-500">
+                <h4 className="font-bold text-green-500 mb-2 flex items-center space-x-2">
+                  <Shield className="w-4 h-4" />
+                  <span>Audits</span>
+                </h4>
+                <p className="text-sm text-launchlayer-text-secondary">All contracts undergo rigorous, multi-firm audits before mainnet deployment.</p>
+              </div>
+              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
+                <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2">
+                  <Target className="w-4 h-4" />
+                  <span>Initial Chains</span>
+                </h4>
+                <p className="text-sm text-launchlayer-text-secondary">Deployment across Base, MegaETH, HyperEVM, and Monad with tailored asset support.</p>
+              </div>
+              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
+                <h4 className="font-bold text-launchlayer-mint mb-2 flex items-center space-x-2">
+                  <Shield className="w-4 h-4" />
+                  <span>Risk Isolation</span>
+                </h4>
+                <p className="text-sm text-launchlayer-text-secondary">Strategy separation prevents cross-contamination of vault risks.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Future Work */}
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-mint">5</span>
+              </div>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Future Work</h3>
+            </div>
+            <p className="text-launchlayer-text-secondary mb-4">This MVP architecture provides a secure and scalable foundation. Future iterations will focus on:</p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-violet/30">
+                <h4 className="font-bold text-launchlayer-violet mb-2">Managed Airlock</h4>
+                <p className="text-sm text-launchlayer-text-secondary">A V2 product that abstracts user choice into a single, blended-yield vault.</p>
+              </div>
+              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-accent/30">
+                <h4 className="font-bold text-launchlayer-accent mb-2">Expanding Strategies</h4>
+                <p className="text-sm text-launchlayer-text-secondary">New vaults including "Degen Airlocks" utilizing leveraged yield protocols.</p>
+              </div>
+              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-mint/30">
+                <h4 className="font-bold text-launchlayer-mint mb-2">Decentralized Governance</h4>
+                <p className="text-sm text-launchlayer-text-secondary">Transitioning management to DAO governance structures.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <section className="border-t border-launchlayer-surface-light pt-6">
+            <div className="text-center bg-launchlayer-surface p-6 rounded-lg">
+              <h3 className="text-xl font-bold text-launchlayer-accent mb-4 flex items-center justify-center space-x-2">
+                <Zap className="w-5 h-5" />
+                <span>Launch Layer Airlock MVP</span>
+              </h3>
+              <p className="text-launchlayer-text-secondary mb-4">
+                A modular, secure, and user-centric approach to yield-to-access protocols across multiple chains.
+              </p>
+              <div className="pt-4 border-t border-launchlayer-surface-light">
+                <p className="text-launchlayer-accent font-bold">
+                  <strong>Live Demo:</strong> launchlayer.io
                 </p>
-                <div className="bg-launchlayer-background p-3 md:p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                  <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2 text-sm md:text-base">
-                    <Target className="w-4 h-4" />
-                    <span>Investment Opportunity:</span>
-                  </h4>
-                  <p className="text-xs md:text-sm text-launchlayer-text-secondary">
-                    Investing at this stage captures significant long-term upside from sustainable protocol revenues, capital-efficient scaling, and defensible ecosystem integration.
-                  </p>
-                </div>
               </div>
-            </section>
+            </div>
+          </section>
 
-            {/* Contact */}
-            <section className="space-y-3 md:space-y-4 border-t border-launchlayer-surface-light pt-6 md:pt-8">
-              <div className="text-center bg-launchlayer-surface p-4 md:p-6 rounded-lg">
-                <h3 className="text-xl font-bold text-launchlayer-accent mb-3 md:mb-4 flex items-center justify-center space-x-2">
-                  <Users className="w-4 md:w-5 h-4 md:h-5" />
-                  <span>Contact for Deeper Technical Review</span>
-                </h3>
-                <div className="space-y-2 text-sm md:text-base text-launchlayer-text-secondary">
-                  {/* Removed contact info as requested */}
-                </div>
-                <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-launchlayer-surface-light">
-                  <p className="text-launchlayer-accent font-bold text-sm md:text-base">
-                    <strong>Live MVP Demo:</strong> launchlayer.io/landing
-                  </p>
-                </div>
-              </div>
-            </section>
-
-          </div>
         </div>
       </main>
     </div>

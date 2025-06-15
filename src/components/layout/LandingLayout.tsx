@@ -46,6 +46,16 @@ const LandingLayout: React.FC<LandingLayoutProps> = ({ children }) => {
               Home
             </Link>
             <Link
+              to="/airlocks"
+              className={`relative transition-all duration-200 ${
+                isActive('/airlocks') 
+                  ? 'text-launchlayer-accent font-medium after:content-[""] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-4px] after:left-0' 
+                  : 'text-launchlayer-text-secondary hover:text-launchlayer-text-primary'
+              }`}
+            >
+              Airlocks
+            </Link>
+            <Link
               to="/app"
               className={`relative transition-all duration-200 ${
                 isActive('/app') 

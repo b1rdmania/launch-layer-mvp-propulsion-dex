@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { ArrowLeft, Wallet, ExternalLink, Plus, Minus, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 
 const BetaUXPage: React.FC = () => {
+  const navigate = useNavigate();
   const [currentView, setCurrentView] = useState<'dashboard' | 'chain' | 'personal'>('dashboard');
   const [selectedChain, setSelectedChain] = useState<string>('');
   const [showStakingModal, setShowStakingModal] = useState(false);
@@ -339,6 +340,12 @@ const BetaUXPage: React.FC = () => {
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">Launchpad</span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">Propulsion DEX</span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">My Account</span>
+            <span 
+              className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              White Paper
+            </span>
           </div>
         </div>
         <div className="flex items-center space-x-2 text-sm">
@@ -743,6 +750,13 @@ const BetaUXPage: React.FC = () => {
               onClick={() => setCurrentView('personal')}
             >
               My Airlocks
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate("/")}
+            >
+              White Paper
             </Button>
           </div>
         </div>

@@ -40,7 +40,7 @@ const Header: React.FC = () => {
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
-                Home
+                Dashboard
               </Link>
               <Link
                 to="/airlocks"
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
-                Discover
+                Launchpad
               </Link>
               <Link
                 to="/admin"
@@ -70,7 +70,17 @@ const Header: React.FC = () => {
                     : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
                 }`}
               >
-                Create Sale
+                Propulsion DEX
+              </Link>
+              <Link
+                to="/account"
+                className={`relative transition-all duration-200 ${
+                  isActive("/account")
+                    ? "text-launchlayer-accent font-medium after:content-[''] after:absolute after:w-full after:h-0.5 after:bg-launchlayer-accent after:bottom-[-4px] after:left-0"
+                    : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
+                }`}
+              >
+                My Account
               </Link>
               <a
                 href="https://launch-layer.gitbook.io/launchlayer"

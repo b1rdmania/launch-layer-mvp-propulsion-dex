@@ -64,7 +64,17 @@ const MobileMenu: React.FC = () => {
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
-            Home
+            Dashboard
+          </Link>
+          <Link
+            to="/airlocks"
+            className={`transition-all duration-200 ${
+              isActive("/airlocks")
+                ? "text-launchlayer-accent font-medium"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
+            }`}
+          >
+            Airlocks
           </Link>
           <Link
             to="/app"
@@ -74,7 +84,7 @@ const MobileMenu: React.FC = () => {
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
-            Discover
+            Launchpad
           </Link>
           <Link
             to="/admin"
@@ -84,7 +94,17 @@ const MobileMenu: React.FC = () => {
                 : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
             }`}
           >
-            Create Sale
+            Propulsion DEX
+          </Link>
+          <Link
+            to="/account"
+            className={`transition-all duration-200 ${
+              isActive("/account")
+                ? "text-launchlayer-accent font-medium"
+                : "text-launchlayer-text-secondary hover:text-launchlayer-text-primary"
+            }`}
+          >
+            My Account
           </Link>
 
           <div className="space-y-4 pt-2">

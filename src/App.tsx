@@ -27,6 +27,8 @@ function App() {
             <Route path="/whitepaper" element={<WhitePaperPage />} />
             <Route path="/beta-ux" element={<BetaUXPage />} />
             <Route path="/airlocks" element={<AirlocksPage />} />
+            <Route path="/admin" element={<LandingPage />} />
+            <Route path="/account" element={<LandingPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

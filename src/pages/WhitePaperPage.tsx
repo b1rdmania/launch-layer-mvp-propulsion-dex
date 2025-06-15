@@ -1,46 +1,11 @@
-
 import React from "react";
-import { ArrowLeft, FileText, Database, Shield, Target, Layers, GitBranch, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { FileText, Database, Shield, Target, Layers, GitBranch, Zap } from "lucide-react";
+import Header from "@/components/layout/Header";
 
 const WhitePaperPage: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
-      {/* Header */}
-      <header className="bg-launchlayer-surface border-b border-launchlayer-surface-light p-3 md:p-4 sticky top-0 z-10">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3 md:space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/')}
-              className="flex items-center space-x-2 text-sm"
-            >
-              <ArrowLeft size={16} />
-              <span className="hidden sm:inline">Back to Pitch</span>
-              <span className="sm:hidden">Back</span>
-            </Button>
-            <div className="flex items-center space-x-2 md:space-x-3">
-              <img 
-                src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" 
-                alt="Launch Layer Logo" 
-                className="h-6 md:h-8 w-auto" 
-              />
-              <h1 className="text-lg md:text-xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-                Technical White Paper MVP
-              </h1>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-2 text-xs md:text-sm text-launchlayer-text-secondary">
-            <FileText className="w-4 h-4" />
-            <span className="hidden md:inline">Version 1.1 - June 2025</span>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="container mx-auto p-4 md:p-6 max-w-5xl">

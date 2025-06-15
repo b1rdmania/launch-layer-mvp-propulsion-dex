@@ -1,6 +1,6 @@
 
 import React from "react";
-import { ArrowLeft, FileText, Database, Shield, Target, Layers, GitBranch, Zap } from "lucide-react";
+import { ArrowLeft, FileText, Database, Shield, Target, Layers, GitBranch, Zap, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -25,9 +25,20 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex items-center space-x-2 text-xs md:text-sm text-launchlayer-text-secondary">
-            <FileText className="w-4 h-4" />
-            <span className="hidden md:inline">Version 1.1 - June 2025</span>
+          <div className="flex items-center space-x-4">
+            <Button
+              onClick={() => navigate("/beta-ux")}
+              variant="accent"
+              size="sm"
+              className="flex items-center space-x-2"
+            >
+              <Eye className="w-4 h-4" />
+              <span>Beta UX</span>
+            </Button>
+            <div className="flex items-center space-x-2 text-xs md:text-sm text-launchlayer-text-secondary">
+              <FileText className="w-4 h-4" />
+              <span className="hidden md:inline">Version 1.1 - June 2025</span>
+            </div>
           </div>
         </div>
       </header>
@@ -38,9 +49,20 @@ const LandingPage: React.FC = () => {
           
           {/* Title Section */}
           <div className="text-center space-y-4 border-b border-launchlayer-surface-light pb-8">
-            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-              Launch Layer Airlock
-            </h1>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+                Launch Layer Airlock
+              </h1>
+              <Button
+                onClick={() => navigate("/beta-ux")}
+                variant="mint"
+                size="sm"
+                className="flex items-center space-x-2 shrink-0"
+              >
+                <Eye className="w-4 h-4" />
+                <span>View Beta UX</span>
+              </Button>
+            </div>
             <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper (MVP v1.1)</h2>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-launchlayer-text-secondary">
               <span><strong>Version:</strong> 1.1</span>

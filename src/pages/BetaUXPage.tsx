@@ -501,16 +501,19 @@ const BetaUXPage: React.FC = () => {
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
             <img src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" alt="Launch Layer" className="h-8 w-auto" />
-            <span className="text-xl font-bold text-launchlayer-accent">Launch Layer</span>
+            <span className="text-xl font-bold text-launchlayer-accent">Dashboard</span>
           </div>
           <div className="hidden md:flex space-x-4 text-sm">
-            <span className="text-launchlayer-accent font-medium">Dashboard</span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">Airlocks</span>
+            <span className="text-launchlayer-accent font-medium">
+          </span>
+            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
+          </span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
           </span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
           </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">My Airlocks</span>
+            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
+          </span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer" onClick={() => navigate("/")}>
           </span>
           </div>

@@ -1,10 +1,11 @@
 
 import React, { useState } from "react";
-import { ArrowLeft, Wallet, ExternalLink, Plus, Minus } from "lucide-react";
+import { ArrowLeft, Wallet, ExternalLink, Plus, Minus, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 
 const BetaUXPage: React.FC = () => {
   const [currentView, setCurrentView] = useState<'dashboard' | 'chain' | 'personal'>('dashboard');
@@ -14,13 +15,42 @@ const BetaUXPage: React.FC = () => {
   const [stakeAmount, setStakeAmount] = useState('');
 
   const chains = [
-    { name: 'Base', logo: '🔵', tvl: '$4,100,000', pools: 2 },
-    { name: 'HyperEVM', logo: '⚡', tvl: '$5,200,000', pools: 2 },
-    { name: 'MegaETH', logo: '🚀', tvl: '$2,200,000', pools: 2 },
-    { name: 'Monad', logo: '🔮', tvl: '$1,250,000', pools: 2 }
+    { name: 'Base', logo: '🔵', tvl: '$4,100,000', pools: 3 },
+    { name: 'HyperEVM', logo: '⚡', tvl: '$5,200,000', pools: 3 },
+    { name: 'MegaETH', logo: '🚀', tvl: '$2,200,000', pools: 3 },
+    { name: 'Monad', logo: '🔮', tvl: '$1,250,000', pools: 3 }
   ];
 
   const pools = {
+    'Base': [
+      {
+        name: 'Core Yield ETH',
+        strategy: 'Core Yield (Proprietary)',
+        asset: 'ETH',
+        apy: '16.8%',
+        tvl: '$2,200,000',
+        description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
+        risk: 'medium'
+      },
+      {
+        name: 'Blue-Chip ETH',
+        strategy: 'Blue-Chip Stable',
+        asset: 'ETH',
+        apy: '9.5%',
+        tvl: '$1,500,000',
+        description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
+        risk: 'low'
+      },
+      {
+        name: 'Degen Leverage ETH',
+        strategy: 'Leveraged Yield',
+        asset: 'ETH',
+        apy: '45.2%',
+        tvl: '$400,000',
+        description: 'High-risk leveraged DeFi strategy using recursive lending and exotic derivatives. Only for experienced users.',
+        risk: 'high'
+      }
+    ],
     'HyperEVM': [
       {
         name: 'Core Yield ETH',
@@ -28,7 +58,8 @@ const BetaUXPage: React.FC = () => {
         asset: 'ETH',
         apy: '18.5%',
         tvl: '$3,000,000',
-        description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.'
+        description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
+        risk: 'medium'
       },
       {
         name: 'Blue-Chip ETH',
@@ -36,7 +67,230 @@ const BetaUXPage: React.FC = () => {
         asset: 'ETH',
         apy: '11.2%',
         tvl: '$2,200,000',
-        description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.'
+        description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
+        risk: 'low'
+      },
+      {
+        name: 'Degen Perp ETH',
+        strategy: 'Perpetuals Trading',
+        asset: 'ETH',
+        apy: '67.8%',
+        tvl: '$250,000',
+        description: 'Automated perpetual futures trading strategy. Extremely volatile returns with high liquidation risk.',
+        risk: 'high'
+      }
+    ],
+    'MegaETH': [
+      {
+        name: 'Core Yield ETH',
+        strategy: 'Core Yield (Proprietary)',
+        asset: 'ETH',
+        apy: '22.1%',
+        tvl: '$1,800,000',
+        description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
+        risk: 'medium'
+      },
+      {
+        name: 'Blue-Chip ETH',
+        strategy: 'Blue-Chip Stable',
+        asset: 'ETH',
+        apy: '12.8%',
+        tvl: '$1,100,000',
+        description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
+        risk: 'low'
+      },
+      {
+        name: 'Degen Liquid Staking',
+        strategy: 'Exotic LST Strategy',
+        asset: 'ETH',
+        apy: '38.9%',
+        tvl: '$300,000',
+        description: 'Complex liquid staking derivatives with MEV extraction. High smart contract and slashing risks.',
+        risk: 'high'
+      }
+    ],
+    'Monad': [
+      {
+        name: 'Core Yield ETH',
+        strategy: 'Core Yield (Proprietary)',
+        asset: 'ETH',
+        apy: '19.7%',
+        tvl: '$800,000',
+        description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
+        risk: 'medium'
+      },
+      {
+        name: 'Blue-Chip ETH',
+        strategy: 'Blue-Chip Stable',
+        asset: 'ETH',
+        apy: '10.5%',
+        tvl: '$350,000',
+        description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
+        risk: 'low'
+      },
+      {
+        name: 'Degen Options ETH',
+        strategy: 'Options Strategies',
+        asset: 'ETH',
+        apy: '52.3%',
+        tvl: '$100,000',
+        description: 'Automated options selling and complex derivatives strategies. High risk of total loss.',
+        risk: 'high'
+      }
+    ]
+  };
+
+  const mockProjects = {
+    'Base': [
+      {
+        name: 'BaseSwap Pro',
+        category: 'DeFi',
+        logo: '💧',
+        description: 'Next-gen AMM with concentrated liquidity and MEV protection',
+        tgeDate: 'July 22, 2025',
+        totalRaise: '$2.5M',
+        status: 'upcoming'
+      },
+      {
+        name: 'ChainForge AI',
+        category: 'AI',
+        logo: '🤖',
+        description: 'On-chain AI model training and inference protocol',
+        tgeDate: 'August 15, 2025',
+        totalRaise: '$4.2M',
+        status: 'upcoming'
+      },
+      {
+        name: 'PixelRealms',
+        category: 'Gaming',
+        logo: '🎮',
+        description: 'Fully on-chain strategy game with NFT armies',
+        tgeDate: 'September 3, 2025',
+        totalRaise: '$1.8M',
+        status: 'upcoming'
+      },
+      {
+        name: 'BaseBridge',
+        category: 'Infrastructure',
+        logo: '🌉',
+        description: 'Cross-chain messaging protocol for Base ecosystem',
+        tgeDate: 'October 1, 2025',
+        totalRaise: '$3.1M',
+        status: 'upcoming'
+      }
+    ],
+    'HyperEVM': [
+      {
+        name: 'HyperLend',
+        category: 'DeFi',
+        logo: '⚡',
+        description: 'Ultra-fast lending protocol with instant liquidations',
+        tgeDate: 'July 28, 2025',
+        totalRaise: '$3.5M',
+        status: 'upcoming'
+      },
+      {
+        name: 'Neural Network',
+        category: 'AI',
+        logo: '🧠',
+        description: 'Decentralized GPU compute network for AI workloads',
+        tgeDate: 'August 20, 2025',
+        totalRaise: '$6.8M',
+        status: 'upcoming'
+      },
+      {
+        name: 'CyberArena',
+        category: 'Gaming',
+        logo: '⚔️',
+        description: 'Real-time PvP battles with tokenized esports',
+        tgeDate: 'September 12, 2025',
+        totalRaise: '$2.9M',
+        status: 'upcoming'
+      },
+      {
+        name: 'HyperOracle',
+        category: 'Infrastructure',
+        logo: '🔮',
+        description: 'High-frequency oracle network with sub-second updates',
+        tgeDate: 'October 8, 2025',
+        totalRaise: '$4.7M',
+        status: 'upcoming'
+      }
+    ],
+    'MegaETH': [
+      {
+        name: 'MegaVault',
+        category: 'DeFi',
+        logo: '🏦',
+        description: 'Automated yield strategies with AI-powered rebalancing',
+        tgeDate: 'August 5, 2025',
+        totalRaise: '$5.2M',
+        status: 'upcoming'
+      },
+      {
+        name: 'DeepMind Protocol',
+        category: 'AI',
+        logo: '🎯',
+        description: 'Distributed AI agent marketplace and orchestration',
+        tgeDate: 'August 25, 2025',
+        totalRaise: '$8.1M',
+        status: 'upcoming'
+      },
+      {
+        name: 'SpaceExplorers',
+        category: 'Gaming',
+        logo: '🚀',
+        description: 'MMO space exploration game with player-owned galaxies',
+        tgeDate: 'September 18, 2025',
+        totalRaise: '$3.6M',
+        status: 'upcoming'
+      },
+      {
+        name: 'MegaScale',
+        category: 'Infrastructure',
+        logo: '📈',
+        description: 'Dynamic scaling solution for high-throughput dApps',
+        tgeDate: 'October 15, 2025',
+        totalRaise: '$7.3M',
+        status: 'upcoming'
+      }
+    ],
+    'Monad': [
+      {
+        name: 'MonadFi',
+        category: 'DeFi',
+        logo: '🌀',
+        description: 'Native DeFi protocol leveraging Monad\'s parallel execution',
+        tgeDate: 'July 30, 2025',
+        totalRaise: '$4.8M',
+        status: 'upcoming'
+      },
+      {
+        name: 'Cognitive Labs',
+        category: 'AI',
+        logo: '🧪',
+        description: 'On-chain machine learning model marketplace',
+        tgeDate: 'August 12, 2025',
+        totalRaise: '$5.5M',
+        status: 'upcoming'
+      },
+      {
+        name: 'MonadQuest',
+        category: 'Gaming',
+        logo: '🗡️',
+        description: 'High-speed on-chain RPG with parallel quest execution',
+        tgeDate: 'September 8, 2025',
+        totalRaise: '$2.2M',
+        status: 'upcoming'
+      },
+      {
+        name: 'ParallelNode',
+        category: 'Infrastructure',
+        logo: '🔗',
+        description: 'Validator infrastructure optimized for parallel chains',
+        tgeDate: 'October 22, 2025',
+        totalRaise: '$6.1M',
+        status: 'upcoming'
       }
     ]
   };
@@ -103,13 +357,13 @@ const BetaUXPage: React.FC = () => {
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-violet">8</h3>
+            <h3 className="text-2xl font-bold text-launchlayer-violet">12</h3>
             <p className="text-launchlayer-text-secondary">Active Airlocks</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-mint">6</h3>
+            <h3 className="text-2xl font-bold text-launchlayer-mint">16</h3>
             <p className="text-launchlayer-text-secondary">Upcoming Launches</p>
           </CardContent>
         </Card>
@@ -164,6 +418,29 @@ const BetaUXPage: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Upcoming Projects Preview */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Upcoming Project Launches</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Object.entries(mockProjects).slice(0, 4).map(([chain, projects]) => (
+            <Card key={chain}>
+              <CardContent className="p-4">
+                <h4 className="font-bold mb-2">{chain} Ecosystem</h4>
+                <div className="space-y-2">
+                  {projects.slice(0, 2).map((project, idx) => (
+                    <div key={idx} className="flex items-center space-x-2 text-sm">
+                      <span>{project.logo}</span>
+                      <span className="truncate">{project.name}</span>
+                    </div>
+                  ))}
+                  <p className="text-xs text-launchlayer-text-secondary">+{projects.length - 2} more projects</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
     </div>
   );
 
@@ -185,19 +462,25 @@ const BetaUXPage: React.FC = () => {
       <div className="grid md:grid-cols-3 gap-6">
         <Card>
           <CardContent className="p-4 text-center">
-            <h3 className="text-xl font-bold text-launchlayer-accent">$5,200,000</h3>
+            <h3 className="text-xl font-bold text-launchlayer-accent">
+              {chains.find(c => c.name === selectedChain)?.tvl}
+            </h3>
             <p className="text-sm text-launchlayer-text-secondary">TVL on {selectedChain}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <h3 className="text-xl font-bold text-launchlayer-violet">11.2% - 18.5%</h3>
+            <h3 className="text-xl font-bold text-launchlayer-violet">
+              {pools[selectedChain as keyof typeof pools]?.[1]?.apy} - {pools[selectedChain as keyof typeof pools]?.[2]?.apy}
+            </h3>
             <p className="text-sm text-launchlayer-text-secondary">Current APY Range</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <h3 className="text-xl font-bold text-launchlayer-mint">2</h3>
+            <h3 className="text-xl font-bold text-launchlayer-mint">
+              {pools[selectedChain as keyof typeof pools]?.length || 0}
+            </h3>
             <p className="text-sm text-launchlayer-text-secondary">Available Pools</p>
           </CardContent>
         </Card>
@@ -210,15 +493,30 @@ const BetaUXPage: React.FC = () => {
           <Card key={index} className="hover:border-launchlayer-accent transition-colors">
             <CardContent className="p-6">
               <div className="flex justify-between items-start">
-                <div className="space-y-2">
-                  <h3 className="text-lg font-bold">{pool.name}</h3>
+                <div className="space-y-2 flex-1">
+                  <div className="flex items-center space-x-2">
+                    <h3 className="text-lg font-bold">{pool.name}</h3>
+                    {pool.risk === 'high' && (
+                      <Badge variant="destructive" className="bg-red-600 text-white flex items-center space-x-1">
+                        <AlertTriangle className="w-3 h-3" />
+                        <span>HIGH RISK</span>
+                      </Badge>
+                    )}
+                  </div>
                   <p className="text-sm text-launchlayer-text-secondary">{pool.strategy}</p>
                   <p className="text-xs text-launchlayer-text-secondary">{pool.description}</p>
+                  {pool.risk === 'high' && (
+                    <p className="text-xs text-red-400 font-medium">
+                      ⚠️ This strategy involves high risk of loss. Only stake what you can afford to lose.
+                    </p>
+                  )}
                 </div>
-                <div className="text-right space-y-2">
+                <div className="text-right space-y-2 ml-4">
                   <div>
                     <p className="text-sm text-launchlayer-text-secondary">APY</p>
-                    <p className="text-xl font-bold text-launchlayer-accent">{pool.apy}</p>
+                    <p className={`text-xl font-bold ${pool.risk === 'high' ? 'text-red-400' : 'text-launchlayer-accent'}`}>
+                      {pool.apy}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-launchlayer-text-secondary">Pool TVL</p>
@@ -230,6 +528,7 @@ const BetaUXPage: React.FC = () => {
                       setShowStakingModal(true);
                     }}
                     className="w-full"
+                    variant={pool.risk === 'high' ? 'destructive' : 'default'}
                   >
                     Stake
                   </Button>
@@ -238,6 +537,35 @@ const BetaUXPage: React.FC = () => {
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      {/* Chain-Specific Projects */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold">Upcoming Launches on {selectedChain}</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          {mockProjects[selectedChain as keyof typeof mockProjects]?.map((project, index) => (
+            <Card key={index}>
+              <CardContent className="p-4">
+                <div className="flex items-start justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-2xl">{project.logo}</span>
+                      <div>
+                        <h4 className="font-bold">{project.name}</h4>
+                        <Badge variant="outline" className="text-xs">{project.category}</Badge>
+                      </div>
+                    </div>
+                    <p className="text-xs text-launchlayer-text-secondary">{project.description}</p>
+                    <div className="flex justify-between text-xs">
+                      <span>Raise: {project.totalRaise}</span>
+                      <span>TGE: {project.tgeDate}</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -318,9 +646,28 @@ const BetaUXPage: React.FC = () => {
     <Dialog open={showStakingModal} onOpenChange={setShowStakingModal}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Stake ETH in {selectedPool?.name}</DialogTitle>
+          <DialogTitle className="flex items-center space-x-2">
+            <span>Stake ETH in {selectedPool?.name}</span>
+            {selectedPool?.risk === 'high' && (
+              <Badge variant="destructive" className="bg-red-600 text-white">
+                HIGH RISK
+              </Badge>
+            )}
+          </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
+          {selectedPool?.risk === 'high' && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+              <div className="flex items-center space-x-2 text-red-800">
+                <AlertTriangle className="w-4 h-4" />
+                <span className="text-sm font-medium">High Risk Warning</span>
+              </div>
+              <p className="text-xs text-red-700 mt-1">
+                This strategy has high risk of loss. Past performance does not guarantee future results.
+              </p>
+            </div>
+          )}
+          
           <div>
             <p className="text-sm text-launchlayer-text-secondary">Your Wallet Balance</p>
             <p className="font-bold">4.5 ETH</p>
@@ -343,7 +690,7 @@ const BetaUXPage: React.FC = () => {
           <div className="bg-launchlayer-surface p-4 rounded-lg space-y-2">
             <h4 className="font-medium">Transaction Summary</h4>
             <div className="text-sm space-y-1">
-              <p>You will receive: ~{stakeAmount || '0'} sCoreETH</p>
+              <p>You will receive: ~{stakeAmount || '0'} s{selectedPool?.name?.replace(' ', '')}</p>
               <p>Current APY: {selectedPool?.apy}</p>
               <p>Gas Fee: ~$12.50</p>
             </div>
@@ -353,7 +700,11 @@ const BetaUXPage: React.FC = () => {
             <Button className="w-full" variant="outline">
               Approve
             </Button>
-            <Button className="w-full" disabled={!stakeAmount}>
+            <Button 
+              className="w-full" 
+              disabled={!stakeAmount}
+              variant={selectedPool?.risk === 'high' ? 'destructive' : 'default'}
+            >
               Confirm Stake
             </Button>
           </div>

@@ -510,7 +510,7 @@ const BetaUXPage: React.FC = () => {
           </span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
           </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">My Account</span>
+            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">My Airlocks</span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer" onClick={() => navigate("/")}>
           </span>
           </div>

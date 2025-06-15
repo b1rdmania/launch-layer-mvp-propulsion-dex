@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { ArrowLeft, Wallet, ExternalLink, Plus, Minus, AlertTriangle, ArrowRight, Shield, TrendingUp, Key } from "lucide-react";
+import { ArrowLeft, Wallet, ExternalLink, Plus, Minus, AlertTriangle, ArrowRight, Shield, TrendingUp, Key, FileText, Database, Layers, GitBranch, Zap, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
+
 const BetaUXPage: React.FC = () => {
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = useState<'dashboard' | 'chain' | 'personal' | 'airlocks'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'chain' | 'personal' | 'airlocks' | 'whitepaper'>('dashboard');
   const [selectedChain, setSelectedChain] = useState<string>('');
   const [showStakingModal, setShowStakingModal] = useState(false);
   const [selectedPool, setSelectedPool] = useState<any>(null);
   const [stakeAmount, setStakeAmount] = useState('');
+
   const chains = [{
     name: 'Base',
     logo: '🔵',
@@ -341,7 +343,164 @@ const BetaUXPage: React.FC = () => {
     apy: "18.3% APY"
   }];
 
-  // New Airlocks Explainer View
+  // White Paper View
+  const WhitePaperView = () => (
+    <div className="space-y-8">
+      <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-6 md:p-10 space-y-8">
+        
+        {/* Title Section */}
+        <div className="text-center space-y-4 border-b border-launchlayer-surface-light pb-8">
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+            Launch Layer Airlock
+          </h1>
+          <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper (MVP v1.1)</h2>
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-launchlayer-text-secondary">
+            <span><strong>Version:</strong> 1.1</span>
+            <span><strong>Date:</strong> June 14, 2025</span>
+            <span><strong>Status:</strong> <span className="text-launchlayer-accent">Draft</span></span>
+          </div>
+        </div>
+
+        {/* Abstract */}
+        <section className="space-y-4">
+          <div className="flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
+              <FileText className="w-4 h-4 text-launchlayer-accent" />
+            </div>
+            <h3 className="text-xl font-bold text-launchlayer-text-primary">Abstract</h3>
+          </div>
+          <p className="text-launchlayer-text-secondary leading-relaxed">
+            The Launch Layer Airlock is a modular, multi-chain yield-to-access protocol. This document outlines the technical architecture for the Minimum Viable Product (MVP), which enables users to stake assets into strategy-specific vaults, earn sustainable real yield, and automatically convert that yield into guaranteed allocations for curated Token Generation Events (TGEs). The MVP architecture prioritizes security, user choice, and capital efficiency by offering two distinct, transparent yield strategies at launch: a proprietary "Core Yield" strategy and a "Blue-Chip" strategy powered by established third-party protocols. The system is designed for initial deployment on Base, MegaETH, HyperEVM, and Monad.
+          </p>
+        </section>
+
+        {/* Core Architecture */}
+        <section className="space-y-6">
+          <div className="flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
+              <span className="text-sm font-bold text-launchlayer-mint">2</span>
+            </div>
+            <h3 className="text-xl font-bold text-launchlayer-text-primary">Core Architecture (Hybrid Model)</h3>
+          </div>
+          <p className="text-launchlayer-text-secondary leading-relaxed">
+            The Airlock MVP architecture is composed of a primary user-facing contract (AirlockRouter) that directs user funds to one of several underlying Strategy Vaults based on the user's explicit choice.
+          </p>
+
+          {/* Airlock Router */}
+          <div className="space-y-3">
+            <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
+              <GitBranch className="w-5 h-5" />
+              <span>2.1. Airlock Router (AirlockRouter.sol)</span>
+            </h4>
+            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
+              <p className="text-launchlayer-text-secondary mb-3">This is the central smart contract that users interact with.</p>
+              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                <li><strong className="text-launchlayer-text-primary">Function:</strong> Acts as a trusted router or "factory" for deposits and withdrawals. It does not hold user funds directly for extended periods but routes them to the appropriate Strategy Vault.</li>
+                <li><strong className="text-launchlayer-text-primary">User Interaction:</strong> A user calls the <code className="bg-launchlayer-surface px-2 py-1 rounded">deposit(strategyId, amount)</code> function, specifying which strategy they want to use.</li>
+                <li><strong className="text-launchlayer-text-primary">Registry:</strong> The router maintains a registry of whitelisted, audited Strategy Vault contracts to ensure user funds can only be sent to secure, approved destinations.</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Strategy Vaults */}
+          <div className="space-y-3">
+            <h4 className="text-lg font-bold text-launchlayer-violet flex items-center space-x-2">
+              <Database className="w-5 h-5" />
+              <span>2.2. Strategy Vaults (StrategyVault.sol - Interface)</span>
+            </h4>
+            <p className="text-launchlayer-text-secondary">
+              Each Strategy Vault is a standalone contract that holds user funds and executes a specific yield-generation strategy. For the MVP, two initial types will be deployed on each target chain:
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-violet">
+                <h5 className="font-bold text-launchlayer-violet mb-2">CoreYieldVault.sol (Proprietary Strategy)</h5>
+                <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                  <li><strong>Yield Source:</strong> Interfaces with a secure, permissioned oracle managed by Infrasingularity</li>
+                  <li><strong>Mechanism:</strong> The vault's asset value is updated based on data reported by the Infrasingularity oracle</li>
+                </ul>
+              </div>
+              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
+                <h5 className="font-bold text-launchlayer-mint mb-2">BlueChipVault.sol (External Strategy)</h5>
+                <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
+                  <li><strong>Yield Source:</strong> Interfaces with established, audited vaults from leading multi-chain yield aggregators like Beefy Finance</li>
+                  <li><strong>Mechanism:</strong> Acts as a "vault-of-a-vault," programmatically depositing user funds into whitelisted Beefy vaults</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Share Token Model */}
+          <div className="space-y-3">
+            <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
+              <Layers className="w-5 h-5" />
+              <span>2.3. Share Token (sToken) Model</span>
+            </h4>
+            <div className="bg-launchlayer-background p-4 rounded-lg">
+              <p className="text-launchlayer-text-secondary mb-3">Each Strategy Vault will issue its own distinct ERC-20 share token.</p>
+              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                <li><strong className="text-launchlayer-text-primary">Example:</strong> A user depositing ETH into the CoreYieldVault on Base will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sCoreETH</code>. A user depositing into the BlueChipVault will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sBlueChipETH</code>.</li>
+                <li><strong className="text-launchlayer-text-primary">Value Accrual:</strong> The value of each sToken appreciates as yield is generated within its specific vault, ensuring complete isolation of risks and rewards.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Security */}
+        <section className="space-y-4">
+          <div className="flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
+              <span className="text-sm font-bold text-launchlayer-violet">4</span>
+            </div>
+            <h3 className="text-xl font-bold text-launchlayer-text-primary">Security & Multi-Chain Deployment</h3>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-green-500">
+              <h4 className="font-bold text-green-500 mb-2 flex items-center space-x-2">
+                <Shield className="w-4 h-4" />
+                <span>Audits</span>
+              </h4>
+              <p className="text-sm text-launchlayer-text-secondary">All contracts undergo rigorous, multi-firm audits before mainnet deployment.</p>
+            </div>
+            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
+              <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2">
+                <Target className="w-4 h-4" />
+                <span>Initial Chains</span>
+              </h4>
+              <p className="text-sm text-launchlayer-text-secondary">Deployment across Base, MegaETH, HyperEVM, and Monad with tailored asset support.</p>
+            </div>
+            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
+              <h4 className="font-bold text-launchlayer-mint mb-2 flex items-center space-x-2">
+                <Shield className="w-4 h-4" />
+                <span>Risk Isolation</span>
+              </h4>
+              <p className="text-sm text-launchlayer-text-secondary">Strategy separation prevents cross-contamination of vault risks.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <section className="border-t border-launchlayer-surface-light pt-6">
+          <div className="text-center bg-launchlayer-surface p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-launchlayer-accent mb-4 flex items-center justify-center space-x-2">
+              <Zap className="w-5 h-5" />
+              <span>Launch Layer Airlock MVP</span>
+            </h3>
+            <p className="text-launchlayer-text-secondary mb-4">
+              A modular, secure, and user-centric approach to yield-to-access protocols across multiple chains.
+            </p>
+            <div className="pt-4 border-t border-launchlayer-surface-light">
+              <p className="text-launchlayer-accent font-bold">
+                <strong>Live Demo:</strong> launchlayer.io
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  );
+
   const AirlocksView = () => <div className="space-y-16">
       {/* Hero Section */}
       <section className="text-center space-y-8">
@@ -495,6 +654,7 @@ const BetaUXPage: React.FC = () => {
         </div>
       </section>
     </div>;
+
   const DashboardView = () => <div className="space-y-8">
       {/* Navigation */}
       <nav className="flex items-center justify-between p-4 bg-launchlayer-surface rounded-lg border border-launchlayer-surface-light">
@@ -610,6 +770,7 @@ const BetaUXPage: React.FC = () => {
         </div>
       </div>
     </div>;
+
   const ChainView = () => <div className="space-y-6">
       <div className="flex items-center space-x-4">
         <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
@@ -716,6 +877,7 @@ const BetaUXPage: React.FC = () => {
         </div>
       </div>
     </div>;
+
   const PersonalView = () => <div className="space-y-6">
       <div className="flex items-center space-x-4">
         <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
@@ -775,6 +937,7 @@ const BetaUXPage: React.FC = () => {
         </div>
       </div>
     </div>;
+
   const StakingModal = () => <Dialog open={showStakingModal} onOpenChange={setShowStakingModal}>
       <DialogContent className="max-w-md">
         <DialogHeader>
@@ -831,6 +994,7 @@ const BetaUXPage: React.FC = () => {
         </div>
       </DialogContent>
     </Dialog>;
+
   return <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
       {/* Header */}
       <header className="bg-launchlayer-surface border-b border-launchlayer-surface-light p-4 sticky top-0 z-10">
@@ -852,7 +1016,7 @@ const BetaUXPage: React.FC = () => {
             <Button variant={currentView === 'personal' ? 'accent' : 'ghost'} size="sm" onClick={() => setCurrentView('personal')}>
               My Airlocks
             </Button>
-            <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+            <Button variant={currentView === 'whitepaper' ? 'accent' : 'ghost'} size="sm" onClick={() => setCurrentView('whitepaper')}>
               White Paper
             </Button>
           </div>
@@ -865,6 +1029,7 @@ const BetaUXPage: React.FC = () => {
         {currentView === 'airlocks' && <AirlocksView />}
         {currentView === 'chain' && <ChainView />}
         {currentView === 'personal' && <PersonalView />}
+        {currentView === 'whitepaper' && <WhitePaperView />}
         <StakingModal />
       </main>
 

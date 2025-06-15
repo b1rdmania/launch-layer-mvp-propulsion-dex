@@ -506,8 +506,10 @@ const BetaUXPage: React.FC = () => {
           <div className="hidden md:flex space-x-4 text-sm">
             <span className="text-launchlayer-accent font-medium">Dashboard</span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">Airlocks</span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">Launchpad</span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">Propulsion DEX</span>
+            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
+          </span>
+            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
+          </span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">My Account</span>
             <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer" onClick={() => navigate("/")}>
           </span>

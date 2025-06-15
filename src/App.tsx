@@ -7,6 +7,7 @@ import { WalletProvider } from "@/contexts/WalletContext";
 // Pages
 import LandingPage from "@/pages/LandingPage";
 import WhitePaperPage from "@/pages/WhitePaperPage";
+import BetaUXPage from "@/pages/BetaUXPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ function App() {
             <Route path="/pitch" element={<LandingPage />} />
             <Route path="/app" element={<LandingPage />} />
             <Route path="/whitepaper" element={<WhitePaperPage />} />
+            <Route path="/beta-ux" element={<BetaUXPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

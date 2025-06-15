@@ -661,7 +661,7 @@ const BetaUXPage: React.FC = () => {
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
             <img src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" alt="Launch Layer" className="h-8 w-auto" />
-            <span className="text-xl font-bold text-launchlayer-accent">Dashboard</span>
+            <span className="text-3xl font-bold text-launchlayer-text-primary">Dashboard</span>
           </div>
           <div className="hidden md:flex space-x-4 text-sm">
             <span className="text-launchlayer-accent font-medium">
@@ -776,7 +776,7 @@ const BetaUXPage: React.FC = () => {
         <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
           <ArrowLeft className="w-4 h-4" />
         </Button>
-        <h1 className="text-3xl font-bold">{selectedChain} Airlocks</h1>
+        <h1 className="text-3xl font-bold text-launchlayer-text-primary">{selectedChain} Airlocks</h1>
       </div>
 
       {/* Chain-Specific Stats */}
@@ -883,7 +883,7 @@ const BetaUXPage: React.FC = () => {
         <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
           <ArrowLeft className="w-4 h-4" />
         </Button>
-        <h1 className="text-3xl font-bold">My Airlocks</h1>
+        <h1 className="text-3xl font-bold text-launchlayer-text-primary">My Airlocks</h1>
       </div>
 
       {/* Aggregated Summary */}

@@ -1,40 +1,48 @@
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { WalletProvider } from '@/contexts/WalletContext';
 import { Toaster } from "@/components/ui/toaster";
-import { WalletProvider } from "@/contexts/WalletContext";
 
-// Pages
-import LandingPage from "@/pages/LandingPage";
-import WhitePaperPage from "@/pages/WhitePaperPage";
-import BetaUXPage from "@/pages/BetaUXPage";
-import AirlocksPage from "@/pages/AirlocksPage";
-import NotFound from "@/pages/NotFound";
+import LandingPage from '@/pages/LandingPage';
+import PitchDeckPage from '@/pages/PitchDeckPage';
+import WhitePaperPage from '@/pages/WhitePaperPage';
+import DocsPage from '@/pages/DocsPage';
+import DiscoveryPage from '@/pages/DiscoveryPage';
+import AirlocksPage from '@/pages/AirlocksPage';
+import RaiseDetailPage from '@/pages/RaiseDetailPage';
+import ClaimPage from '@/pages/ClaimPage';
+import AdminPage from '@/pages/AdminPage';
+import BetaUXPage from '@/pages/BetaUXPage';
+import BridgePage from '@/pages/BridgePage';
+import NotFound from '@/pages/NotFound';
 
-const queryClient = new QueryClient();
+import './App.css';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WalletProvider>
-        <Router>
+    <WalletProvider>
+      <Router>
+        <div className="App">
+          <Toaster />
           <Routes>
-            {/* Main route now shows the landing page */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/landing" element={<LandingPage />} />
-            <Route path="/pitch" element={<LandingPage />} />
-            <Route path="/app" element={<LandingPage />} />
-            <Route path="/whitepaper" element={<WhitePaperPage />} />
+            <Route path="/pitch-deck" element={<PitchDeckPage />} />
+            <Route path="/white-paper" element={<WhitePaperPage />} />
+            <Route path="/docs" element={<DocsPage />} />
+            <Route path="/docs/:docId" element={<DocsPage />} />
+            <Route path="/discovery" element={<DiscoveryPage />} />
+            <Route path="/airlock/:id" element={<AirlocksPage />} />
+            <Route path="/raise/:id" element={<RaiseDetailPage />} />
+            <Route path="/claim/:raiseId" element={<ClaimPage />} />
+            <Route path="/admin" element={<AdminPage />} />
             <Route path="/beta-ux" element={<BetaUXPage />} />
-            <Route path="/airlocks" element={<AirlocksPage />} />
-            <Route path="/admin" element={<LandingPage />} />
-            <Route path="/account" element={<LandingPage />} />
+            <Route path="/bridge" element={<BridgePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Router>
-        <Toaster />
-      </WalletProvider>
-    </QueryClientProvider>
+        </div>
+      </Router>
+    </WalletProvider>
   );
 }
 

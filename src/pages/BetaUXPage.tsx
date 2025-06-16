@@ -8,28 +8,31 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const BetaUXPage: React.FC = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('swap');
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showRemoveLiquidityModal, setShowRemoveLiquidityModal] = useState(false);
   const [tokenSelection, setTokenSelection] = useState<'from' | 'to'>('from');
-  const [fromToken, setFromToken] = useState({ symbol: 'ETH', name: 'Ethereum', logo: '⚡', balance: '4.5' });
-  const [toToken, setToToken] = useState({ symbol: 'SUPER', name: 'SuperToken', logo: '🚀', balance: '0' });
+  const [fromToken, setFromToken] = useState({ symbol: 'ETH', name: 'Ethereum', logo: '⚡', balance: '4.5237', price: '$3,245.67' });
+  const [toToken, setToToken] = useState({ symbol: 'SUPER', name: 'SuperToken', logo: '🚀', balance: '0', price: '$1.89' });
   const [fromAmount, setFromAmount] = useState('');
   const [toAmount, setToAmount] = useState('');
   const [selectedPosition, setSelectedPosition] = useState<any>(null);
   const [removePercentage, setRemovePercentage] = useState([50]);
+  const [swapStatus, setSwapStatus] = useState<'idle' | 'pending' | 'success' | 'error'>('idle');
 
   const tokens = [
-    { symbol: 'ETH', name: 'Ethereum', logo: '⚡', balance: '4.5' },
-    { symbol: 'SUPER', name: 'SuperToken', logo: '🚀', balance: '0' },
-    { symbol: 'USDC', name: 'USD Coin', logo: '💰', balance: '1,250.0' },
-    { symbol: 'WBTC', name: 'Wrapped Bitcoin', logo: '₿', balance: '0.15' },
-    { symbol: 'UNI', name: 'Uniswap', logo: '🦄', balance: '125.5' },
-    { symbol: 'LINK', name: 'Chainlink', logo: '🔗', balance: '45.2' }
+    { symbol: 'ETH', name: 'Ethereum', logo: '⚡', balance: '4.5237', price: '$3,245.67' },
+    { symbol: 'SUPER', name: 'SuperToken', logo: '🚀', balance: '0', price: '$1.89' },
+    { symbol: 'USDC', name: 'USD Coin', logo: '💰', balance: '1,250.00', price: '$1.00' },
+    { symbol: 'WBTC', name: 'Wrapped Bitcoin', logo: '₿', balance: '0.1547', price: '$97,234.12' },
+    { symbol: 'UNI', name: 'Uniswap', logo: '🦄', balance: '125.5', price: '$8.94' },
+    { symbol: 'LINK', name: 'Chainlink', logo: '🔗', balance: '45.2', price: '$23.45' }
   ];
 
   const liquidityPositions = [
@@ -37,19 +40,21 @@ const BetaUXPage: React.FC = () => {
       id: 1,
       pair: 'ETH / SUPER',
       feeTier: '0.3%',
-      liquidity: '$5,000',
+      liquidity: '$5,247.32',
       status: 'In Range',
       statusColor: 'bg-green-500',
-      uncollectedFees: '$12.50'
+      uncollectedFees: '$12.47',
+      apy: '23.4%'
     },
     {
       id: 2,
       pair: 'ETH / USDC',
       feeTier: '0.05%',
-      liquidity: '$2,500',
+      liquidity: '$2,891.56',
       status: 'Out of Range',
       statusColor: 'bg-red-500',
-      uncollectedFees: '$3.25'
+      uncollectedFees: '$3.28',
+      apy: '8.7%'
     }
   ];
 
@@ -73,14 +78,40 @@ const BetaUXPage: React.FC = () => {
 
   const calculateOutput = (input: string) => {
     if (!input || isNaN(Number(input))) return '';
-    const rate = 1700; // 1 ETH = 1700 SUPER
-    const output = fromToken.symbol === 'ETH' ? Number(input) * rate : Number(input) / rate;
+    const ethPrice = 3245.67;
+    const superPrice = 1.89;
+    const rate = fromToken.symbol === 'ETH' ? ethPrice / superPrice : superPrice / ethPrice;
+    const output = Number(input) * rate;
     return output.toFixed(4);
   };
 
   const handleFromAmountChange = (value: string) => {
     setFromAmount(value);
     setToAmount(calculateOutput(value));
+  };
+
+  const handleConfirmSwap = async () => {
+    setShowConfirmModal(false);
+    setSwapStatus('pending');
+    
+    toast({
+      title: "Swap Transaction Initiated",
+      description: `Swapping ${fromAmount} ${fromToken.symbol} for ${toAmount} ${toToken.symbol}`,
+    });
+
+    // Simulate swap transaction
+    setTimeout(() => {
+      setSwapStatus('success');
+      toast({
+        title: "Swap Successful!",
+        description: `Successfully swapped ${fromAmount} ${fromToken.symbol} for ${toAmount} ${toToken.symbol}`,
+      });
+      
+      // Reset form
+      setFromAmount('');
+      setToAmount('');
+      setSwapStatus('idle');
+    }, 3000);
   };
 
   const TokenSelectionModal = () => (
@@ -107,6 +138,7 @@ const BetaUXPage: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium">{token.balance}</p>
+                  <p className="text-xs text-launchlayer-text-secondary">{token.price}</p>
                 </div>
               </div>
             ))}
@@ -125,13 +157,13 @@ const BetaUXPage: React.FC = () => {
         <div className="space-y-4">
           <div className="bg-launchlayer-surface p-4 rounded-lg">
             <p className="text-center mb-4">
-              You are swapping <strong>{fromAmount} {fromToken.symbol}</strong> for a minimum of{' '}
+              You are swapping <strong>{fromAmount} {fromToken.symbol}</strong> for approximately{' '}
               <strong>{toAmount} {toToken.symbol}</strong>
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span>Price:</span>
-                <span>1 {toToken.symbol} = 0.000588 {fromToken.symbol}</span>
+                <span>Exchange Rate:</span>
+                <span>1 {fromToken.symbol} = {(Number(toAmount) / Number(fromAmount)).toFixed(4)} {toToken.symbol}</span>
               </div>
               <div className="flex justify-between">
                 <span>Price Impact:</span>
@@ -142,12 +174,12 @@ const BetaUXPage: React.FC = () => {
                 <span>{(Number(fromAmount) * 0.003).toFixed(4)} {fromToken.symbol}</span>
               </div>
               <div className="flex justify-between">
-                <span>Route:</span>
-                <span>{fromToken.symbol} → {toToken.symbol}</span>
+                <span>Slippage Tolerance:</span>
+                <span>1.0%</span>
               </div>
             </div>
           </div>
-          <Button className="w-full" onClick={() => setShowConfirmModal(false)}>
+          <Button className="w-full" onClick={handleConfirmSwap}>
             Confirm Swap
           </Button>
         </div>
@@ -192,11 +224,11 @@ const BetaUXPage: React.FC = () => {
             <h4 className="font-medium">You will receive:</h4>
             <div className="flex justify-between">
               <span>ETH:</span>
-              <span>{((Number(selectedPosition?.liquidity.replace('$', '').replace(',', '')) / 2) * (removePercentage[0] / 100) / 1700).toFixed(4)}</span>
+              <span>{((Number(selectedPosition?.liquidity.replace('$', '').replace(',', '')) / 2) * (removePercentage[0] / 100) / 3245.67).toFixed(4)}</span>
             </div>
             <div className="flex justify-between">
               <span>SUPER:</span>
-              <span>{((Number(selectedPosition?.liquidity.replace('$', '').replace(',', '')) / 2) * (removePercentage[0] / 100)).toFixed(2)}</span>
+              <span>{((Number(selectedPosition?.liquidity.replace('$', '').replace(',', '')) / 2) * (removePercentage[0] / 100) / 1.89).toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-launchlayer-accent">
               <span>Uncollected Fees:</span>
@@ -206,7 +238,13 @@ const BetaUXPage: React.FC = () => {
 
           <Button 
             className="w-full" 
-            onClick={() => setShowRemoveLiquidityModal(false)}
+            onClick={() => {
+              setShowRemoveLiquidityModal(false);
+              toast({
+                title: "Liquidity Removed",
+                description: "Successfully removed liquidity from the pool",
+              });
+            }}
           >
             Confirm Removal
           </Button>
@@ -253,6 +291,11 @@ const BetaUXPage: React.FC = () => {
                 <ChevronDown className="w-4 h-4" />
               </Button>
             </div>
+            {fromAmount && (
+              <p className="text-xs text-launchlayer-text-secondary">
+                ≈ ${(Number(fromAmount) * parseFloat(fromToken.price.replace('$', '').replace(',', ''))).toFixed(2)}
+              </p>
+            )}
           </div>
 
           {/* Flip Icon */}
@@ -293,14 +336,19 @@ const BetaUXPage: React.FC = () => {
                 <ChevronDown className="w-4 h-4" />
               </Button>
             </div>
+            {toAmount && (
+              <p className="text-xs text-launchlayer-text-secondary">
+                ≈ ${(Number(toAmount) * parseFloat(toToken.price.replace('$', '').replace(',', ''))).toFixed(2)}
+              </p>
+            )}
           </div>
 
           {/* Transaction Details */}
           {fromAmount && (
             <div className="bg-launchlayer-surface p-3 rounded-lg space-y-1 text-sm">
               <div className="flex justify-between">
-                <span>Price:</span>
-                <span>1 {toToken.symbol} = 0.000588 {fromToken.symbol}</span>
+                <span>Exchange Rate:</span>
+                <span>1 {fromToken.symbol} = {(Number(toAmount) / Number(fromAmount)).toFixed(4)} {toToken.symbol}</span>
               </div>
               <div className="flex justify-between">
                 <span>Price Impact:</span>
@@ -311,8 +359,8 @@ const BetaUXPage: React.FC = () => {
                 <span>{(Number(fromAmount) * 0.003).toFixed(4)} {fromToken.symbol}</span>
               </div>
               <div className="flex justify-between">
-                <span>Route:</span>
-                <span>{fromToken.symbol} → {toToken.symbol}</span>
+                <span>Slippage Tolerance:</span>
+                <span>1.0%</span>
               </div>
             </div>
           )}
@@ -320,10 +368,10 @@ const BetaUXPage: React.FC = () => {
           {/* Swap Button */}
           <Button 
             className="w-full" 
-            disabled={!fromAmount || Number(fromAmount) <= 0}
+            disabled={!fromAmount || Number(fromAmount) <= 0 || swapStatus === 'pending'}
             onClick={() => setShowConfirmModal(true)}
           >
-            {!fromAmount || Number(fromAmount) <= 0 ? 'Enter Amount' : 'Swap'}
+            {swapStatus === 'pending' ? 'Swapping...' : !fromAmount || Number(fromAmount) <= 0 ? 'Enter Amount' : 'Swap'}
           </Button>
         </CardContent>
       </Card>
@@ -333,13 +381,13 @@ const BetaUXPage: React.FC = () => {
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-medium">{fromToken.symbol}/{toToken.symbol} Price Chart</h3>
-            <div className="flex items-center space-x-2 text-sm text-launchlayer-accent">
+            <div className="flex items-center space-x-2 text-sm text-green-500">
               <TrendingUp className="w-4 h-4" />
-              <span>+5.67%</span>
+              <span>+5.67% (24h)</span>
             </div>
           </div>
           <div className="h-32 bg-gradient-to-r from-launchlayer-accent/20 to-launchlayer-violet/20 rounded-lg flex items-center justify-center">
-            <span className="text-launchlayer-text-secondary">Price Chart Placeholder</span>
+            <span className="text-launchlayer-text-secondary">Price Chart - Integration with TradingView coming soon</span>
           </div>
         </CardContent>
       </Card>
@@ -385,6 +433,10 @@ const BetaUXPage: React.FC = () => {
                           <div className={`w-2 h-2 rounded-full ${position.statusColor}`}></div>
                           <span>{position.status}</span>
                         </div>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>APY:</span>
+                        <span className="text-launchlayer-accent font-medium">{position.apy}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>Uncollected Fees:</span>
@@ -463,7 +515,7 @@ const BetaUXPage: React.FC = () => {
             </div>
             <div className="bg-launchlayer-surface p-4 rounded-lg">
               <p className="text-sm text-launchlayer-text-secondary mb-4">
-                Current Price: 1,700 SUPER per ETH
+                Current Price: 1,717 SUPER per ETH
               </p>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
@@ -491,7 +543,7 @@ const BetaUXPage: React.FC = () => {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>ETH Amount</span>
-                  <span>Balance: 4.5 ETH</span>
+                  <span>Balance: 4.5237 ETH</span>
                 </div>
                 <Input placeholder="0.0" />
               </div>
@@ -549,6 +601,7 @@ const BetaUXPage: React.FC = () => {
             <div className="hidden md:flex items-center space-x-4 text-sm">
               <Button variant="ghost" size="sm">Dashboard</Button>
               <Button variant="accent" size="sm">Propulsion DEX</Button>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/bridge")}>Bridge</Button>
               <Button variant="ghost" size="sm">My Account</Button>
             </div>
             <div className="flex items-center space-x-2 text-sm">
@@ -562,9 +615,10 @@ const BetaUXPage: React.FC = () => {
       {/* Main Content */}
       <main className="container mx-auto p-6 max-w-6xl">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-48 grid-cols-2 mx-auto">
+          <TabsList className="grid w-72 grid-cols-3 mx-auto">
             <TabsTrigger value="swap">Swap</TabsTrigger>
             <TabsTrigger value="liquidity">Liquidity</TabsTrigger>
+            <TabsTrigger value="bridge">Bridge</TabsTrigger>
           </TabsList>
           
           <TabsContent value="swap" className="space-y-6">
@@ -573,6 +627,25 @@ const BetaUXPage: React.FC = () => {
           
           <TabsContent value="liquidity" className="space-y-6">
             <LiquidityInterface />
+          </TabsContent>
+          
+          <TabsContent value="bridge" className="space-y-6">
+            <div className="max-w-md mx-auto">
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <h3 className="text-lg font-medium mb-4">Cross-Chain Bridge</h3>
+                  <p className="text-launchlayer-text-secondary mb-4">
+                    Bridge assets seamlessly between different blockchains
+                  </p>
+                  <Button 
+                    onClick={() => navigate("/bridge")} 
+                    className="w-full"
+                  >
+                    Open Bridge Interface
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </main>

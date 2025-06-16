@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { ArrowLeft, Wallet, ArrowUpDown, Settings, ChevronDown, Plus, Minus, TrendingUp, Info, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -549,8 +548,6 @@ const BetaUXPage: React.FC = () => {
           <div className="flex items-center space-x-4">
             <div className="hidden md:flex items-center space-x-4 text-sm">
               <Button variant="ghost" size="sm">Dashboard</Button>
-              <Button variant="ghost" size="sm">Airlocks</Button>
-              <Button variant="ghost" size="sm">Launchpad</Button>
               <Button variant="accent" size="sm">Propulsion DEX</Button>
               <Button variant="ghost" size="sm">My Account</Button>
             </div>

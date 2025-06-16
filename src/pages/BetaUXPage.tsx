@@ -1,1049 +1,591 @@
+
 import React, { useState } from "react";
-import { ArrowLeft, Wallet, ExternalLink, Plus, Minus, AlertTriangle, ArrowRight, Shield, TrendingUp, Key, FileText, Database, Layers, GitBranch, Zap, Target } from "lucide-react";
+import { ArrowLeft, Wallet, ArrowUpDown, Settings, ChevronDown, Plus, Minus, TrendingUp, Info, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Slider } from "@/components/ui/slider";
 import { useNavigate } from "react-router-dom";
 
 const BetaUXPage: React.FC = () => {
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = useState<'dashboard' | 'chain' | 'personal' | 'airlocks' | 'whitepaper'>('dashboard');
-  const [selectedChain, setSelectedChain] = useState<string>('');
-  const [showStakingModal, setShowStakingModal] = useState(false);
-  const [selectedPool, setSelectedPool] = useState<any>(null);
-  const [stakeAmount, setStakeAmount] = useState('');
+  const [activeTab, setActiveTab] = useState('swap');
+  const [showTokenModal, setShowTokenModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showRemoveLiquidityModal, setShowRemoveLiquidityModal] = useState(false);
+  const [tokenSelection, setTokenSelection] = useState<'from' | 'to'>('from');
+  const [fromToken, setFromToken] = useState({ symbol: 'ETH', name: 'Ethereum', logo: '⚡', balance: '4.5' });
+  const [toToken, setToToken] = useState({ symbol: 'SUPER', name: 'SuperToken', logo: '🚀', balance: '0' });
+  const [fromAmount, setFromAmount] = useState('');
+  const [toAmount, setToAmount] = useState('');
+  const [selectedPosition, setSelectedPosition] = useState<any>(null);
+  const [removePercentage, setRemovePercentage] = useState([50]);
 
-  const chains = [{
-    name: 'Base',
-    logo: '🔵',
-    tvl: '$4,100,000',
-    pools: 3
-  }, {
-    name: 'HyperEVM',
-    logo: '⚡',
-    tvl: '$5,200,000',
-    pools: 3
-  }, {
-    name: 'MegaETH',
-    logo: '🚀',
-    tvl: '$2,200,000',
-    pools: 3
-  }, {
-    name: 'Monad',
-    logo: '🔮',
-    tvl: '$1,250,000',
-    pools: 3
-  }];
-  const pools = {
-    'Base': [{
-      name: 'Core Yield ETH',
-      strategy: 'Core Yield (Proprietary)',
-      asset: 'ETH',
-      apy: '16.8%',
-      tvl: '$2,200,000',
-      description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
-      risk: 'medium'
-    }, {
-      name: 'Blue-Chip ETH',
-      strategy: 'Blue-Chip Stable',
-      asset: 'ETH',
-      apy: '9.5%',
-      tvl: '$1,500,000',
-      description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
-      risk: 'low'
-    }, {
-      name: 'Degen Leverage ETH',
-      strategy: 'Leveraged Yield',
-      asset: 'ETH',
-      apy: '45.2%',
-      tvl: '$400,000',
-      description: 'High-risk leveraged DeFi strategy using recursive lending and exotic derivatives. Only for experienced users.',
-      risk: 'high'
-    }],
-    'HyperEVM': [{
-      name: 'Core Yield ETH',
-      strategy: 'Core Yield (Proprietary)',
-      asset: 'ETH',
-      apy: '18.5%',
-      tvl: '$3,000,000',
-      description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
-      risk: 'medium'
-    }, {
-      name: 'Blue-Chip ETH',
-      strategy: 'Blue-Chip Stable',
-      asset: 'ETH',
-      apy: '11.2%',
-      tvl: '$2,200,000',
-      description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
-      risk: 'low'
-    }, {
-      name: 'Degen Perp ETH',
-      strategy: 'Perpetuals Trading',
-      asset: 'ETH',
-      apy: '67.8%',
-      tvl: '$250,000',
-      description: 'Automated perpetual futures trading strategy. Extremely volatile returns with high liquidation risk.',
-      risk: 'high'
-    }],
-    'MegaETH': [{
-      name: 'Core Yield ETH',
-      strategy: 'Core Yield (Proprietary)',
-      asset: 'ETH',
-      apy: '22.1%',
-      tvl: '$1,800,000',
-      description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
-      risk: 'medium'
-    }, {
-      name: 'Blue-Chip ETH',
-      strategy: 'Blue-Chip Stable',
-      asset: 'ETH',
-      apy: '12.8%',
-      tvl: '$1,100,000',
-      description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
-      risk: 'low'
-    }, {
-      name: 'Degen Liquid Staking',
-      strategy: 'Exotic LST Strategy',
-      asset: 'ETH',
-      apy: '38.9%',
-      tvl: '$300,000',
-      description: 'Complex liquid staking derivatives with MEV extraction. High smart contract and slashing risks.',
-      risk: 'high'
-    }],
-    'Monad': [{
-      name: 'Core Yield ETH',
-      strategy: 'Core Yield (Proprietary)',
-      asset: 'ETH',
-      apy: '19.7%',
-      tvl: '$800,000',
-      description: 'Our unique alpha strategy powered by Infrasingularity\'s validator and early-network operations.',
-      risk: 'medium'
-    }, {
-      name: 'Blue-Chip ETH',
-      strategy: 'Blue-Chip Stable',
-      asset: 'ETH',
-      apy: '10.5%',
-      tvl: '$350,000',
-      description: 'A trusted strategy earning yield from top-tier protocols, powered by Beefy Finance.',
-      risk: 'low'
-    }, {
-      name: 'Degen Options ETH',
-      strategy: 'Options Strategies',
-      asset: 'ETH',
-      apy: '52.3%',
-      tvl: '$100,000',
-      description: 'Automated options selling and complex derivatives strategies. High risk of total loss.',
-      risk: 'high'
-    }]
-  };
-  const mockProjects = {
-    'Base': [{
-      name: 'BaseSwap Pro',
-      category: 'DeFi',
-      logo: '💧',
-      description: 'Next-gen AMM with concentrated liquidity and MEV protection',
-      tgeDate: 'July 22, 2025',
-      totalRaise: '$2.5M',
-      status: 'upcoming'
-    }, {
-      name: 'ChainForge AI',
-      category: 'AI',
-      logo: '🤖',
-      description: 'On-chain AI model training and inference protocol',
-      tgeDate: 'August 15, 2025',
-      totalRaise: '$4.2M',
-      status: 'upcoming'
-    }, {
-      name: 'PixelRealms',
-      category: 'Gaming',
-      logo: '🎮',
-      description: 'Fully on-chain strategy game with NFT armies',
-      tgeDate: 'September 3, 2025',
-      totalRaise: '$1.8M',
-      status: 'upcoming'
-    }, {
-      name: 'BaseBridge',
-      category: 'Infrastructure',
-      logo: '🌉',
-      description: 'Cross-chain messaging protocol for Base ecosystem',
-      tgeDate: 'October 1, 2025',
-      totalRaise: '$3.1M',
-      status: 'upcoming'
-    }],
-    'HyperEVM': [{
-      name: 'HyperLend',
-      category: 'DeFi',
-      logo: '⚡',
-      description: 'Ultra-fast lending protocol with instant liquidations',
-      tgeDate: 'July 28, 2025',
-      totalRaise: '$3.5M',
-      status: 'upcoming'
-    }, {
-      name: 'Neural Network',
-      category: 'AI',
-      logo: '🧠',
-      description: 'Decentralized GPU compute network for AI workloads',
-      tgeDate: 'August 20, 2025',
-      totalRaise: '$6.8M',
-      status: 'upcoming'
-    }, {
-      name: 'CyberArena',
-      category: 'Gaming',
-      logo: '⚔️',
-      description: 'Real-time PvP battles with tokenized esports',
-      tgeDate: 'September 12, 2025',
-      totalRaise: '$2.9M',
-      status: 'upcoming'
-    }, {
-      name: 'HyperOracle',
-      category: 'Infrastructure',
-      logo: '🔮',
-      description: 'High-frequency oracle network with sub-second updates',
-      tgeDate: 'October 8, 2025',
-      totalRaise: '$4.7M',
-      status: 'upcoming'
-    }],
-    'MegaETH': [{
-      name: 'MegaVault',
-      category: 'DeFi',
-      logo: '🏦',
-      description: 'Automated yield strategies with AI-powered rebalancing',
-      tgeDate: 'August 5, 2025',
-      totalRaise: '$5.2M',
-      status: 'upcoming'
-    }, {
-      name: 'DeepMind Protocol',
-      category: 'AI',
-      logo: '🎯',
-      description: 'Distributed AI agent marketplace and orchestration',
-      tgeDate: 'August 25, 2025',
-      totalRaise: '$8.1M',
-      status: 'upcoming'
-    }, {
-      name: 'SpaceExplorers',
-      category: 'Gaming',
-      logo: '🚀',
-      description: 'MMO space exploration game with player-owned galaxies',
-      tgeDate: 'September 18, 2025',
-      totalRaise: '$3.6M',
-      status: 'upcoming'
-    }, {
-      name: 'MegaScale',
-      category: 'Infrastructure',
-      logo: '📈',
-      description: 'Dynamic scaling solution for high-throughput dApps',
-      tgeDate: 'October 15, 2025',
-      totalRaise: '$7.3M',
-      status: 'upcoming'
-    }],
-    'Monad': [{
-      name: 'MonadFi',
-      category: 'DeFi',
-      logo: '🌀',
-      description: 'Native DeFi protocol leveraging Monad\'s parallel execution',
-      tgeDate: 'July 30, 2025',
-      totalRaise: '$4.8M',
-      status: 'upcoming'
-    }, {
-      name: 'Cognitive Labs',
-      category: 'AI',
-      logo: '🧪',
-      description: 'On-chain machine learning model marketplace',
-      tgeDate: 'August 12, 2025',
-      totalRaise: '$5.5M',
-      status: 'upcoming'
-    }, {
-      name: 'MonadQuest',
-      category: 'Gaming',
-      logo: '🗡️',
-      description: 'High-speed on-chain RPG with parallel quest execution',
-      tgeDate: 'September 8, 2025',
-      totalRaise: '$2.2M',
-      status: 'upcoming'
-    }, {
-      name: 'ParallelNode',
-      category: 'Infrastructure',
-      logo: '🔗',
-      description: 'Validator infrastructure optimized for parallel chains',
-      tgeDate: 'October 22, 2025',
-      totalRaise: '$6.1M',
-      status: 'upcoming'
-    }]
-  };
-  const userPositions = [{
-    pool: 'Core Yield ETH (on HyperEVM)',
-    staked: '$10,000.00',
-    yield: '$150.75'
-  }, {
-    pool: 'Blue-Chip USDC (on Base)',
-    staked: '$5,500.00',
-    yield: '$61.75'
-  }];
-  const upcomingTGEs = [{
-    name: 'Project Alpha',
-    logo: '🌟',
-    allocation: '$75.00',
-    tgeDate: 'July 15, 2025'
-  }, {
-    name: 'Beta Protocol',
-    logo: '🔥',
-    allocation: '$45.50',
-    tgeDate: 'August 2, 2025'
-  }];
-  const upcomingLaunches = [{
-    name: "Neural Render Protocol",
-    tagline: "Decentralized AI Rendering Protocol",
-    tgeDate: "Q3 2025",
-    logo: "🤖",
-    status: "Allocation Open"
-  }, {
-    name: "DeFi Insurance Nexus",
-    tagline: "Cross-Chain Insurance Coverage",
-    tgeDate: "Q4 2025",
-    logo: "🛡️",
-    status: "Allocation Open"
-  }, {
-    name: "Quantum Finance",
-    tagline: "Next-Gen Trading Infrastructure",
-    tgeDate: "Q1 2026",
-    logo: "⚡",
-    status: "Coming Soon"
-  }, {
-    name: "ZeroCarbon Chain",
-    tagline: "Carbon-Negative Blockchain",
-    tgeDate: "Q2 2026",
-    logo: "🌱",
-    status: "Coming Soon"
-  }];
-  const chainsForAirlocks = [{
-    name: "Base",
-    color: "bg-blue-500",
-    icon: "🔵",
-    pools: "4 Active Pools",
-    apy: "12.4% APY"
-  }, {
-    name: "HyperEVM",
-    color: "bg-purple-500",
-    icon: "⚡",
-    pools: "3 Active Pools",
-    apy: "15.2% APY"
-  }, {
-    name: "MegaETH",
-    color: "bg-green-500",
-    icon: "💎",
-    pools: "5 Active Pools",
-    apy: "11.8% APY"
-  }, {
-    name: "Monad",
-    color: "bg-orange-500",
-    icon: "🚀",
-    pools: "2 Active Pools",
-    apy: "18.3% APY"
-  }];
+  const tokens = [
+    { symbol: 'ETH', name: 'Ethereum', logo: '⚡', balance: '4.5' },
+    { symbol: 'SUPER', name: 'SuperToken', logo: '🚀', balance: '0' },
+    { symbol: 'USDC', name: 'USD Coin', logo: '💰', balance: '1,250.0' },
+    { symbol: 'WBTC', name: 'Wrapped Bitcoin', logo: '₿', balance: '0.15' },
+    { symbol: 'UNI', name: 'Uniswap', logo: '🦄', balance: '125.5' },
+    { symbol: 'LINK', name: 'Chainlink', logo: '🔗', balance: '45.2' }
+  ];
 
-  // White Paper View
-  const WhitePaperView = () => (
-    <div className="space-y-8">
-      <div className="bg-launchlayer-surface rounded-xl border border-launchlayer-surface-light p-6 md:p-10 space-y-8">
-        
-        {/* Title Section */}
-        <div className="text-center space-y-4 border-b border-launchlayer-surface-light pb-8">
-          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-            Launch Layer Airlock
-          </h1>
-          <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper (MVP v1.1)</h2>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-launchlayer-text-secondary">
-            <span><strong>Version:</strong> 1.1</span>
-            <span><strong>Date:</strong> June 14, 2025</span>
-            <span><strong>Status:</strong> <span className="text-launchlayer-accent">Draft</span></span>
+  const liquidityPositions = [
+    {
+      id: 1,
+      pair: 'ETH / SUPER',
+      feeTier: '0.3%',
+      liquidity: '$5,000',
+      status: 'In Range',
+      statusColor: 'bg-green-500',
+      uncollectedFees: '$12.50'
+    },
+    {
+      id: 2,
+      pair: 'ETH / USDC',
+      feeTier: '0.05%',
+      liquidity: '$2,500',
+      status: 'Out of Range',
+      statusColor: 'bg-red-500',
+      uncollectedFees: '$3.25'
+    }
+  ];
+
+  const handleTokenSelect = (token: any) => {
+    if (tokenSelection === 'from') {
+      setFromToken(token);
+    } else {
+      setToToken(token);
+    }
+    setShowTokenModal(false);
+  };
+
+  const handleSwapTokens = () => {
+    const temp = fromToken;
+    setFromToken(toToken);
+    setToToken(temp);
+    const tempAmount = fromAmount;
+    setFromAmount(toAmount);
+    setToAmount(tempAmount);
+  };
+
+  const calculateOutput = (input: string) => {
+    if (!input || isNaN(Number(input))) return '';
+    const rate = 1700; // 1 ETH = 1700 SUPER
+    const output = fromToken.symbol === 'ETH' ? Number(input) * rate : Number(input) / rate;
+    return output.toFixed(4);
+  };
+
+  const handleFromAmountChange = (value: string) => {
+    setFromAmount(value);
+    setToAmount(calculateOutput(value));
+  };
+
+  const TokenSelectionModal = () => (
+    <Dialog open={showTokenModal} onOpenChange={setShowTokenModal}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Select a Token</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <Input placeholder="Search tokens..." className="w-full" />
+          <div className="space-y-2 max-h-80 overflow-y-auto">
+            {tokens.map((token) => (
+              <div
+                key={token.symbol}
+                className="flex items-center justify-between p-3 hover:bg-launchlayer-surface rounded-lg cursor-pointer transition-colors"
+                onClick={() => handleTokenSelect(token)}
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="text-2xl">{token.logo}</div>
+                  <div>
+                    <p className="font-medium">{token.symbol}</p>
+                    <p className="text-sm text-launchlayer-text-secondary">{token.name}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-medium">{token.balance}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Abstract */}
-        <section className="space-y-4">
-          <div className="flex items-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
-              <FileText className="w-4 h-4 text-launchlayer-accent" />
-            </div>
-            <h3 className="text-xl font-bold text-launchlayer-text-primary">Abstract</h3>
-          </div>
-          <p className="text-launchlayer-text-secondary leading-relaxed">
-            The Launch Layer Airlock is a modular, multi-chain yield-to-access protocol. This document outlines the technical architecture for the Minimum Viable Product (MVP), which enables users to stake assets into strategy-specific vaults, earn sustainable real yield, and automatically convert that yield into guaranteed allocations for curated Token Generation Events (TGEs). The MVP architecture prioritizes security, user choice, and capital efficiency by offering two distinct, transparent yield strategies at launch: a proprietary "Core Yield" strategy and a "Blue-Chip" strategy powered by established third-party protocols. The system is designed for initial deployment on Base, MegaETH, HyperEVM, and Monad.
-          </p>
-        </section>
-
-        {/* Core Architecture */}
-        <section className="space-y-6">
-          <div className="flex items-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
-              <span className="text-sm font-bold text-launchlayer-mint">2</span>
-            </div>
-            <h3 className="text-xl font-bold text-launchlayer-text-primary">Core Architecture (Hybrid Model)</h3>
-          </div>
-          <p className="text-launchlayer-text-secondary leading-relaxed">
-            The Airlock MVP architecture is composed of a primary user-facing contract (AirlockRouter) that directs user funds to one of several underlying Strategy Vaults based on the user's explicit choice.
-          </p>
-
-          {/* Airlock Router */}
-          <div className="space-y-3">
-            <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
-              <GitBranch className="w-5 h-5" />
-              <span>2.1. Airlock Router (AirlockRouter.sol)</span>
-            </h4>
-            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-              <p className="text-launchlayer-text-secondary mb-3">This is the central smart contract that users interact with.</p>
-              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                <li><strong className="text-launchlayer-text-primary">Function:</strong> Acts as a trusted router or "factory" for deposits and withdrawals. It does not hold user funds directly for extended periods but routes them to the appropriate Strategy Vault.</li>
-                <li><strong className="text-launchlayer-text-primary">User Interaction:</strong> A user calls the <code className="bg-launchlayer-surface px-2 py-1 rounded">deposit(strategyId, amount)</code> function, specifying which strategy they want to use.</li>
-                <li><strong className="text-launchlayer-text-primary">Registry:</strong> The router maintains a registry of whitelisted, audited Strategy Vault contracts to ensure user funds can only be sent to secure, approved destinations.</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Strategy Vaults */}
-          <div className="space-y-3">
-            <h4 className="text-lg font-bold text-launchlayer-violet flex items-center space-x-2">
-              <Database className="w-5 h-5" />
-              <span>2.2. Strategy Vaults (StrategyVault.sol - Interface)</span>
-            </h4>
-            <p className="text-launchlayer-text-secondary">
-              Each Strategy Vault is a standalone contract that holds user funds and executes a specific yield-generation strategy. For the MVP, two initial types will be deployed on each target chain:
-            </p>
-            
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-violet">
-                <h5 className="font-bold text-launchlayer-violet mb-2">CoreYieldVault.sol (Proprietary Strategy)</h5>
-                <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
-                  <li><strong>Yield Source:</strong> Interfaces with a secure, permissioned oracle managed by Infrasingularity</li>
-                  <li><strong>Mechanism:</strong> The vault's asset value is updated based on data reported by the Infrasingularity oracle</li>
-                </ul>
-              </div>
-              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-                <h5 className="font-bold text-launchlayer-mint mb-2">BlueChipVault.sol (External Strategy)</h5>
-                <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
-                  <li><strong>Yield Source:</strong> Interfaces with established, audited vaults from leading multi-chain yield aggregators like Beefy Finance</li>
-                  <li><strong>Mechanism:</strong> Acts as a "vault-of-a-vault," programmatically depositing user funds into whitelisted Beefy vaults</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Share Token Model */}
-          <div className="space-y-3">
-            <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
-              <Layers className="w-5 h-5" />
-              <span>2.3. Share Token (sToken) Model</span>
-            </h4>
-            <div className="bg-launchlayer-background p-4 rounded-lg">
-              <p className="text-launchlayer-text-secondary mb-3">Each Strategy Vault will issue its own distinct ERC-20 share token.</p>
-              <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                <li><strong className="text-launchlayer-text-primary">Example:</strong> A user depositing ETH into the CoreYieldVault on Base will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sCoreETH</code>. A user depositing into the BlueChipVault will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sBlueChipETH</code>.</li>
-                <li><strong className="text-launchlayer-text-primary">Value Accrual:</strong> The value of each sToken appreciates as yield is generated within its specific vault, ensuring complete isolation of risks and rewards.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Security */}
-        <section className="space-y-4">
-          <div className="flex items-center space-x-2 mb-4">
-            <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
-              <span className="text-sm font-bold text-launchlayer-violet">4</span>
-            </div>
-            <h3 className="text-xl font-bold text-launchlayer-text-primary">Security & Multi-Chain Deployment</h3>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-green-500">
-              <h4 className="font-bold text-green-500 mb-2 flex items-center space-x-2">
-                <Shield className="w-4 h-4" />
-                <span>Audits</span>
-              </h4>
-              <p className="text-sm text-launchlayer-text-secondary">All contracts undergo rigorous, multi-firm audits before mainnet deployment.</p>
-            </div>
-            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-              <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2">
-                <Target className="w-4 h-4" />
-                <span>Initial Chains</span>
-              </h4>
-              <p className="text-sm text-launchlayer-text-secondary">Deployment across Base, MegaETH, HyperEVM, and Monad with tailored asset support.</p>
-            </div>
-            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-              <h4 className="font-bold text-launchlayer-mint mb-2 flex items-center space-x-2">
-                <Shield className="w-4 h-4" />
-                <span>Risk Isolation</span>
-              </h4>
-              <p className="text-sm text-launchlayer-text-secondary">Strategy separation prevents cross-contamination of vault risks.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <section className="border-t border-launchlayer-surface-light pt-6">
-          <div className="text-center bg-launchlayer-surface p-6 rounded-lg">
-            <h3 className="text-xl font-bold text-launchlayer-accent mb-4 flex items-center justify-center space-x-2">
-              <Zap className="w-5 h-5" />
-              <span>Launch Layer Airlock MVP</span>
-            </h3>
-            <p className="text-launchlayer-text-secondary mb-4">
-              A modular, secure, and user-centric approach to yield-to-access protocols across multiple chains.
-            </p>
-            <div className="pt-4 border-t border-launchlayer-surface-light">
-              <p className="text-launchlayer-accent font-bold">
-                <strong>Live Demo:</strong> launchlayer.io
-              </p>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 
-  const AirlocksView = () => <div className="space-y-16">
-      {/* Hero Section */}
-      <section className="text-center space-y-8">
-        <div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-            <span className="bg-gradient-to-r from-launchlayer-accent via-launchlayer-violet to-launchlayer-mint bg-clip-text text-transparent">
-              Turn Your Yield
-            </span>
-            <br />
-            <span className="text-launchlayer-text-primary">Into Early Access</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-launchlayer-text-secondary mb-8 max-w-4xl mx-auto leading-relaxed">
-            Airlocks are our unique yield-to-access system. Stake your assets, earn real yield from validator operations and blue-chip protocols, and automatically convert those earnings into guaranteed allocations in the most promising new projects.
-          </p>
-        </div>
-        
-        {/* Placeholder for Lottie Animation */}
-        <div className="relative">
-          <div className="w-full max-w-2xl mx-auto h-64 bg-gradient-to-br from-launchlayer-surface to-launchlayer-surface/50 rounded-2xl border border-launchlayer-surface-light flex items-center justify-center">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🔄</div>
-              <p className="text-launchlayer-text-secondary">The Flywheel: The Full Ecosystem Loop</p>
-              <p className="text-sm text-launchlayer-text-secondary mt-2">(Lottie Animation Placeholder)</p>
+  const ConfirmSwapModal = () => (
+    <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Confirm Swap</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <div className="bg-launchlayer-surface p-4 rounded-lg">
+            <p className="text-center mb-4">
+              You are swapping <strong>{fromAmount} {fromToken.symbol}</strong> for a minimum of{' '}
+              <strong>{toAmount} {toToken.symbol}</strong>
+            </p>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Price:</span>
+                <span>1 {toToken.symbol} = 0.000588 {fromToken.symbol}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Price Impact:</span>
+                <span className="text-green-500">&lt;0.01%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Fee (0.3%):</span>
+                <span>{(Number(fromAmount) * 0.003).toFixed(4)} {fromToken.symbol}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Route:</span>
+                <span>{fromToken.symbol} → {toToken.symbol}</span>
+              </div>
             </div>
           </div>
+          <Button className="w-full" onClick={() => setShowConfirmModal(false)}>
+            Confirm Swap
+          </Button>
         </div>
-      </section>
+      </DialogContent>
+    </Dialog>
+  );
 
-      {/* How It Works Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4 text-launchlayer-text-primary">
-            Simple, Secure, Capital-Efficient
-          </h2>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-8">
-          <Card className="bg-launchlayer-surface border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all duration-300">
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-launchlayer-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Shield className="text-launchlayer-accent" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-4 text-launchlayer-text-primary">
-                Stake & Stay Liquid
-              </h3>
-              <p className="text-launchlayer-text-secondary leading-relaxed">
-                Deposit assets like ETH or USDC into our audited Airlocks. Your principal is never hard-locked and remains withdrawable.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-launchlayer-surface border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all duration-300">
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-launchlayer-violet/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <TrendingUp className="text-launchlayer-violet" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-4 text-launchlayer-text-primary">
-                Earn Real Yield
-              </h3>
-              <p className="text-launchlayer-text-secondary leading-relaxed">
-                We generate sustainable yield for you through proprietary validator strategies and by integrating with trusted blue-chip protocols like Beefy Finance.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-launchlayer-surface border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all duration-300">
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-launchlayer-mint/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Key className="text-launchlayer-mint" size={32} />
-              </div>
-              <h3 className="text-xl font-bold mb-4 text-launchlayer-text-primary">
-                Get Guaranteed Access
-              </h3>
-              <p className="text-launchlayer-text-secondary leading-relaxed">
-                Your compounded yield is automatically converted into guaranteed presale allocations for our curated TGEs. No lotteries, no gas wars.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Featured Upcoming Launches */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4 text-launchlayer-text-primary">
-            Allocations You Can Earn Now
-          </h2>
-        </div>
-        
-        <div className="relative">
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
-            {upcomingLaunches.map((launch, index) => <Card key={index} className="min-w-[300px] bg-launchlayer-surface border-launchlayer-surface-light hover:border-launchlayer-accent/50 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="text-3xl mr-3">{launch.logo}</div>
-                    <div>
-                      <h3 className="font-bold text-launchlayer-text-primary">{launch.name}</h3>
-                      <p className="text-sm text-launchlayer-text-secondary">{launch.tagline}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between">
-                      <span className="text-sm text-launchlayer-text-secondary">TGE Date:</span>
-                      <span className="text-sm font-medium text-launchlayer-text-primary">{launch.tgeDate}</span>
-                    </div>
-                  </div>
-                  
-                  <Badge variant={launch.status === "Allocation Open" ? "default" : "secondary"} className={launch.status === "Allocation Open" ? "bg-launchlayer-accent text-white" : ""}>
-                    {launch.status}
-                  </Badge>
-                </CardContent>
-              </Card>)}
-          </div>
-        </div>
-      </section>
-
-      {/* Choose Your Chain */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4 text-launchlayer-text-primary">
-            Choose Your Chain to Get Started
-          </h2>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {chainsForAirlocks.map((chain, index) => <Card key={index} className="bg-launchlayer-surface border-launchlayer-surface-light hover:border-launchlayer-accent/50 hover:scale-105 transition-all duration-300 cursor-pointer" onClick={() => {
-          setSelectedChain(chain.name);
-          setCurrentView('chain');
-        }}>
-              <CardContent className="p-6 text-center">
-                <div className={`w-16 h-16 ${chain.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <span className="text-2xl">{chain.icon}</span>
-                </div>
-                
-                <h3 className="text-xl font-bold mb-2 text-launchlayer-text-primary">
-                  {chain.name}
-                </h3>
-                
-                <div className="space-y-2 text-sm">
-                  <p className="text-launchlayer-text-secondary">{chain.pools}</p>
-                  <p className="text-launchlayer-accent font-medium">{chain.apy}</p>
-                </div>
-                
-                <Button variant="outline" size="sm" className="mt-4 w-full">
-                  Explore Pools
+  const RemoveLiquidityModal = () => (
+    <Dialog open={showRemoveLiquidityModal} onOpenChange={setShowRemoveLiquidityModal}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Remove Liquidity</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-6">
+          <div>
+            <div className="flex justify-between items-center mb-4">
+              <span>Amount to Remove</span>
+              <span className="text-2xl font-bold">{removePercentage[0]}%</span>
+            </div>
+            <Slider
+              value={removePercentage}
+              onValueChange={setRemovePercentage}
+              max={100}
+              step={1}
+              className="mb-4"
+            />
+            <div className="flex space-x-2">
+              {[25, 50, 75, 100].map((percent) => (
+                <Button
+                  key={percent}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setRemovePercentage([percent])}
+                >
+                  {percent}%
                 </Button>
-              </CardContent>
-            </Card>)}
-        </div>
-      </section>
-    </div>;
-
-  const DashboardView = () => <div className="space-y-8">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between p-4 bg-launchlayer-surface rounded-lg border border-launchlayer-surface-light">
-        <div className="flex items-center space-x-6">
-          <div className="flex items-center space-x-2">
-            <img src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" alt="Launch Layer" className="h-8 w-auto" />
-            <span className="text-3xl font-bold text-launchlayer-text-primary">Dashboard</span>
+              ))}
+            </div>
           </div>
-          <div className="hidden md:flex space-x-4 text-sm">
-            <span className="text-launchlayer-accent font-medium">
-          </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
-          </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
-          </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
-          </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer">
-          </span>
-            <span className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer" onClick={() => navigate("/")}>
-          </span>
+          
+          <div className="bg-launchlayer-surface p-4 rounded-lg space-y-2">
+            <h4 className="font-medium">You will receive:</h4>
+            <div className="flex justify-between">
+              <span>ETH:</span>
+              <span>{((Number(selectedPosition?.liquidity.replace('$', '').replace(',', '')) / 2) * (removePercentage[0] / 100) / 1700).toFixed(4)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>SUPER:</span>
+              <span>{((Number(selectedPosition?.liquidity.replace('$', '').replace(',', '')) / 2) * (removePercentage[0] / 100)).toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-launchlayer-accent">
+              <span>Uncollected Fees:</span>
+              <span>{selectedPosition?.uncollectedFees}</span>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center space-x-2 text-sm">
-          <Wallet className="w-4 h-4" />
-          <span>0x1234...5678</span>
-        </div>
-      </nav>
 
-      {/* High-Level Stats Banner */}
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card>
-          <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-accent">$12,750,000</h3>
-            <p className="text-launchlayer-text-secondary">Total Value Locked</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-violet">12</h3>
-            <p className="text-launchlayer-text-secondary">Active Airlocks</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-mint">16</h3>
-            <p className="text-launchlayer-text-secondary">Upcoming Launches</p>
-          </CardContent>
-        </Card>
-      </div>
+          <Button 
+            className="w-full" 
+            onClick={() => setShowRemoveLiquidityModal(false)}
+          >
+            Confirm Removal
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 
-      {/* Your Summary Section */}
+  const SwapInterface = () => (
+    <div className="max-w-md mx-auto">
       <Card>
         <CardHeader>
-          <CardTitle>Your Summary</CardTitle>
+          <CardTitle className="flex items-center justify-between">
+            <span>Swap</span>
+            <Button variant="ghost" size="sm">
+              <Settings className="w-4 h-4" />
+            </Button>
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-launchlayer-text-secondary">Your Total Staked</p>
-              <p className="text-2xl font-bold text-launchlayer-text-primary">$15,500</p>
+          {/* You Pay Section */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span>You Pay</span>
+              <span className="text-launchlayer-text-secondary">Balance: {fromToken.balance} {fromToken.symbol}</span>
             </div>
-            <div>
-              <p className="text-sm text-launchlayer-text-secondary">Your Accrued Yield (for TGEs)</p>
-              <p className="text-2xl font-bold text-launchlayer-accent">$212.50</p>
+            <div className="flex space-x-2">
+              <Input
+                placeholder="0.0"
+                value={fromAmount}
+                onChange={(e) => handleFromAmountChange(e.target.value)}
+                className="flex-1"
+              />
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setTokenSelection('from');
+                  setShowTokenModal(true);
+                }}
+                className="flex items-center space-x-2 px-3"
+              >
+                <span className="text-xl">{fromToken.logo}</span>
+                <span>{fromToken.symbol}</span>
+                <ChevronDown className="w-4 h-4" />
+              </Button>
             </div>
           </div>
-          <Button onClick={() => setCurrentView('personal')} className="w-full">
-            View My Airlocks
+
+          {/* Flip Icon */}
+          <div className="flex justify-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSwapTokens}
+              className="rounded-full"
+            >
+              <ArrowUpDown className="w-4 h-4" />
+            </Button>
+          </div>
+
+          {/* You Receive Section */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span>You Receive</span>
+              <span className="text-launchlayer-text-secondary">Balance: {toToken.balance} {toToken.symbol}</span>
+            </div>
+            <div className="flex space-x-2">
+              <Input
+                placeholder="0.0"
+                value={toAmount}
+                readOnly
+                className="flex-1 bg-launchlayer-surface"
+              />
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setTokenSelection('to');
+                  setShowTokenModal(true);
+                }}
+                className="flex items-center space-x-2 px-3"
+              >
+                <span className="text-xl">{toToken.logo}</span>
+                <span>{toToken.symbol}</span>
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Transaction Details */}
+          {fromAmount && (
+            <div className="bg-launchlayer-surface p-3 rounded-lg space-y-1 text-sm">
+              <div className="flex justify-between">
+                <span>Price:</span>
+                <span>1 {toToken.symbol} = 0.000588 {fromToken.symbol}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Price Impact:</span>
+                <span className="text-green-500">&lt;0.01%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Fee (0.3%):</span>
+                <span>{(Number(fromAmount) * 0.003).toFixed(4)} {fromToken.symbol}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Route:</span>
+                <span>{fromToken.symbol} → {toToken.symbol}</span>
+              </div>
+            </div>
+          )}
+
+          {/* Swap Button */}
+          <Button 
+            className="w-full" 
+            disabled={!fromAmount || Number(fromAmount) <= 0}
+            onClick={() => setShowConfirmModal(true)}
+          >
+            {!fromAmount || Number(fromAmount) <= 0 ? 'Enter Amount' : 'Swap'}
           </Button>
         </CardContent>
       </Card>
 
-      {/* Airlock Chains Section */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Explore Airlocks</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {chains.map(chain => <Card key={chain.name} className="hover:border-launchlayer-accent transition-colors cursor-pointer">
-              <CardContent className="p-6 text-center space-y-4">
-                <div className="text-4xl">{chain.logo}</div>
-                <h3 className="text-xl font-bold">{chain.name}</h3>
-                <div className="space-y-2 text-sm">
-                  <p><span className="text-launchlayer-text-secondary">Chain TVL:</span> {chain.tvl}</p>
-                  <p><span className="text-launchlayer-text-secondary">Available Pools:</span> {chain.pools}</p>
-                </div>
-                <Button onClick={() => {
-              setSelectedChain(chain.name);
-              setCurrentView('chain');
-            }} className="w-full">
-                  Select Chain
-                </Button>
-              </CardContent>
-            </Card>)}
-        </div>
-      </div>
+      {/* Price Chart Placeholder */}
+      <Card className="mt-6">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-medium">{fromToken.symbol}/{toToken.symbol} Price Chart</h3>
+            <div className="flex items-center space-x-2 text-sm text-launchlayer-accent">
+              <TrendingUp className="w-4 h-4" />
+              <span>+5.67%</span>
+            </div>
+          </div>
+          <div className="h-32 bg-gradient-to-r from-launchlayer-accent/20 to-launchlayer-violet/20 rounded-lg flex items-center justify-center">
+            <span className="text-launchlayer-text-secondary">Price Chart Placeholder</span>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
-      {/* Upcoming Projects Preview */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Upcoming Project Launches</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Object.entries(mockProjects).slice(0, 4).map(([chain, projects]) => <Card key={chain}>
-              <CardContent className="p-4">
-                <h4 className="font-bold mb-2">{chain} Ecosystem</h4>
-                <div className="space-y-2">
-                  {projects.slice(0, 2).map((project, idx) => <div key={idx} className="flex items-center space-x-2 text-sm">
-                      <span>{project.logo}</span>
-                      <span className="truncate">{project.name}</span>
-                    </div>)}
-                  <p className="text-xs text-launchlayer-text-secondary">+{projects.length - 2} more projects</p>
-                </div>
-              </CardContent>
-            </Card>)}
-        </div>
-      </div>
-    </div>;
-
-  const ChainView = () => <div className="space-y-6">
-      <div className="flex items-center space-x-4">
-        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <h1 className="text-3xl font-bold text-launchlayer-text-primary">{selectedChain} Airlocks</h1>
-      </div>
-
-      {/* Chain-Specific Stats */}
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card>
-          <CardContent className="p-4 text-center">
-            <h3 className="text-xl font-bold text-launchlayer-accent">
-              {chains.find(c => c.name === selectedChain)?.tvl}
-            </h3>
-            <p className="text-sm text-launchlayer-text-secondary">TVL on {selectedChain}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <h3 className="text-xl font-bold text-launchlayer-violet">
-              {pools[selectedChain as keyof typeof pools]?.[1]?.apy} - {pools[selectedChain as keyof typeof pools]?.[2]?.apy}
-            </h3>
-            <p className="text-sm text-launchlayer-text-secondary">Current APY Range</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <h3 className="text-xl font-bold text-launchlayer-mint">
-              {pools[selectedChain as keyof typeof pools]?.length || 0}
-            </h3>
-            <p className="text-sm text-launchlayer-text-secondary">Available Pools</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Available Pools */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Available Pools</h2>
-        {pools[selectedChain as keyof typeof pools]?.map((pool, index) => <Card key={index} className="hover:border-launchlayer-accent transition-colors">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start">
-                <div className="space-y-2 flex-1">
-                  <div className="flex items-center space-x-2">
-                    <h3 className="text-lg font-bold">{pool.name}</h3>
-                    {pool.risk === 'high' && <Badge variant="destructive" className="bg-red-600 text-white flex items-center space-x-1">
-                        <AlertTriangle className="w-3 h-3" />
-                        <span>HIGH RISK</span>
-                      </Badge>}
-                  </div>
-                  <p className="text-sm text-launchlayer-text-secondary">{pool.strategy}</p>
-                  <p className="text-xs text-launchlayer-text-secondary">{pool.description}</p>
-                  {pool.risk === 'high' && <p className="text-xs text-red-400 font-medium">
-                      ⚠️ This strategy involves high risk of loss. Only stake what you can afford to lose.
-                    </p>}
-                </div>
-                <div className="text-right space-y-2 ml-4">
-                  <div>
-                    <p className="text-sm text-launchlayer-text-secondary">APY</p>
-                    <p className={`text-xl font-bold ${pool.risk === 'high' ? 'text-red-400' : 'text-launchlayer-accent'}`}>
-                      {pool.apy}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-launchlayer-text-secondary">Pool TVL</p>
-                    <p className="font-medium">{pool.tvl}</p>
-                  </div>
-                  <Button onClick={() => {
-                setSelectedPool(pool);
-                setShowStakingModal(true);
-              }} className="w-full" variant={pool.risk === 'high' ? 'destructive' : 'default'}>
-                    Stake
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>)}
-      </div>
-
-      {/* Chain-Specific Projects */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Upcoming Launches on {selectedChain}</h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {mockProjects[selectedChain as keyof typeof mockProjects]?.map((project, index) => <Card key={index}>
-              <CardContent className="p-4">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl">{project.logo}</span>
-                      <div>
-                        <h4 className="font-bold">{project.name}</h4>
-                        <Badge variant="outline" className="text-xs">{project.category}</Badge>
+  const LiquidityInterface = () => (
+    <div className="max-w-4xl mx-auto space-y-6">
+      {/* My Positions */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <span>Your Liquidity Positions</span>
+            <Button onClick={() => {}} className="flex items-center space-x-2">
+              <Plus className="w-4 h-4" />
+              <span>Add Liquidity</span>
+            </Button>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {liquidityPositions.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-launchlayer-text-secondary mb-4">Your active liquidity positions will appear here.</p>
+              <Button>+ Add Liquidity</Button>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-4">
+              {liquidityPositions.map((position) => (
+                <Card key={position.id} className="border border-launchlayer-surface-light">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-medium">{position.pair}</h4>
+                      <Badge variant="outline">{position.feeTier}</Badge>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Liquidity Value:</span>
+                        <span className="font-medium">{position.liquidity}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>Status:</span>
+                        <div className="flex items-center space-x-2">
+                          <div className={`w-2 h-2 rounded-full ${position.statusColor}`}></div>
+                          <span>{position.status}</span>
+                        </div>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Uncollected Fees:</span>
+                        <span className="text-launchlayer-accent">{position.uncollectedFees}</span>
                       </div>
                     </div>
-                    <p className="text-xs text-launchlayer-text-secondary">{project.description}</p>
-                    <div className="flex justify-between text-xs">
-                      <span>Raise: {project.totalRaise}</span>
-                      <span>TGE: {project.tgeDate}</span>
+                    <div className="flex space-x-2 mt-4">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Plus className="w-3 h-3 mr-1" />
+                        Add
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={() => {
+                          setSelectedPosition(position);
+                          setShowRemoveLiquidityModal(true);
+                        }}
+                      >
+                        <Minus className="w-3 h-3 mr-1" />
+                        Remove
+                      </Button>
                     </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>)}
-        </div>
-      </div>
-    </div>;
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
-  const PersonalView = () => <div className="space-y-6">
-      <div className="flex items-center space-x-4">
-        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <h1 className="text-3xl font-bold text-launchlayer-text-primary">My Airlocks</h1>
-      </div>
-
-      {/* Aggregated Summary */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card>
-          <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-text-primary">$15,500.00</h3>
-            <p className="text-launchlayer-text-secondary">Total Value Staked</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-accent">$212.50</h3>
-            <p className="text-launchlayer-text-secondary">Total Accrued Yield (Value for TGEs)</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Position Breakdown */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Your Positions</h2>
-        {userPositions.map((position, index) => <Card key={index}>
-            <CardContent className="p-6">
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3 className="font-bold">{position.pool}</h3>
-                  <p className="text-sm text-launchlayer-text-secondary">Amount Staked: {position.staked}</p>
-                  <p className="text-sm text-launchlayer-accent">Accrued Yield: {position.yield}</p>
-                </div>
-                <div className="flex space-x-2">
-                  <Button variant="outline" size="sm">Add Stake</Button>
-                  <Button variant="outline" size="sm">Withdraw</Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>)}
-      </div>
-
-      {/* Upcoming Allocations */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Your Upcoming TGE Allocations</h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {upcomingTGEs.map((tge, index) => <Card key={index}>
-              <CardContent className="p-6 text-center space-y-2">
-                <div className="text-3xl">{tge.logo}</div>
-                <h3 className="font-bold">{tge.name}</h3>
-                <p className="text-launchlayer-accent font-medium">~{tge.allocation}</p>
-                <p className="text-sm text-launchlayer-text-secondary">TGE: {tge.tgeDate}</p>
-              </CardContent>
-            </Card>)}
-        </div>
-      </div>
-    </div>;
-
-  const StakingModal = () => <Dialog open={showStakingModal} onOpenChange={setShowStakingModal}>
-      <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
-            <span>Stake ETH in {selectedPool?.name}</span>
-            {selectedPool?.risk === 'high' && <Badge variant="destructive" className="bg-red-600 text-white">
-                HIGH RISK
-              </Badge>}
-          </DialogTitle>
-        </DialogHeader>
-        <div className="space-y-4">
-          {selectedPool?.risk === 'high' && <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-              <div className="flex items-center space-x-2 text-red-800">
-                <AlertTriangle className="w-4 h-4" />
-                <span className="text-sm font-medium">High Risk Warning</span>
-              </div>
-              <p className="text-xs text-red-700 mt-1">
-                This strategy has high risk of loss. Past performance does not guarantee future results.
-              </p>
-            </div>}
-          
-          <div>
-            <p className="text-sm text-launchlayer-text-secondary">Your Wallet Balance</p>
-            <p className="font-bold">4.5 ETH</p>
-          </div>
-          
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Amount to Stake</label>
-            <Input placeholder="0.0" value={stakeAmount} onChange={e => setStakeAmount(e.target.value)} />
+      {/* Add Liquidity Widget */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Add Liquidity</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Step 1: Select Pair */}
+          <div className="space-y-3">
+            <h4 className="font-medium">Select Pair</h4>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm" onClick={() => setStakeAmount('1.125')}>25%</Button>
-              <Button variant="outline" size="sm" onClick={() => setStakeAmount('2.25')}>50%</Button>
-              <Button variant="outline" size="sm" onClick={() => setStakeAmount('4.5')}>MAX</Button>
+              <Button variant="outline" className="flex-1 flex items-center space-x-2">
+                <span className="text-xl">⚡</span>
+                <span>ETH</span>
+                <ChevronDown className="w-4 h-4" />
+              </Button>
+              <Button variant="outline" className="flex-1 flex items-center space-x-2">
+                <span className="text-xl">🚀</span>
+                <span>SUPER</span>
+                <ChevronDown className="w-4 h-4" />
+              </Button>
             </div>
           </div>
 
-          <div className="bg-launchlayer-surface p-4 rounded-lg space-y-2">
-            <h4 className="font-medium">Transaction Summary</h4>
-            <div className="text-sm space-y-1">
-              <p>You will receive: ~{stakeAmount || '0'} s{selectedPool?.name?.replace(' ', '')}</p>
-              <p>Current APY: {selectedPool?.apy}</p>
-              <p>Gas Fee: ~$12.50</p>
+          {/* Step 2: Fee Tier */}
+          <div className="space-y-3">
+            <h4 className="font-medium">Fee Tier</h4>
+            <div className="grid grid-cols-3 gap-2">
+              {['0.05%', '0.3%', '1%'].map((fee) => (
+                <Button key={fee} variant={fee === '0.3%' ? 'default' : 'outline'} size="sm">
+                  {fee}
+                </Button>
+              ))}
             </div>
           </div>
 
+          {/* Step 3: Price Range */}
+          <div className="space-y-3">
+            <div className="flex items-center space-x-2">
+              <h4 className="font-medium">Set Price Range</h4>
+              <div className="flex items-center space-x-1 text-sm text-launchlayer-text-secondary">
+                <Info className="w-3 h-3" />
+                <span>Concentrated Liquidity</span>
+              </div>
+            </div>
+            <div className="bg-launchlayer-surface p-4 rounded-lg">
+              <p className="text-sm text-launchlayer-text-secondary mb-4">
+                Current Price: 1,700 SUPER per ETH
+              </p>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className="text-sm font-medium">Min Price</label>
+                  <Input placeholder="1,500" />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Max Price</label>
+                  <Input placeholder="2,000" />
+                </div>
+              </div>
+              <div className="h-20 bg-gradient-to-r from-launchlayer-violet/20 via-launchlayer-accent/40 to-launchlayer-violet/20 rounded flex items-center justify-center">
+                <span className="text-sm text-launchlayer-text-secondary">Price Range Visualization</span>
+              </div>
+              <div className="mt-4">
+                <Button variant="outline" size="sm">Full Range</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 4: Deposit Amounts */}
+          <div className="space-y-3">
+            <h4 className="font-medium">Deposit Amounts</h4>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>ETH Amount</span>
+                  <span>Balance: 4.5 ETH</span>
+                </div>
+                <Input placeholder="0.0" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>SUPER Amount</span>
+                  <span>Balance: 0 SUPER</span>
+                </div>
+                <Input placeholder="0.0" />
+              </div>
+            </div>
+          </div>
+
+          {/* Add Liquidity Button */}
           <div className="space-y-2">
-            <Button className="w-full" variant="outline">
-              Approve
+            <Button variant="outline" className="w-full">
+              Approve Tokens
             </Button>
-            <Button className="w-full" disabled={!stakeAmount} variant={selectedPool?.risk === 'high' ? 'destructive' : 'default'}>
-              Confirm Stake
+            <Button className="w-full">
+              Add Liquidity
             </Button>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>;
+        </CardContent>
+      </Card>
+    </div>
+  );
 
-  return <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
+  return (
+    <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
       {/* Header */}
       <header className="bg-launchlayer-surface border-b border-launchlayer-surface-light p-4 sticky top-0 z-10">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <img src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" alt="Launch Layer Logo" className="h-8 w-auto" />
-            <h1 className="text-xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-              Launch Layer - Beta UX Mockup
-            </h1>
+          <div className="flex items-center space-x-6">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate("/")} 
+              className="flex items-center space-x-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </Button>
+            <div className="flex items-center space-x-4">
+              <img 
+                src="/lovable-uploads/c054fc20-c0d7-4c0c-9d55-8dc40e350c79.png" 
+                alt="Launch Layer Logo" 
+                className="h-8 w-auto" 
+              />
+              <h1 className="text-xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
+                Propulsion Finance DEX
+              </h1>
+            </div>
           </div>
           
-          <div className="flex items-center space-x-4 text-sm text-launchlayer-text-secondary">
-            <Button variant={currentView === 'dashboard' ? 'accent' : 'ghost'} size="sm" onClick={() => setCurrentView('dashboard')}>
-              Dashboard
-            </Button>
-            <Button variant={currentView === 'airlocks' ? 'accent' : 'ghost'} size="sm" onClick={() => setCurrentView('airlocks')}>
-              Airlocks
-            </Button>
-            <Button variant={currentView === 'personal' ? 'accent' : 'ghost'} size="sm" onClick={() => setCurrentView('personal')}>
-              My Airlocks
-            </Button>
-            <Button variant={currentView === 'whitepaper' ? 'accent' : 'ghost'} size="sm" onClick={() => setCurrentView('whitepaper')}>
-              White Paper
-            </Button>
+          <div className="flex items-center space-x-4">
+            <div className="hidden md:flex items-center space-x-4 text-sm">
+              <Button variant="ghost" size="sm">Dashboard</Button>
+              <Button variant="ghost" size="sm">Airlocks</Button>
+              <Button variant="ghost" size="sm">Launchpad</Button>
+              <Button variant="accent" size="sm">Propulsion DEX</Button>
+              <Button variant="ghost" size="sm">My Account</Button>
+            </div>
+            <div className="flex items-center space-x-2 text-sm">
+              <Wallet className="w-4 h-4" />
+              <span>0x1234...5678</span>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="container mx-auto p-6 max-w-6xl">
-        {currentView === 'dashboard' && <DashboardView />}
-        {currentView === 'airlocks' && <AirlocksView />}
-        {currentView === 'chain' && <ChainView />}
-        {currentView === 'personal' && <PersonalView />}
-        {currentView === 'whitepaper' && <WhitePaperView />}
-        <StakingModal />
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-48 grid-cols-2 mx-auto">
+            <TabsTrigger value="swap">Swap</TabsTrigger>
+            <TabsTrigger value="liquidity">Liquidity</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="swap" className="space-y-6">
+            <SwapInterface />
+          </TabsContent>
+          
+          <TabsContent value="liquidity" className="space-y-6">
+            <LiquidityInterface />
+          </TabsContent>
+        </Tabs>
       </main>
 
-      <style>
-        {`
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-          }
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-          }
-        `}
-      </style>
-    </div>;
+      {/* Modals */}
+      <TokenSelectionModal />
+      <ConfirmSwapModal />
+      <RemoveLiquidityModal />
+    </div>
+  );
 };
+
 export default BetaUXPage;

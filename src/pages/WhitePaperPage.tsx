@@ -1,5 +1,6 @@
+
 import React from "react";
-import { FileText, Database, Shield, Target, Layers, GitBranch, Zap } from "lucide-react";
+import { FileText, Database, Shield, Target, Layers, GitBranch, Zap, TrendingUp, Coins } from "lucide-react";
 import Header from "@/components/layout/Header";
 
 const WhitePaperPage: React.FC = () => {
@@ -14,12 +15,12 @@ const WhitePaperPage: React.FC = () => {
           {/* Title Section */}
           <div className="text-center space-y-4 border-b border-launchlayer-surface-light pb-8">
             <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-launchlayer-accent to-launchlayer-violet bg-clip-text text-transparent">
-              Launch Layer Airlock
+              Propulsion Finance
             </h1>
-            <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper (MVP v1.1)</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-launchlayer-text-primary">Technical White Paper (MVP v1.0)</h2>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-launchlayer-text-secondary">
-              <span><strong>Version:</strong> 1.1</span>
-              <span><strong>Date:</strong> June 14, 2025</span>
+              <span><strong>Version:</strong> 1.0</span>
+              <span><strong>Date:</strong> June 16, 2025</span>
               <span><strong>Status:</strong> <span className="text-launchlayer-accent">Draft</span></span>
             </div>
           </div>
@@ -33,7 +34,7 @@ const WhitePaperPage: React.FC = () => {
               <h3 className="text-xl font-bold text-launchlayer-text-primary">Abstract</h3>
             </div>
             <p className="text-launchlayer-text-secondary leading-relaxed">
-              The Launch Layer Airlock is a modular, multi-chain yield-to-access protocol. This document outlines the technical architecture for the Minimum Viable Product (MVP), which enables users to stake assets into strategy-specific vaults, earn sustainable real yield, and automatically convert that yield into guaranteed allocations for curated Token Generation Events (TGEs). The MVP architecture prioritizes security, user choice, and capital efficiency by offering two distinct, transparent yield strategies at launch: a proprietary "Core Yield" strategy and a "Blue-Chip" strategy powered by established third-party protocols. The system is designed for initial deployment on Base, MegaETH, HyperEVM, and Monad.
+              Propulsion Finance is an advanced, multi-chain Automated Market Maker (AMM) and the native liquidity engine of the Launch Layer ecosystem. It is designed to solve the critical "day-one" liquidity challenge for new projects by providing an integrated, capital-efficient, and automated solution for secondary market creation. The Minimum Viable Product (MVP) will launch on an Algebra v4 backend, leveraging concentrated liquidity and dynamic fees. This paper outlines the MVP architecture, its core mechanisms—including automated liquidity seeding—and its sophisticated, multi-phase technical roadmap towards a custom AMM with advanced features like MEV-capture and intent-based order flow.
             </p>
           </section>
 
@@ -46,7 +47,10 @@ const WhitePaperPage: React.FC = () => {
               <h3 className="text-xl font-bold text-launchlayer-text-primary">Introduction</h3>
             </div>
             <p className="text-launchlayer-text-secondary leading-relaxed">
-              The primary goal of the Airlock MVP is to validate the core user journey: transforming passively generated yield into early-stage project exposure without locking up principal capital. To achieve this while maximizing user trust and mitigating regulatory risk, the MVP will separate distinct yield strategies into discrete, user-selected vaults, rather than operating as a single, discretionary "managed fund." This empowers users to consciously select their preferred risk-to-reward profile.
+              For new token launches, achieving deep, reliable, and immediate liquidity is one of the greatest hurdles. Traditional approaches are manual, capital-intensive, and fragmented, often forcing projects to cede control to external market makers or launch on DEXs with no direct link to their primary fundraising platform.
+            </p>
+            <p className="text-launchlayer-text-secondary leading-relaxed">
+              Propulsion Finance is engineered to solve this. As the native AMM of Launch Layer, it provides a seamless, automated pathway from TGE to a liquid, tradable market, creating a self-sustaining ecosystem that benefits projects, users, and liquidity providers.
             </p>
           </section>
 
@@ -56,179 +60,153 @@ const WhitePaperPage: React.FC = () => {
               <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
                 <span className="text-sm font-bold text-launchlayer-mint">2</span>
               </div>
-              <h3 className="text-xl font-bold text-launchlayer-text-primary">Core Architecture (Hybrid Model)</h3>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Core Architecture (MVP - Phase 1)</h3>
             </div>
             <p className="text-launchlayer-text-secondary leading-relaxed">
-              The Airlock MVP architecture is composed of a primary user-facing contract (AirlockRouter) that directs user funds to one of several underlying Strategy Vaults based on the user's explicit choice.
+              The MVP of Propulsion Finance prioritizes speed-to-market, security, and capital efficiency by building on a proven, audited foundation.
             </p>
 
-            {/* Airlock Router */}
+            {/* Algebra v4 Engine */}
             <div className="space-y-3">
               <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
-                <GitBranch className="w-5 h-5" />
-                <span>2.1. Airlock Router (AirlockRouter.sol)</span>
+                <Database className="w-5 h-5" />
+                <span>2.1. The Algebra v4 Engine</span>
               </h4>
               <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                <p className="text-launchlayer-text-secondary mb-3">This is the central smart contract that users interact with.</p>
+                <p className="text-launchlayer-text-secondary mb-3">The initial deployment of Propulsion Finance will utilize the Algebra v4 AMM engine. This choice is strategic:</p>
                 <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                  <li><strong className="text-launchlayer-text-primary">Function:</strong> Acts as a trusted router or "factory" for deposits and withdrawals. It does not hold user funds directly for extended periods but routes them to the appropriate Strategy Vault.</li>
-                  <li><strong className="text-launchlayer-text-primary">User Interaction:</strong> A user calls the <code className="bg-launchlayer-surface px-2 py-1 rounded">deposit(strategyId, amount)</code> function, specifying which strategy they want to use.</li>
-                  <li><strong className="text-launchlayer-text-primary">Registry:</strong> The router maintains a registry of whitelisted, audited Strategy Vault contracts to ensure user funds can only be sent to secure, approved destinations.</li>
+                  <li><strong className="text-launchlayer-text-primary">Concentrated Liquidity:</strong> Allows LPs to allocate capital within specific price ranges, dramatically increasing capital efficiency compared to traditional xy=k models.</li>
+                  <li><strong className="text-launchlayer-text-primary">Dynamic Fees:</strong> Automatically adjusts trading fees based on volatility and other pool-specific factors, optimizing returns for LPs and providing fairer prices for traders.</li>
+                  <li><strong className="text-launchlayer-text-primary">Modularity & Security:</strong> Built on an audited, battle-tested codebase that provides a secure foundation and allows for future extensibility with custom features.</li>
                 </ul>
               </div>
             </div>
 
-            {/* Strategy Vaults */}
+            {/* Multi-Chain Deployment */}
             <div className="space-y-3">
               <h4 className="text-lg font-bold text-launchlayer-violet flex items-center space-x-2">
-                <Database className="w-5 h-5" />
-                <span>2.2. Strategy Vaults (StrategyVault.sol - Interface)</span>
-              </h4>
-              <p className="text-launchlayer-text-secondary">
-                Each Strategy Vault is a standalone contract that holds user funds and executes a specific yield-generation strategy. For the MVP, two initial types will be deployed on each target chain:
-              </p>
-              
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-violet">
-                  <h5 className="font-bold text-launchlayer-violet mb-2">CoreYieldVault.sol (Proprietary Strategy)</h5>
-                  <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
-                    <li><strong>Yield Source:</strong> Interfaces with a secure, permissioned oracle managed by Infrasingularity</li>
-                    <li><strong>Mechanism:</strong> The vault's asset value is updated based on data reported by the Infrasingularity oracle</li>
-                  </ul>
-                </div>
-                <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-                  <h5 className="font-bold text-launchlayer-mint mb-2">BlueChipVault.sol (External Strategy)</h5>
-                  <ul className="space-y-1 text-sm text-launchlayer-text-secondary">
-                    <li><strong>Yield Source:</strong> Interfaces with established, audited vaults from leading multi-chain yield aggregators like Beefy Finance</li>
-                    <li><strong>Mechanism:</strong> Acts as a "vault-of-a-vault," programmatically depositing user funds into whitelisted Beefy vaults</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Share Token Model */}
-            <div className="space-y-3">
-              <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
-                <Layers className="w-5 h-5" />
-                <span>2.3. Share Token (sToken) Model</span>
+                <GitBranch className="w-5 h-5" />
+                <span>2.2. Multi-Chain Deployment</span>
               </h4>
               <div className="bg-launchlayer-background p-4 rounded-lg">
-                <p className="text-launchlayer-text-secondary mb-3">Each Strategy Vault will issue its own distinct ERC-20 share token.</p>
-                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                  <li><strong className="text-launchlayer-text-primary">Example:</strong> A user depositing ETH into the CoreYieldVault on Base will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sCoreETH</code>. A user depositing into the BlueChipVault will receive <code className="bg-launchlayer-surface px-2 py-1 rounded">sBlueChipETH</code>.</li>
-                  <li><strong className="text-launchlayer-text-primary">Value Accrual:</strong> The value of each sToken appreciates as yield is generated within its specific vault, ensuring complete isolation of risks and rewards.</li>
-                </ul>
+                <p className="text-launchlayer-text-secondary">
+                  Propulsion Finance will be deployed in lockstep with Launch Layer's target chains, including Base, HyperEVM, MegaETH, and Sonic. Each deployment will be a standalone instance of the AMM, tailored to its host ecosystem.
+                </p>
               </div>
             </div>
           </section>
 
-          {/* Detailed Mechanisms */}
+          {/* Key Mechanisms */}
           <section className="space-y-6">
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
                 <span className="text-sm font-bold text-launchlayer-accent">3</span>
               </div>
-              <h3 className="text-xl font-bold text-launchlayer-text-primary">Detailed Mechanisms</h3>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Key Mechanisms & Features</h3>
             </div>
 
-            {/* User Flow */}
+            {/* Automated Liquidity Seeding */}
             <div className="space-y-3">
-              <h4 className="text-lg font-bold text-launchlayer-violet">3.1. User Flow & Choice</h4>
-              <p className="text-launchlayer-text-secondary">
-                The front-end will present a simple UI for each chain (e.g., "The HyperEVM ETH Airlock"). Upon clicking "Stake," the user will be presented with a clear choice:
+              <h4 className="text-lg font-bold text-launchlayer-violet flex items-center space-x-2">
+                <TrendingUp className="w-5 h-5" />
+                <span>3.1. Automated Liquidity Seeding</span>
+              </h4>
+              <div className="bg-launchlayer-violet/10 p-4 rounded-lg border border-launchlayer-violet/30">
+                <p className="text-launchlayer-text-secondary mb-3">This is the core integration with the Launch Layer platform.</p>
+                <div className="space-y-2 text-sm text-launchlayer-text-secondary">
+                  <div><strong className="text-launchlayer-text-primary">Mechanism:</strong> When a project conducts its TGE via Launch Layer, a pre-determined portion of the raised funds (e.g., ETH, USDC) and the project's own tokens are automatically transferred to a contract. This contract then programmatically creates a new concentrated liquidity pool on Propulsion Finance and deploys the assets as the pool's initial liquidity.</div>
+                  <div><strong className="text-launchlayer-text-primary">Benefit:</strong> This provides projects with an instant, functional trading market for their token the moment their TGE concludes, eliminating manual processes and delays.</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Flexible LP Deployment */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-mint flex items-center space-x-2">
+                <Layers className="w-5 h-5" />
+                <span>3.2. Flexible LP Deployment Model</span>
+              </h4>
+              <div className="bg-launchlayer-background p-4 rounded-lg">
+                <p className="text-launchlayer-text-secondary mb-3">To foster ecosystem collaboration and maximize reach for curated projects, Propulsion Finance supports a flexible deployment model.</p>
+                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
+                  <li><strong className="text-launchlayer-text-primary">Functionality:</strong> Curated projects launching on Launch Layer will have the option to automatically split their initial liquidity deployment. For example, deploying 50% to a new pool on Propulsion Finance and the other 50% to a whitelisted "hero DEX" on the same chain.</li>
+                  <li><strong className="text-launchlayer-text-primary">Technical Implementation:</strong> This requires an "Adapter" contract layer capable of interacting with the specific router contracts of different external DEXs (e.g., Uniswap V3 forks, other Algebra-based DEXs).</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* DEX Aggregator Integration */}
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-launchlayer-accent flex items-center space-x-2">
+                <Shield className="w-5 h-5" />
+                <span>3.3. DEX Aggregator Integration</span>
+              </h4>
+              <div className="bg-launchlayer-background p-4 rounded-lg">
+                <p className="text-launchlayer-text-secondary">
+                  The AMM's smart contracts adhere to common standards, ensuring that Propulsion Finance pools are immediately discoverable by major DEX aggregators. This drives external trading volume to our pools from day one, enhancing fee generation and liquidity depth.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Protocol Revenue Model */}
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-violet">4</span>
+              </div>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Protocol Revenue Model</h3>
+            </div>
+            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
+              <p className="text-launchlayer-text-secondary mb-3">Propulsion Finance contributes directly to the Launch Layer protocol treasury.</p>
+              <p className="text-sm text-launchlayer-text-secondary">
+                <strong className="text-launchlayer-text-primary">Protocol Fee:</strong> A portion of the dynamic trading fees generated from every swap is automatically allocated to the protocol. For a typical 0.3% fee pool, the split might be 0.25% to Liquidity Providers and 0.05% to the Launch Layer treasury. This fee is configurable per pool.
               </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-launchlayer-violet/10 p-4 rounded-lg border border-launchlayer-violet/30">
-                  <h5 className="font-bold text-launchlayer-violet mb-2">Core Yield (Recommended)</h5>
-                  <p className="text-sm text-launchlayer-text-secondary">Our proprietary strategy powered by Infrasingularity's validator operations.</p>
-                </div>
-                <div className="bg-launchlayer-mint/10 p-4 rounded-lg border border-launchlayer-mint/30">
-                  <h5 className="font-bold text-launchlayer-mint mb-2">Blue-Chip Stable</h5>
-                  <p className="text-sm text-launchlayer-text-secondary">A trusted strategy powered by Beefy Finance, earning yield from blue-chip DeFi protocols.</p>
-                </div>
-              </div>
             </div>
+          </section>
 
-            {/* Instant Withdrawal */}
-            <div className="space-y-3">
-              <h4 className="text-lg font-bold text-launchlayer-mint">3.2. Instant Withdrawal & Liquidity Buffers</h4>
-              <div className="bg-launchlayer-background p-4 rounded-lg">
-                <p className="text-launchlayer-text-secondary mb-3">To enable instant withdrawals, each Strategy Vault will maintain its own Liquidity Buffer.</p>
-                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                  <li><strong className="text-launchlayer-text-primary">Mechanism:</strong> A dynamically managed percentage of each vault's TVL will be held in a liquid state within the contract itself.</li>
-                  <li><strong className="text-launchlayer-text-primary">Queueing:</strong> In rare bank run scenarios, withdrawal requests enter a short, transparent queue to be fulfilled as capital returns from the underlying strategy.</li>
+          {/* Technical Roadmap */}
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-mint">5</span>
+              </div>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Technical Roadmap & Future Vision</h3>
+            </div>
+            <p className="text-launchlayer-text-secondary mb-4">The Algebra v4 MVP is the foundation for a highly ambitious roadmap.</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-violet/30">
+                <h4 className="font-bold text-launchlayer-violet mb-2">Phase 2: Custom AMM with Advanced Hooks</h4>
+                <p className="text-sm text-launchlayer-text-secondary mb-2">Transition to a custom AMM implementation inspired by Uniswap v4's "hooks" architecture.</p>
+                <ul className="text-xs text-launchlayer-text-secondary space-y-1">
+                  <li>• Auto-Ranging Liquidity Management</li>
+                  <li>• Native Limit Orders</li>
+                  <li>• TWAMM (Time-Weighted Average Market Maker)</li>
                 </ul>
               </div>
-            </div>
-
-            {/* TGE Allocation */}
-            <div className="space-y-3">
-              <h4 className="text-lg font-bold text-launchlayer-accent">3.3. TGE Allocation & Vesting</h4>
-              <div className="bg-launchlayer-background p-4 rounded-lg">
-                <ul className="space-y-2 text-sm text-launchlayer-text-secondary">
-                  <li><strong className="text-launchlayer-text-primary">Yield Snapshot:</strong> For a given TGE, a snapshot calculates accrued yield as (current value of user's sTokens) - (initial principal deposited).</li>
-                  <li><strong className="text-launchlayer-text-primary">Whitelist Generation:</strong> This data populates a merkle tree, where each user's allocation is proportional to their yield contribution.</li>
-                  <li><strong className="text-launchlayer-text-primary">Automated Claim:</strong> The Launch Layer TGE contract allows whitelisted users to claim tokens, automatically sent to Magna-powered vesting contracts.</li>
-                </ul>
+              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-accent/30">
+                <h4 className="font-bold text-launchlayer-accent mb-2">Phase 3: MEV Capture via OFA</h4>
+                <p className="text-sm text-launchlayer-text-secondary">Integrate an intent-based trading system similar to CoW Protocol with competitive solver networks for MEV capture.</p>
               </div>
+            </div>
+            <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-mint/30">
+              <h4 className="font-bold text-launchlayer-mint mb-2">Phase 4 (Research): Alternative AMM Models</h4>
+              <p className="text-sm text-launchlayer-text-secondary">Ongoing research into emerging models like Ambient Finance's "singleton" architecture or oracle-driven Proactive Market Makers (PMMs).</p>
             </div>
           </section>
 
           {/* Security */}
           <section className="space-y-4">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-launchlayer-violet/20 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold text-launchlayer-violet">4</span>
+              <div className="w-8 h-8 bg-launchlayer-accent/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-bold text-launchlayer-accent">6</span>
               </div>
-              <h3 className="text-xl font-bold text-launchlayer-text-primary">Security & Multi-Chain Deployment</h3>
+              <h3 className="text-xl font-bold text-launchlayer-text-primary">Security</h3>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-green-500">
-                <h4 className="font-bold text-green-500 mb-2 flex items-center space-x-2">
-                  <Shield className="w-4 h-4" />
-                  <span>Audits</span>
-                </h4>
-                <p className="text-sm text-launchlayer-text-secondary">All contracts undergo rigorous, multi-firm audits before mainnet deployment.</p>
-              </div>
-              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-accent">
-                <h4 className="font-bold text-launchlayer-accent mb-2 flex items-center space-x-2">
-                  <Target className="w-4 h-4" />
-                  <span>Initial Chains</span>
-                </h4>
-                <p className="text-sm text-launchlayer-text-secondary">Deployment across Base, MegaETH, HyperEVM, and Monad with tailored asset support.</p>
-              </div>
-              <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-launchlayer-mint">
-                <h4 className="font-bold text-launchlayer-mint mb-2 flex items-center space-x-2">
-                  <Shield className="w-4 h-4" />
-                  <span>Risk Isolation</span>
-                </h4>
-                <p className="text-sm text-launchlayer-text-secondary">Strategy separation prevents cross-contamination of vault risks.</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Future Work */}
-          <section className="space-y-4">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-launchlayer-mint/20 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold text-launchlayer-mint">5</span>
-              </div>
-              <h3 className="text-xl font-bold text-launchlayer-text-primary">Future Work</h3>
-            </div>
-            <p className="text-launchlayer-text-secondary mb-4">This MVP architecture provides a secure and scalable foundation. Future iterations will focus on:</p>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-violet/30">
-                <h4 className="font-bold text-launchlayer-violet mb-2">Managed Airlock</h4>
-                <p className="text-sm text-launchlayer-text-secondary">A V2 product that abstracts user choice into a single, blended-yield vault.</p>
-              </div>
-              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-accent/30">
-                <h4 className="font-bold text-launchlayer-accent mb-2">Expanding Strategies</h4>
-                <p className="text-sm text-launchlayer-text-secondary">New vaults including "Degen Airlocks" utilizing leveraged yield protocols.</p>
-              </div>
-              <div className="bg-launchlayer-surface p-4 rounded-lg border border-launchlayer-mint/30">
-                <h4 className="font-bold text-launchlayer-mint mb-2">Decentralized Governance</h4>
-                <p className="text-sm text-launchlayer-text-secondary">Transitioning management to DAO governance structures.</p>
-              </div>
+            <div className="bg-launchlayer-background p-4 rounded-lg border-l-4 border-l-green-500">
+              <p className="text-launchlayer-text-secondary">
+                For the MVP, we rely on the extensive audits and battle-tested nature of the Algebra codebase. All custom integration layers, such as the Automated Liquidity Seeding contract and external DEX adapters, will undergo rigorous, independent audits. All future upgrades, especially the custom AMM hooks and OFA layer, will require multi-firm audits before deployment.
+              </p>
             </div>
           </section>
 
@@ -236,15 +214,15 @@ const WhitePaperPage: React.FC = () => {
           <section className="border-t border-launchlayer-surface-light pt-6">
             <div className="text-center bg-launchlayer-surface p-6 rounded-lg">
               <h3 className="text-xl font-bold text-launchlayer-accent mb-4 flex items-center justify-center space-x-2">
-                <Zap className="w-5 h-5" />
-                <span>Launch Layer Airlock MVP</span>
+                <Coins className="w-5 h-5" />
+                <span>Propulsion Finance MVP</span>
               </h3>
               <p className="text-launchlayer-text-secondary mb-4">
-                A modular, secure, and user-centric approach to yield-to-access protocols across multiple chains.
+                The native liquidity engine of Launch Layer, solving day-one liquidity challenges through automated, capital-efficient solutions.
               </p>
               <div className="pt-4 border-t border-launchlayer-surface-light">
                 <p className="text-launchlayer-accent font-bold">
-                  <strong>Live Demo:</strong> launchlayer.io
+                  <strong>Part of Launch Lab:</strong> launchlayer.io
                 </p>
               </div>
             </div>

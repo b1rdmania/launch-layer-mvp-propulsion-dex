@@ -1,95 +1,36 @@
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# Launch Layer - Token Launchpad for Sonic Network
+## Getting Started
 
-## Project info
+First, run the development server:
 
-**URL**: https://lovable.dev/projects/2ac71f54-2592-4b08-9239-8035f48c764c
-
-## GitHub Integration
-
-To link this project with GitHub:
-
-1. Create a new GitHub repository on your GitHub account
-2. From the Lovable interface, click the GitHub button in the top-right corner
-3. Follow the prompts to connect your Lovable project to the GitHub repository
-4. Once connected, any changes made via Lovable or GitHub will be synchronized
-
-## Smart Contract Integration
-
-This project integrates with the following smart contracts on Sonic Testnet:
-- LaunchFactory: Factory contract for creating new token raises
-- LaunchRaise: Individual raise contracts created by the factory
-- ERC20: Standard token contract for tokens used in raises
-
-To update the contract addresses:
-1. Open `src/contracts/config.ts`
-2. Update the addresses in the `CONTRACT_ADDRESSES` object
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/2ac71f54-2592-4b08-9239-8035f48c764c) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-**Use GitHub Codespaces**
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Learn More
 
-## What technologies are used for this project?
+To learn more about Next.js, take a look at the following resources:
 
-This project is built with:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-- Ethers.js for blockchain interaction
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## How can I deploy this project?
+## Deploy on Vercel
 
-Simply open [Lovable](https://lovable.dev/projects/2ac71f54-2592-4b08-9239-8035f48c764c) and click on Share -> Publish.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

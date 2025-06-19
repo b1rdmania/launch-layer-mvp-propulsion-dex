@@ -1,0 +1,13 @@
+// Sonic Mainnet Contract Addresses
+export const WETH_ADDRESS = "0xdB78663Ad25D2C684087adF5993530019141E339";
+export const QUOTER_ADDRESS = "0x6d4Ac88d77273F5Af83E1Cc706a8A6700B9CDD1a"; // QuoterV2
+export const SWAP_ROUTER_ADDRESS = "0x2e6b9c8D4a0972F87f21437A3AC7E4a1810f5438";
+export const POSITION_MANAGER_ADDRESS = "0x5084E9fDF9264489A14E77c011073D757e572bB4";
+export const FACTORY_ADDRESS = "0xb860200BD68dc39cEAfd6ebb82883f189f4CdA76";
+export const FARMING_CENTER_ADDRESS = "0x967f26d3A2714A55BdD1bD9C6E6ed148527E51d6";
+
+// Constants
+export const POOL_INIT_CODE_HASH = "0xf96d2474815c32e070cd63233f06af5413efc5dcb430aee4ff18cc29007c562d";
+
+// Common token addresses (add more as needed)
+export const USDC_ADDRESS = ""; // TODO: Add USDC address when available 

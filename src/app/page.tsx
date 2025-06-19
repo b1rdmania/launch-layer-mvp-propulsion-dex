@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Swap from "../components/Swap";
-import AddLiquidity from "../components/AddLiquidity";
-import MyPositions from "../components/MyPositions";
+import Swap from "./components/Swap";
+import AddLiquidity from "./components/AddLiquidity";
+import MyPositions from "./components/MyPositions";
 
 const TABS = ["Swap", "Add Liquidity", "My Positions"];
 

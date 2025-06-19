@@ -9,5 +9,14 @@ export const FARMING_CENTER_ADDRESS = "0x967f26d3A2714A55BdD1bD9C6E6ed148527E51d
 // Constants
 export const POOL_INIT_CODE_HASH = "0xf96d2474815c32e070cd63233f06af5413efc5dcb430aee4ff18cc29007c562d";
 
-// Common token addresses
-export const USDC_ADDRESS = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"; 
+// Token Addresses
+export const USDC_ADDRESS = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
+export const WSONIC_ADDRESS = "0x20f60f0F4947A11F71E0ACaF3667733e3054e05A"; // Wrapped Sonic
+export const PROPULSION_ADDRESS = "0x"; // TODO: Add when available
+
+// Token List Configuration
+export const TOKEN_LIST = [
+  { symbol: 'WETH', address: WETH_ADDRESS, decimals: 18 },
+  { symbol: 'USDC', address: USDC_ADDRESS, decimals: 6 },
+  { symbol: 'wS', address: WSONIC_ADDRESS, decimals: 18 },
+] as const; 

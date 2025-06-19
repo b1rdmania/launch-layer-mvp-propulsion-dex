@@ -9,5 +9,5 @@ export const FARMING_CENTER_ADDRESS = "0x967f26d3A2714A55BdD1bD9C6E6ed148527E51d
 // Constants
 export const POOL_INIT_CODE_HASH = "0xf96d2474815c32e070cd63233f06af5413efc5dcb430aee4ff18cc29007c562d";
 
-// Common token addresses (add more as needed)
-export const USDC_ADDRESS = ""; // TODO: Add USDC address when available 
+// Common token addresses
+export const USDC_ADDRESS = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"; 

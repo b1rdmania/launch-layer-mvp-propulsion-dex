@@ -1,22 +1,25 @@
-// Sonic Mainnet Contract Addresses
-export const WETH_ADDRESS = "0xdB78663Ad25D2C684087adF5993530019141E339";
-export const QUOTER_ADDRESS = "0x6d4Ac88d77273F5Af83E1Cc706a8A6700B9CDD1a"; // QuoterV2
-export const SWAP_ROUTER_ADDRESS = "0x2e6b9c8D4a0972F87f21437A3AC7E4a1810f5438";
-export const POSITION_MANAGER_ADDRESS = "0x5084E9fDF9264489A14E77c011073D757e572bB4";
-export const FACTORY_ADDRESS = "0xb860200BD68dc39cEAfd6ebb82883f189f4CdA76";
-export const FARMING_CENTER_ADDRESS = "0x967f26d3A2714A55BdD1bD9C6E6ed148527E51d6";
+// Sonic Mainnet Configuration
+export const SONIC_CHAIN_ID = 146;
 
-// Constants
-export const POOL_INIT_CODE_HASH = "0xf96d2474815c32e070cd63233f06af5413efc5dcb430aee4ff18cc29007c562d";
+// Sonic Native Token Addresses (from Sonic official docs)
+export const WRAPPED_S_ADDRESS = "0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38"; // Wrapped S (wS)
+export const WETH_ADDRESS = "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b"; // Wrapped Ether (WETH)
+export const USDC_ADDRESS = "0x29219dd400f2Bf60E5a23d13Be72B486D4038894"; // USDC (Bridged)
+export const USDT_ADDRESS = "0x6047828dc181963ba44974801ff68e538da5eaf9"; // USDT (Bridged)
 
-// Token Addresses
-export const USDC_ADDRESS = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
-export const WSONIC_ADDRESS = "0x20f60f0F4947A11F71E0ACaF3667733e3054e05A"; // Wrapped Sonic
-export const PROPULSION_ADDRESS = "0x"; // TODO: Add when available
+// Algebra Protocol Addresses (SwapX/Future DEX deployment)
+// TODO: Update these when SwapX or other Algebra DEX launches on Sonic
+export const QUOTER_V2_ADDRESS = "0x0000000000000000000000000000000000000000"; // Placeholder
+export const SWAP_ROUTER_ADDRESS = "0x0000000000000000000000000000000000000000"; // Placeholder
+export const NONFUNGIBLE_POSITION_MANAGER_ADDRESS = "0x0000000000000000000000000000000000000000"; // Placeholder
 
-// Token List Configuration
+// Pool Constants (Standard Algebra values)
+export const POOL_INIT_CODE_HASH = "0x6ec6c9c8091d160c0aa74b2b14ba9c1717e95093bd3ac085cee99a49aab294a4";
+
+// Token List Configuration for Sonic
 export const TOKEN_LIST = [
+  { symbol: 'wS', address: WRAPPED_S_ADDRESS, decimals: 18 },
   { symbol: 'WETH', address: WETH_ADDRESS, decimals: 18 },
   { symbol: 'USDC', address: USDC_ADDRESS, decimals: 6 },
-  { symbol: 'wS', address: WSONIC_ADDRESS, decimals: 18 },
+  { symbol: 'USDT', address: USDT_ADDRESS, decimals: 6 },
 ] as const; 

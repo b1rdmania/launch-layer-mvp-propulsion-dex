@@ -1,63 +1,164 @@
-import React, { useEffect, useState } from 'react';
-import { useAccount, useWalletClient, usePublicClient } from 'wagmi';
-import { POSITION_MANAGER_ADDRESS, TOKEN_LIST } from '../contracts';
-import positionManagerAbi from '../abis/NonfungiblePositionManager.json';
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import { useAccount, useWalletClient } from "wagmi";
+import { NONFUNGIBLE_POSITION_MANAGER_ADDRESS } from "../contracts";
+import NonfungiblePositionManagerABI from "../abis/NonfungiblePositionManager.json";
+
+interface Position {
+  id: string;
+  token0: string;
+  token1: string;
+  fee: number;
+  liquidity: string;
+  tickLower: number;
+  tickUpper: number;
+}
 
 export default function MyPositions() {
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
-  const publicClient = usePublicClient();
-  const [positions, setPositions] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [txStatus, setTxStatus] = useState('');
+  const [positions, setPositions] = useState<Position[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // ... rest of the component logic ...
+  // Check if Algebra contracts are deployed
+  const algebraDeployed = NONFUNGIBLE_POSITION_MANAGER_ADDRESS !== "0x0000000000000000000000000000000000000000";
+
+  useEffect(() => {
+    const fetchPositions = async () => {
+      if (!address || !walletClient || !algebraDeployed) {
+        setPositions([]);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setError(null);
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const positionManager = new ethers.Contract(
+          NONFUNGIBLE_POSITION_MANAGER_ADDRESS,
+          NonfungiblePositionManagerABI,
+          provider
+        );
+
+        // Get the balance of positions
+        const balance = await positionManager.balanceOf(address);
+        const positionPromises = [];
+
+        // Fetch each position
+        for (let i = 0; i < balance; i++) {
+          const tokenId = await positionManager.tokenOfOwnerByIndex(address, i);
+          const position = await positionManager.positions(tokenId);
+          positionPromises.push({
+            id: tokenId.toString(),
+            token0: position.token0,
+            token1: position.token1,
+            fee: position.fee,
+            liquidity: position.liquidity.toString(),
+            tickLower: position.tickLower,
+            tickUpper: position.tickUpper,
+          });
+        }
+
+        const fetchedPositions = await Promise.all(positionPromises);
+        setPositions(fetchedPositions);
+      } catch (error) {
+        console.error("Error fetching positions:", error);
+        setError("Failed to fetch positions. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPositions();
+  }, [address, walletClient, algebraDeployed]);
+
+  if (!algebraDeployed) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">Positions Coming Soon</h3>
+          <p className="text-gray-600 mb-4">
+            Your liquidity positions will appear here once SwapX (Algebra DEX) launches on Sonic.
+          </p>
+          <div className="bg-purple-50 p-4 rounded-lg">
+            <p className="text-sm text-purple-800">
+              <strong>Features:</strong> NFT-based positions, fee collection, and yield tracking
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <p className="text-center text-gray-600">Loading positions...</p>
+      </div>
+    );
+  }
+
+  if (!address) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <p className="text-center text-gray-600">Please connect your wallet to view positions</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-800 text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (positions.length === 0) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <p className="text-center text-gray-600">No positions found</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-white shadow-lg rounded-xl p-6 max-w-4xl w-full mx-auto">
-      <h2 className="text-2xl font-bold mb-6">My Positions</h2>
-      {loading && (
-        <div className="text-center py-8 text-gray-500">Loading positions...</div>
-      )}
-      {!loading && positions.length === 0 && (
-        <div className="text-center py-8 text-gray-500">No positions found.</div>
-      )}
-      {!loading && positions.length > 0 && (
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b">
-                <th className="px-4 py-2 text-left">Token ID</th>
-                <th className="px-4 py-2 text-left">Liquidity</th>
-                <th className="px-4 py-2 text-left">Tick Range</th>
-                <th className="px-4 py-2 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {positions.map(({ tokenId, pos }) => (
-                <tr key={tokenId.toString()} className="border-b">
-                  <td className="px-4 py-3">{tokenId.toString()}</td>
-                  <td className="px-4 py-3">{pos[7]?.toString()}</td>
-                  <td className="px-4 py-3">{pos[4]?.toString()} to {pos[5]?.toString()}</td>
-                  <td className="px-4 py-3 text-right">
-                    <button 
-                      onClick={() => handleRemove(tokenId)}
-                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-                    >
-                      Remove & Collect
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {txStatus && (
-        <div className={`mt-4 p-4 rounded-lg ${txStatus.includes('failed') ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`}>
-          {txStatus}
-        </div>
-      )}
+    <div className="bg-white p-6 rounded-lg shadow-lg">
+      <h2 className="text-xl font-semibold mb-4">Your Positions</h2>
+      <div className="space-y-4">
+        {positions.map((position) => (
+          <div
+            key={position.id}
+            className="border p-4 rounded-lg hover:bg-gray-50 transition"
+          >
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-sm text-gray-600">Position ID</p>
+                <p className="font-medium">{position.id}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Fee Tier</p>
+                <p className="font-medium">{position.fee / 10000}%</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Price Range</p>
+                <p className="font-medium">
+                  {position.tickLower} - {position.tickUpper}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Liquidity</p>
+                <p className="font-medium">{position.liquidity}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 } 

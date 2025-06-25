@@ -1,0 +1,13 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "functions": {
+    "app/**": {
+      "includeFiles": "app/**"
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_PROJECT_ID": "1c6eba6fc7f6b210609dbd6cccef8199"
+  }
+} 

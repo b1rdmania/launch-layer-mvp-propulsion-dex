@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Swap from "./components/Swap";
 import AddLiquidity from "./components/AddLiquidity";

@@ -1,93 +1,183 @@
-import React, { useState } from 'react';
-import { useAccount, useWalletClient, usePublicClient } from 'wagmi';
-import { QUOTER_ADDRESS, SWAP_ROUTER_ADDRESS, TOKEN_LIST } from '../contracts';
-import quoterAbi from '../abis/QuoterV2.json';
-import routerAbi from '../abis/SwapRouter.json';
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
+import { useAccount, useChainId, useWalletClient } from "wagmi";
+import { WRAPPED_S_ADDRESS, WETH_ADDRESS, QUOTER_V2_ADDRESS, SWAP_ROUTER_ADDRESS } from "../contracts";
+import QuoterV2ABI from "../abis/QuoterV2.json";
+import SwapRouterABI from "../abis/SwapRouter.json";
 
 export default function Swap() {
-  const [tokenIn, setTokenIn] = useState(TOKEN_LIST[0].address);
-  const [tokenOut, setTokenOut] = useState(TOKEN_LIST[1].address);
-  const [amountIn, setAmountIn] = useState('');
-  const [quote, setQuote] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [txStatus, setTxStatus] = useState('');
-  const publicClient = usePublicClient();
   const { address } = useAccount();
+  const chainId = useChainId();
   const { data: walletClient } = useWalletClient();
+  const [amount, setAmount] = useState("");
+  const [quote, setQuote] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [direction, setDirection] = useState<"WS_TO_WETH" | "WETH_TO_WS">("WS_TO_WETH");
 
-  const decimalsIn = TOKEN_LIST.find(t => t.address === tokenIn)?.decimals || 18;
-  const decimalsOut = TOKEN_LIST.find(t => t.address === tokenOut)?.decimals || 18;
+  // Check if Algebra contracts are deployed
+  const algebraDeployed = QUOTER_V2_ADDRESS !== "0x0000000000000000000000000000000000000000";
 
-  // ... rest of the component code ...
-  
-  return (
-    <div className="bg-white shadow-lg rounded-xl p-6 max-w-md w-full mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Swap</h2>
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">From:</label>
-          <select 
-            value={tokenIn} 
-            onChange={e => setTokenIn(e.target.value)}
-            className="w-full p-2 border rounded-lg"
-          >
-            {TOKEN_LIST.map(t => (
-              <option key={t.address} value={t.address}>{t.symbol}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">To:</label>
-          <select 
-            value={tokenOut} 
-            onChange={e => setTokenOut(e.target.value)}
-            className="w-full p-2 border rounded-lg"
-          >
-            {TOKEN_LIST.filter(t => t.address !== tokenIn).map(t => (
-              <option key={t.address} value={t.address}>{t.symbol}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Amount:</label>
-          <div className="flex gap-2">
-            <input 
-              type="number" 
-              value={amountIn} 
-              onChange={e => setAmountIn(e.target.value)}
-              className="flex-1 p-2 border rounded-lg"
-              placeholder="0.0"
-            />
-            <button 
-              onClick={handleQuote} 
-              disabled={!amountIn || loading}
-              className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 disabled:opacity-50"
-            >
-              {loading ? 'Quoting...' : 'Get Quote'}
-            </button>
-          </div>
-        </div>
-        {quote && (
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <p className="font-medium">Estimated Output:</p>
-            <p className="text-lg">
-              {quote} {TOKEN_LIST.find(t => t.address === tokenOut)?.symbol}
+  const getQuote = async () => {
+    if (!amount || !walletClient || !algebraDeployed) return;
+    
+    setLoading(true);
+    setError(null);
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const quoterContract = new ethers.Contract(QUOTER_V2_ADDRESS, QuoterV2ABI, provider);
+      
+      const amountIn = ethers.parseUnits(
+        amount,
+        direction === "WS_TO_WETH" ? 18 : 18 // Both tokens are 18 decimals
+      );
+
+      const [tokenIn, tokenOut] = direction === "WS_TO_WETH" 
+        ? [WRAPPED_S_ADDRESS, WETH_ADDRESS]
+        : [WETH_ADDRESS, WRAPPED_S_ADDRESS];
+
+      const quoteResult = await quoterContract.quoteExactInputSingle({
+        tokenIn,
+        tokenOut,
+        amountIn,
+        limitSqrtPrice: 0
+      });
+
+      const formattedQuote = ethers.formatUnits(
+        quoteResult.amountOut || quoteResult,
+        18 // Both tokens are 18 decimals
+      );
+      setQuote(formattedQuote);
+    } catch (error) {
+      console.error("Error getting quote:", error);
+      setError("Failed to get quote. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const executeSwap = async () => {
+    if (!amount || !walletClient || !quote || !algebraDeployed) return;
+    
+    setLoading(true);
+    setError(null);
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const swapRouter = new ethers.Contract(SWAP_ROUTER_ADDRESS, SwapRouterABI, signer);
+      
+      const amountIn = ethers.parseUnits(
+        amount,
+        18 // Both tokens are 18 decimals
+      );
+
+      const [tokenIn, tokenOut] = direction === "WS_TO_WETH" 
+        ? [WRAPPED_S_ADDRESS, WETH_ADDRESS]
+        : [WETH_ADDRESS, WRAPPED_S_ADDRESS];
+
+      const params = {
+        tokenIn,
+        tokenOut,
+        recipient: address,
+        deadline: Math.floor(Date.now() / 1000) + 60 * 20, // 20 minutes
+        amountIn,
+        amountOutMinimum: 0, // Note: In production, this should be calculated with slippage
+        limitSqrtPrice: 0
+      };
+
+      const tx = await swapRouter.exactInputSingle(params);
+      await tx.wait();
+      
+      // Reset states after successful swap
+      setAmount("");
+      setQuote(null);
+    } catch (error) {
+      console.error("Error executing swap:", error);
+      setError("Failed to execute swap. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (amount && algebraDeployed) {
+      getQuote();
+    } else {
+      setQuote(null);
+    }
+  }, [amount, direction, algebraDeployed]);
+
+  if (!algebraDeployed) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">Swap Coming Soon</h3>
+          <p className="text-gray-600 mb-4">
+            SwapX (Algebra DEX) is launching soon on Sonic. Stay tuned for trading functionality!
+          </p>
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <p className="text-sm text-blue-800">
+              <strong>Available Tokens:</strong> wS (Wrapped Sonic), WETH, USDC, USDT
             </p>
           </div>
-        )}
-        <button 
-          onClick={handleSwap} 
-          disabled={!amountIn || !quote}
-          className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-        >
-          Swap
-        </button>
-        {txStatus && (
-          <div className={`p-4 rounded-lg ${txStatus.includes('failed') ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`}>
-            {txStatus}
-          </div>
-        )}
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg">
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-800 text-sm">{error}</p>
+        </div>
+      )}
+
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Amount
+        </label>
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder={`Enter amount in ${direction === "WS_TO_WETH" ? "wS" : "WETH"}`}
+          className="w-full p-2 border rounded"
+        />
+      </div>
+
+      <div className="mb-6">
+        <button
+          onClick={() => setDirection(prev => 
+            prev === "WS_TO_WETH" ? "WETH_TO_WS" : "WS_TO_WETH"
+          )}
+          className="w-full p-2 bg-gray-100 rounded flex items-center justify-center gap-2 hover:bg-gray-200 transition"
+        >
+          <span>{direction === "WS_TO_WETH" ? "wS → WETH" : "WETH → wS"}</span>
+          <span>🔄</span>
+        </button>
+      </div>
+
+      {quote && (
+        <div className="mb-6 p-4 bg-gray-50 rounded">
+          <p className="text-sm text-gray-600">You will receive approximately:</p>
+          <p className="text-lg font-semibold">
+            {quote} {direction === "WS_TO_WETH" ? "WETH" : "wS"}
+          </p>
+        </div>
+      )}
+
+      <button
+        onClick={executeSwap}
+        disabled={!quote || loading}
+        className={`w-full p-3 rounded text-white transition ${
+          !quote || loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+        }`}
+      >
+        {loading ? "Processing..." : "Swap"}
+      </button>
     </div>
   );
 } 

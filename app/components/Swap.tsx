@@ -15,112 +15,124 @@ export default function Swap() {
   const [quote, setQuote] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [direction, setDirection] = useState<"WS_TO_WETH" | "WETH_TO_WS">("WS_TO_WETH");
 
-  // Check if Algebra contracts are deployed
+  // Check if we're on Sonic and if Algebra contracts are deployed
+  const isCorrectNetwork = chainId === 146; // Sonic mainnet
   const algebraDeployed = QUOTER_V2_ADDRESS !== "0x0000000000000000000000000000000000000000";
 
   const getQuote = async () => {
-    if (!amount || !walletClient || !algebraDeployed) return;
+    if (!amount || !isCorrectNetwork) return;
     
-    setLoading(true);
-    setError(null);
+    if (!algebraDeployed) {
+      setError("SwapX (Algebra DEX) not yet deployed on Sonic. Coming soon!");
+      return;
+    }
+
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const quoterContract = new ethers.Contract(QUOTER_V2_ADDRESS, QuoterV2ABI, provider);
-      
-      const amountIn = ethers.parseUnits(
-        amount,
-        direction === "WS_TO_WETH" ? 18 : 18 // Both tokens are 18 decimals
-      );
+      setLoading(true);
+      setError(null);
 
-      const [tokenIn, tokenOut] = direction === "WS_TO_WETH" 
-        ? [WRAPPED_S_ADDRESS, WETH_ADDRESS]
-        : [WETH_ADDRESS, WRAPPED_S_ADDRESS];
+      if (!window.ethereum) {
+        throw new Error("No ethereum provider found");
+      }
 
-      const quoteResult = await quoterContract.quoteExactInputSingle({
-        tokenIn,
-        tokenOut,
-        amountIn,
-        limitSqrtPrice: 0
+      const provider = new ethers.BrowserProvider(window.ethereum as any);
+      const quoter = new ethers.Contract(QUOTER_V2_ADDRESS, QuoterV2ABI, provider);
+
+      const amountIn = ethers.parseEther(amount);
+      const result = await quoter.quoteExactInputSingle.staticCall({
+        tokenIn: WRAPPED_S_ADDRESS,
+        tokenOut: WETH_ADDRESS,
+        fee: 3000,
+        amountIn: amountIn,
+        sqrtPriceLimitX96: 0,
       });
 
-      const formattedQuote = ethers.formatUnits(
-        quoteResult.amountOut || quoteResult,
-        18 // Both tokens are 18 decimals
-      );
-      setQuote(formattedQuote);
-    } catch (error) {
-      console.error("Error getting quote:", error);
-      setError("Failed to get quote. Please try again.");
+      setQuote(ethers.formatEther(result.amountOut));
+    } catch (err: any) {
+      console.error("Quote error:", err);
+      setError(err.message || "Failed to get quote");
     } finally {
       setLoading(false);
     }
   };
 
   const executeSwap = async () => {
-    if (!amount || !walletClient || !quote || !algebraDeployed) return;
-    
-    setLoading(true);
-    setError(null);
-    try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const swapRouter = new ethers.Contract(SWAP_ROUTER_ADDRESS, SwapRouterABI, signer);
-      
-      const amountIn = ethers.parseUnits(
-        amount,
-        18 // Both tokens are 18 decimals
-      );
+    if (!amount || !walletClient || !algebraDeployed) return;
 
-      const [tokenIn, tokenOut] = direction === "WS_TO_WETH" 
-        ? [WRAPPED_S_ADDRESS, WETH_ADDRESS]
-        : [WETH_ADDRESS, WRAPPED_S_ADDRESS];
+    try {
+      setLoading(true);
+      setError(null);
+
+      if (!window.ethereum) {
+        throw new Error("No ethereum provider found");
+      }
+
+      const provider = new ethers.BrowserProvider(window.ethereum as any);
+      const signer = await provider.getSigner();
+      const router = new ethers.Contract(SWAP_ROUTER_ADDRESS, SwapRouterABI, signer);
+
+      const amountIn = ethers.parseEther(amount);
+      const amountOutMinimum = quote ? ethers.parseEther((parseFloat(quote) * 0.95).toString()) : 0;
 
       const params = {
-        tokenIn,
-        tokenOut,
+        tokenIn: WRAPPED_S_ADDRESS,
+        tokenOut: WETH_ADDRESS,
+        fee: 3000,
         recipient: address,
-        deadline: Math.floor(Date.now() / 1000) + 60 * 20, // 20 minutes
-        amountIn,
-        amountOutMinimum: 0, // Note: In production, this should be calculated with slippage
-        limitSqrtPrice: 0
+        deadline: Math.floor(Date.now() / 1000) + 60 * 20,
+        amountIn: amountIn,
+        amountOutMinimum: amountOutMinimum,
+        sqrtPriceLimitX96: 0,
       };
 
-      const tx = await swapRouter.exactInputSingle(params);
+      const tx = await router.exactInputSingle(params);
       await tx.wait();
-      
-      // Reset states after successful swap
+
       setAmount("");
       setQuote(null);
-    } catch (error) {
-      console.error("Error executing swap:", error);
-      setError("Failed to execute swap. Please try again.");
+      alert("Swap successful!");
+    } catch (err: any) {
+      console.error("Swap error:", err);
+      setError(err.message || "Swap failed");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (amount && algebraDeployed) {
-      getQuote();
-    } else {
-      setQuote(null);
+    if (amount && isCorrectNetwork) {
+      const timeoutId = setTimeout(getQuote, 500);
+      return () => clearTimeout(timeoutId);
     }
-  }, [amount, direction, algebraDeployed]);
+  }, [amount, isCorrectNetwork]);
 
-  if (!algebraDeployed) {
+  if (!address) {
     return (
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
         <div className="text-center">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Swap Coming Soon</h3>
-          <p className="text-gray-600 mb-4">
-            SwapX (Algebra DEX) is launching soon on Sonic. Stay tuned for trading functionality!
-          </p>
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <p className="text-sm text-blue-800">
-              <strong>Available Tokens:</strong> wS (Wrapped Sonic), WETH, USDC, USDT
-            </p>
+          <h2 className="text-xl font-semibold mb-4">Connect Wallet</h2>
+          <p className="text-gray-600 mb-6">Please connect your wallet to start swapping on Sonic.</p>
+          <div className="text-sm text-gray-500">
+            <p>• Supported: MetaMask, WalletConnect, and more</p>
+            <p>• Network: Sonic Mainnet (Chain ID: 146)</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isCorrectNetwork) {
+    return (
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-4 text-orange-600">Wrong Network</h2>
+          <p className="text-gray-600 mb-6">Please switch to Sonic Mainnet to use the DEX.</p>
+          <div className="bg-gray-50 rounded-lg p-4 text-left text-sm space-y-2">
+            <p><strong>Network:</strong> Sonic</p>
+            <p><strong>Chain ID:</strong> 146</p>
+            <p><strong>RPC:</strong> https://rpc.soniclabs.com</p>
+            <p><strong>Explorer:</strong> https://sonicscan.org</p>
           </div>
         </div>
       </div>
@@ -128,56 +140,131 @@ export default function Swap() {
   }
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      {error && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-800 text-sm">{error}</p>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h2 className="text-xl font-semibold mb-6">Swap Tokens</h2>
+      
+      {!algebraDeployed && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+          <div className="flex items-start space-x-3">
+            <div className="text-blue-600 mt-0.5">ℹ️</div>
+            <div>
+              <p className="text-blue-800 font-medium">SwapX Coming Soon</p>
+              <p className="text-blue-700 text-sm mt-1">
+                The Algebra DEX (SwapX) is not yet deployed on Sonic. 
+                This interface will be fully functional once SwapX launches.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Amount
-        </label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder={`Enter amount in ${direction === "WS_TO_WETH" ? "wS" : "WETH"}`}
-          className="w-full p-2 border rounded"
-        />
-      </div>
+      <div className="space-y-4">
+        {/* From Token */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-gray-600">You pay</span>
+              <span className="text-sm text-gray-500">Balance: --</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0.0"
+                className="flex-1 bg-transparent text-2xl font-medium border-none outline-none"
+                disabled={!algebraDeployed}
+              />
+              <div className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+                <span className="font-medium">wS</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div className="mb-6">
+        {/* Swap Direction Button */}
+        <div className="flex justify-center">
+          <button 
+            className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+            disabled={!algebraDeployed}
+          >
+            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+            </svg>
+          </button>
+        </div>
+
+        {/* To Token */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-gray-600">You receive</span>
+              <span className="text-sm text-gray-500">Balance: --</span>
+            </div>
+            <div className="flex items-center space-x-3">
+              <input
+                type="text"
+                value={quote || ""}
+                placeholder="0.0"
+                className="flex-1 bg-transparent text-2xl font-medium border-none outline-none"
+                readOnly
+              />
+              <div className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+                <div className="w-6 h-6 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full"></div>
+                <span className="font-medium">WETH</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Quote Info */}
+        {quote && (
+          <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
+            <div className="flex justify-between">
+              <span>Exchange Rate:</span>
+              <span>1 wS = {(parseFloat(quote) / parseFloat(amount || "1")).toFixed(6)} WETH</span>
+            </div>
+          </div>
+        )}
+
+        {/* Error Display */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm">
+            {error}
+          </div>
+        )}
+
+        {/* Swap Button */}
         <button
-          onClick={() => setDirection(prev => 
-            prev === "WS_TO_WETH" ? "WETH_TO_WS" : "WS_TO_WETH"
-          )}
-          className="w-full p-2 bg-gray-100 rounded flex items-center justify-center gap-2 hover:bg-gray-200 transition"
+          onClick={executeSwap}
+          disabled={!amount || loading || !algebraDeployed || !quote}
+          className="w-full py-3 px-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
         >
-          <span>{direction === "WS_TO_WETH" ? "wS → WETH" : "WETH → wS"}</span>
-          <span>🔄</span>
+          {loading ? (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              <span>Processing...</span>
+            </div>
+          ) : !algebraDeployed ? (
+            "SwapX Coming Soon"
+          ) : !amount ? (
+            "Enter Amount"
+          ) : !quote ? (
+            "Get Quote"
+          ) : (
+            "Swap Tokens"
+          )}
         </button>
-      </div>
 
-      {quote && (
-        <div className="mb-6 p-4 bg-gray-50 rounded">
-          <p className="text-sm text-gray-600">You will receive approximately:</p>
-          <p className="text-lg font-semibold">
-            {quote} {direction === "WS_TO_WETH" ? "WETH" : "wS"}
-          </p>
+        {/* Network Info */}
+        <div className="text-center text-xs text-gray-500 space-y-1">
+          <p>Connected to Sonic Mainnet • Chain ID: 146</p>
+          <p>Powered by Algebra Protocol (SwapX)</p>
         </div>
-      )}
-
-      <button
-        onClick={executeSwap}
-        disabled={!quote || loading}
-        className={`w-full p-3 rounded text-white transition ${
-          !quote || loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
-        }`}
-      >
-        {loading ? "Processing..." : "Swap"}
-      </button>
+      </div>
     </div>
   );
 } 

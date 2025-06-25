@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { useAccount, useWalletClient } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { WRAPPED_S_ADDRESS, WETH_ADDRESS, NONFUNGIBLE_POSITION_MANAGER_ADDRESS } from '../contracts';
 import NonfungiblePositionManagerABI from '../abis/NonfungiblePositionManager.json';
 
@@ -14,11 +15,11 @@ export default function AddLiquidity() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Check if Algebra contracts are deployed
-  const algebraDeployed = NONFUNGIBLE_POSITION_MANAGER_ADDRESS !== "0x0000000000000000000000000000000000000000";
+  // Check if SilverSwap contracts are deployed
+  const silverSwapDeployed = true; // SilverSwap is deployed on Sonic!
 
   const addLiquidity = async () => {
-    if (!amount0 || !amount1 || !walletClient || !algebraDeployed) return;
+    if (!amount0 || !amount1 || !walletClient || !silverSwapDeployed) return;
 
     try {
       setLoading(true);
@@ -67,33 +68,34 @@ export default function AddLiquidity() {
     }
   };
 
-  if (!address) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-4">Connect Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to provide liquidity on Sonic.</p>
-          <div className="text-sm text-gray-500">
-            <p>• Earn fees from trading activity</p>
-            <p>• Get LP NFT representing your position</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <h2 className="text-xl font-semibold mb-6">Add Liquidity</h2>
       
-      {!algebraDeployed && (
+      {/* Wallet Connection Status */}
+      {!address && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
           <div className="flex items-start space-x-3">
-            <div className="text-blue-600 mt-0.5">ℹ️</div>
+            <div className="text-blue-600 mt-0.5">💡</div>
             <div>
-              <p className="text-blue-800 font-medium">Liquidity Provision Coming Soon</p>
+              <p className="text-blue-800 font-medium">Connect Your Wallet</p>
               <p className="text-blue-700 text-sm mt-1">
-                You'll be able to provide liquidity and earn fees once SwapX (Algebra DEX) launches on Sonic.
+                Connect your wallet using the button in the top right to provide liquidity on Sonic.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* SilverSwap Live Status */}
+      {silverSwapDeployed && (
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+          <div className="flex items-start space-x-3">
+            <div className="text-green-600 mt-0.5">✅</div>
+            <div>
+              <p className="text-green-800 font-medium">SilverSwap Liquidity is Live!</p>
+              <p className="text-green-700 text-sm mt-1">
+                Provide liquidity and earn fees from trading activity on Sonic's premier DEX.
               </p>
             </div>
           </div>
@@ -116,7 +118,6 @@ export default function AddLiquidity() {
                 onChange={(e) => setAmount0(e.target.value)}
                 placeholder="0.0"
                 className="flex-1 bg-transparent text-2xl font-medium border-none outline-none"
-                disabled={!algebraDeployed}
               />
               <div className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
                 <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
@@ -150,7 +151,6 @@ export default function AddLiquidity() {
                 onChange={(e) => setAmount1(e.target.value)}
                 placeholder="0.0"
                 className="flex-1 bg-transparent text-2xl font-medium border-none outline-none"
-                disabled={!algebraDeployed}
               />
               <div className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
                 <div className="w-6 h-6 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full"></div>
@@ -161,7 +161,7 @@ export default function AddLiquidity() {
         </div>
 
         {/* Pool Info */}
-        {algebraDeployed && amount0 && amount1 && (
+        {silverSwapDeployed && amount0 && amount1 && (
           <div className="bg-gray-50 rounded-lg p-4 space-y-3">
             <h4 className="font-medium text-gray-800">Pool Information</h4>
             <div className="space-y-2 text-sm text-gray-600">
@@ -189,24 +189,30 @@ export default function AddLiquidity() {
         )}
 
         {/* Add Liquidity Button */}
-        <button
-          onClick={addLiquidity}
-          disabled={!amount0 || !amount1 || loading || !algebraDeployed}
-          className="w-full py-3 px-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
-        >
-          {loading ? (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-              <span>Adding Liquidity...</span>
-            </div>
-          ) : !algebraDeployed ? (
-            "Coming Soon"
-          ) : !amount0 || !amount1 ? (
-            "Enter Amounts"
-          ) : (
-            "Add Liquidity"
-          )}
-        </button>
+        {!address ? (
+          <div className="text-center">
+            <ConnectButton />
+          </div>
+        ) : (
+          <button
+            onClick={addLiquidity}
+            disabled={!amount0 || !amount1 || loading || !silverSwapDeployed}
+            className="w-full py-3 px-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <span>Adding Liquidity...</span>
+              </div>
+            ) : !silverSwapDeployed ? (
+              "SilverSwap Unavailable"
+            ) : !amount0 || !amount1 ? (
+              "Enter Amounts"
+            ) : (
+              "Add Liquidity"
+            )}
+          </button>
+        )}
 
         {/* Benefits */}
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -222,7 +228,7 @@ export default function AddLiquidity() {
         {/* Network Info */}
         <div className="text-center text-xs text-gray-500 space-y-1">
           <p>Connected to Sonic Mainnet • Chain ID: 146</p>
-          <p>Powered by Algebra Protocol (SwapX)</p>
+          <p>Powered by SilverSwap (Algebra Protocol)</p>
         </div>
       </div>
     </div>

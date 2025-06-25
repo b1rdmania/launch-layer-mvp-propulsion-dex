@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useAccount, useChainId, useWalletClient } from "wagmi";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { WRAPPED_S_ADDRESS, WETH_ADDRESS, QUOTER_V2_ADDRESS, SWAP_ROUTER_ADDRESS } from "../contracts";
 import QuoterV2ABI from "../abis/QuoterV2.json";
 import SwapRouterABI from "../abis/SwapRouter.json";
@@ -16,15 +17,15 @@ export default function Swap() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Check if we're on Sonic and if Algebra contracts are deployed
+  // Check if we're on Sonic and if SilverSwap contracts are deployed
   const isCorrectNetwork = chainId === 146; // Sonic mainnet
-  const algebraDeployed = QUOTER_V2_ADDRESS !== "0x0000000000000000000000000000000000000000";
+  const silverSwapDeployed = true; // SilverSwap is deployed on Sonic!
 
   const getQuote = async () => {
     if (!amount || !isCorrectNetwork) return;
     
-    if (!algebraDeployed) {
-      setError("SwapX (Algebra DEX) not yet deployed on Sonic. Coming soon!");
+    if (!silverSwapDeployed) {
+      setError("SilverSwap not available. Please check your network connection.");
       return;
     }
 
@@ -58,7 +59,7 @@ export default function Swap() {
   };
 
   const executeSwap = async () => {
-    if (!amount || !walletClient || !algebraDeployed) return;
+    if (!amount || !walletClient || !silverSwapDeployed) return;
 
     try {
       setLoading(true);
@@ -107,51 +108,49 @@ export default function Swap() {
     }
   }, [amount, isCorrectNetwork]);
 
-  if (!address) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-4">Connect Wallet</h2>
-          <p className="text-gray-600 mb-6">Please connect your wallet to start swapping on Sonic.</p>
-          <div className="text-sm text-gray-500">
-            <p>• Supported: MetaMask, WalletConnect, and more</p>
-            <p>• Network: Sonic Mainnet (Chain ID: 146)</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isCorrectNetwork) {
-    return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-4 text-orange-600">Wrong Network</h2>
-          <p className="text-gray-600 mb-6">Please switch to Sonic Mainnet to use the DEX.</p>
-          <div className="bg-gray-50 rounded-lg p-4 text-left text-sm space-y-2">
-            <p><strong>Network:</strong> Sonic</p>
-            <p><strong>Chain ID:</strong> 146</p>
-            <p><strong>RPC:</strong> https://rpc.soniclabs.com</p>
-            <p><strong>Explorer:</strong> https://sonicscan.org</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <h2 className="text-xl font-semibold mb-6">Swap Tokens</h2>
       
-      {!algebraDeployed && (
+      {/* Wallet Connection Status */}
+      {!address && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
           <div className="flex items-start space-x-3">
-            <div className="text-blue-600 mt-0.5">ℹ️</div>
+            <div className="text-blue-600 mt-0.5">💡</div>
             <div>
-              <p className="text-blue-800 font-medium">SwapX Coming Soon</p>
+              <p className="text-blue-800 font-medium">Connect Your Wallet</p>
               <p className="text-blue-700 text-sm mt-1">
-                The Algebra DEX (SwapX) is not yet deployed on Sonic. 
-                This interface will be fully functional once SwapX launches.
+                Connect your wallet using the button in the top right to start trading on Sonic.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Network Warning */}
+      {address && !isCorrectNetwork && (
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+          <div className="flex items-start space-x-3">
+            <div className="text-orange-600 mt-0.5">⚠️</div>
+            <div>
+              <p className="text-orange-800 font-medium">Wrong Network</p>
+              <p className="text-orange-700 text-sm mt-1">
+                Please switch to Sonic Mainnet (Chain ID: 146) to use the DEX.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* SilverSwap Live Status */}
+      {silverSwapDeployed && isCorrectNetwork && (
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+          <div className="flex items-start space-x-3">
+            <div className="text-green-600 mt-0.5">✅</div>
+            <div>
+              <p className="text-green-800 font-medium">SilverSwap is Live!</p>
+              <p className="text-green-700 text-sm mt-1">
+                Trade with deep liquidity and low fees on Sonic's premier DEX powered by Algebra Protocol.
               </p>
             </div>
           </div>
@@ -174,7 +173,6 @@ export default function Swap() {
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.0"
                 className="flex-1 bg-transparent text-2xl font-medium border-none outline-none"
-                disabled={!algebraDeployed}
               />
               <div className="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
                 <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
@@ -186,10 +184,7 @@ export default function Swap() {
 
         {/* Swap Direction Button */}
         <div className="flex justify-center">
-          <button 
-            className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
-            disabled={!algebraDeployed}
-          >
+          <button className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors">
             <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
             </svg>
@@ -238,31 +233,39 @@ export default function Swap() {
         )}
 
         {/* Swap Button */}
-        <button
-          onClick={executeSwap}
-          disabled={!amount || loading || !algebraDeployed || !quote}
-          className="w-full py-3 px-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
-        >
-          {loading ? (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-              <span>Processing...</span>
-            </div>
-          ) : !algebraDeployed ? (
-            "SwapX Coming Soon"
-          ) : !amount ? (
-            "Enter Amount"
-          ) : !quote ? (
-            "Get Quote"
-          ) : (
-            "Swap Tokens"
-          )}
-        </button>
+        {!address ? (
+          <div className="text-center">
+            <ConnectButton />
+          </div>
+        ) : (
+          <button
+            onClick={executeSwap}
+            disabled={!amount || loading || !silverSwapDeployed || !quote || !isCorrectNetwork}
+            className="w-full py-3 px-4 bg-black text-white rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition-colors"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <span>Processing...</span>
+              </div>
+            ) : !isCorrectNetwork ? (
+              "Switch to Sonic Network"
+            ) : !silverSwapDeployed ? (
+              "SilverSwap Unavailable"
+            ) : !amount ? (
+              "Enter Amount"
+            ) : !quote ? (
+              "Get Quote"
+            ) : (
+              "Swap Tokens"
+            )}
+          </button>
+        )}
 
         {/* Network Info */}
         <div className="text-center text-xs text-gray-500 space-y-1">
           <p>Connected to Sonic Mainnet • Chain ID: 146</p>
-          <p>Powered by Algebra Protocol (SwapX)</p>
+          <p>Powered by SilverSwap (Algebra Protocol)</p>
         </div>
       </div>
     </div>

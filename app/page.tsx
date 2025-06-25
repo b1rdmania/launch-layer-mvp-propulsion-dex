@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Swap from "./components/Swap";
 import AddLiquidity from "./components/AddLiquidity";
 import MyPositions from "./components/MyPositions";
@@ -11,7 +12,10 @@ export default function Home() {
   const [tab, setTab] = useState(0);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12">
-      <h1 className="text-3xl font-bold mb-6">Propulsion DEX</h1>
+      <div className="w-full max-w-4xl flex justify-between items-center mb-8 px-6">
+        <h1 className="text-3xl font-bold">Propulsion DEX</h1>
+        <ConnectButton />
+      </div>
       <div className="flex gap-4 mb-8">
         {TABS.map((t, i) => (
           <button

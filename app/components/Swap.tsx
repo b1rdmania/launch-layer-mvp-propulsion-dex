@@ -316,7 +316,7 @@ export default function Swap() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
         <div className="glass-card p-8 rounded-2xl">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-primary rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-blue rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
             </svg>
@@ -501,7 +501,7 @@ export default function Swap() {
         <button
           onClick={executeSwap}
           disabled={!amountIn || !amountOut || loading || swapping || !!error}
-          className="w-full mt-6 px-6 py-4 bg-gradient-primary hover:shadow-purple disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group"
+          className="w-full mt-6 px-6 py-4 bg-gradient-blue hover:shadow-blue disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 relative overflow-hidden group"
         >
           {/* Button shine effect */}
           <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>

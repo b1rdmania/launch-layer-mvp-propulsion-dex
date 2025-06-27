@@ -14,170 +14,22 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./components/u
 import { Badge } from "./components/ui/badge";
 
 export default function Home() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'dex' | 'airlocks' | 'whitepaper'>('dashboard');
-  const [activeTab, setActiveTab] = useState(0);
+  const [currentView, setCurrentView] = useState<'dashboard' | 'swap' | 'liquidity' | 'positions'>('dashboard');
   const { address, isConnected } = useAccount();
 
-  const chains = [{
-    name: 'Sonic',
-    logo: '🔊',
+  const dexStats = {
     tvl: '$2,400,000',
-    pools: 8
-  }, {
-    name: 'Base',
-    logo: '🔵',
-    tvl: '$4,100,000',
-    pools: 3
-  }, {
-    name: 'HyperEVM',
-    logo: '⚡',
-    tvl: '$5,200,000',
-    pools: 3
-  }, {
-    name: 'MegaETH',
-    logo: '🚀',
-    tvl: '$2,200,000',
-    pools: 3
-  }];
-
-  const mockProjects = [{
-    name: 'SilverSwap Pro',
-    category: 'DeFi',
-    logo: '💧',
-    description: 'Advanced Algebra DEX with concentrated liquidity on Sonic',
-    tgeDate: 'July 22, 2025',
-    totalRaise: '$2.5M',
-    status: 'upcoming'
-  }, {
-    name: 'Sonic AI',
-    category: 'AI',
-    logo: '🤖',
-    description: 'On-chain AI model training and inference protocol',
-    tgeDate: 'August 15, 2025',
-    totalRaise: '$4.2M',
-    status: 'upcoming'
-  }, {
-    name: 'SonicRealms',
-    category: 'Gaming',
-    logo: '🎮',
-    description: 'Fully on-chain strategy game with NFT armies',
-    tgeDate: 'September 3, 2025',
-    totalRaise: '$1.8M',
-    status: 'upcoming'
-  }, {
-    name: 'SonicBridge',
-    category: 'Infrastructure',
-    logo: '🌉',
-    description: 'Cross-chain messaging protocol for Sonic ecosystem',
-    tgeDate: 'October 1, 2025',
-    totalRaise: '$3.1M',
-    status: 'upcoming'
-  }];
-
-  const DEXView = () => {
-    const TABS = [
-      { 
-        id: "swap", 
-        label: "Swap", 
-        icon: "🔄", 
-        description: "Trade tokens instantly"
-      },
-      { 
-        id: "liquidity", 
-        label: "Add Liquidity", 
-        icon: "💧", 
-        description: "Earn fees by providing liquidity"
-      },
-      { 
-        id: "positions", 
-        label: "My Positions", 
-        icon: "📊", 
-        description: "Manage your portfolio"
-      }
-    ];
-
-    const renderTabContent = () => {
-      switch (activeTab) {
-        case 0:
-          return <Swap />;
-        case 1:
-          return <AddLiquidity />;
-        case 2:
-          return <MyPositions />;
-        default:
-          return <Swap />;
-      }
-    };
-
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center space-x-4">
-          <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
-            <ArrowLeft className="w-4 h-4" />
-          </Button>
-          <h1 className="text-3xl font-bold text-launchlayer-text-primary">Algebra DEX</h1>
-        </div>
-
-        {/* DEX Stats */}
-        <div className="grid md:grid-cols-4 gap-6">
-          <Card>
-            <CardContent className="p-4 text-center">
-              <h3 className="text-xl font-bold text-launchlayer-accent">$2.4M</h3>
-              <p className="text-sm text-launchlayer-text-secondary">Total Value Locked</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <h3 className="text-xl font-bold text-launchlayer-violet">$450K</h3>
-              <p className="text-sm text-launchlayer-text-secondary">24h Volume</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <h3 className="text-xl font-bold text-launchlayer-mint">1,247</h3>
-              <p className="text-sm text-launchlayer-text-secondary">Active Users</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <h3 className="text-xl font-bold text-launchlayer-accent">8</h3>
-              <p className="text-sm text-launchlayer-text-secondary">Trading Pairs</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Tab Navigation */}
-        <div className="bg-launchlayer-surface rounded-lg border border-launchlayer-surface-light p-2">
-          <div className="grid grid-cols-3 gap-2">
-            {TABS.map((tab, index) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(index)}
-                className={`relative p-4 rounded-lg transition-all duration-300 group ${
-                  activeTab === index
-                    ? 'bg-launchlayer-accent text-white'
-                    : 'text-launchlayer-text-secondary hover:text-launchlayer-text-primary hover:bg-launchlayer-surface-light'
-                }`}
-              >
-                <div className="flex flex-col items-center space-y-2">
-                  <span className="text-2xl group-hover:scale-110 transition-transform duration-200">
-                    {tab.icon}
-                  </span>
-                  <span className="font-medium text-sm">{tab.label}</span>
-                  <span className="text-xs opacity-70 hidden md:block">{tab.description}</span>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Tab Content */}
-        <div className="animate-fade-in">
-          {renderTabContent()}
-        </div>
-      </div>
-    );
+    volume24h: '$450,000',
+    activeUsers: '1,247',
+    tradingPairs: '8'
   };
+
+  const topPairs = [
+    { pair: 'wS/WETH', volume: '$125,000', apy: '18.5%', tvl: '$850,000' },
+    { pair: 'WETH/USDC', volume: '$98,000', apy: '12.3%', tvl: '$650,000' },
+    { pair: 'USDC/USDT', volume: '$87,000', apy: '8.9%', tvl: '$420,000' },
+    { pair: 'wS/USDC', volume: '$65,000', apy: '15.2%', tvl: '$380,000' }
+  ];
 
   const DashboardView = () => (
     <div className="space-y-8">
@@ -186,28 +38,29 @@ export default function Home() {
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-launchlayer-accent rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">L</span>
+              <span className="text-white font-bold">P</span>
             </div>
-            <span className="text-3xl font-bold text-launchlayer-text-primary">Dashboard</span>
+            <span className="text-3xl font-bold text-launchlayer-text-primary">PropulsionDEX</span>
           </div>
           <div className="hidden md:flex space-x-4 text-sm">
+            <span className="text-launchlayer-accent font-medium">Dashboard</span>
             <span 
               className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer"
-              onClick={() => setCurrentView('dex')}
+              onClick={() => setCurrentView('swap')}
             >
-              DEX
+              Swap
             </span>
             <span 
               className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer"
-              onClick={() => setCurrentView('airlocks')}
+              onClick={() => setCurrentView('liquidity')}
             >
-              Airlocks
+              Liquidity
             </span>
             <span 
               className="text-launchlayer-text-secondary hover:text-launchlayer-text-primary cursor-pointer"
-              onClick={() => setCurrentView('whitepaper')}
+              onClick={() => setCurrentView('positions')}
             >
-              White Paper
+              Positions
             </span>
           </div>
         </div>
@@ -223,79 +76,94 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* High-Level Stats Banner */}
-      <div className="grid md:grid-cols-3 gap-6">
+      {/* DEX Stats Banner */}
+      <div className="grid md:grid-cols-4 gap-6">
         <Card>
           <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-accent">$12,750,000</h3>
+            <h3 className="text-2xl font-bold text-launchlayer-accent">{dexStats.tvl}</h3>
             <p className="text-launchlayer-text-secondary">Total Value Locked</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-violet">12</h3>
-            <p className="text-launchlayer-text-secondary">Active Airlocks</p>
+            <h3 className="text-2xl font-bold text-launchlayer-violet">{dexStats.volume24h}</h3>
+            <p className="text-launchlayer-text-secondary">24h Volume</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-6 text-center">
-            <h3 className="text-2xl font-bold text-launchlayer-mint">16</h3>
-            <p className="text-launchlayer-text-secondary">Upcoming Launches</p>
+            <h3 className="text-2xl font-bold text-launchlayer-mint">{dexStats.activeUsers}</h3>
+            <p className="text-launchlayer-text-secondary">Active Users</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6 text-center">
+            <h3 className="text-2xl font-bold text-launchlayer-accent">{dexStats.tradingPairs}</h3>
+            <p className="text-launchlayer-text-secondary">Trading Pairs</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Your Summary Section */}
+      {/* Quick Actions */}
       <Card>
         <CardHeader>
-          <CardTitle>Your Summary</CardTitle>
+          <CardTitle>Quick Actions</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-launchlayer-text-secondary">Your Total Staked</p>
-              <p className="text-2xl font-bold text-launchlayer-text-primary">$15,500</p>
-            </div>
-            <div>
-              <p className="text-sm text-launchlayer-text-secondary">Your Accrued Yield (for TGEs)</p>
-              <p className="text-2xl font-bold text-launchlayer-accent">$212.50</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Button onClick={() => setCurrentView('airlocks')} className="w-full">
-              View My Airlocks
+          <div className="grid grid-cols-3 gap-4">
+            <Button 
+              onClick={() => setCurrentView('swap')} 
+              className="w-full h-20 flex flex-col items-center justify-center space-y-2"
+            >
+              <span className="text-2xl">🔄</span>
+              <span>Swap Tokens</span>
             </Button>
-            <Button onClick={() => setCurrentView('dex')} variant="outline" className="w-full">
-              Open DEX
+            <Button 
+              onClick={() => setCurrentView('liquidity')} 
+              variant="outline" 
+              className="w-full h-20 flex flex-col items-center justify-center space-y-2"
+            >
+              <span className="text-2xl">💧</span>
+              <span>Add Liquidity</span>
+            </Button>
+            <Button 
+              onClick={() => setCurrentView('positions')} 
+              variant="outline" 
+              className="w-full h-20 flex flex-col items-center justify-center space-y-2"
+            >
+              <span className="text-2xl">📊</span>
+              <span>My Positions</span>
             </Button>
           </div>
         </CardContent>
       </Card>
 
-      {/* Airlock Chains Section */}
+      {/* Top Trading Pairs */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Explore Airlocks</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {chains.map(chain => (
-            <Card key={chain.name} className="hover:border-launchlayer-accent transition-colors cursor-pointer">
-              <CardContent className="p-6 text-center space-y-4">
-                <div className="text-4xl">{chain.logo}</div>
-                <h3 className="text-xl font-bold">{chain.name}</h3>
-                <div className="space-y-2 text-sm">
-                  <p><span className="text-launchlayer-text-secondary">Chain TVL:</span> {chain.tvl}</p>
-                  <p><span className="text-launchlayer-text-secondary">Available Pools:</span> {chain.pools}</p>
+        <h2 className="text-2xl font-bold">Top Trading Pairs</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          {topPairs.map((pair, index) => (
+            <Card key={index} className="hover:border-launchlayer-accent transition-colors cursor-pointer">
+              <CardContent className="p-6">
+                <div className="flex justify-between items-start">
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-bold text-launchlayer-text-primary">{pair.pair}</h3>
+                    <div className="space-y-1 text-sm">
+                      <p><span className="text-launchlayer-text-secondary">24h Volume:</span> <span className="text-launchlayer-accent">{pair.volume}</span></p>
+                      <p><span className="text-launchlayer-text-secondary">TVL:</span> <span className="text-launchlayer-mint">{pair.tvl}</span></p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-launchlayer-violet">{pair.apy}</div>
+                    <div className="text-sm text-launchlayer-text-secondary">APY</div>
+                  </div>
                 </div>
                 <Button 
-                  onClick={() => {
-                    if (chain.name === 'Sonic') {
-                      setCurrentView('dex');
-                    } else {
-                      setCurrentView('airlocks');
-                    }
-                  }} 
-                  className="w-full"
+                  onClick={() => setCurrentView('swap')} 
+                  className="w-full mt-4"
+                  size="sm"
                 >
-                  {chain.name === 'Sonic' ? 'Open DEX' : 'Select Chain'}
+                  Trade {pair.pair}
                 </Button>
               </CardContent>
             </Card>
@@ -303,94 +171,79 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Upcoming Projects Preview */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Upcoming Project Launches</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {mockProjects.map((project, index) => (
-            <Card key={index}>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <span className="text-2xl">{project.logo}</span>
-                  <h4 className="font-bold">{project.name}</h4>
-                </div>
-                <p className="text-sm text-launchlayer-text-secondary mb-2">{project.description}</p>
-                <div className="space-y-1 text-xs">
-                  <p><span className="text-launchlayer-text-secondary">TGE:</span> {project.tgeDate}</p>
-                  <p><span className="text-launchlayer-text-secondary">Raise:</span> {project.totalRaise}</p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  const AirlocksView = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4">
-        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <h1 className="text-3xl font-bold text-launchlayer-text-primary">Airlocks</h1>
-      </div>
-      
+      {/* Protocol Information */}
       <Card>
-        <CardContent className="p-8 text-center">
-          <div className="text-6xl mb-4">🚀</div>
-          <h3 className="text-xl font-bold mb-2">Airlocks Coming Soon</h3>
-          <p className="text-launchlayer-text-secondary mb-4">
-            Launch Layer airlock functionality is currently in development. 
-            For now, explore our fully functional DEX on Sonic.
-          </p>
-          <Button onClick={() => setCurrentView('dex')}>
-            Try the DEX
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
-  );
-
-  const WhitePaperView = () => (
-    <div className="space-y-6">
-      <div className="flex items-center space-x-4">
-        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
-          <ArrowLeft className="w-4 h-4" />
-        </Button>
-        <h1 className="text-3xl font-bold text-launchlayer-text-primary">White Paper</h1>
-      </div>
-      
-      <Card>
-        <CardContent className="p-8">
-          <div className="prose prose-invert max-w-none">
-            <h2 className="text-2xl font-bold text-launchlayer-accent mb-4">Launch Layer Protocol</h2>
-            <p className="text-launchlayer-text-secondary mb-6">
-              Launch Layer is a comprehensive DeFi protocol that combines advanced DEX functionality 
-              with innovative airlock mechanisms for project launches and yield farming.
-            </p>
-            
-            <h3 className="text-xl font-bold text-launchlayer-violet mb-3">Algebra DEX Integration</h3>
-            <p className="text-launchlayer-text-secondary mb-4">
-              Our DEX is powered by Algebra Protocol, providing concentrated liquidity and advanced 
-              trading features on Sonic blockchain. Experience lightning-fast swaps with minimal fees.
-            </p>
-
-            <h3 className="text-xl font-bold text-launchlayer-mint mb-3">Key Features</h3>
-            <ul className="text-launchlayer-text-secondary space-y-2 mb-6">
-              <li>• Advanced concentrated liquidity positions</li>
-              <li>• Multi-chain airlock mechanisms</li>
-              <li>• Yield farming with project token rewards</li>
-              <li>• Cross-chain bridge integrations</li>
-              <li>• Automated portfolio management</li>
-            </ul>
-
-            <Button onClick={() => setCurrentView('dex')} className="w-full">
-              Experience the DEX
-            </Button>
+        <CardHeader>
+          <CardTitle>About PropulsionDEX</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 bg-launchlayer-accent/20 rounded-lg flex items-center justify-center mx-auto">
+                <Zap className="w-6 h-6 text-launchlayer-accent" />
+              </div>
+              <h3 className="font-bold text-launchlayer-text-primary">Lightning Fast</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Powered by Algebra Protocol on Sonic blockchain for instant swaps with minimal fees
+              </p>
+            </div>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 bg-launchlayer-violet/20 rounded-lg flex items-center justify-center mx-auto">
+                <Shield className="w-6 h-6 text-launchlayer-violet" />
+              </div>
+              <h3 className="font-bold text-launchlayer-text-primary">Secure & Audited</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Battle-tested smart contracts with concentrated liquidity and advanced security features
+              </p>
+            </div>
+            <div className="text-center space-y-3">
+              <div className="w-12 h-12 bg-launchlayer-mint/20 rounded-lg flex items-center justify-center mx-auto">
+                <TrendingUp className="w-6 h-6 text-launchlayer-mint" />
+              </div>
+              <h3 className="font-bold text-launchlayer-text-primary">Maximize Yields</h3>
+              <p className="text-sm text-launchlayer-text-secondary">
+                Earn trading fees and yield farming rewards with optimized liquidity positions
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
+    </div>
+  );
+
+  const SwapView = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4">
+        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <h1 className="text-3xl font-bold text-launchlayer-text-primary">Swap Tokens</h1>
+      </div>
+      <Swap />
+    </div>
+  );
+
+  const LiquidityView = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4">
+        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <h1 className="text-3xl font-bold text-launchlayer-text-primary">Add Liquidity</h1>
+      </div>
+      <AddLiquidity />
+    </div>
+  );
+
+  const PositionsView = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4">
+        <Button variant="ghost" onClick={() => setCurrentView('dashboard')} className="p-2">
+          <ArrowLeft className="w-4 h-4" />
+        </Button>
+        <h1 className="text-3xl font-bold text-launchlayer-text-primary">My Positions</h1>
+      </div>
+      <MyPositions />
     </div>
   );
 
@@ -398,9 +251,9 @@ export default function Home() {
     <div className="min-h-screen bg-launchlayer-background text-launchlayer-text-primary">
       <div className="container mx-auto px-4 py-8">
         {currentView === 'dashboard' && <DashboardView />}
-        {currentView === 'dex' && <DEXView />}
-        {currentView === 'airlocks' && <AirlocksView />}
-        {currentView === 'whitepaper' && <WhitePaperView />}
+        {currentView === 'swap' && <SwapView />}
+        {currentView === 'liquidity' && <LiquidityView />}
+        {currentView === 'positions' && <PositionsView />}
       </div>
     </div>
   );

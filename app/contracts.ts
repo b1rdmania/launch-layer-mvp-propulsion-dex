@@ -1,30 +1,181 @@
 // Sonic Mainnet Configuration
-export const SONIC_CHAIN_ID = 146;
+export const CHAIN_ID = 146;
+export const RPC_URL = "https://rpc.soniclabs.com";
 
-// Sonic Native Token Addresses (from Sonic official docs)
+// Sonic Token Addresses
 export const WRAPPED_S_ADDRESS = "0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38"; // Wrapped S (wS)
-export const WETH_ADDRESS = "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b"; // Wrapped Ether (WETH)
-export const USDC_ADDRESS = "0x29219dd400f2Bf60E5a23d13Be72B486D4038894"; // USDC (Bridged)
-export const USDT_ADDRESS = "0x6047828dc181963ba44974801ff68e538da5eaf9"; // USDT (Bridged)
+export const WETH_ADDRESS = "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b"; // WETH on Sonic
+export const USDC_ADDRESS = "0x29219dd400f2Bf60E5a23d13Be72B486D4038894"; // USDC on Sonic
+export const USDT_ADDRESS = "0x6047828dc181963ba44974801ff68e538da5eaf9"; // USDT on Sonic
 
-// SilverSwap (Algebra DEX) Contract Addresses - DEPLOYED ON SONIC!
-// Source: https://docs.silverswap.io/silverswap/technical-details/editor
-export const QUOTER_V2_ADDRESS = "0xe1181313a39d850d3A20F11FF1A6a94a29A09404"; // SilverSwap Quoter
-export const SWAP_ROUTER_ADDRESS = "0x4882198dd2064D1E35b24735e6B9E5e3B45AcD6b"; // SilverSwap Router
-export const NONFUNGIBLE_POSITION_MANAGER_ADDRESS = "0x5084E9fDF9264489A14E77c011073D757e572bB4"; // SilverSwap NFT Position Manager
+// Algebra DEX Contract Addresses (SilverSwap on Sonic)
+export const ALGEBRA_FACTORY_ADDRESS = "0x8c1eb1e5325049b412b7e71337116bef88a29b3a";
+export const QUOTER_V2_ADDRESS = "0x61fFE014bA17989E743c5F6cB21bF9697530B21e";
+export const SWAP_ROUTER_ADDRESS = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45";
+export const NONFUNGIBLE_POSITION_MANAGER_ADDRESS = "0xC36442b4a4522E871399CD717aBDD847Ab11FE88";
+export const TICK_LENS_ADDRESS = "0xbfd8137f7d1516D3ea5cA83523914859ec47F573";
 
-// Additional SilverSwap Contracts
-export const FACTORY_ADDRESS = "0xb860200BD68dc39cEAfd6ebb82883f189f4CdA76"; // SilverSwap Factory
-export const VAULT_ADDRESS = "0x5bE5f71bC89a2E5Fdbbb2D9Aeff1F4a38d5870F7"; // SilverSwap Vault
-export const POOL_DEPLOYER_ADDRESS = "0x98AF00a67F5cC0b362Da34283D7d32817F6c9A29"; // SilverSwap Pool Deployer
+// SilverSwap API Configuration
+export const SILVERSWAP_API_BASE = "https://api.silverswap.com";
+export const SILVERSWAP_SUBGRAPH_URL = "https://graph.soniclabs.com/subgraphs/name/silverswap/algebra-v3";
 
-// Pool Configuration
-export const POOL_INIT_CODE_HASH = "0x6ec6c9c8091d160c0aa74b2b14ba9c1717e95093bd3ac085cee99a49aab294a4";
+// Pool Addresses (wS/WETH pair)
+export const WS_WETH_POOL_ADDRESS = "0x4e68Ccd3E89f51C3074ca5072bbAC773960dFa36";
 
-// Token List Configuration for Sonic
-export const TOKEN_LIST = [
-  { symbol: 'wS', address: WRAPPED_S_ADDRESS, decimals: 18 },
-  { symbol: 'WETH', address: WETH_ADDRESS, decimals: 18 },
-  { symbol: 'USDC', address: USDC_ADDRESS, decimals: 6 },
-  { symbol: 'USDT', address: USDT_ADDRESS, decimals: 6 },
-] as const; 
+// Token Decimals
+export const TOKEN_DECIMALS = {
+  [WRAPPED_S_ADDRESS]: 18,
+  [WETH_ADDRESS]: 18,
+  [USDC_ADDRESS]: 6,
+  [USDT_ADDRESS]: 6,
+};
+
+// Popular Token Pairs for Trading
+export const POPULAR_PAIRS = [
+  {
+    token0: WRAPPED_S_ADDRESS,
+    token1: WETH_ADDRESS,
+    symbol: "wS/WETH",
+    fee: 3000, // 0.3%
+  },
+  {
+    token0: WETH_ADDRESS,
+    token1: USDC_ADDRESS,
+    symbol: "WETH/USDC",
+    fee: 3000, // 0.3%
+  },
+  {
+    token0: USDC_ADDRESS,
+    token1: USDT_ADDRESS,
+    symbol: "USDC/USDT",
+    fee: 500, // 0.05%
+  },
+];
+
+// Fee Tiers
+export const FEE_TIERS = [
+  { fee: 500, label: "0.05%" },
+  { fee: 3000, label: "0.3%" },
+  { fee: 10000, label: "1%" },
+];
+
+// Price Ranges for Concentrated Liquidity
+export const PRICE_RANGES = {
+  TIGHT: { min: 0.95, max: 1.05 }, // ±5%
+  MEDIUM: { min: 0.8, max: 1.2 }, // ±20%
+  WIDE: { min: 0.5, max: 2.0 }, // ±100%
+};
+
+// GraphQL Queries for Portfolio Data
+export const PORTFOLIO_QUERIES = {
+  USER_POSITIONS: `
+    query getUserPositions($owner: String!) {
+      positions(where: { owner: $owner }) {
+        id
+        owner
+        pool {
+          id
+          token0 {
+            symbol
+            decimals
+          }
+          token1 {
+            symbol
+            decimals
+          }
+          fee
+        }
+        tickLower {
+          tickIdx
+        }
+        tickUpper {
+          tickIdx
+        }
+        liquidity
+        depositedToken0
+        depositedToken1
+        withdrawnToken0
+        withdrawnToken1
+        collectedFeesToken0
+        collectedFeesToken1
+      }
+    }
+  `,
+  
+  POOL_DATA: `
+    query getPoolData($poolId: String!) {
+      pool(id: $poolId) {
+        id
+        token0Price
+        token1Price
+        sqrtPrice
+        tick
+        liquidity
+        volumeUSD
+        totalValueLockedUSD
+        feesUSD
+      }
+    }
+  `,
+  
+  USER_SWAPS: `
+    query getUserSwaps($sender: String!) {
+      swaps(where: { sender: $sender }, orderBy: timestamp, orderDirection: desc, first: 100) {
+        id
+        timestamp
+        pool {
+          token0 {
+            symbol
+          }
+          token1 {
+            symbol
+          }
+        }
+        amount0
+        amount1
+        amountUSD
+      }
+    }
+  `,
+};
+
+// Helper function to get token info
+export function getTokenInfo(address: string) {
+  const lowerAddress = address.toLowerCase();
+  
+  if (lowerAddress === WRAPPED_S_ADDRESS.toLowerCase()) {
+    return { symbol: "wS", name: "Wrapped S", decimals: 18 };
+  }
+  if (lowerAddress === WETH_ADDRESS.toLowerCase()) {
+    return { symbol: "WETH", name: "Wrapped Ether", decimals: 18 };
+  }
+  if (lowerAddress === USDC_ADDRESS.toLowerCase()) {
+    return { symbol: "USDC", name: "USD Coin", decimals: 6 };
+  }
+  if (lowerAddress === USDT_ADDRESS.toLowerCase()) {
+    return { symbol: "USDT", name: "Tether USD", decimals: 6 };
+  }
+  
+  return { symbol: "UNKNOWN", name: "Unknown Token", decimals: 18 };
+}
+
+// Helper function to format amounts
+export function formatTokenAmount(amount: string, decimals: number): string {
+  const divisor = BigInt(10 ** decimals);
+  const bigAmount = BigInt(amount);
+  const wholePart = bigAmount / divisor;
+  const fractionalPart = bigAmount % divisor;
+  
+  if (fractionalPart === BigInt(0)) {
+    return wholePart.toString();
+  }
+  
+  const fractionalStr = fractionalPart.toString().padStart(decimals, '0');
+  const trimmedFractional = fractionalStr.replace(/0+$/, '');
+  
+  if (trimmedFractional === '') {
+    return wholePart.toString();
+  }
+  
+  return `${wholePart}.${trimmedFractional}`;
+} 

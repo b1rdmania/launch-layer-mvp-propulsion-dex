@@ -1,301 +1,433 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ethers } from "ethers";
-import { useAccount, useWalletClient } from "wagmi";
+import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { NONFUNGIBLE_POSITION_MANAGER_ADDRESS } from "../contracts";
-import NonfungiblePositionManagerABI from "../abis/NonfungiblePositionManager.json";
-
-interface Position {
-  tokenId: string;
-  token0: string;
-  token1: string;
-  fee: number;
-  liquidity: string;
-  amount0: string;
-  amount1: string;
-}
+import { portfolioService, Position, SwapTransaction, PortfolioSummary } from "../services/portfolioService";
+import { getTokenInfo, WRAPPED_S_ADDRESS, WETH_ADDRESS, USDC_ADDRESS, USDT_ADDRESS } from "../contracts";
 
 export default function MyPositions() {
-  const { address } = useAccount();
-  const { data: walletClient } = useWalletClient();
-  const [positions, setPositions] = useState<Position[]>([]);
+  const { address, isConnected } = useAccount();
+  const [portfolioData, setPortfolioData] = useState<PortfolioSummary | null>(null);
+  const [tokenBalances, setTokenBalances] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Check if SilverSwap contracts are deployed
-  const silverSwapDeployed = true; // SilverSwap is deployed on Sonic!
-
-  const loadPositions = async () => {
-    if (!address || !silverSwapDeployed) return;
-
-    try {
-      setLoading(true);
-      setError(null);
-
-      if (!window.ethereum) {
-        throw new Error("No ethereum provider found");
-      }
-
-      const provider = new ethers.BrowserProvider(window.ethereum as any);
-      const positionManager = new ethers.Contract(
-        NONFUNGIBLE_POSITION_MANAGER_ADDRESS,
-        NonfungiblePositionManagerABI,
-        provider
-      );
-
-      // Get user's balance of NFTs
-      const balance = await positionManager.balanceOf(address);
-      const positionList: Position[] = [];
-
-      for (let i = 0; i < Number(balance); i++) {
-        const tokenId = await positionManager.tokenOfOwnerByIndex(address, i);
-        const position = await positionManager.positions(tokenId);
-        
-        positionList.push({
-          tokenId: tokenId.toString(),
-          token0: position.token0,
-          token1: position.token1,
-          fee: Number(position.fee),
-          liquidity: position.liquidity.toString(),
-          amount0: "0", // Would need additional calls to get current amounts
-          amount1: "0"
-        });
-      }
-
-      setPositions(positionList);
-    } catch (err: any) {
-      console.error('Load positions error:', err);
-      setError(err.message || 'Failed to load positions');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const removePosition = async (tokenId: string) => {
-    if (!walletClient || !silverSwapDeployed) return;
-
-    try {
-      setLoading(true);
-      setError(null);
-
-      if (!window.ethereum) {
-        throw new Error("No ethereum provider found");
-      }
-
-      const provider = new ethers.BrowserProvider(window.ethereum as any);
-      const signer = await provider.getSigner();
-      const positionManager = new ethers.Contract(
-        NONFUNGIBLE_POSITION_MANAGER_ADDRESS,
-        NonfungiblePositionManagerABI,
-        signer
-      );
-
-      // First decrease liquidity to 0
-      const position = await positionManager.positions(tokenId);
-      
-      if (position.liquidity > 0) {
-        const decreaseParams = {
-          tokenId,
-          liquidity: position.liquidity,
-          amount0Min: 0,
-          amount1Min: 0,
-          deadline: Math.floor(Date.now() / 1000) + 60 * 20,
-        };
-
-        const decreaseTx = await positionManager.decreaseLiquidity(decreaseParams);
-        await decreaseTx.wait();
-      }
-
-      // Then collect the fees and remaining tokens
-      const collectParams = {
-        tokenId,
-        recipient: address,
-        amount0Max: "340282366920938463463374607431768211455", // MaxUint128
-        amount1Max: "340282366920938463463374607431768211455",
-      };
-
-      const collectTx = await positionManager.collect(collectParams);
-      await collectTx.wait();
-
-      // Finally burn the NFT
-      const burnTx = await positionManager.burn(tokenId);
-      await burnTx.wait();
-
-      // Reload positions
-      await loadPositions();
-      alert('Position removed successfully!');
-    } catch (err: any) {
-      console.error('Remove position error:', err);
-      setError(err.message || 'Failed to remove position');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<'overview' | 'positions' | 'history' | 'balances'>('overview');
 
   useEffect(() => {
-    if (address && silverSwapDeployed) {
-      loadPositions();
+    if (address && isConnected) {
+      loadPortfolioData();
     }
-  }, [address, silverSwapDeployed]);
+  }, [address, isConnected]);
 
-  return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold">My Positions</h2>
-        {address && silverSwapDeployed && (
-          <button
-            onClick={loadPositions}
-            disabled={loading}
-            className="px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-          >
-            {loading ? "Loading..." : "Refresh"}
-          </button>
-        )}
-      </div>
+  const loadPortfolioData = async () => {
+    if (!address) return;
+    
+    setLoading(true);
+    setError("");
+    
+    try {
+      const [portfolio, balances] = await Promise.all([
+        portfolioService.getPortfolioSummary(address),
+        portfolioService.getTokenBalances(address, [
+          WRAPPED_S_ADDRESS,
+          WETH_ADDRESS,
+          USDC_ADDRESS,
+          USDT_ADDRESS,
+        ]),
+      ]);
+      
+      setPortfolioData(portfolio);
+      setTokenBalances(balances);
+    } catch (err) {
+      console.error("Error loading portfolio:", err);
+      setError("Failed to load portfolio data");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      {/* Wallet Connection Status */}
-      {!address && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <div className="flex items-start space-x-3">
-            <div className="text-blue-600 mt-0.5">💡</div>
-            <div>
-              <p className="text-blue-800 font-medium">Connect Your Wallet</p>
-              <p className="text-blue-700 text-sm mt-1">
-                Connect your wallet using the button in the top right to view your liquidity positions.
-              </p>
-            </div>
+  const formatUSD = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  };
+
+  const formatDate = (timestamp: number) => {
+    return new Date(timestamp * 1000).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  if (!isConnected) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+        <div className="glass-card p-8 rounded-2xl">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-primary rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
           </div>
-        </div>
-      )}
-
-      {/* SilverSwap Live Status */}
-      {silverSwapDeployed && address && (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-          <div className="flex items-start space-x-3">
-            <div className="text-green-600 mt-0.5">✅</div>
-            <div>
-              <p className="text-green-800 font-medium">SilverSwap Position Tracking is Live!</p>
-              <p className="text-green-700 text-sm mt-1">
-                Track and manage your LP positions and collect earned fees from trading activity.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Connect Button */}
-      {!address && (
-        <div className="text-center">
+          <h3 className="text-xl font-bold text-white mb-2">Connect Your Wallet</h3>
+          <p className="text-gray-300 mb-6">Connect your wallet to view your portfolio and positions</p>
           <ConnectButton />
         </div>
-      )}
+      </div>
+    );
+  }
 
-      {/* Error Display */}
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-700 text-sm mb-4">
-          {error}
-        </div>
-      )}
-
-      {/* Positions List */}
-      {address && silverSwapDeployed && (
-        <div className="space-y-4">
-          {loading && positions.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading your positions...</p>
+  return (
+    <div className="space-y-6">
+      {/* Portfolio Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="glass-card p-6 rounded-2xl">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-medium text-gray-300">Total Value</h3>
+            <div className="w-8 h-8 bg-primary-500/20 rounded-lg flex items-center justify-center">
+              <svg className="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
             </div>
-          ) : positions.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </div>
+          <p className="text-2xl font-bold text-white">
+            {portfolioData ? formatUSD(portfolioData.totalValueUSD) : '$0.00'}
+          </p>
+          <p className="text-xs text-gray-400 mt-1">Portfolio Value</p>
+        </div>
+
+        <div className="glass-card p-6 rounded-2xl">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-medium text-gray-300">Fees Earned</h3>
+            <div className="w-8 h-8 bg-secondary-500/20 rounded-lg flex items-center justify-center">
+              <svg className="w-4 h-4 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-white">
+            {portfolioData ? formatUSD(portfolioData.totalFeesEarned) : '$0.00'}
+          </p>
+          <p className="text-xs text-gray-400 mt-1">Total Earnings</p>
+        </div>
+
+        <div className="glass-card p-6 rounded-2xl">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-medium text-gray-300">Active Positions</h3>
+            <div className="w-8 h-8 bg-accent-500/20 rounded-lg flex items-center justify-center">
+              <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-white">
+            {portfolioData ? `${portfolioData.activePositions}/${portfolioData.totalPositions}` : '0/0'}
+          </p>
+          <p className="text-xs text-gray-400 mt-1">In Range</p>
+        </div>
+
+        <div className="glass-card p-6 rounded-2xl">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-sm font-medium text-gray-300">Total Volume</h3>
+            <div className="w-8 h-8 bg-primary-600/20 rounded-lg flex items-center justify-center">
+              <svg className="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+              </svg>
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-white">
+            {portfolioData ? formatUSD(portfolioData.totalVolumeUSD) : '$0.00'}
+          </p>
+          <p className="text-xs text-gray-400 mt-1">Trading Volume</p>
+        </div>
+      </div>
+
+      {/* Navigation Tabs */}
+      <div className="glass-card p-1 rounded-2xl">
+        <div className="flex space-x-1">
+          {[
+            { key: 'overview', label: 'Overview', icon: '📊' },
+            { key: 'positions', label: 'Positions', icon: '💎' },
+            { key: 'history', label: 'History', icon: '📈' },
+            { key: 'balances', label: 'Balances', icon: '💰' },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as any)}
+              className={`flex-1 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                activeTab === tab.key
+                  ? 'bg-gradient-primary text-white shadow-lg'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <span className="mr-2">{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content Area */}
+      <div className="glass-card p-6 rounded-2xl min-h-[400px]">
+        {loading ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <div className="animate-spin w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+              <p className="text-gray-300">Loading portfolio data...</p>
+            </div>
+          </div>
+        ) : error ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-red-500/20 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No Positions Found</h3>
-              <p className="text-gray-600 mb-4">You don't have any liquidity positions yet.</p>
+              <p className="text-red-400 mb-2">{error}</p>
               <button
-                onClick={() => window.location.hash = 'add-liquidity'}
-                className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+                onClick={loadPortfolioData}
+                className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
               >
-                Add Liquidity
+                Try Again
               </button>
             </div>
-          ) : (
-            <div className="grid gap-4">
-              {positions.map((position) => (
-                <div key={position.tokenId} className="border border-gray-200 rounded-lg p-4">
-                  <div className="flex justify-between items-start mb-3">
+          </div>
+        ) : (
+          <>
+            {/* Overview Tab */}
+            {activeTab === 'overview' && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold text-white">Portfolio Overview</h3>
+                  <button
+                    onClick={loadPortfolioData}
+                    className="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors text-sm"
+                  >
+                    Refresh
+                  </button>
+                </div>
+                
+                {portfolioData?.positions.length === 0 ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-primary-500/20 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                    </div>
+                    <h4 className="text-lg font-semibold text-white mb-2">No Positions Yet</h4>
+                    <p className="text-gray-400 mb-4">Start by adding liquidity to earn fees from trading</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Recent Positions */}
                     <div>
-                      <div className="flex items-center space-x-2 mb-1">
-                        <div className="flex items-center space-x-1">
-                          <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
-                          <span className="font-medium">wS</span>
+                      <h4 className="text-lg font-semibold text-white mb-4">Recent Positions</h4>
+                      <div className="space-y-3">
+                        {portfolioData?.positions.slice(0, 3).map((position) => (
+                          <div key={position.id} className="bg-white/5 rounded-xl p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="font-medium text-white">
+                                {position.pool.token0.symbol}/{position.pool.token1.symbol}
+                              </span>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                position.priceRange.inRange 
+                                  ? 'bg-green-500/20 text-green-400' 
+                                  : 'bg-red-500/20 text-red-400'
+                              }`}>
+                                {position.priceRange.inRange ? 'In Range' : 'Out of Range'}
+                              </span>
+                            </div>
+                            <div className="text-sm text-gray-400">
+                              Value: {formatUSD(position.currentValue.totalUSD)}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Recent Swaps */}
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-4">Recent Activity</h4>
+                      <div className="space-y-3">
+                        {portfolioData?.recentSwaps.slice(0, 3).map((swap) => (
+                          <div key={swap.id} className="bg-white/5 rounded-xl p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="font-medium text-white">
+                                {swap.pool.token0.symbol}/{swap.pool.token1.symbol}
+                              </span>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                swap.type === 'buy' 
+                                  ? 'bg-green-500/20 text-green-400' 
+                                  : 'bg-red-500/20 text-red-400'
+                              }`}>
+                                {swap.type.toUpperCase()}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-sm text-gray-400">
+                              <span>{formatUSD(swap.amountUSD)}</span>
+                              <span>{formatDate(swap.timestamp)}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Positions Tab */}
+            {activeTab === 'positions' && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-white">Liquidity Positions</h3>
+                {portfolioData?.positions.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-400">No liquidity positions found</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4">
+                    {portfolioData?.positions.map((position) => (
+                      <div key={position.id} className="bg-white/5 rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="flex -space-x-2">
+                              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                {position.pool.token0.symbol[0]}
+                              </div>
+                              <div className="w-8 h-8 bg-gradient-to-r from-secondary-500 to-accent-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                {position.pool.token1.symbol[0]}
+                              </div>
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-white">
+                                {position.pool.token0.symbol}/{position.pool.token1.symbol}
+                              </h4>
+                              <p className="text-sm text-gray-400">Fee: {position.pool.fee / 10000}%</p>
+                            </div>
+                          </div>
+                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                            position.priceRange.inRange 
+                              ? 'bg-green-500/20 text-green-400' 
+                              : 'bg-red-500/20 text-red-400'
+                          }`}>
+                            {position.priceRange.inRange ? 'In Range' : 'Out of Range'}
+                          </span>
                         </div>
-                        <span className="text-gray-400">/</span>
-                        <div className="flex items-center space-x-1">
-                          <div className="w-6 h-6 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full"></div>
-                          <span className="font-medium">WETH</span>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                          <div>
+                            <p className="text-xs text-gray-400 mb-1">Current Value</p>
+                            <p className="font-semibold text-white">{formatUSD(position.currentValue.totalUSD)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-400 mb-1">Uncollected Fees</p>
+                            <p className="font-semibold text-white">{formatUSD(position.uncollectedFees.totalUSD)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-400 mb-1">{position.pool.token0.symbol}</p>
+                            <p className="font-semibold text-white">{position.currentValue.token0}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-400 mb-1">{position.pool.token1.symbol}</p>
+                            <p className="font-semibold text-white">{position.currentValue.token1}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex space-x-3">
+                          <button className="flex-1 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors text-sm">
+                            Collect Fees
+                          </button>
+                          <button className="flex-1 px-4 py-2 bg-secondary-600 hover:bg-secondary-700 text-white rounded-lg transition-colors text-sm">
+                            Remove Liquidity
+                          </button>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600">Fee Tier: {position.fee / 10000}%</p>
-                    </div>
-                    <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">
-                      #{position.tokenId}
-                    </span>
+                    ))}
                   </div>
+                )}
+              </div>
+            )}
 
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <p className="text-sm text-gray-600">Liquidity</p>
-                      <p className="font-medium">{position.liquidity}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-600">Status</p>
-                      <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
-                        Active
-                      </span>
-                    </div>
+            {/* History Tab */}
+            {activeTab === 'history' && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-white">Trading History</h3>
+                {portfolioData?.recentSwaps.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-gray-400">No trading history found</p>
                   </div>
+                ) : (
+                  <div className="space-y-3">
+                    {portfolioData?.recentSwaps.map((swap) => (
+                      <div key={swap.id} className="bg-white/5 rounded-xl p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              swap.type === 'buy' 
+                                ? 'bg-green-500/20 text-green-400' 
+                                : 'bg-red-500/20 text-red-400'
+                            }`}>
+                              {swap.type.toUpperCase()}
+                            </span>
+                            <div>
+                              <p className="font-medium text-white">
+                                {swap.pool.token0.symbol}/{swap.pool.token1.symbol}
+                              </p>
+                              <p className="text-sm text-gray-400">{formatDate(swap.timestamp)}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-semibold text-white">{formatUSD(swap.amountUSD)}</p>
+                            <p className="text-sm text-gray-400">
+                              {parseFloat(swap.amount0) > 0 ? '+' : ''}{parseFloat(swap.amount0).toFixed(4)} {swap.pool.token0.symbol}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
-                  <div className="flex justify-between items-center pt-3 border-t border-gray-100">
-                    <div className="text-sm text-gray-600">
-                      <p>Unclaimed fees: ~0.00 wS + ~0.00 WETH</p>
-                    </div>
-                    <button
-                      onClick={() => removePosition(position.tokenId)}
-                      disabled={loading}
-                      className="px-4 py-2 text-sm bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors disabled:opacity-50"
-                    >
-                      Remove
-                    </button>
-                  </div>
+            {/* Balances Tab */}
+            {activeTab === 'balances' && (
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-white">Token Balances</h3>
+                <div className="grid gap-4">
+                  {Object.entries(tokenBalances).map(([address, balance]) => {
+                    const tokenInfo = getTokenInfo(address);
+                    return (
+                      <div key={address} className="bg-white/5 rounded-xl p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center text-white font-bold">
+                              {tokenInfo.symbol[0]}
+                            </div>
+                            <div>
+                              <p className="font-semibold text-white">{tokenInfo.symbol}</p>
+                              <p className="text-sm text-gray-400">{tokenInfo.name}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-semibold text-white">{balance}</p>
+                            <p className="text-sm text-gray-400">Balance</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Info Section */}
-      {address && silverSwapDeployed && (
-        <div className="mt-6 bg-gray-50 rounded-lg p-4">
-          <h4 className="font-medium text-gray-800 mb-2">📊 Position Management</h4>
-          <ul className="text-sm text-gray-600 space-y-1">
-            <li>• Track your liquidity positions and earned fees</li>
-            <li>• Add or remove liquidity from existing positions</li>
-            <li>• Collect accumulated trading fees anytime</li>
-            <li>• Each position is represented by an NFT</li>
-          </ul>
-        </div>
-      )}
-
-      {/* Network Info */}
-      <div className="text-center text-xs text-gray-500 space-y-1 mt-6">
-        <p>Connected to Sonic Mainnet • Chain ID: 146</p>
-        <p>Powered by SilverSwap (Algebra Protocol)</p>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

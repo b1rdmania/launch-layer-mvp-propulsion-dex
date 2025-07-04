@@ -165,3 +165,5 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Built with ❤️ for the Sonic ecosystem**
+
+> **📅 Latest Update (December 19, 2024):** Enhanced documentation and project overview. PropulsionDEX continues to grow as the premier DEX on Sonic blockchain!
